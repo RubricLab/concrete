@@ -1,0 +1,131 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--raised:#FCFCFD;--sunken:#F1F2F5;--mist:#EAECF0;
+  --ink-9:#0A0B0F;--ink-8:#16171C;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);--border-hi:var(--ink-3);
+  --sky:#1F6FD4;
+  --terminal:#0EA564;
+  --ultra:#6B5BFF;
+  --error:#E23B3B;
+
+  /* Focus ring tokens — the ONLY way to draw focus in the system.
+     Ring = 3px, offset = 0. Tint varies by context. */
+  --ring:rgba(31,111,212,.32);      /* default — sky */
+  --ring-ink:rgba(10,11,15,.18);    /* neutral on light bg */
+  --ring-terminal:rgba(14,165,100,.32);
+  --ring-ultra:rgba(107,91,255,.32);
+  --ring-error:rgba(226,59,59,.34);
+  --ring-invert:rgba(255,255,255,.28); /* on dark surfaces */
+
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rowmeta{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft);margin-top:16px;margin-bottom:12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* Token swatches */
+.swatch{display:flex;flex-direction:column;gap:6px;min-width:150px}
+.swatch .demo{
+  height:44px;border-radius:6px;background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font:600 12px/1 var(--font-sans);color:var(--fg-strong);
+}
+.swatch.is-invert .demo{background:var(--ink-9);color:#fff;border-color:var(--ink-9)}
+.swatch.ring .demo{box-shadow:0 0 0 3px var(--ring)}
+.swatch.ring-ink .demo{box-shadow:0 0 0 3px var(--ring-ink)}
+.swatch.ring-terminal .demo{box-shadow:0 0 0 3px var(--ring-terminal)}
+.swatch.ring-ultra .demo{box-shadow:0 0 0 3px var(--ring-ultra)}
+.swatch.ring-error .demo{box-shadow:0 0 0 3px var(--ring-error)}
+.swatch.ring-invert .demo{box-shadow:0 0 0 3px var(--ring-invert)}
+.swatch .meta{font:600 9.5px/1 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft)}
+.swatch .name{font-size:11.5px;color:var(--fg-body)}
+
+/* Live focus demo — press Tab to cycle through */
+.demo-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  height:30px;padding:0 12px;border-radius:6px;
+  font:600 12.5px/1 var(--font-sans);letter-spacing:-.005em;
+  background:var(--surface);border:1px solid var(--border);color:var(--fg-strong);
+  cursor:pointer;transition:box-shadow .12s,border-color .12s;
+  outline:none;
+}
+.demo-btn:focus-visible{box-shadow:0 0 0 3px var(--ring);border-color:var(--ink-5)}
+
+.demo-btn--primary{background:var(--ink-9);color:#fff;border-color:var(--ink-9)}
+.demo-btn--primary:focus-visible{box-shadow:0 0 0 3px var(--ring-invert)}
+
+.demo-btn--error{background:var(--error);color:#fff;border-color:var(--error)}
+.demo-btn--error:focus-visible{box-shadow:0 0 0 3px var(--ring-error)}
+
+.demo-btn--terminal{background:var(--terminal);color:#fff;border-color:var(--terminal)}
+.demo-btn--terminal:focus-visible{box-shadow:0 0 0 3px var(--ring-terminal)}
+
+.demo-btn--ultra{background:var(--ultra);color:#fff;border-color:var(--ultra)}
+.demo-btn--ultra:focus-visible{box-shadow:0 0 0 3px var(--ring-ultra)}
+
+.demo-input{
+  display:block;width:260px;height:32px;padding:0 10px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);
+  font:500 13px/1 var(--font-sans);color:var(--fg-strong);outline:none;
+}
+.demo-input:focus-visible{box-shadow:0 0 0 3px var(--ring);border-color:var(--ink-5)}
+
+/* Rule — documented usage */
+.rule{
+  display:grid;grid-template-columns:140px 1fr;gap:14px 18px;
+  font-size:12.5px;color:var(--fg-body);line-height:1.5;
+}
+.rule dt{font-family:var(--font-mono);font-size:10.5px;color:var(--fg-strong);font-weight:600;padding-top:2px}
+.rule dd{margin:0}
+
+.hint{color:var(--fg-muted);font-size:11.5px;margin-top:8px;line-height:1.5}
+.hint kbd{display:inline-block;padding:1px 5px;border-radius:3px;background:var(--sunken);border:1px solid var(--border);font:600 10.5px/1 var(--font-mono);color:var(--fg-body);vertical-align:baseline}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Focus ring</span></div>
+
+  <div class="rowmeta">Tokens — use these, not raw rgba values</div>
+  <div class="row">
+    <div class="swatch ring"><div class="demo">Aa</div><div class="meta">--ring</div><div class="name">Default · sky</div></div>
+    <div class="swatch ring-ink"><div class="demo">Aa</div><div class="meta">--ring-ink</div><div class="name">Neutral · on light</div></div>
+    <div class="swatch ring-terminal"><div class="demo">Aa</div><div class="meta">--ring-terminal</div><div class="name">Terminal</div></div>
+    <div class="swatch ring-ultra"><div class="demo">Aa</div><div class="meta">--ring-ultra</div><div class="name">Ultra</div></div>
+    <div class="swatch ring-error"><div class="demo">Aa</div><div class="meta">--ring-error</div><div class="name">Error / destructive</div></div>
+    <div class="swatch ring-invert is-invert"><div class="demo">Aa</div><div class="meta">--ring-invert</div><div class="name">On dark surfaces</div></div>
+  </div>
+
+  <div class="rowmeta">Live — press <kbd style="padding:1px 5px;border-radius:3px;background:var(--sunken);border:1px solid var(--border);font:600 10.5px/1 var(--font-mono);color:var(--fg-body)">Tab</kbd> to cycle</div>
+  <div class="row">
+    <button class="demo-btn">Secondary</button>
+    <button class="demo-btn demo-btn--primary">Primary</button>
+    <button class="demo-btn demo-btn--terminal">Ship</button>
+    <button class="demo-btn demo-btn--ultra">Upgrade</button>
+    <button class="demo-btn demo-btn--error">Delete</button>
+    <input class="demo-input" placeholder="Search…"/>
+  </div>
+
+  <div class="rowmeta">Rules</div>
+  <dl class="rule">
+    <dt>Width</dt>        <dd>Always 3px. Drawn as <code style="font-family:var(--font-mono);font-size:11px">box-shadow: 0 0 0 3px var(--ring-*)</code>. Never <code style="font-family:var(--font-mono);font-size:11px">outline</code>, which squared-corners things with rounded radii.</dd>
+    <dt>Offset</dt>       <dd>Zero. The ring sits flush against the element edge. Any offset reads as a secondary UI layer and breaks the solid, material feel.</dd>
+    <dt>Visibility</dt>   <dd>Only on <code style="font-family:var(--font-mono);font-size:11px">:focus-visible</code>, never on <code style="font-family:var(--font-mono);font-size:11px">:focus</code>. Mouse clicks should not raise a ring.</dd>
+    <dt>Tint</dt>         <dd>Match the element's semantic role — a destructive button rings in <code style="font-family:var(--font-mono);font-size:11px">--ring-error</code>, an upgrade CTA in <code style="font-family:var(--font-mono);font-size:11px">--ring-ultra</code>. Most inputs and surfaces use the default sky ring.</dd>
+    <dt>Companion</dt>    <dd>Combine with a one-step border darkening (ink-2 → ink-5) to keep the control legible when the ring is half off-screen.</dd>
+  </dl>
+
+  <div class="hint">This primitive documents the tokens. Nothing here owns the values — <code style="font-family:var(--font-mono);font-size:11px">--ring</code>, <code style="font-family:var(--font-mono);font-size:11px">--ring-ink</code>, etc. live in the root palette and every other component pulls from them.</div>
+</div>
+</body></html>

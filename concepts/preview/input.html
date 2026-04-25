@@ -1,0 +1,66 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F1F2F5;--mist:#EAECF0;
+  --ink-9:#0A0B0F;--ink-8:#16171C;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);--fg-faint:var(--ink-3);
+  --border:var(--ink-2);--border-hi:var(--ink-3);--border-soft:var(--ink-1);
+  --sky:#1F6FD4;--sky-ring:rgba(31,111,212,.22);
+  --error:#E23B3B;
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-height:90px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rowmeta{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft);margin-top:12px;margin-bottom:6px}
+.stack{display:flex;flex-direction:column;gap:6px;margin-top:6px;max-width:400px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;max-width:400px}
+.lbl{font-size:11px;color:var(--fg-muted);letter-spacing:.02em;margin-bottom:3px;display:block}
+
+.input{
+  display:block;width:100%;height:28px;padding:0 10px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);color:var(--fg-strong);
+  font:500 12.5px/1 var(--font-sans);
+  transition:border-color .14s,box-shadow .14s;
+  box-shadow:inset 0 1px 0 rgba(10,11,15,.015);
+}
+.input::placeholder{color:var(--fg-soft);font-weight:400}
+.input:hover{border-color:var(--border-hi)}
+.input:focus{outline:0;border-color:var(--sky);box-shadow:0 0 0 3px var(--sky-ring)}
+.input:disabled{background:var(--sunken);color:var(--fg-muted);cursor:not-allowed}
+.input.is-error{border-color:var(--error);box-shadow:0 0 0 3px rgba(226,59,59,.14)}
+
+.field{display:flex;flex-direction:column;gap:0}
+.help{font-size:10.5px;color:var(--fg-muted);margin-top:3px}
+.help.is-error{color:var(--error)}
+
+.input-wrap{position:relative;display:block}
+.input-wrap .lead{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--fg-soft);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.input-wrap .input{padding-left:29px}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Input</span></div>
+
+  <div class="rowmeta">States</div>
+  <div class="stack">
+    <div class="field"><label class="lbl">Default</label><input class="input" placeholder="you@rubric.bot"/></div>
+    <div class="field"><label class="lbl">Filled</label><input class="input" value="ari@rubric.bot"/></div>
+    <div class="field"><label class="lbl">Focused</label><input class="input" value="ari@rubric.bot" autofocus/></div>
+    <div class="field"><label class="lbl">Error</label><input class="input is-error" value="not-an-email"/><span class="help is-error">Enter a valid email address.</span></div>
+    <div class="field"><label class="lbl">Disabled</label><input class="input" value="locked" disabled/></div>
+  </div>
+
+  <div class="rowmeta">With leading glyph</div>
+  <div class="stack">
+    <div class="input-wrap"><svg class="lead" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg><input class="input" placeholder="Search everything"/></div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F1F2F5;
+  --ink-9:#0A0B0F;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-2:#D7D9E0;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);--border-hi:#B4B7C0;
+  --sky:#1F6FD4;--sky-ring:rgba(31,111,212,.22);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-height:90px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:6px;max-width:460px}
+
+.ta{
+  display:block;width:100%;min-height:88px;padding:8px 10px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);color:var(--fg-strong);
+  font:500 12.5px/1.5 var(--font-sans);
+  resize:vertical;
+  transition:border-color .14s,box-shadow .14s;
+}
+.ta::placeholder{color:var(--fg-soft);font-weight:400}
+.ta:hover{border-color:var(--border-hi)}
+.ta:focus{outline:0;border-color:var(--sky);box-shadow:0 0 0 3px var(--sky-ring)}
+.counter{display:flex;justify-content:flex-end;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:10px;color:var(--fg-soft);margin-top:-4px}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Textarea</span></div>
+  <div class="stack">
+    <textarea class="ta" placeholder="Write a short description…"></textarea>
+    <textarea class="ta">The Concrete system treats surfaces as hairlines, type as rhythm, and signals as exceptions. Everything earns its fill.</textarea>
+    <div class="counter">128 / 280</div>
+  </div>
+</div>
+</body></html>

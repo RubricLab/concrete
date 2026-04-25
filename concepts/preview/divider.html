@@ -1,0 +1,28 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="_card.css"/>
+<style>
+.stack{display:flex;flex-direction:column;gap:22px;margin-top:10px}
+.sec{display:flex;gap:18px;align-items:center}
+.lbl{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);min-width:76px}
+.hr{flex:1;height:1px;background:var(--border)}
+.hr--soft{background:var(--border-soft)}
+.hr--strong{background:var(--border-hi)}
+.hr-labeled{flex:1;display:flex;align-items:center;gap:12px}
+.hr-labeled::before,.hr-labeled::after{content:"";flex:1;height:1px;background:var(--border)}
+.hr-labeled span{font-family:var(--font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft)}
+/* vertical */
+.vrow{display:flex;align-items:center;gap:10px;height:18px;color:var(--fg-body);font-size:12.5px}
+.vrow i{width:1px;height:16px;background:var(--border);display:inline-block}
+</style></head>
+<body>
+<div class="card" style="padding:14px 16px">
+  <div class="eyebrow-row"><span class="eyebrow">Divider</span></div>
+  <div class="stack">
+    <div class="sec"><span class="lbl">soft</span><i class="hr hr--soft"></i></div>
+    <div class="sec"><span class="lbl">default</span><i class="hr"></i></div>
+    <div class="sec"><span class="lbl">strong</span><i class="hr hr--strong"></i></div>
+    <div class="sec"><span class="lbl">labeled</span><div class="hr-labeled"><span>Or</span></div></div>
+    <div class="sec"><span class="lbl">vertical</span><div class="vrow"><span>Dashboard</span><i></i><span>Activity</span><i></i><span>Settings</span></div></div>
+  </div>
+</div>
+</body></html>

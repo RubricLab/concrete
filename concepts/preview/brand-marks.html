@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="_card.css"/>
+<style>
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.sq{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-4);padding:18px;display:flex;align-items:center;justify-content:center;min-height:110px}
+.sq.inv{background:var(--ink-9)}
+.sq img{display:block}
+.lbl{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft);margin-bottom:6px}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Brand · mark &amp; wordmark</span></div>
+  <div class="row">
+    <div>
+      <div class="lbl">mark · ink-9 on surface</div>
+      <div class="sq"><img src="../assets/logo-mark.svg" width="72" height="72" style="color:#0A0B0F" alt="Concrete mark"/></div>
+    </div>
+    <div>
+      <div class="lbl">mark · inverse</div>
+      <div class="sq inv"><img src="../assets/logo-white.svg" width="72" height="72" alt="Concrete mark inverse"/></div>
+    </div>
+    <div>
+      <div class="lbl">wordmark</div>
+      <div class="sq"><img src="../assets/wordmark-black.svg" height="44" alt="Rubric wordmark"/></div>
+    </div>
+    <div>
+      <div class="lbl">wordmark · inverse</div>
+      <div class="sq inv"><img src="../assets/wordmark.svg" height="44" style="filter:invert(1)" alt="Rubric wordmark inverse"/></div>
+    </div>
+  </div>
+</div>
+</body></html>

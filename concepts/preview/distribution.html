@@ -1,0 +1,207 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_card.css" />
+<style>
+/* ============================================================
+   Distribution — primitives only.
+   Bar · Stacked · Diverging · Donut.
+   No legends, no compound lockups — those belong in components.
+   ============================================================ */
+:root {
+  --d-track: color-mix(in oklab, var(--ink-1) 90%, var(--canvas));
+  --d-row:   color-mix(in oklab, var(--border-soft) 70%, transparent);
+}
+
+.eyebrow { font-size:11px; color:var(--fg-muted); letter-spacing:.1em; text-transform:uppercase; font-weight:700 }
+
+.sec-h {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin: 18px 0 10px;
+}
+.sec-h:first-of-type { margin-top: 4px; }
+.sec-h .t { font: 600 12px/1 var(--font-sans); letter-spacing: -.005em; color: var(--fg-strong); }
+.sec-h .s { font: 500 11.5px/1 var(--font-sans); color: var(--fg-muted); letter-spacing: -.003em; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+/* ===== Horizontal bar ===== */
+.hlist { display: flex; flex-direction: column; }
+.hrow {
+  display: grid; grid-template-columns: 88px 1fr 56px; align-items: center;
+  gap: 12px; padding: 5px 0;
+}
+.hrow + .hrow { border-top: 1px solid var(--d-row); }
+.hrow .k { font: 500 12.5px/1.2 var(--font-sans); color: var(--fg-body); letter-spacing: -.003em; }
+.hrow .v {
+  font: 600 12px/1 var(--font-sans); color: var(--fg-strong);
+  font-variant-numeric: tabular-nums; text-align: right; letter-spacing: -.003em;
+}
+.hbar { position: relative; height: 6px; background: var(--d-track); border-radius: 999px; overflow: hidden; }
+.hbar > i {
+  position: absolute; inset: 0 auto 0 0; width: var(--p, 40%);
+  background: var(--ink-8); border-radius: 999px;
+}
+.hbar > i.sky  { background: color-mix(in oklab, var(--sky) 88%, var(--canvas)); }
+.hbar > i.ink5 { background: var(--ink-5); }
+.hbar > i.ink4 { background: var(--ink-4); }
+.hbar > i.ink3 { background: var(--ink-3); }
+
+/* ===== Stacked bar ===== */
+.stk-stack { display: flex; flex-direction: column; gap: 10px; }
+.stk-row .lbl {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font: 500 11.5px/1 var(--font-sans); color: var(--fg-soft);
+  margin-bottom: 5px; letter-spacing: -.003em;
+}
+.stk-row .lbl .k { color: var(--fg-body); font-weight: 500; }
+.stk-row .lbl .t { font-variant-numeric: tabular-nums; color: var(--fg-strong); font-weight: 600; font-size: 12px; }
+.stk { display: flex; height: 8px; border-radius: 999px; overflow: hidden; gap: 1px; background: var(--d-track); }
+.stk > i { display: block; height: 100%; }
+
+/* ===== Diverging ===== */
+.dlist { display: flex; flex-direction: column; padding-top: 2px; }
+.drow {
+  display: grid; grid-template-columns: 88px 1fr 60px;
+  align-items: center; gap: 12px; padding: 5px 0;
+}
+.drow + .drow { border-top: 1px solid var(--d-row); }
+.drow .k { font: 500 12.5px/1.2 var(--font-sans); color: var(--fg-body); letter-spacing: -.003em; }
+.drow .v {
+  font: 600 12px/1 var(--font-sans); font-variant-numeric: tabular-nums;
+  text-align: right; letter-spacing: -.003em; color: var(--fg-strong);
+}
+.drow .v.neg { color: color-mix(in oklab, var(--error) 92%, #000); }
+.drow .v.pos { color: color-mix(in oklab, var(--terminal) 86%, #000); }
+.dbar { position: relative; height: 6px; }
+.dbar::before {
+  content: ""; position: absolute; left: 50%; top: -4px; bottom: -4px;
+  width: 1px; background: var(--border); transform: translateX(-.5px);
+}
+.dbar .track { position: absolute; inset: 0; background: var(--d-track); border-radius: 999px; }
+.dbar i { position: absolute; top: 0; bottom: 0; border-radius: 999px; }
+.dbar i.pos { left: 50%; width: var(--p, 30%); background: color-mix(in oklab, var(--terminal) 78%, var(--canvas)); }
+.dbar i.neg { right: 50%; width: var(--p, 30%); background: color-mix(in oklab, var(--error) 75%, var(--canvas)); }
+
+/* ===== Donut ===== */
+.donut-wrap {
+  display: flex; align-items: center; justify-content: center;
+  padding: 6px 0 4px;
+}
+.donut { width: 132px; height: 132px; position: relative; }
+.donut svg { display: block; }
+.donut .ctr {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.donut .ctr .n {
+  font: 600 22px/1 var(--font-sans); color: var(--fg-strong);
+  font-variant-numeric: tabular-nums; letter-spacing: -.022em;
+}
+.donut .ctr .s {
+  font: 500 10.5px/1 var(--font-sans); color: var(--fg-muted);
+  margin-top: 4px; letter-spacing: -.002em;
+}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row">
+    <span class="eyebrow">Distribution</span>
+    <span class="eyebrow" style="font-weight:500;color:var(--fg-soft)">Part-to-whole · ratios · change vs baseline</span>
+  </div>
+
+  <div class="two">
+    <!-- Horizontal bar -->
+    <div>
+      <div class="sec-h"><span class="t">Bar</span><span class="s">Single series</span></div>
+      <div class="hlist">
+        <div class="hrow"><span class="k">Direct</span><div class="hbar"><i style="--p:47%"></i></div><span class="v">47%</span></div>
+        <div class="hrow"><span class="k">Referral</span><div class="hbar"><i class="sky" style="--p:28%"></i></div><span class="v">28%</span></div>
+        <div class="hrow"><span class="k">Social</span><div class="hbar"><i class="ink5" style="--p:15%"></i></div><span class="v">15%</span></div>
+        <div class="hrow"><span class="k">Organic</span><div class="hbar"><i class="ink4" style="--p:10%"></i></div><span class="v">10%</span></div>
+      </div>
+    </div>
+
+    <!-- Stacked -->
+    <div>
+      <div class="sec-h"><span class="t">Stacked</span><span class="s">Composition over time</span></div>
+      <div class="stk-stack">
+        <div class="stk-row">
+          <div class="lbl"><span class="k">This week</span><span class="t">94.2k</span></div>
+          <div class="stk">
+            <i style="width:47%;background:var(--ink-8)"></i>
+            <i style="width:28%;background:color-mix(in oklab, var(--sky) 88%, var(--canvas))"></i>
+            <i style="width:15%;background:var(--ink-5)"></i>
+            <i style="width:10%;background:var(--ink-4)"></i>
+          </div>
+        </div>
+        <div class="stk-row">
+          <div class="lbl"><span class="k">Last week</span><span class="t">82.6k</span></div>
+          <div class="stk">
+            <i style="width:43%;background:var(--ink-8)"></i>
+            <i style="width:26%;background:color-mix(in oklab, var(--sky) 88%, var(--canvas))"></i>
+            <i style="width:18%;background:var(--ink-5)"></i>
+            <i style="width:13%;background:var(--ink-4)"></i>
+          </div>
+        </div>
+        <div class="stk-row">
+          <div class="lbl"><span class="k">4 weeks ago</span><span class="t">78.1k</span></div>
+          <div class="stk">
+            <i style="width:39%;background:var(--ink-8)"></i>
+            <i style="width:24%;background:color-mix(in oklab, var(--sky) 88%, var(--canvas))"></i>
+            <i style="width:21%;background:var(--ink-5)"></i>
+            <i style="width:16%;background:var(--ink-4)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diverging -->
+    <div>
+      <div class="sec-h"><span class="t">Diverging</span><span class="s">Change vs baseline</span></div>
+      <div class="dlist">
+        <div class="drow"><span class="k">Revenue</span>
+          <div class="dbar"><span class="track"></span><i class="pos" style="--p:38%"></i></div>
+          <span class="v pos">+18.6%</span></div>
+        <div class="drow"><span class="k">Active users</span>
+          <div class="dbar"><span class="track"></span><i class="pos" style="--p:24%"></i></div>
+          <span class="v pos">+12.3%</span></div>
+        <div class="drow"><span class="k">Conversion</span>
+          <div class="dbar"><span class="track"></span><i class="neg" style="--p:5%"></i></div>
+          <span class="v neg">−2.4%</span></div>
+        <div class="drow"><span class="k">Churn</span>
+          <div class="dbar"><span class="track"></span><i class="neg" style="--p:18%"></i></div>
+          <span class="v neg">−8.9%</span></div>
+        <div class="drow"><span class="k">Support</span>
+          <div class="dbar"><span class="track"></span><i class="neg" style="--p:33%"></i></div>
+          <span class="v neg">−16.2%</span></div>
+      </div>
+    </div>
+
+    <!-- Donut -->
+    <div>
+      <div class="sec-h"><span class="t">Donut</span><span class="s">Total + share</span></div>
+      <div class="donut-wrap">
+        <div class="donut">
+          <svg width="132" height="132" viewBox="0 0 132 132">
+            <!-- r=54, stroke=12, c = 2π·54 ≈ 339.29.
+                 Shares 47/28/15/10 → 159.47 / 95.00 / 50.89 / 33.93.
+                 Each arc shortened by 1.5 (canvas hairline gap), offset shifted by 0.75. -->
+            <g transform="rotate(-90 66 66)" fill="none" stroke-width="12">
+              <circle cx="66" cy="66" r="54" stroke="var(--d-track)"/>
+              <circle cx="66" cy="66" r="54" stroke="var(--ink-8)"
+                      stroke-dasharray="157.97 181.32" stroke-dashoffset="-0.75"/>
+              <circle cx="66" cy="66" r="54" stroke="color-mix(in oklab, var(--sky) 88%, var(--canvas))"
+                      stroke-dasharray="93.50 245.79" stroke-dashoffset="-160.22"/>
+              <circle cx="66" cy="66" r="54" stroke="var(--ink-5)"
+                      stroke-dasharray="49.39 289.90" stroke-dashoffset="-256.22"/>
+              <circle cx="66" cy="66" r="54" stroke="var(--ink-4)"
+                      stroke-dasharray="32.43 306.86" stroke-dashoffset="-307.11"/>
+            </g>
+          </svg>
+          <div class="ctr"><span class="n">94.2k</span><span class="s">Total</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

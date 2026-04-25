@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Concrete — UI kit</title>
+<link rel="stylesheet" href="kit.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="Sidebar.jsx"></script>
+<script type="text/babel" src="Header.jsx"></script>
+<script type="text/babel" src="MessageTurn.jsx"></script>
+<script type="text/babel" src="Composer.jsx"></script>
+<script type="text/babel">
+const { useState } = React;
+
+const THREADS = [
+  { id: "t1", title: "Ship the Concrete primitives", ts: "9:41",  preview: "Closing meter / sparkline / badge gaps…", live: true },
+  { id: "t2", title: "Command palette spec",          ts: "8:12",  preview: "Density, kbd treatment, ink ramp." },
+  { id: "t3", title: "Table vs DataGrid",              ts: "Tue",   preview: "Sibling components, not a hierarchy." },
+  { id: "t4", title: "Prompt composer tokens",         ts: "Tue",   preview: "Sticky ground shadow, no border lift." },
+  { id: "t5", title: "Agent step list",                ts: "Mon",   preview: "Three slots per step: glyph, claim, evidence." },
+  { id: "t6", title: "Onboarding copy pass",           ts: "Apr 18", preview: "Sentence case, no exclamations." },
+  { id: "t7", title: "Sidebar nav — workspace picker", ts: "Apr 17", preview: "Chevron-up-down affordance only." },
+];
+
+function App() {
+  const [activeId, setActiveId] = useState("t1");
+  const [sent, setSent] = useState([]);
+
+  return (
+    <div className="app" data-screen-label="01 App shell">
+      <Sidebar threads={THREADS} activeId={activeId} onPick={setActiveId} />
+      <section className="main">
+        <Header threadTitle={THREADS.find(t => t.id === activeId).title} />
+        <div className="body">
+          <div className="thread">
+            <UserTurn
+              ts="9:41 AM"
+              text="Close the primitive set so every downstream composition has real parts to lean on. What's left?"
+            />
+            <AssistantTurn
+              ts="9:41 AM"
+              cites={[
+                { n: "1", title: "Concrete — brand.html v5.0", host: "rubric/www" },
+                { n: "2", title: "Phase 1 — primitive set", host: "concrete/roadmap" },
+              ]}
+            >
+              <p>
+                Five atoms still open from Phase 1: <strong>tooltip</strong>, <strong>progress</strong> (linear + ring),
+                <strong> tag</strong> (closeable / filter-intent), <strong>divider-with-label</strong>, and a documented
+                <strong> focus-ring</strong> token. Everything else — avatar through textarea — is shipped.
+              </p>
+              <ToolCall
+                name="search_roadmap"
+                args='{ phase: "1", status: "open" }'
+                status="ok"
+                body={`{
+  "open": [
+    { "name": "tooltip",         "owner": "ari",  "eta": "this-week" },
+    { "name": "progress",        "owner": "ari",  "eta": "this-week" },
+    { "name": "tag",             "owner": "max",  "eta": "next-week" },
+    { "name": "divider-w-label", "owner": "max",  "eta": "next-week" },
+    { "name": "focus-ring",      "owner": "team", "eta": "locked"    }
+  ]
+}`}
+              />
+              <p>
+                Once those land, the <strong>build ladder</strong> is clear: <code>Field → Tabs → Segmented → Popover → Dropdown → Toast → Modal → Command palette → Table → Prompt composer → Message → Tool-call block → App shell</code>. Thirteen rungs to a demo.
+              </p>
+            </AssistantTurn>
+            {sent.map((msg, i) => (
+              <UserTurn key={i} ts="now" text={msg} />
+            ))}
+          </div>
+          <Composer onSend={(msg) => setSent((s) => [...s, msg])} />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_card.css" />
+<style>
+/* ============================================================
+   Skeleton — structure before content.
+   One atom (.sk), one shimmer, one radius. Patterns are
+   compositions of that atom — never their own component.
+   ============================================================ */
+:root {
+  --sk-base: color-mix(in oklab, var(--ink-2) 75%, var(--canvas));
+  --sk-hi:   color-mix(in oklab, var(--ink-1) 55%, #fff);
+  --sk-radius: 6px;
+  --sk-dur: 1.6s;
+}
+
+.eyebrow { font-size:11px; color:var(--fg-muted); letter-spacing:.1em; text-transform:uppercase; font-weight:700 }
+.rowmeta { font: 600 11px/1 var(--font-sans); letter-spacing:.08em; text-transform:uppercase; color:var(--fg-soft); margin:22px 0 12px; }
+.rowmeta:first-of-type { margin-top: 2px; }
+
+.sk {
+  position: relative; display: block;
+  background: var(--sk-base); border-radius: var(--sk-radius);
+  overflow: hidden; isolation: isolate;
+}
+.sk::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, var(--sk-hi), transparent);
+  transform: translateX(-100%);
+  animation: sk-sweep var(--sk-dur) linear infinite;
+  will-change: transform;
+}
+@keyframes sk-sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+.sk--text   { height: 13px; border-radius: 3px; }
+.sk--head   { height: 18px; border-radius: 4px; }
+.sk--pill   { height: 22px; border-radius: 999px; }
+.sk--circle { border-radius: 50%; }
+.sk--square { border-radius: 6px; }
+.sk--block  { border-radius: 8px; }
+
+/* Atoms */
+.atoms { display: grid; grid-template-columns: repeat(7, 1fr); gap: 18px; align-items: end; }
+.atom { display: flex; flex-direction: column; gap: 8px; }
+.atom .lbl { font: 600 10px/1 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-muted); }
+.atom .ex { display: flex; flex-direction: column; gap: 6px; min-height: 44px; justify-content: center; }
+
+/* Patterns */
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+.pat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.pat .t { font: 600 10px/1 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-muted); margin-bottom: 2px; }
+.pat.c4 { grid-column: span 4; }
+.pat.c6 { grid-column: span 6; }
+.pat.c12 { grid-column: span 12; }
+
+/* List */
+.li { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border-soft); }
+.li:last-child { border: 0; }
+.li .tx { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+
+/* Card */
+.crd { display: flex; flex-direction: column; gap: 10px; }
+.crd .h { display: flex; gap: 10px; align-items: center; }
+.crd .h .t-stack { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+.crd .b { display: flex; flex-direction: column; gap: 5px; }
+
+/* Chart skeleton — line chart axes + 5 bars baseline */
+.chart-sk { position: relative; height: 140px; padding: 6px 4px 18px 28px; }
+.chart-sk .y-lbls { position: absolute; left: 0; top: 0; bottom: 18px; width: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+.chart-sk .y-lbls .sk { width: 100%; height: 8px; }
+.chart-sk .x-lbls { position: absolute; left: 28px; right: 4px; bottom: 0; display: flex; justify-content: space-between; gap: 8px; }
+.chart-sk .x-lbls .sk { width: 22px; height: 8px; }
+.chart-sk .canvas { height: 100%; position: relative; border-bottom: 1px solid var(--border-soft); border-left: 1px solid var(--border-soft); }
+.chart-sk .canvas .ln {
+  position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+}
+.chart-sk .canvas .ln svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.chart-sk .canvas .ln path { fill: none; stroke: var(--sk-base); stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.chart-sk .canvas .ln .sweep {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, var(--sk-hi), transparent);
+  transform: translateX(-100%);
+  animation: sk-sweep var(--sk-dur) linear infinite;
+  mix-blend-mode: lighten;
+}
+
+/* Bars chart skeleton */
+.bars-sk { display: flex; align-items: flex-end; gap: 6px; height: 110px; padding: 4px 0 0; }
+.bars-sk .sk { flex: 1; min-width: 12px; border-radius: 4px 4px 0 0; }
+
+/* Pie / donut skeleton */
+.pie-sk {
+  position: relative; width: 110px; height: 110px; flex: none;
+  border-radius: 50%;
+  background: var(--sk-base);
+  /* donut hole */
+  -webkit-mask: radial-gradient(circle, transparent 28px, #000 29px);
+          mask: radial-gradient(circle, transparent 28px, #000 29px);
+  overflow: hidden;
+}
+.pie-sk::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, var(--sk-hi), transparent);
+  transform: translateX(-100%);
+  animation: sk-sweep var(--sk-dur) linear infinite;
+}
+.pie-wrap { display: flex; gap: 16px; align-items: center; }
+.pie-legend { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.pie-row { display: flex; align-items: center; gap: 8px; }
+.pie-row .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+
+/* Table skeleton */
+.tbl { display: flex; flex-direction: column; }
+.tr { display: grid; grid-template-columns: 16px 1.6fr 80px 1fr 60px 20px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-soft); }
+.tr:last-child { border: 0; }
+.tr.head { padding-bottom: 8px; padding-top: 4px; border-bottom: 1px solid var(--border); }
+.tr.head .sk { opacity: .55; }
+
+/* Dashboard composite */
+.dash { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.kpi { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: var(--canvas); border-radius: 8px; }
+.kpi .v { height: 22px; }
+
+/* Tokens */
+.tokens { display: grid; grid-template-columns: 130px 1fr 100px; gap: 8px 18px; padding: 6px 0; font: 500 12px/1.4 var(--font-sans); }
+.tokens dt, .tokens dd { color: var(--fg-body); }
+.tokens dt { color: var(--fg-strong); font-weight: 600; }
+.tokens dd { margin: 0; color: var(--fg-muted); }
+.tokens dd .sk { width: 100%; height: 14px; }
+
+.note {
+  display: flex; gap: 10px;
+  padding: 12px 14px; border: 1px solid var(--border);
+  background: var(--canvas); border-radius: 8px;
+  font-size: 12.5px; color: var(--fg-body); line-height: 1.5;
+  margin-top: 14px;
+}
+.note b { color: var(--fg-strong); font-weight: 600; }
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row">
+    <span class="eyebrow">Skeleton</span>
+    <span class="eyebrow" style="font-weight:500;color:var(--fg-soft)">One atom · seamless cycle</span>
+  </div>
+
+  <div class="rowmeta">Atoms</div>
+  <div class="atoms">
+    <div class="atom"><span class="lbl">Text line</span><div class="ex"><span class="sk sk--text" style="width:92%"></span></div></div>
+    <div class="atom"><span class="lbl">Text block</span><div class="ex"><span class="sk sk--text" style="width:100%"></span><span class="sk sk--text" style="width:78%"></span></div></div>
+    <div class="atom"><span class="lbl">Avatar</span><div class="ex"><span class="sk sk--circle" style="width:32px;height:32px"></span></div></div>
+    <div class="atom"><span class="lbl">Button</span><div class="ex"><span class="sk sk--pill" style="width:84px;height:28px"></span></div></div>
+    <div class="atom"><span class="lbl">Input</span><div class="ex"><span class="sk sk--block" style="width:100%;height:30px"></span></div></div>
+    <div class="atom"><span class="lbl">Badge</span><div class="ex"><span class="sk sk--pill" style="width:56px;height:20px"></span></div></div>
+    <div class="atom"><span class="lbl">Block</span><div class="ex"><span class="sk sk--block" style="width:100%;height:36px"></span></div></div>
+  </div>
+
+  <div class="rowmeta">Patterns</div>
+  <div class="grid">
+
+    <div class="pat c4">
+      <div class="t">List</div>
+      <div class="li">
+        <span class="sk sk--circle" style="width:28px;height:28px"></span>
+        <div class="tx"><span class="sk sk--text" style="width:62%"></span><span class="sk sk--text" style="width:38%;height:10px"></span></div>
+        <span class="sk sk--pill" style="width:44px"></span>
+      </div>
+      <div class="li">
+        <span class="sk sk--circle" style="width:28px;height:28px"></span>
+        <div class="tx"><span class="sk sk--text" style="width:52%"></span><span class="sk sk--text" style="width:30%;height:10px"></span></div>
+        <span class="sk sk--pill" style="width:44px"></span>
+      </div>
+      <div class="li">
+        <span class="sk sk--circle" style="width:28px;height:28px"></span>
+        <div class="tx"><span class="sk sk--text" style="width:70%"></span><span class="sk sk--text" style="width:42%;height:10px"></span></div>
+        <span class="sk sk--pill" style="width:44px"></span>
+      </div>
+    </div>
+
+    <div class="pat c4">
+      <div class="t">Card</div>
+      <div class="crd">
+        <div class="h">
+          <span class="sk sk--circle" style="width:34px;height:34px"></span>
+          <div class="t-stack"><span class="sk sk--head" style="width:64%"></span><span class="sk sk--text" style="width:38%;height:11px"></span></div>
+        </div>
+        <div class="b">
+          <span class="sk sk--text" style="width:100%"></span>
+          <span class="sk sk--text" style="width:94%"></span>
+          <span class="sk sk--text" style="width:66%"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding-top:4px">
+          <span class="sk sk--pill" style="width:72px"></span>
+          <span class="sk sk--pill" style="width:44px"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pat c4">
+      <div class="t">Form</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span class="sk sk--text" style="width:30%;height:10px"></span>
+        <span class="sk sk--block" style="width:100%;height:32px"></span>
+        <span class="sk sk--text" style="width:38%;height:10px;margin-top:2px"></span>
+        <span class="sk sk--block" style="width:100%;height:32px"></span>
+        <span class="sk sk--text" style="width:24%;height:10px;margin-top:2px"></span>
+        <span class="sk sk--block" style="width:100%;height:64px"></span>
+        <span class="sk sk--pill" style="width:96px;height:28px;margin-top:2px"></span>
+      </div>
+    </div>
+
+    <div class="pat c6">
+      <div class="t">Line chart</div>
+      <div class="chart-sk">
+        <div class="y-lbls">
+          <span class="sk" style="width:60%"></span>
+          <span class="sk" style="width:75%"></span>
+          <span class="sk" style="width:50%"></span>
+          <span class="sk" style="width:65%"></span>
+        </div>
+        <div class="canvas">
+          <div class="ln">
+            <svg viewBox="0 0 300 120" preserveAspectRatio="none">
+              <path d="M0,90 C30,80 50,60 80,55 S140,40 180,30 S250,20 300,15"/>
+            </svg>
+            <span class="sweep"></span>
+          </div>
+        </div>
+        <div class="x-lbls">
+          <span class="sk"></span><span class="sk"></span><span class="sk"></span>
+          <span class="sk"></span><span class="sk"></span><span class="sk"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pat c6">
+      <div class="t">Bar chart</div>
+      <div class="bars-sk">
+        <span class="sk" style="height:48%"></span>
+        <span class="sk" style="height:62%"></span>
+        <span class="sk" style="height:38%"></span>
+        <span class="sk" style="height:78%"></span>
+        <span class="sk" style="height:54%"></span>
+        <span class="sk" style="height:90%"></span>
+        <span class="sk" style="height:42%"></span>
+        <span class="sk" style="height:66%"></span>
+        <span class="sk" style="height:58%"></span>
+        <span class="sk" style="height:82%"></span>
+        <span class="sk" style="height:36%"></span>
+        <span class="sk" style="height:70%"></span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding-top:6px">
+        <span class="sk sk--text" style="width:18px;height:8px"></span>
+        <span class="sk sk--text" style="width:18px;height:8px"></span>
+        <span class="sk sk--text" style="width:18px;height:8px"></span>
+        <span class="sk sk--text" style="width:18px;height:8px"></span>
+        <span class="sk sk--text" style="width:18px;height:8px"></span>
+      </div>
+    </div>
+
+    <div class="pat c4">
+      <div class="t">Pie / donut</div>
+      <div class="pie-wrap">
+        <div class="pie-sk"></div>
+        <div class="pie-legend">
+          <div class="pie-row"><span class="dot" style="background:var(--sk-base)"></span><span class="sk sk--text" style="flex:1;width:auto"></span></div>
+          <div class="pie-row"><span class="dot" style="background:var(--sk-base)"></span><span class="sk sk--text" style="flex:1;width:auto"></span></div>
+          <div class="pie-row"><span class="dot" style="background:var(--sk-base)"></span><span class="sk sk--text" style="flex:1;width:auto"></span></div>
+          <div class="pie-row"><span class="dot" style="background:var(--sk-base)"></span><span class="sk sk--text" style="flex:1;width:auto"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pat c8">
+      <div class="t">Table</div>
+      <div class="tbl">
+        <div class="tr head">
+          <span class="sk sk--square" style="width:14px;height:14px"></span>
+          <span class="sk sk--text" style="width:50%"></span>
+          <span class="sk sk--text" style="width:60%"></span>
+          <span class="sk sk--text" style="width:70%"></span>
+          <span class="sk sk--text" style="width:80%"></span>
+          <span></span>
+        </div>
+        <div class="tr">
+          <span class="sk sk--square" style="width:14px;height:14px"></span>
+          <span class="sk sk--text" style="width:74%"></span>
+          <span class="sk sk--pill" style="width:56px;height:18px"></span>
+          <span class="sk sk--text" style="width:60%"></span>
+          <span class="sk sk--text" style="width:80%"></span>
+          <span class="sk" style="width:16px;height:4px"></span>
+        </div>
+        <div class="tr">
+          <span class="sk sk--square" style="width:14px;height:14px"></span>
+          <span class="sk sk--text" style="width:62%"></span>
+          <span class="sk sk--pill" style="width:56px;height:18px"></span>
+          <span class="sk sk--text" style="width:70%"></span>
+          <span class="sk sk--text" style="width:55%"></span>
+          <span class="sk" style="width:16px;height:4px"></span>
+        </div>
+        <div class="tr">
+          <span class="sk sk--square" style="width:14px;height:14px"></span>
+          <span class="sk sk--text" style="width:80%"></span>
+          <span class="sk sk--pill" style="width:56px;height:18px"></span>
+          <span class="sk sk--text" style="width:55%"></span>
+          <span class="sk sk--text" style="width:65%"></span>
+          <span class="sk" style="width:16px;height:4px"></span>
+        </div>
+        <div class="tr">
+          <span class="sk sk--square" style="width:14px;height:14px"></span>
+          <span class="sk sk--text" style="width:68%"></span>
+          <span class="sk sk--pill" style="width:56px;height:18px"></span>
+          <span class="sk sk--text" style="width:62%"></span>
+          <span class="sk sk--text" style="width:72%"></span>
+          <span class="sk" style="width:16px;height:4px"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pat c12">
+      <div class="t">Dashboard</div>
+      <div class="dash">
+        <div class="kpi"><span class="sk sk--text" style="width:40%;height:11px"></span><span class="sk v" style="width:55%"></span><span class="sk" style="width:100%;height:30px"></span></div>
+        <div class="kpi"><span class="sk sk--text" style="width:40%;height:11px"></span><span class="sk v" style="width:48%"></span><span class="sk" style="width:100%;height:30px"></span></div>
+        <div class="kpi"><span class="sk sk--text" style="width:40%;height:11px"></span><span class="sk v" style="width:62%"></span><span class="sk" style="width:100%;height:30px"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rowmeta">Tokens</div>
+  <dl class="tokens">
+    <dt>--sk-base</dt><dd>neutral fill</dd><dd><span class="sk" style="animation:none"></span></dd>
+    <dt>--sk-hi</dt><dd>sweep highlight</dd><dd><span class="sk"></span></dd>
+    <dt>--sk-radius</dt><dd>6px</dd><dd><span class="sk"></span></dd>
+    <dt>--sk-dur</dt><dd>1.6s · linear</dd><dd><span class="sk"></span></dd>
+  </dl>
+
+  <div class="note">
+    <span class="sk sk--square" style="width:14px;height:14px;flex:none;margin-top:1px;animation:none"></span>
+    <span><b>Skeletons aren't a replacement for progress indicators.</b> Use skeletons for content areas, spinners for actions. Remove immediately when content arrives — never cross-fade.</span>
+  </div>
+</div>
+</body></html>

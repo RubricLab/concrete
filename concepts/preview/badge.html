@@ -1,0 +1,195 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_card.css" />
+<style>
+/* ============================================================
+   Badge — soft-tinted, top-level signal.
+
+   Tinted bg (--*-1 wash) + matching border (--*-wash)
+   + dot in the saturated hue + text in the -hi stop.
+   Reads as "elevated" without shouting. Soft, powerful, on-brand.
+
+   vs Pill: pills are quiet, neutral, inline metadata.
+   Badges lead with status — they're the first read on a row.
+   ============================================================ */
+
+.eyebrow { font-size:11px; color:var(--fg-muted); letter-spacing:.1em; text-transform:uppercase; font-weight:700 }
+.rowmeta {
+  font: 600 11px/1 var(--font-sans);
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--fg-soft);
+  margin-top: 16px; margin-bottom: 10px;
+}
+.rowmeta:first-of-type { margin-top: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* Core badge — soft tinted */
+.bdg {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 22px; padding: 0 10px 0 9px;
+  border-radius: 999px;
+  background: var(--ink-1);
+  border: 1px solid transparent;
+  color: var(--fg-body);
+  font: 600 11.5px/1 var(--font-sans);
+  letter-spacing: -.003em;
+  white-space: nowrap;
+}
+.bdg::before {
+  content: "";
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ink-4);
+  flex: none;
+}
+
+/* Signal variants — soft wash bg, matching tint border, signal dot, -hi text */
+.bdg--term  {
+  background: var(--terminal-1);
+  border-color: var(--terminal-wash);
+  color: var(--terminal-hi);
+}
+.bdg--term::before { background: var(--terminal); }
+
+.bdg--warn {
+  background: var(--warning-1);
+  border-color: var(--warning-wash);
+  color: var(--warning-hi);
+}
+.bdg--warn::before { background: var(--warning); }
+
+.bdg--error {
+  background: var(--error-1);
+  border-color: var(--error-wash);
+  color: var(--error-hi);
+}
+.bdg--error::before { background: var(--error); }
+
+.bdg--sky {
+  background: var(--sky-1);
+  border-color: var(--sky-2);
+  color: var(--sky-hi);
+}
+.bdg--sky::before { background: var(--sky); }
+
+.bdg--ultra {
+  background: var(--ultra-1);
+  border-color: var(--ultra-wash);
+  color: var(--ultra-hi);
+}
+.bdg--ultra::before { background: var(--ultra); }
+
+/* Neutral — the "Draft" state */
+.bdg--neutral {
+  background: var(--ink-1);
+  border-color: var(--border-soft);
+  color: var(--fg-soft);
+}
+.bdg--neutral::before { background: var(--ink-4); }
+
+/* Ghost — no dot, just the label, no fill — for non-status chips */
+.bdg--ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--fg-muted);
+  padding: 0 10px;
+}
+.bdg--ghost::before { display: none; }
+
+/* Solid — highest emphasis, reserved. For "Pro", "New", hero card. */
+.bdg--solid {
+  background: var(--ink-9); border-color: var(--ink-9); color: #fff;
+}
+.bdg--solid::before { background: #fff; opacity: .9; }
+.bdg--solid.bdg--sky   { background: var(--sky);       border-color: var(--sky);       color: #fff; }
+.bdg--solid.bdg--term  { background: var(--terminal);  border-color: var(--terminal);  color: #fff; }
+.bdg--solid.bdg--ultra { background: var(--ultra);     border-color: var(--ultra);     color: #fff; }
+.bdg--solid.bdg--error { background: var(--error);     border-color: var(--error);     color: #fff; }
+.bdg--solid.bdg--warn  { background: var(--warning);   border-color: var(--warning);   color: #fff; }
+
+/* Count — notifications / nav counters. Circular. No dot. Tabular num. */
+.bdg--count {
+  padding: 0 6px; gap: 0; min-width: 18px; justify-content: center;
+  font-size: 11px; font-variant-numeric: tabular-nums;
+  background: var(--ink-9); border-color: var(--ink-9); color: #fff;
+}
+.bdg--count::before { display: none; }
+.bdg--count.bdg--sky   { background: var(--sky);   border-color: var(--sky);   color: #fff; }
+.bdg--count.bdg--error { background: var(--error); border-color: var(--error); color: #fff; }
+
+/* Card demo — badge leading a card as hierarchy anchor */
+.demo-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.demo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-4);
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+  max-width: 320px;
+}
+.demo-card .stack { display: flex; flex-direction: column; flex: 1; gap: 2px; }
+.demo-card h5 { font: 600 14px/1.2 var(--font-sans); color: var(--fg-strong); margin: 0; }
+.demo-card .sub { font-size: 12px; color: var(--fg-muted); }
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Badge</span></div>
+
+  <div class="rowmeta">Signal · soft tint</div>
+  <div class="row">
+    <span class="bdg bdg--term">Healthy</span>
+    <span class="bdg bdg--warn">Warning</span>
+    <span class="bdg bdg--error">Critical</span>
+    <span class="bdg bdg--sky">Info</span>
+    <span class="bdg bdg--ultra">Featured</span>
+    <span class="bdg bdg--neutral">Draft</span>
+  </div>
+
+  <div class="rowmeta">Lifecycle · state over time</div>
+  <div class="row">
+    <span class="bdg bdg--neutral">Draft</span>
+    <span class="bdg bdg--sky">In review</span>
+    <span class="bdg bdg--warn">Staging</span>
+    <span class="bdg bdg--term">Shipping</span>
+    <span class="bdg bdg--error">Blocked</span>
+  </div>
+
+  <div class="rowmeta">Ghost · non-status</div>
+  <div class="row">
+    <span class="bdg bdg--ghost">v2.4.1</span>
+    <span class="bdg bdg--ghost">UTC+0</span>
+    <span class="bdg bdg--ghost">Read-only</span>
+  </div>
+
+  <div class="rowmeta">Solid · hero emphasis · reserved</div>
+  <div class="row">
+    <span class="bdg bdg--solid">New</span>
+    <span class="bdg bdg--solid bdg--sky">Beta</span>
+    <span class="bdg bdg--solid bdg--ultra">Pro</span>
+    <span class="bdg bdg--solid bdg--term">Live</span>
+    <span class="bdg bdg--solid bdg--error">Down</span>
+  </div>
+
+  <div class="rowmeta">Count · nav · notification</div>
+  <div class="row">
+    <span class="bdg bdg--count">3</span>
+    <span class="bdg bdg--count bdg--sky">12</span>
+    <span class="bdg bdg--count bdg--error">99+</span>
+  </div>
+
+  <div class="rowmeta">In context · badge anchors hierarchy</div>
+  <div class="demo-row">
+    <div class="demo-card">
+      <div class="stack"><h5>Command palette</h5><span class="sub">Dense, kbd, ink ramp.</span></div>
+      <span class="bdg bdg--term">Shipping</span>
+    </div>
+    <div class="demo-card">
+      <div class="stack"><h5>Data primitives</h5><span class="sub">Sparkline, KPI, progress.</span></div>
+      <span class="bdg bdg--sky">New</span>
+    </div>
+    <div class="demo-card">
+      <div class="stack"><h5>Legacy table</h5><span class="sub">Being migrated to DataGrid.</span></div>
+      <span class="bdg bdg--warn">Warning</span>
+    </div>
+  </div>
+</div>
+</body></html>

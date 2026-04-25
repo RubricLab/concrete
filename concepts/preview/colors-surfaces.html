@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="_card.css"/>
+<style>
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}
+.surf{aspect-ratio:1/1.1;border-radius:var(--r-3);border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:9px 10px}
+.surf b{font-size:11px;font-weight:600;color:var(--fg-strong)}
+.surf i{font-family:var(--font-mono);font-style:normal;font-size:9.5px;color:var(--fg-muted)}
+.inverse{background:var(--ink-9);border-color:var(--ink-9)}
+.inverse b{color:#fff}.inverse i{color:var(--inverse-muted)}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Surfaces</span></div>
+  <div class="grid">
+    <div class="surf" style="background:var(--canvas)"><b>Canvas</b><i>F7F8FA</i></div>
+    <div class="surf" style="background:var(--surface)"><b>Surface</b><i>FFFFFF</i></div>
+    <div class="surf" style="background:var(--raised)"><b>Raised</b><i>FCFCFD</i></div>
+    <div class="surf" style="background:var(--sunken)"><b>Sunken</b><i>F1F2F5</i></div>
+    <div class="surf inverse"><b>Inverse</b><i>0A0B0F</i></div>
+  </div>
+</div>
+</body></html>

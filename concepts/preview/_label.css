@@ -1,0 +1,73 @@
+/* ============================================================
+   Shared label-family skeleton
+   One height, one shape, one type rhythm. Grounded in foundations.
+   ============================================================ */
+:root{
+  --lbl-h: 24px;
+  --lbl-pad: 0 11px;
+  --lbl-pad-glyph: 0 11px 0 9px;
+  --lbl-gap: 6px;
+  --lbl-radius: 999px;
+}
+
+/* Base — every label atom starts here */
+.l {
+  display: inline-flex; align-items: center;
+  height: var(--lbl-h);
+  padding: var(--lbl-pad);
+  gap: var(--lbl-gap);
+  border-radius: var(--lbl-radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--fg-body);
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition: border-color .14s cubic-bezier(.2,0,0,1), background .14s, color .14s;
+}
+.l:has(> svg:first-child){ padding: var(--lbl-pad-glyph); }
+.l > svg {
+  width: 13px; height: 13px; flex: none;
+  stroke: var(--fg-soft); fill: none;
+  stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ---------- Accent variants (shared) ---------- */
+.l--accent { background: var(--sky-1); border-color: var(--sky-3); color: var(--sky-hi); font-weight: 600; }
+.l--accent > svg { stroke: var(--sky-hi); }
+.l--ink    { background: var(--ink-9); border-color: var(--ink-9); color: #fff; font-weight: 600; }
+.l--ink    > svg { stroke: rgba(255,255,255,.7); }
+.l--sunken { background: var(--sunken); border-color: var(--border-soft); color: var(--fg-muted); }
+
+/* Signal variants (for Badge) */
+.l--term   { background: var(--terminal-wash); border-color: transparent; color: var(--terminal-hi); }
+.l--flag   { background: var(--flag-wash);     border-color: transparent; color: var(--flag-hi); }
+.l--alert  { background: var(--alert-wash);    border-color: transparent; color: var(--alert-hi); }
+
+/* ---------- Interactive (Chip) ---------- */
+.l--chip { cursor: pointer; user-select: none; }
+.l--chip:hover { border-color: var(--border-hi); }
+.l--chip.l--accent:hover { border-color: var(--sky-hi); }
+.l--chip.l--ink:hover { background: var(--ink-8); border-color: var(--ink-8); }
+
+/* ---------- Dismiss button (Tag) ---------- */
+.l-x {
+  width: 16px; height: 16px; margin-right: -5px; margin-left: 2px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--ink-1); border: 0; padding: 0; cursor: pointer;
+  color: var(--fg-muted); border-radius: 999px;
+  transition: background .14s cubic-bezier(.2,0,0,1), color .14s;
+}
+.l-x:hover { background: var(--ink-2); color: var(--fg-strong); }
+.l-x svg { width: 9px; height: 9px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* Badge has its own file — see preview/badge.html.
+   (The old .l--badge mono-caps override was retired: mono is not in the
+   Concrete type foundations. Use the sans, signal-washed badge instead.) */
+
+/* ---------- Pill timestamp ---------- */
+.l-ts { font-family: var(--font-mono); font-size: 11px; color: var(--fg-soft); margin-left: 2px; }

@@ -1,0 +1,161 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--raised:#FCFCFD;--sunken:#F1F2F5;--mist:#EAECF0;
+  --ink-9:#0A0B0F;--ink-8:#16171C;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);--border-hi:var(--ink-3);
+  --sky:#1F6FD4;--sky-soft:#DDE8F7;--sky-hi:#0F4E9E;
+  --terminal:#0EA564;--terminal-soft:#DCF2E8;--terminal-hi:#0A8350;
+  --ultra:#6B5BFF;--ultra-soft:#E5E2FF;--ultra-hi:#4F3FE0;
+  --error:#E23B3B;--error-soft:#FBE1DF;--error-hi:#A72323;
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rowmeta{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft);margin-top:14px;margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+
+/* Tag — user-managed metadata attached to an object. Sharper geometry (4px radius)
+   reads as data, not a button. Distinct from pill (read-only info) by its close affordance. */
+.tag{
+  display:inline-flex;align-items:center;gap:4px;
+  height:22px;padding:0 3px 0 7px;
+  background:var(--sunken);color:var(--fg-body);
+  border:1px solid transparent;border-radius:4px;
+  font:500 11.5px/22px var(--font-sans);
+  letter-spacing:-.003em;font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.tag--plain{padding-right:7px}
+
+/* Optional leading icon — 11px, inherits color */
+.tag svg.lead{
+  width:11px;height:11px;flex:none;
+  stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+  margin-left:-2px;
+  opacity:.8;
+}
+
+/* Close button — sized to cap-height of the label, not the full row */
+.tag .x{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:14px;height:14px;border-radius:3px;
+  color:var(--fg-soft);cursor:pointer;flex:none;
+  margin-left:1px;
+  transition:background .12s,color .12s;
+}
+.tag .x:hover{background:var(--ink-2);color:var(--fg-strong)}
+.tag .x svg{width:8px;height:8px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;display:block}
+
+/* Outline — for sunken surfaces */
+.tag--outline{background:var(--surface);border-color:var(--border)}
+.tag--outline .x:hover{background:var(--sunken)}
+
+/* Active — selected in a filter */
+.tag--active{background:var(--ink-9);color:#fff}
+.tag--active svg.lead{opacity:.85}
+.tag--active .x{color:rgba(255,255,255,.65)}
+.tag--active .x:hover{background:rgba(255,255,255,.14);color:#fff}
+
+/* Signal washes — the whole tag carries the color. No dots. */
+.tag--sky{background:var(--sky-soft);color:var(--sky-hi)}
+.tag--sky .x:hover{background:#CCDBEF}
+.tag--terminal{background:var(--terminal-soft);color:var(--terminal-hi)}
+.tag--terminal .x:hover{background:#C8E9D8}
+.tag--ultra{background:var(--ultra-soft);color:var(--ultra-hi)}
+.tag--ultra .x:hover{background:#D6D2FF}
+.tag--error{background:var(--error-soft);color:var(--error-hi)}
+.tag--error .x:hover{background:#F4CFCC}
+
+/* Sizes */
+.tag--sm{height:18px;line-height:18px;font-size:10.5px;padding:0 2px 0 6px;gap:3px;border-radius:3px}
+.tag--sm .x{width:12px;height:12px}
+.tag--sm .x svg{width:7px;height:7px}
+.tag--sm svg.lead{width:9px;height:9px}
+.tag--sm.tag--plain{padding-right:6px}
+
+.tag--lg{height:26px;line-height:26px;font-size:12.5px;padding:0 4px 0 9px;gap:5px;border-radius:5px}
+.tag--lg .x{width:16px;height:16px}
+.tag--lg .x svg{width:9px;height:9px}
+.tag--lg svg.lead{width:12px;height:12px}
+.tag--lg.tag--plain{padding-right:9px}
+
+/* Tag input */
+.tag-input{
+  display:inline-flex;align-items:center;gap:4px;
+  min-height:32px;padding:4px 6px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);flex-wrap:wrap;
+  max-width:420px;
+}
+.tag-input:focus-within{border-color:var(--ink-5);box-shadow:0 0 0 3px rgba(31,111,212,.18)}
+.tag-input input{
+  flex:1;min-width:100px;border:0;outline:0;background:transparent;
+  font:500 12.5px/1 var(--font-sans);color:var(--fg-strong);
+  padding:4px 6px;
+}
+.tag-input input::placeholder{color:var(--fg-soft)}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Tag</span></div>
+
+  <div class="rowmeta">Default — plain & removable</div>
+  <div class="row">
+    <span class="tag tag--plain">design-system</span>
+    <span class="tag">concrete<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag">primitives<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag">v0.3<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+  </div>
+
+  <div class="rowmeta">With leading icon — tag as type</div>
+  <div class="row">
+    <span class="tag"><svg class="lead" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>article<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag"><svg class="lead" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>ari<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag"><svg class="lead" viewBox="0 0 24 24"><path d="M3 7h18v13H3zM3 7l2-3h14l2 3"/></svg>design-system<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag"><svg class="lead" viewBox="0 0 24 24"><path d="M9 18V6l12-2v14"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="18" r="3"/></svg>concrete-ost<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+  </div>
+
+  <div class="rowmeta">Signal washes — priority / status</div>
+  <div class="row">
+    <span class="tag tag--terminal">Shipping<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag tag--sky">In review<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag tag--ultra">Featured<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+    <span class="tag tag--error">Blocking<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+  </div>
+
+  <div class="rowmeta">Variants</div>
+  <div class="row">
+    <span class="tag tag--plain">Default</span>
+    <span class="tag tag--outline tag--plain">Outline</span>
+    <span class="tag tag--active tag--plain">Active</span>
+    <span class="tag tag--active"><svg class="lead" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Selected<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+  </div>
+
+  <div class="rowmeta">Sizes</div>
+  <div class="row">
+    <span class="tag tag--sm tag--plain">small</span>
+    <span class="tag tag--plain">default</span>
+    <span class="tag tag--lg tag--plain">large</span>
+  </div>
+
+  <div class="rowmeta">Tag input</div>
+  <div class="row" style="flex-direction:column;align-items:stretch">
+    <div class="tag-input">
+      <span class="tag">design<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+      <span class="tag">ai<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+      <span class="tag">systems<span class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span></span>
+      <input placeholder="Add tag…"/>
+    </div>
+  </div>
+</div>
+</body></html>

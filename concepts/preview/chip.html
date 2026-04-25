@@ -1,0 +1,56 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--raised:#FCFCFD;--sunken:#F1F2F5;
+  --ink-9:#0A0B0F;--ink-8:#16171C;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);--border-hi:var(--ink-3);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-height:90px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+
+/* Chip — now with the same "clickable depth" language as buttons:
+   subtle top highlight + bottom edge shadow so it reads as a pressable target. */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  height:26px;padding:0 12px;
+  border-radius:999px;
+  background:var(--surface);color:var(--fg-body);
+  border:1px solid var(--border);
+  font:500 12px/1 var(--font-sans);
+  white-space:nowrap;font-variant-numeric:tabular-nums;
+  cursor:pointer;user-select:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 1px 0 var(--border);
+  transition:background .14s,color .14s,border-color .14s,box-shadow .14s,transform .1s;
+}
+.chip:hover{background:var(--raised);border-color:var(--border-hi);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 1px 0 var(--border-hi)}
+.chip:active{transform:translateY(.5px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 0 0 var(--border)}
+.chip svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;margin-left:-4px}
+.chip--on{
+  background:var(--ink-9);color:#fff;font-weight:600;border-color:var(--ink-9);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1px 0 rgba(0,0,0,.22),0 1px 2px rgba(10,11,15,.12);
+}
+.chip--on:hover{background:var(--ink-8);border-color:var(--ink-8)}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Chip</span></div>
+  <div class="row">
+    <span class="chip">All</span>
+    <span class="chip chip--on"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Design</span>
+    <span class="chip chip--on"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Engineering</span>
+    <span class="chip">Research</span>
+    <span class="chip">Operations</span>
+    <span class="chip">Marketing</span>
+  </div>
+</div>
+</body></html>

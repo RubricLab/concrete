@@ -1,0 +1,131 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F1F2F5;
+  --ink-9:#0A0B0F;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);--border-soft:var(--ink-1);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-height:90px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rowmeta{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft);margin-top:14px;margin-bottom:8px}
+
+.grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:1px;margin-top:8px;
+  background:var(--border-soft);border:1px solid var(--border-soft);border-radius:8px;
+  overflow:hidden;
+}
+.cell{
+  display:flex;align-items:center;justify-content:center;aspect-ratio:1;
+  background:var(--surface);
+  position:relative;
+}
+.cell svg{stroke:var(--fg-strong);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;width:18px;height:18px}
+.cell .name{
+  position:absolute;bottom:3px;left:0;right:0;text-align:center;
+  font:500 8px/1 var(--font-mono);color:var(--fg-soft);letter-spacing:0;
+  opacity:0;transition:opacity .12s;
+  pointer-events:none;
+}
+.cell:hover{background:var(--sunken)}
+.cell:hover .name{opacity:1}
+
+.sizerow{display:flex;gap:14px;align-items:flex-end;margin-top:8px}
+.sizeitem{display:flex;flex-direction:column;gap:5px;align-items:center}
+.sizeitem svg{stroke:var(--fg-strong);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sizeitem .sz{font-family:var(--font-mono);font-size:9.5px;color:var(--fg-soft);font-weight:500}
+
+.colorrow{display:flex;gap:14px;align-items:center;margin-top:8px}
+.colorrow svg{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;width:18px;height:18px}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Icon</span></div>
+
+  <div class="rowmeta">Set · Lucide · 1.5 stroke · 24×24 viewBox</div>
+  <div class="grid">
+    <!-- Row 1: navigation/wayfinding -->
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg><span class="name">search</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg><span class="name">menu</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2z"/></svg><span class="name">home</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span class="name">clock</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v16l7-3 7 3z"/></svg><span class="name">bookmark</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg><span class="name">calendar</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span class="name">filter</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="name">settings</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 0-5 5v3a7 7 0 0 0-2 5v1h14v-1a7 7 0 0 0-2-5V7a5 5 0 0 0-5-5zM9 17v1a3 3 0 0 0 6 0v-1"/></svg><span class="name">bell</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span class="name">message</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span class="name">activity</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg><span class="name">user</span></div>
+
+    <!-- Row 2: content / files -->
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg><span class="name">file-text</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="name">folder</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 10v6M9 13h6"/></svg><span class="name">folder-plus</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M2 3h6l2 3h12v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/></svg><span class="name">inbox</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M2 3h20v14H14l-4 4v-4H2z"/></svg><span class="name">message-square</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h11v16H6a2 2 0 0 1-2-2.5z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H17"/></svg><span class="name">book-open</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="10" r="2"/><path d="M21 16l-5-5L5 20"/></svg><span class="name">image</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8.9 6.5 2.5"/><path d="M9 12l2 2 4-4"/></svg><span class="name">check-circle</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 2l10 18H2z"/><path d="M12 10v4M12 18h.01"/></svg><span class="name">alert-triangle</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span class="name">info</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.09 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3M12 17h.01"/></svg><span class="name">help</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span class="name">check</span></div>
+
+    <!-- Row 3: actions / data -->
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span class="name">plus</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg><span class="name">minus</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg><span class="name">x</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M5 6l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14"/></svg><span class="name">trash</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.85 0 1 1 4 4L8 20l-5 1 1-5z"/></svg><span class="name">pencil</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span class="name">copy</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4M12 2v14"/></svg><span class="name">upload</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M8 11l4 4 4-4M12 3v12"/></svg><span class="name">download</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M21 2v6h-6M3 12a9 9 0 0 1 15-6.7L21 8M3 22v-6h6M21 12a9 9 0 0 1-15 6.7L3 16"/></svg><span class="name">refresh</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 1 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg><span class="name">coffee</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><span class="name">star</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M9 12l-5 5M4 12h5v5M15 12l5-5M20 12h-5v-5M15 12l5 5M20 12h-5v5M9 12l-5-5M4 12h5V7"/></svg><span class="name">expand</span></div>
+
+    <!-- Row 4: arrows / devtools -->
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span class="name">arrow-right</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg><span class="name">arrow-left</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span class="name">arrow-up</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg><span class="name">arrow-down</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span class="name">more-horiz</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M7 8l-5 4 5 4M17 8l5 4-5 4M14 4l-4 16"/></svg><span class="name">code</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6M12 19h8"/></svg><span class="name">terminal</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M6 9v6"/><circle cx="18" cy="6" r="3"/><path d="M6 12h6a6 6 0 0 0 6-6"/></svg><span class="name">git-branch</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M14 9l3 3-3 3"/></svg><span class="name">panel</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="6" rx="1"/><rect x="4" y="13" width="16" height="6" rx="1"/><path d="M8 8h.01M8 16h.01"/></svg><span class="name">layers</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span class="name">link</span></div>
+    <div class="cell"><svg viewBox="0 0 24 24"><path d="M12 3l10 6v10H2V9z"/><path d="M2 9h20M12 3v16"/></svg><span class="name">sparkles</span></div>
+  </div>
+
+  <div class="rowmeta">Sizes</div>
+  <div class="sizerow">
+    <div class="sizeitem"><svg width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><span class="sz">12</span></div>
+    <div class="sizeitem"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><span class="sz">14</span></div>
+    <div class="sizeitem"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><span class="sz">16</span></div>
+    <div class="sizeitem"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><span class="sz">20</span></div>
+    <div class="sizeitem"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><span class="sz">24</span></div>
+    <div class="sizeitem"><svg width="32" height="32" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><span class="sz">32</span></div>
+  </div>
+
+  <div class="rowmeta">Color follows text</div>
+  <div class="colorrow">
+    <svg viewBox="0 0 24 24" style="stroke:var(--fg-strong)"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    <svg viewBox="0 0 24 24" style="stroke:var(--fg-body)"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    <svg viewBox="0 0 24 24" style="stroke:var(--fg-muted)"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    <svg viewBox="0 0 24 24" style="stroke:var(--fg-soft)"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;
+  --ink-9:#0A0B0F;--ink-7:#22242B;--ink-5:#5A5D68;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-body:var(--ink-7);--fg-muted:var(--ink-5);
+  --border:var(--ink-2);
+  --sky-ring:rgba(31,111,212,.22);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-height:90px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.stack{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.opt{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-size:12.5px;color:var(--fg-body);height:22px}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+
+/* Concrete radio — ink-fill when selected (like checkbox/switch), with white center dot.
+   No small-circle-in-big-circle; same idiom family. */
+.rd{
+  width:14px;height:14px;border:1px solid var(--ink-3);border-radius:50%;
+  background:var(--surface);
+  display:inline-flex;align-items:center;justify-content:center;flex:none;
+  transition:background .14s,border-color .14s;position:relative;
+  box-shadow:inset 0 1px 0 rgba(10,11,15,.02);
+}
+.rd::after{
+  content:"";width:4px;height:4px;border-radius:50%;
+  background:var(--surface);
+  transform:scale(0);transition:transform .14s cubic-bezier(.2,0,0,1);
+}
+.opt:hover .rd{border-color:var(--ink-5)}
+.opt input:checked + .rd{background:var(--ink-9);border-color:var(--ink-9)}
+.opt input:checked + .rd::after{transform:scale(1)}
+.opt input:focus-visible + .rd{box-shadow:0 0 0 3px var(--sky-ring)}
+.opt.is-disabled{opacity:.45;cursor:not-allowed}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Radio</span></div>
+  <div class="stack">
+    <label class="opt"><input type="radio" name="plan"/><span class="rd"></span>Starter — $0 / mo</label>
+    <label class="opt"><input type="radio" name="plan" checked/><span class="rd"></span>Team — $12 / user / mo</label>
+    <label class="opt"><input type="radio" name="plan"/><span class="rd"></span>Enterprise — custom</label>
+    <label class="opt is-disabled"><input type="radio" name="plan" disabled/><span class="rd"></span>Legacy plan (unavailable)</label>
+  </div>
+</div>
+</body></html>

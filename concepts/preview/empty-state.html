@@ -1,0 +1,136 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_card.css" />
+<style>
+/* ============================================================
+   Empty state — primitive.
+   Single-glyph mark on a soft square tile. No dotted ring,
+   no concentric lattice, no "sticker on paper". Just:
+     · 48px tile in --ink-1 with 8px radius
+     · 1.25px hairline icon in --ink-5
+   Composition uses display headline (Fraunces italic accent)
+   + muted body + (optional) CTA row.
+   ============================================================ */
+.eyebrow { font-size:11px; color:var(--fg-muted); letter-spacing:.1em; text-transform:uppercase; font-weight:700 }
+.rowmeta { font: 600 11px/1 var(--font-sans); letter-spacing:.08em; text-transform:uppercase; color:var(--fg-soft); margin:22px 0 12px; }
+.rowmeta:first-of-type { margin-top: 2px; }
+
+/* Mark tile — dashed hairline outline only, no fill */
+.mk {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: transparent;
+  border: 1px dashed var(--ink-3);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink-5); flex: none;
+}
+.mk svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+.mk--sm { width: 36px; height: 36px; border-radius: 8px; }
+.mk--sm svg { width: 18px; height: 18px; stroke-width: 1.35; }
+.mk--lg { width: 64px; height: 64px; border-radius: 12px; }
+.mk--lg svg { width: 28px; height: 28px; stroke-width: 1.15; }
+.mk--sky { border-color: color-mix(in oklab, var(--sky) 50%, var(--border)); color: var(--sky-hi); }
+
+/* Catalog row */
+.cat-row { display: grid; grid-template-columns: 56px 1fr; align-items: center; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border-soft); }
+.cat-row:last-child { border: 0; }
+.cat-meta { display: flex; flex-direction: column; gap: 2px; }
+.cat-meta .lbl { font: 600 13px/1.2 var(--font-sans); color: var(--fg-strong); letter-spacing: -.005em; }
+.cat-meta .desc { font: 500 12px/1.45 var(--font-sans); color: var(--fg-muted); max-width: 420px; }
+
+/* Composition frame */
+.row { display: flex; gap: 14px; flex-wrap: wrap; }
+.empty {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 32px 28px; text-align: center;
+  background: var(--surface);
+  border: 0;
+  min-width: 300px; max-width: 360px;
+}
+.empty .copy { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.empty h3 { margin: 0; font: 500 18px/1.25 var(--font-display, Fraunces); color: var(--fg-strong); letter-spacing: -.015em; }
+.empty h3 em { font-style: italic; font-weight: 400; color: var(--ink-7); }
+.empty p { margin: 0; font-size: 12.5px; color: var(--fg-muted); line-height: 1.5; max-width: 300px; text-wrap: pretty; }
+.empty .actions { display: flex; gap: 6px; margin-top: 2px; }
+
+.btn { display:inline-flex; align-items:center; gap:5px; height:28px; padding:0 11px; border-radius:6px; font:600 12px/1 var(--font-sans); letter-spacing:-.005em; border:1px solid var(--ink-9); }
+.btn--primary { background: var(--ink-9); color: #fff; }
+.btn--ghost { background: var(--surface); color: var(--fg-strong); border-color: var(--border); }
+.btn svg { width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.kbd { font: 600 10px/1 var(--font-mono); color: var(--fg-muted); background: var(--sunken); border: 1px solid var(--border); border-bottom-width: 1.5px; border-radius: 3px; padding: 2px 4px; letter-spacing: .04em; }
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Empty state</span></div>
+
+  <div class="rowmeta">Mark · 48px tile · 1.25px hairline icon</div>
+  <div>
+    <div class="cat-row">
+      <span class="mk"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg></span>
+      <div class="cat-meta"><span class="lbl">No results</span><span class="desc">Search returned nothing. Use for filtered views and empty queries.</span></div>
+    </div>
+    <div class="cat-row">
+      <span class="mk"><svg viewBox="0 0 24 24"><path d="M5 7h10l4 4v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><path d="M15 7v4h4M8 14h6M8 17h4"/></svg></span>
+      <div class="cat-meta"><span class="lbl">No documents yet</span><span class="desc">Generic blank-slate. The CTA next to it should be the primary creation action.</span></div>
+    </div>
+    <div class="cat-row">
+      <span class="mk"><svg viewBox="0 0 24 24"><path d="M4 9h16v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9z"/><path d="M8 9V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/><path d="m9 14 2 2 4-4"/></svg></span>
+      <div class="cat-meta"><span class="lbl">All caught up</span><span class="desc">Inbox zero / queue cleared. The "good empty" — no CTA, just acknowledgement.</span></div>
+    </div>
+    <div class="cat-row">
+      <span class="mk"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="3"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
+      <div class="cat-meta"><span class="lbl">No members</span><span class="desc">Use when a group, channel, or project has no humans in it yet.</span></div>
+    </div>
+    <div class="cat-row">
+      <span class="mk"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+      <div class="cat-meta"><span class="lbl">No access</span><span class="desc">Permissions / auth gate. Pair with a clear explanation of who to ask.</span></div>
+    </div>
+    <div class="cat-row">
+      <span class="mk"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 6v14a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6"/><path d="M9 6V4h6v2M10 11v6M14 11v6"/></svg></span>
+      <div class="cat-meta"><span class="lbl">Trash is empty</span><span class="desc">Use when a destructive history view has nothing to show.</span></div>
+    </div>
+  </div>
+
+  <div class="rowmeta">Sizes · 36 · 48 · 64 · tone variant</div>
+  <div class="row" style="align-items:center; gap:18px">
+    <span class="mk mk--sm"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg></span>
+    <span class="mk"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg></span>
+    <span class="mk mk--lg"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg></span>
+    <span class="mk mk--sky"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg></span>
+  </div>
+
+  <div class="rowmeta">In context · frame + copy + CTA</div>
+  <div class="row">
+    <div class="empty">
+      <span class="mk mk--lg"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m15.5 15.5 4 4"/></svg></span>
+      <div class="copy">
+        <h3>No matches for <em>"concrete-ost"</em></h3>
+        <p>Try a broader keyword, or clear the filters applied to this view.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn--ghost">Clear filters</button>
+        <button class="btn btn--primary">New search</button>
+      </div>
+    </div>
+
+    <div class="empty">
+      <span class="mk mk--lg mk--sky"><svg viewBox="0 0 24 24"><path d="M5 7h10l4 4v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><path d="M15 7v4h4M8 14h6M8 17h4"/></svg></span>
+      <div class="copy">
+        <h3>No <em>documents</em> yet</h3>
+        <p>Drafts and shared docs will live here. Start one, or import from an existing source.</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn--ghost">Import</button>
+        <button class="btn btn--primary">New document <span class="kbd">⌘N</span></button>
+      </div>
+    </div>
+
+    <div class="empty">
+      <span class="mk mk--lg"><svg viewBox="0 0 24 24"><path d="M4 9h16v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9z"/><path d="M8 9V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/><path d="m9 14 2 2 4-4"/></svg></span>
+      <div class="copy">
+        <h3>All <em>caught up</em></h3>
+        <p>Nothing in the inbox. Take a lap around the block.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body></html>

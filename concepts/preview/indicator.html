@@ -1,0 +1,141 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_card.css" />
+<style>
+/* ============================================================
+   Indicator + legend — the punctuation of data surfaces.
+   Small dots, shape-keys for plots, legend rows for charts.
+   ============================================================ */
+.eyebrow { font-size:11px; color:var(--fg-muted); letter-spacing:.1em; text-transform:uppercase; font-weight:700 }
+.rowmeta { font: 600 11px/1 var(--font-sans); letter-spacing:.08em; text-transform:uppercase; color:var(--fg-soft); margin:18px 0 10px; }
+.rowmeta:first-of-type { margin-top: 2px; }
+
+.row { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
+.lg { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--fg-body); font-variant-numeric: tabular-nums; }
+.lg .k { color: var(--fg-body); font-weight: 500; }
+.lg .v { color: var(--fg-soft); font-weight: 500; margin-left: 4px; }
+
+/* Dots */
+.dot  { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-9); flex: none; }
+.dot--sky   { background: var(--sky); }
+.dot--term  { background: var(--terminal); }
+.dot--ultra { background: var(--ultra); }
+.dot--error { background: var(--error); }
+.dot--warn  { background: #F59E0B; }
+.dot--mute  { background: var(--ink-3); }
+
+/* Ring indicator — hollow */
+.ring-ind { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--ink-9); flex: none; background: transparent; box-sizing: border-box; }
+.ring-ind--sky { border-color: var(--sky); }
+.ring-ind--term { border-color: var(--terminal); }
+.ring-ind--error { border-color: var(--error); }
+
+/* Swatch — square for area/stack charts */
+.sw { width: 10px; height: 10px; border-radius: 2px; background: var(--ink-9); flex: none; }
+.sw--sky { background: var(--sky); }
+.sw--term { background: var(--terminal); }
+.sw--ultra { background: var(--ultra); }
+.sw--ink5 { background: var(--ink-5); }
+.sw--ink3 { background: var(--ink-3); }
+
+/* Line key — for plot legends */
+.line-key { width: 16px; height: 1px; background: var(--ink-9); flex: none; position: relative; }
+.line-key--dash { background: transparent; border-top: 1px dashed var(--ink-5); height: 1px; }
+.line-key--dot  { background: transparent; border-top: 1px dotted var(--ink-5); height: 1px; }
+.line-key--sky  { background: var(--sky); }
+
+/* Shape keys — scatter/series identifiers */
+.shape { width: 10px; height: 10px; flex: none; display: inline-block; }
+.shape svg { width: 100%; height: 100%; fill: var(--ink-9); }
+.shape--sky svg { fill: var(--sky); }
+.shape--ult svg { fill: var(--ultra); }
+.shape--term svg { fill: var(--terminal); }
+
+/* Status indicator — pulsing live moment, but SUBTLE (no bounce) */
+.live { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--fg-body); }
+.live .ld { position: relative; width: 7px; height: 7px; flex: none; }
+.live .ld::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--terminal); }
+.live .ld::after  { content: ""; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--terminal); opacity: .35; }
+.live--er .ld::before { background: var(--error); }
+.live--er .ld::after  { border-color: var(--error); }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; }
+
+/* Bucket / scale chip — discrete scale legend */
+.buckets { display: inline-flex; align-items: center; gap: 2px; }
+.buckets .b { width: 22px; height: 10px; background: var(--sky-1); border: 1px solid var(--border-soft); }
+.buckets .b:nth-child(1) { background: var(--sky-1); }
+.buckets .b:nth-child(2) { background: var(--sky-2); }
+.buckets .b:nth-child(3) { background: var(--sky-3); }
+.buckets .b:nth-child(4) { background: var(--sky-4); }
+.buckets .b:nth-child(5) { background: var(--sky); }
+.buckets-row { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--fg-soft); font-variant-numeric: tabular-nums; }
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Indicator &amp; legend</span></div>
+
+  <div class="grid2">
+    <div>
+      <div class="rowmeta" style="margin-top:0">Dots · series keys</div>
+      <div class="row">
+        <span class="lg"><span class="dot"></span><span class="k">Ink</span></span>
+        <span class="lg"><span class="dot dot--sky"></span><span class="k">Sky</span></span>
+        <span class="lg"><span class="dot dot--term"></span><span class="k">Terminal</span></span>
+        <span class="lg"><span class="dot dot--ultra"></span><span class="k">Ultra</span></span>
+        <span class="lg"><span class="dot dot--warn"></span><span class="k">Warning</span></span>
+        <span class="lg"><span class="dot dot--error"></span><span class="k">Error</span></span>
+        <span class="lg"><span class="dot dot--mute"></span><span class="k">Idle</span></span>
+      </div>
+
+      <div class="rowmeta">Rings · secondary series</div>
+      <div class="row">
+        <span class="lg"><span class="ring-ind"></span><span class="k">Target</span></span>
+        <span class="lg"><span class="ring-ind ring-ind--sky"></span><span class="k">Benchmark</span></span>
+        <span class="lg"><span class="ring-ind ring-ind--term"></span><span class="k">Forecast</span></span>
+        <span class="lg"><span class="ring-ind ring-ind--error"></span><span class="k">Threshold</span></span>
+      </div>
+
+      <div class="rowmeta">Live · subtle status</div>
+      <div class="row">
+        <span class="live"><span class="ld"></span>Live · streaming</span>
+        <span class="live live--er"><span class="ld"></span>Incident · on call</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="rowmeta" style="margin-top:0">Line legend · series</div>
+      <div class="row" style="flex-direction:column;align-items:flex-start;gap:6px">
+        <span class="lg"><span class="line-key"></span><span class="k">Observed</span><span class="v">this week</span></span>
+        <span class="lg"><span class="line-key line-key--sky"></span><span class="k">Benchmark</span><span class="v">last week</span></span>
+        <span class="lg"><span class="line-key line-key--dash"></span><span class="k">Expected</span><span class="v">target</span></span>
+        <span class="lg"><span class="line-key line-key--dot"></span><span class="k">Forecast</span><span class="v">projected</span></span>
+      </div>
+
+      <div class="rowmeta">Swatches · stacked / area</div>
+      <div class="row" style="flex-direction:column;align-items:flex-start;gap:6px">
+        <span class="lg"><span class="sw"></span><span class="k">Direct</span><span class="v">44%</span></span>
+        <span class="lg"><span class="sw sw--sky"></span><span class="k">Referral</span><span class="v">26%</span></span>
+        <span class="lg"><span class="sw sw--ink5"></span><span class="k">Social</span><span class="v">15%</span></span>
+        <span class="lg"><span class="sw sw--ink3"></span><span class="k">Organic</span><span class="v">10%</span></span>
+      </div>
+
+      <div class="rowmeta">Shape keys · scatter series</div>
+      <div class="row">
+        <span class="lg"><span class="shape"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"/></svg></span><span class="k">A</span></span>
+        <span class="lg"><span class="shape shape--sky"><svg viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8"/></svg></span><span class="k">B</span></span>
+        <span class="lg"><span class="shape shape--term"><svg viewBox="0 0 10 10"><polygon points="5,1 9,9 1,9"/></svg></span><span class="k">C</span></span>
+        <span class="lg"><span class="shape shape--ult"><svg viewBox="0 0 10 10"><polygon points="5,1 9,5 5,9 1,5"/></svg></span><span class="k">D</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rowmeta">Bucket scale · heatmap / intensity</div>
+  <div class="buckets-row">
+    <span>Low</span>
+    <span class="buckets"><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span></span>
+    <span>High</span>
+    <span style="margin-left:24px">0–20</span><span>20–40</span><span>40–60</span><span>60–80</span><span>80–100</span>
+  </div>
+</div>
+</body></html>

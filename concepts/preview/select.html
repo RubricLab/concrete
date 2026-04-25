@@ -1,0 +1,144 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F1F2F5;--mist:#EAECF0;
+  --ink-9:#0A0B0F;--ink-8:#16171C;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);--border-hi:var(--ink-3);
+  --sky:#1F6FD4;--sky-ring:rgba(31,111,212,.22);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;min-height:90px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:6px;max-width:340px}
+.lbl{font-size:11px;color:var(--fg-muted);margin-bottom:3px;display:block}
+
+.sel-trigger{
+  appearance:none;-webkit-appearance:none;
+  display:inline-flex;align-items:center;justify-content:space-between;gap:8px;
+  width:100%;height:30px;padding:0 8px 0 11px;
+  border:1px solid var(--border);border-radius:6px;
+  background:var(--surface);color:var(--fg-strong);
+  font:500 12.5px/1.2 var(--font-sans);
+  cursor:pointer;user-select:none;text-align:left;
+  box-shadow:inset 0 1px 0 rgba(10,11,15,.015);
+  transition:border-color .14s,box-shadow .14s;
+}
+.sel-trigger:hover{border-color:var(--border-hi)}
+.sel-trigger:focus,.sel-trigger.is-open{outline:0;border-color:var(--sky);box-shadow:0 0 0 3px var(--sky-ring)}
+.sel-trigger .caret{width:14px;height:14px;stroke:var(--fg-muted);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;transition:transform .16s}
+.sel-trigger.is-open .caret{transform:rotate(180deg)}
+.sel-trigger .val{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.sel-wrap{position:relative}
+.sel-menu{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:10;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  box-shadow:0 1px 2px rgba(10,11,15,.06),0 8px 24px -8px rgba(10,11,15,.18);
+  padding:4px;display:none;
+  max-height:260px;overflow-y:auto;
+}
+.sel-wrap.is-open .sel-menu{display:block}
+.sel-item{
+  display:flex;align-items:center;gap:8px;
+  height:30px;padding:0 8px;border-radius:4px;
+  font:500 12.5px/1.4 var(--font-sans);color:var(--fg-body);
+  cursor:pointer;user-select:none;
+}
+.sel-item:hover{background:var(--sunken)}
+.sel-item[aria-selected="true"]{background:var(--ink-9);color:#fff}
+.sel-item .check{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round;flex:none;opacity:0}
+.sel-item[aria-selected="true"] .check{opacity:1}
+.sel-item .lbl-txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-bottom:1px}
+
+/* Kbd inside menu */
+.kbd-group{display:inline-flex;gap:3px;flex:none}
+.kbd{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:16px;height:16px;padding:0 4px;
+  border-radius:3px;
+  background:var(--surface);
+  color:var(--fg-muted);
+  font:600 10px/1 var(--font-mono);
+  border:1px solid var(--border);
+  border-bottom:1px solid var(--border-hi);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+.sel-item[aria-selected="true"] .kbd{
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.82);
+  border-color:rgba(255,255,255,.18);border-bottom-color:rgba(255,255,255,.28);
+}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Select</span></div>
+  <div class="stack">
+    <div>
+      <label class="lbl">Workspace</label>
+      <div class="sel-wrap" data-sel>
+        <button class="sel-trigger" type="button"><span class="val">Rubric — Design</span>
+          <svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="sel-menu" role="listbox">
+          <div class="sel-item" role="option" aria-selected="true"><svg class="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span class="lbl-txt">Rubric — Design</span><span class="kbd-group"><span class="kbd">⌘</span><span class="kbd">1</span></span></div>
+          <div class="sel-item" role="option"><svg class="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span class="lbl-txt">Rubric — Engineering</span><span class="kbd-group"><span class="kbd">⌘</span><span class="kbd">2</span></span></div>
+          <div class="sel-item" role="option"><svg class="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span class="lbl-txt">Rubric — Research</span><span class="kbd-group"><span class="kbd">⌘</span><span class="kbd">3</span></span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label class="lbl">Sort by</label>
+      <div class="sel-wrap" data-sel>
+        <button class="sel-trigger" type="button"><span class="val">Most recent</span>
+          <svg class="caret" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="sel-menu" role="listbox">
+          <div class="sel-item" role="option" aria-selected="true"><svg class="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span class="lbl-txt">Most recent</span></div>
+          <div class="sel-item" role="option"><svg class="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span class="lbl-txt">Oldest</span></div>
+          <div class="sel-item" role="option"><svg class="check" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg><span class="lbl-txt">Alphabetical</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('[data-sel]').forEach(wrap => {
+  const trigger = wrap.querySelector('.sel-trigger');
+  const val = trigger.querySelector('.val');
+  const menu = wrap.querySelector('.sel-menu');
+  trigger.addEventListener('click', e => {
+    e.stopPropagation();
+    wrap.classList.toggle('is-open');
+    trigger.classList.toggle('is-open');
+    document.querySelectorAll('[data-sel]').forEach(other => {
+      if (other !== wrap) { other.classList.remove('is-open'); other.querySelector('.sel-trigger').classList.remove('is-open'); }
+    });
+  });
+  menu.querySelectorAll('.sel-item').forEach(item => {
+    item.addEventListener('click', () => {
+      menu.querySelectorAll('.sel-item').forEach(i => i.setAttribute('aria-selected', 'false'));
+      item.setAttribute('aria-selected', 'true');
+      val.textContent = item.querySelector('.lbl-txt').textContent;
+      wrap.classList.remove('is-open'); trigger.classList.remove('is-open');
+    });
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('[data-sel]').forEach(w => { w.classList.remove('is-open'); w.querySelector('.sel-trigger').classList.remove('is-open'); });
+});
+setTimeout(() => {
+  const first = document.querySelector('[data-sel]');
+  first.classList.add('is-open');
+  first.querySelector('.sel-trigger').classList.add('is-open');
+}, 50);
+</script>
+</body></html>

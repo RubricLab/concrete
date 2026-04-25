@@ -1,0 +1,168 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F1F2F5;
+  --ink-9:#0A0B0F;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
+  --border:var(--ink-2);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.rowmeta{font-family:var(--font-mono);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-soft);margin-top:16px;margin-bottom:10px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+
+/* The Concrete scrollbar — thin, ink-ramp, rounded track, no arrow buttons.
+   Idle: 6px, ink-3 thumb, transparent track. Hover: 10px, ink-5 thumb, subtle track.
+   WebKit + Firefox covered. */
+.scroll{
+  scrollbar-width:thin;
+  scrollbar-color:var(--ink-3) transparent;
+  overflow:auto;
+}
+.scroll:hover{scrollbar-color:var(--ink-5) rgba(10,11,15,.04)}
+
+.scroll::-webkit-scrollbar{width:6px;height:6px;transition:all .18s}
+.scroll::-webkit-scrollbar-track{background:transparent;border-radius:999px}
+.scroll::-webkit-scrollbar-thumb{background:var(--ink-3);border-radius:999px;transition:background .14s}
+.scroll::-webkit-scrollbar-thumb:hover{background:var(--ink-5)}
+.scroll::-webkit-scrollbar-corner{background:transparent}
+
+.scroll:hover::-webkit-scrollbar{width:10px;height:10px}
+.scroll:hover::-webkit-scrollbar-track{background:rgba(10,11,15,.04)}
+
+/* "Overlay" variant — floats over content, no layout shift. Fades in on hover. */
+.scroll--overlay{scrollbar-gutter:stable}
+.scroll--overlay::-webkit-scrollbar-thumb{background:transparent}
+.scroll--overlay:hover::-webkit-scrollbar-thumb{background:var(--ink-3)}
+.scroll--overlay:hover::-webkit-scrollbar-thumb:hover{background:var(--ink-5)}
+
+/* Inverted — for dark panels */
+.scroll--dark{scrollbar-color:rgba(255,255,255,.18) transparent}
+.scroll--dark:hover{scrollbar-color:rgba(255,255,255,.32) rgba(255,255,255,.06)}
+.scroll--dark::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18)}
+.scroll--dark::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.32)}
+.scroll--dark:hover::-webkit-scrollbar-track{background:rgba(255,255,255,.06)}
+
+/* Demo surfaces */
+.panel{
+  width:300px;height:200px;
+  border:1px solid var(--border);border-radius:8px;
+  background:var(--surface);
+  padding:12px 14px;
+}
+.panel--dark{background:var(--ink-9);border-color:var(--ink-9);color:rgba(255,255,255,.85)}
+
+.list{display:flex;flex-direction:column;gap:2px;font-size:12.5px;line-height:1.5}
+.list .item{padding:6px 8px;border-radius:4px;color:var(--fg-body)}
+.list .item:hover{background:var(--sunken)}
+.list--dark .item{color:rgba(255,255,255,.82)}
+.list--dark .item:hover{background:rgba(255,255,255,.06);color:#fff}
+
+.code{
+  font:500 12px/1.6 var(--font-mono);
+  white-space:pre;color:var(--fg-body);
+}
+
+.hint{color:var(--fg-muted);font-size:11.5px;margin-top:10px;line-height:1.5}
+code.tok{font-family:var(--font-mono);font-size:11px;color:var(--fg-strong)}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Scrollbar</span></div>
+
+  <div class="rowmeta">Default — hover to expand</div>
+  <div class="row">
+    <div class="panel scroll">
+      <div class="list">
+        <div class="item">Environment variables</div>
+        <div class="item">Build & deploy</div>
+        <div class="item">Domains</div>
+        <div class="item">SSL certificates</div>
+        <div class="item">Edge functions</div>
+        <div class="item">Redirects</div>
+        <div class="item">Headers</div>
+        <div class="item">Analytics</div>
+        <div class="item">Logs</div>
+        <div class="item">Integrations</div>
+        <div class="item">Team members</div>
+        <div class="item">Billing</div>
+        <div class="item">Audit log</div>
+        <div class="item">Danger zone</div>
+      </div>
+    </div>
+
+    <div class="panel scroll">
+      <pre class="code">import { useState } from "react";
+
+export function Counter() {
+  const [n, setN] = useState(0);
+  return (
+    &lt;button onClick={() =&gt; setN(n + 1)}&gt;
+      clicks: {n}
+    &lt;/button&gt;
+  );
+}
+
+// ...a very long file continues
+// ...line 2
+// ...line 3
+// ...line 4
+// ...line 5
+// ...line 6
+// ...line 7
+// ...line 8
+// ...line 9
+// ...line 10</pre>
+    </div>
+  </div>
+
+  <div class="rowmeta">Overlay — hidden until hover</div>
+  <div class="row">
+    <div class="panel scroll scroll--overlay">
+      <div class="list">
+        <div class="item">Concrete — an ink-first design system for Rubric Labs.</div>
+        <div class="item">Built for AI product surfaces.</div>
+        <div class="item">Restrained by default.</div>
+        <div class="item">Expressive when it matters.</div>
+        <div class="item">Hover this panel to reveal the scrollbar.</div>
+        <div class="item">Without hover, the content takes the full width.</div>
+        <div class="item">scrollbar-gutter: stable prevents layout jump.</div>
+        <div class="item">Use this for reading surfaces — chat transcripts, docs, article bodies.</div>
+        <div class="item">More content below…</div>
+        <div class="item">…and more.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rowmeta">Dark — for terminals, popovers, code panels</div>
+  <div class="row">
+    <div class="panel panel--dark scroll scroll--dark">
+      <div class="list list--dark">
+        <div class="item">$ concrete build</div>
+        <div class="item">→ resolving primitives…</div>
+        <div class="item">→ bundling components…</div>
+        <div class="item">→ generating types…</div>
+        <div class="item">→ optimizing assets…</div>
+        <div class="item">→ writing manifest…</div>
+        <div class="item">→ copying static files…</div>
+        <div class="item">→ compressing bundles…</div>
+        <div class="item">→ fingerprinting…</div>
+        <div class="item">→ 128 primitives registered</div>
+        <div class="item">→ 0 errors, 0 warnings</div>
+        <div class="item">✓ done in 1.84s</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hint">Classes: <code class="tok">.scroll</code>, <code class="tok">.scroll--overlay</code>, <code class="tok">.scroll--dark</code>. Apply to any scrollable element. The <code class="tok">scrollbar-gutter: stable</code> rule on <code class="tok">--overlay</code> prevents layout shift when the bar appears.</div>
+</div>
+</body></html>

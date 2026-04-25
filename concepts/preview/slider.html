@@ -1,0 +1,167 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="stylesheet" href="_card.css" />
+<style>
+/* ============================================================
+   Slider — rebuilt.
+   Sans-only. Solid ink thumb, no white outline, no halo stack.
+   2px rail, 10px thumb. Sized to the button family (28px controls).
+   ============================================================ */
+
+.eyebrow { font-size:11px; color:var(--fg-muted); letter-spacing:.1em; text-transform:uppercase; font-weight:700 }
+.rowmeta {
+  font: 600 11px/1 var(--font-sans);
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--fg-soft);
+  margin-top: 18px; margin-bottom: 10px;
+}
+.rowmeta:first-of-type { margin-top: 2px; }
+
+.stack { display: flex; flex-direction: column; gap: 14px; max-width: 420px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.head  { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.lbl   { font-size: 12.5px; color: var(--fg-body); font-weight: 500; letter-spacing: -.003em; }
+.val   { font: 600 12.5px/1 var(--font-sans); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.003em; }
+
+/* ---- The slider itself ---- */
+.sl {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 14px; background: transparent;
+  margin: 0; padding: 0; display: block; cursor: pointer;
+}
+.sl::-webkit-slider-runnable-track {
+  height: 2px; border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--ink-9) 0%, var(--ink-9) var(--p,40%),
+    var(--ink-1) var(--p,40%), var(--ink-1) 100%
+  );
+}
+.sl::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ink-9); border: 0;
+  margin-top: -4px;
+  cursor: grab;
+  transition: transform .12s var(--ease), background .12s;
+}
+.sl::-webkit-slider-thumb:hover   { transform: scale(1.15); }
+.sl::-webkit-slider-thumb:active  { cursor: grabbing; transform: scale(1.2); }
+.sl:focus-visible { outline: none; }
+.sl:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--sky-ring);
+}
+.sl::-moz-range-track    { height: 2px; border-radius: 999px; background: var(--ink-1); }
+.sl::-moz-range-progress { height: 2px; border-radius: 999px; background: var(--ink-9); }
+.sl::-moz-range-thumb    { width: 10px; height: 10px; border-radius: 50%; background: var(--ink-9); border: 0; cursor: grab; }
+.sl:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px var(--sky-ring); }
+
+/* Sky variant — interactive/continuous inputs (volume, opacity) */
+.sl--sky::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--sky) 0%, var(--sky) var(--p,40%),
+    var(--ink-1) var(--p,40%), var(--ink-1) 100%
+  );
+}
+.sl--sky::-webkit-slider-thumb  { background: var(--sky); }
+.sl--sky::-moz-range-progress   { background: var(--sky); }
+.sl--sky::-moz-range-thumb      { background: var(--sky); }
+
+/* Disabled */
+.sl:disabled { cursor: not-allowed; }
+.sl:disabled::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to right,
+    var(--ink-3) 0%, var(--ink-3) var(--p,40%),
+    var(--ink-1) var(--p,40%), var(--ink-1) 100%
+  );
+}
+.sl:disabled::-webkit-slider-thumb { background: var(--ink-3); }
+
+/* Ticks — sans, same as .lbl only smaller & soft */
+.ticks {
+  display: flex; justify-content: space-between;
+  font: 500 11px/1 var(--font-sans);
+  color: var(--fg-soft);
+  letter-spacing: -.003em;
+  margin-top: 2px; padding: 0 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Inline — label + slider + numeric value, all sans */
+.inline { display: flex; align-items: center; gap: 12px; }
+.inline .sl { flex: 1; }
+.inline .lbl { min-width: 78px; }
+.inline .val { min-width: 44px; text-align: right; }
+
+/* Range (two thumbs) */
+.range { position: relative; height: 14px; }
+.range .sl { position: absolute; inset: 0; pointer-events: none; }
+.range .sl::-webkit-slider-thumb { pointer-events: auto; }
+.range .sl::-moz-range-thumb     { pointer-events: auto; }
+.range .track {
+  position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%);
+  height: 2px; border-radius: 999px; background: var(--ink-1); overflow: hidden;
+}
+.range .track i {
+  position: absolute; top: 0; bottom: 0;
+  background: var(--ink-9);
+  left: var(--a,30%); right: calc(100% - var(--b,70%));
+}
+.range .sl::-webkit-slider-runnable-track { background: transparent; }
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Slider</span></div>
+
+  <div class="rowmeta">Default · 2px rail · 10px thumb</div>
+  <div class="stack">
+    <div class="field">
+      <div class="head"><span class="lbl">Temperature</span><span class="val">0.70</span></div>
+      <input class="sl" type="range" min="0" max="100" value="70" style="--p:70%"/>
+      <div class="ticks"><span>0</span><span>0.5</span><span>1.0</span></div>
+    </div>
+    <div class="field">
+      <div class="head"><span class="lbl">Max tokens</span><span class="val">2,048</span></div>
+      <input class="sl" type="range" min="0" max="100" value="40" style="--p:40%"/>
+    </div>
+    <div class="field">
+      <div class="head"><span class="lbl">Opacity</span><span class="val">60%</span></div>
+      <input class="sl sl--sky" type="range" min="0" max="100" value="60" style="--p:60%"/>
+    </div>
+  </div>
+
+  <div class="rowmeta">Inline · label · value</div>
+  <div class="stack">
+    <div class="inline">
+      <span class="lbl">Top P</span>
+      <input class="sl" type="range" min="0" max="100" value="85" style="--p:85%"/>
+      <span class="val">0.85</span>
+    </div>
+    <div class="inline">
+      <span class="lbl">Penalty</span>
+      <input class="sl" type="range" min="0" max="100" value="22" style="--p:22%"/>
+      <span class="val">0.22</span>
+    </div>
+    <div class="inline">
+      <span class="lbl">Disabled</span>
+      <input class="sl" type="range" min="0" max="100" value="50" style="--p:50%" disabled/>
+      <span class="val" style="color:var(--fg-soft)">0.50</span>
+    </div>
+  </div>
+
+  <div class="rowmeta">Range · two thumbs</div>
+  <div class="stack">
+    <div class="field">
+      <div class="head"><span class="lbl">Price range</span><span class="val">$24 – $86</span></div>
+      <div class="range" style="--a:24%;--b:86%">
+        <div class="track"><i></i></div>
+        <input class="sl" type="range" min="0" max="100" value="24"/>
+        <input class="sl" type="range" min="0" max="100" value="86"/>
+      </div>
+      <div class="ticks"><span>$0</span><span>$50</span><span>$100</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

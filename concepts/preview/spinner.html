@@ -1,0 +1,73 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F1F2F5;
+  --ink-9:#0A0B0F;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
+  --fg-muted:#5A5D68;--border:var(--ink-2);
+  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--ink-7);-webkit-font-smoothing:antialiased}
+body{padding:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.eyebrow-row{display:flex;margin-bottom:14px}
+.eyebrow{font-size:11px;color:var(--fg-muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:26px;align-items:center;margin-top:10px}
+.cell{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cell small{font-size:10px;color:var(--fg-muted);font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;letter-spacing:.04em}
+
+/* Stroke spinner */
+.spinner{display:inline-block;animation:spin 0.9s linear infinite}
+.spinner circle{stroke:var(--ink-1);fill:none}
+.spinner path{stroke:var(--ink-9);fill:none;stroke-linecap:round}
+.spinner--sky path{stroke:#1F6FD4}
+.spinner--white path{stroke:#fff}
+.spinner--white circle{stroke:rgba(255,255,255,.25)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Dots */
+.dots{display:inline-flex;gap:4px;align-items:center}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--ink-9);animation:bounce 1s ease-in-out infinite}
+.dots i:nth-child(2){animation-delay:.15s}
+.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-3px);opacity:1}}
+
+.chip-ctx{display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 10px;background:var(--ink-9);color:#fff;border-radius:999px;font-size:12px;font-weight:500}
+</style></head>
+<body>
+<div class="card">
+  <div class="eyebrow-row"><span class="eyebrow">Spinner</span></div>
+  <div class="row">
+    <div class="cell">
+      <svg class="spinner" width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.5"/><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.5"/></svg>
+      <small>14 · default</small>
+    </div>
+    <div class="cell">
+      <svg class="spinner" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.5"/><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.5"/></svg>
+      <small>18</small>
+    </div>
+    <div class="cell">
+      <svg class="spinner" width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.25"/><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.25"/></svg>
+      <small>26</small>
+    </div>
+    <div class="cell">
+      <svg class="spinner spinner--sky" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.5"/><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.5"/></svg>
+      <small>sky accent</small>
+    </div>
+    <div class="cell">
+      <span class="chip-ctx">
+        <svg class="spinner spinner--white" width="12" height="12" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2.5"/><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.5"/></svg>
+        Running…
+      </span>
+      <small>in-context</small>
+    </div>
+    <div class="cell">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <small>dots · thinking</small>
+    </div>
+  </div>
+</div>
+</body></html>

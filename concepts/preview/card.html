@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="_card.css"/>
+<style>
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+/* base Card */
+.c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-4);padding:14px 14px 12px;display:flex;flex-direction:column;gap:4px}
+.c b{font-weight:700;font-size:13px;color:var(--fg-strong);letter-spacing:-.01em}
+.c p{margin:0;font-size:11.5px;color:var(--fg-muted);line-height:1.4}
+/* variants */
+.c--raised{box-shadow:var(--shadow-1)}
+.c--sunken{background:var(--sunken);border-color:var(--border-soft)}
+.c--interactive{cursor:pointer;transition:box-shadow .18s cubic-bezier(.2,0,0,1),border-color .18s}
+.c--interactive:hover{border-color:var(--border-hi);box-shadow:var(--shadow-2)}
+.lbl{font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--fg-soft);margin-bottom:6px}
+</style></head>
+<body>
+<div class="card" style="padding:16px">
+  <div class="eyebrow-row"><span class="eyebrow">Card</span></div>
+  <div class="row">
+    <div><div class="lbl">hairline</div><div class="c"><b>Default</b><p>Border only. The canonical surface.</p></div></div>
+    <div><div class="lbl">raised</div><div class="c c--raised"><b>Raised</b><p>One step of elevation over canvas.</p></div></div>
+    <div><div class="lbl">sunken</div><div class="c c--sunken"><b>Sunken</b><p>Recessed. Code, quotes, wells.</p></div></div>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <div style="grid-column:span 3"><div class="lbl">interactive · hover</div>
+      <div class="c c--interactive"><b>Hover for elevation</b><p>Hairline lifts to shadow-2 on hover; border tightens.</p></div>
+    </div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,21 @@
+/* Shared card chrome — Concrete preview cards */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,50..100,0..1;1,9..144,300..800,50..100,0..1&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("../colors_and_type.css");
+
+html, body { background: var(--canvas); }
+body {
+  padding: 20px;
+  color: var(--fg-body);
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-4);
+  padding: 20px 22px;
+  min-height: 110px;
+}
+.eyebrow-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 14px;
+}
+.hair { height: 1px; background: var(--border-soft); margin: 12px 0; }
