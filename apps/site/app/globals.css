@@ -1,0 +1,63 @@
+@import "@concrete/ui/styles.css";
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--s-8);
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+.page-header {
+  display: grid;
+  gap: var(--s-3);
+  margin-bottom: var(--s-8);
+}
+.display-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--fg-strong);
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s-4);
+}
+.nav {
+  display: flex;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: var(--s-8);
+  font-size: var(--t-13);
+}
+.token-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r-3);
+  border: 1px solid var(--border);
+}
+.component-grid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+.preview {
+  display: grid;
+  gap: var(--s-3);
+}

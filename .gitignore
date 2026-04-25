@@ -1,8 +1,5 @@
-# dependencies
-node_modules/
-
-# environment
-.env
-
-# macOS
+node_modules
+.next
+dist
+bun.lock
 .DS_Store

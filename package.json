@@ -1,0 +1,22 @@
+{
+  "name": "concrete",
+  "private": true,
+  "packageManager": "bun@1.2.15",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter @concrete/site dev",
+    "build": "bun run build:packages && bun --filter @concrete/site build",
+    "build:packages": "bun --filter @concrete/tokens build && bun --filter @concrete/ui build",
+    "typecheck": "bun --filter '*' typecheck",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "check": "bun run lint && bun run typecheck && bun run build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.0",
+    "typescript": "^5.9.3"
+  }
+}

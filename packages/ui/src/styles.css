@@ -1,0 +1,101 @@
+@import "@concrete/tokens/src/concrete.css";
+
+.density-product {
+  --row-height: 28px;
+  --pad: var(--s-2);
+  --gap: var(--s-2);
+}
+.density-generative {
+  --row-height: 32px;
+  --pad: var(--s-3);
+  --gap: var(--s-3);
+}
+.density-editorial {
+  --row-height: 40px;
+  --pad: var(--s-5);
+  --gap: var(--s-4);
+}
+.density-educational {
+  --row-height: 36px;
+  --pad: var(--s-4);
+  --gap: var(--s-4);
+}
+
+.concrete-stack {
+  display: grid;
+  gap: var(--gap, var(--s-3));
+}
+.concrete-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  padding: var(--pad, var(--s-4));
+}
+.concrete-label {
+  font-size: var(--t-11);
+  font-weight: 700;
+  letter-spacing: var(--tr-caps);
+  text-transform: uppercase;
+  color: var(--fg-soft);
+}
+.concrete-button {
+  height: var(--row-height, 28px);
+  border-radius: var(--r-3);
+  border: 1px solid var(--ink-9);
+  background: var(--ink-9);
+  color: white;
+  font: inherit;
+  font-size: var(--t-13);
+  font-weight: 600;
+  padding: 0 var(--s-3);
+  transition: all var(--dur) var(--ease);
+}
+.concrete-button:hover {
+  background: var(--ink-8);
+}
+.concrete-button[data-variant="secondary"] {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--fg-body);
+}
+.concrete-input {
+  height: var(--row-height, 28px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-3);
+  background: var(--surface);
+  padding: 0 var(--s-3);
+  font: inherit;
+  font-size: var(--t-13);
+  color: var(--fg-body);
+}
+.concrete-input:focus-visible,
+.concrete-button:focus-visible {
+  outline: 0;
+  box-shadow: var(--ring-focus);
+}
+.concrete-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  font-size: var(--t-11);
+  height: 20px;
+  padding: 0 var(--s-2);
+  gap: 6px;
+}
+.concrete-badge[data-signal="terminal"] {
+  border-color: var(--terminal);
+  color: var(--terminal-hi);
+  background: var(--terminal-1);
+}
+.concrete-badge[data-signal="ultra"] {
+  border-color: var(--ultra);
+  color: var(--ultra-hi);
+  background: var(--ultra-1);
+}
+.concrete-badge[data-signal="error"] {
+  border-color: var(--error);
+  color: var(--error-hi);
+  background: var(--error-1);
+}
