@@ -50,7 +50,7 @@ Example snippets from the system itself:
 ## Visual foundations
 
 - **Colors.** One neutral ramp (ink), one accent (sky), three signals (terminal / ultra / error). Surfaces are cool near-whites — canvas `#F7F8FA`, surface `#FFFFFF`, sunken `#F1F2F5`. See `preview/colors-ink.html`, `colors-sky.html`, `colors-signals.html`, `colors-surfaces.html`.
-- **Type.** Plus Jakarta Sans (UI, 400/500/600/700), Fraunces (display — variable `opsz` 9–144, `SOFT` 50–100, `WONK` 0–1), JetBrains Mono (code, eyebrows, hex). Tight tracking at display sizes (`-0.032em` → `-0.014em`), looser at small sizes. `font-feature-settings: "ss01", "cv01", "tnum"` globally.
+- **Type.** Plus Jakarta Sans (UI, 400/500/600/700), Fraunces (display — pinned to `opsz` 144, `SOFT` 100, `WONK` 1), JetBrains Mono (code, eyebrows, hex). Tight tracking at display sizes (`-0.032em` → `-0.014em`), looser at small sizes. `font-feature-settings: "ss01", "cv01", "tnum"` globally.
 - **Spacing.** 4px base, 15 stops (`--s-1` 4px → `--s-48` 192px). Tight at the atom scale, generous at the layout scale.
 - **Radii.** Six values: `4, 6, 10, 14, 20` and `9999` for pills. Most UI atoms land on `6` (buttons) or `10` (cards).
 - **Backgrounds.** Flat. Near-white canvas with an optional lattice / dots / grain texture (see `preview/textures.html`, `lattice.html`, `frame.html`). **Never** gradient backgrounds. Dark panels exist (ink-9) but they're inverse surfaces, not moody gradients.
@@ -83,7 +83,7 @@ Example snippets from the system itself:
 All three families are loaded from **Google Fonts** via a single `<link>` or `@import url(...)`. No local font files are vendored. If offline / locked-down hosting is needed, drop the respective `.woff2` files into `fonts/` and switch to `@font-face`.
 
 - Plus Jakarta Sans — 400, 500, 600, 700 (+ 800 for display h1)
-- Fraunces — variable: `ital`, `opsz 9..144`, `wght 300..800`, `SOFT 50..100`, `WONK 0..1`
+- Fraunces — Google Fonts static instance: `ital`, `opsz 144`, `wght 300..800`, `SOFT 100`, `WONK 1`
 - JetBrains Mono — 400, 500, 600, 700
 
 > **Note / substitution flag:** the upstream system ships fonts via Google Fonts, not vendored files — no `.woff2` needed to be copied. If you want offline-safe local files, ship me the `.woff2` files and I'll wire up `@font-face`.

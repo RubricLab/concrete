@@ -121,6 +121,7 @@
   --font-sans:    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-display: "Fraunces", "Iowan Old Style", "Apple Garamond", Georgia, serif;
   --font-mono:    "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
+  --font-display-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
 
   /* Size scale — 11px → 120px */
   --t-11:  11px;  --t-12:  12px;  --t-13:  13px;  --t-14:  14px;
@@ -231,16 +232,17 @@ body {
 /* Display (serif) — editorial voice */
 .display {
   font-family: var(--font-display);
+  font-optical-sizing: none;
   font-weight: 400;
   letter-spacing: var(--tr-display);
   line-height: var(--lh-tight);
   color: var(--fg-strong);
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
+  font-variation-settings: var(--font-display-settings);
 }
 .display em {
   font-style: italic;
   font-weight: 400;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  font-variation-settings: var(--font-display-settings);
   color: inherit;
 }
 

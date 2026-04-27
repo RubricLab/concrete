@@ -1,5 +1,5 @@
 /* Shared card chrome — Concrete preview cards */
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,50..100,0..1;1,9..144,300..800,50..100,0..1&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,144,300..800,100,1;1,144,300..800,100,1&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 @import url("../colors_and_type.css");
 
 html, body { background: var(--canvas); }
