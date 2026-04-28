@@ -1,28 +1,18 @@
 <!doctype html>
 <html><head><meta charset="utf-8"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+@import url("_card.css");
 :root{
-  --canvas:#F7F8FA;--surface:#FFFFFF;--sunken:#F6F7F9;
-  --ink-9:#0A0B0F;--ink-8:#16171C;--ink-7:#22242B;--ink-5:#5A5D68;--ink-4:#878A95;--ink-3:#B4B7C0;--ink-2:#D7D9E0;--ink-1:#E8EAEE;
-  --fg-strong:var(--ink-9);--fg-body:var(--ink-7);--fg-muted:var(--ink-5);--fg-soft:var(--ink-4);
-  --border:var(--ink-2);
-  --font-sans:"Plus Jakarta Sans",system-ui,sans-serif;
-  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-
-  /* Syntax palette — grounded in the system's sky+terminal+error accents.
-     Hues tuned for WCAG AA on --sunken, and held close in chroma so the
-     highlighter reads like ONE palette, not a rainbow. */
-  --sx-kw:  #0F4E9E;   /* keyword (sky-hi)     — control flow + declarations */
-  --sx-fn:  #1F6FD4;   /* function (sky)       — call sites */
-  --sx-ty:  #0A2C5C;   /* type     (sky-deep)  — TS types & interfaces */
-  --sx-st:  #1F7A4A;   /* string   (terminal)  */
-  --sx-nu:  #B91C1C;   /* number   (error-hi)  — literals read as "data" */
-  --sx-cm:  var(--ink-4);  /* comment  */
-  --sx-pn:  var(--ink-4);  /* punctuation — one step lighter so structure recedes */
-  --sx-at:  #0F4E9E;   /* html tag / attribute */
-  --sx-id:  var(--ink-8);  /* identifier */
+  /* Syntax palette — grounded in the system's sky, terminal, and error signals. */
+  --sx-kw:  var(--sky-hi);
+  --sx-fn:  var(--sky);
+  --sx-ty:  #0A2C5C;
+  --sx-st:  #1F7A4A;
+  --sx-nu:  var(--error-hi);
+  --sx-cm:  var(--ink-4);
+  --sx-pn:  var(--ink-4);
+  --sx-at:  var(--sky-hi);
+  --sx-id:  var(--ink-8);
 }
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;background:var(--canvas);font-family:var(--font-sans);color:var(--fg-body);-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","cv01","tnum"}

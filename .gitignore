@@ -1,6 +1,11 @@
 # dependencies
 node_modules/
 
+# build output
+.next/
+**/.next/
+*.tsbuildinfo
+
 # environment
 .env
 
