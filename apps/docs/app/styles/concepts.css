@@ -1,0 +1,121 @@
+.foundationCatalog,
+.primitiveCatalog {
+	display: grid;
+	grid-template-columns: repeat(12, 1fr);
+	gap: 14px;
+	margin-top: 44px;
+}
+
+.foundationCard,
+.primitiveConceptCard {
+	grid-column: span 6;
+	padding: 22px 24px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.primitiveConceptWide {
+	grid-column: span 12;
+}
+
+.conceptEyebrowRow {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 18px;
+}
+
+.conceptEyebrow {
+	color: var(--concrete-foreground-muted);
+	font: 800 13px / 1 var(--concrete-font-sans);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.conceptEyebrowSoft {
+	color: var(--concrete-foreground-soft);
+	font-weight: 600;
+}
+
+.conceptCardLink {
+	color: var(--concrete-foreground-soft);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.conceptCardLink:hover {
+	color: var(--concrete-foreground-strong);
+	opacity: 1;
+}
+
+.conceptSubhead {
+	margin: 18px 0 10px;
+	color: var(--concrete-foreground-soft);
+	font: 800 11px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.conceptSubheaderRow {
+	margin-top: 6px;
+	margin-bottom: 12px;
+}
+
+.conceptRow {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	align-items: center;
+}
+
+.conceptInteractionNote {
+	margin-top: 10px;
+	color: var(--concrete-foreground-soft);
+	font: 700 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.conceptStack {
+	display: grid;
+	gap: 8px;
+}
+
+.conceptStackWide {
+	max-width: 620px;
+}
+
+.conceptStage {
+	display: grid;
+	min-height: 120px;
+	place-items: center;
+}
+
+.conceptGridThree {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 10px;
+}
+
+.conceptSpanAll {
+	grid-column: 1 / -1;
+}
+
+.conceptProse {
+	display: grid;
+	gap: 10px;
+	color: var(--concrete-foreground-body);
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+.conceptNav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	font-size: 14px;
+}

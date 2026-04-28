@@ -1,14 +1,16 @@
 {
 	"dependencies": {
 		"@rubriclab/concrete": "workspace:*",
-		"next": "^16.0.10",
-		"react": "^19.2.1",
-		"react-dom": "^19.2.1",
-		"zod": "^4.2.1"
+		"next": "latest",
+		"playwright": "latest",
+		"react": "latest",
+		"react-dom": "latest",
+		"zod": "latest"
 	},
 	"devDependencies": {
-		"@types/react": "^19.2.7",
-		"@types/react-dom": "^19.2.3",
+		"@types/node": "latest",
+		"@types/react": "latest",
+		"@types/react-dom": "latest",
 		"typescript": "^5.9.3"
 	},
 	"name": "@rubriclab/concrete-docs",
@@ -16,7 +18,7 @@
 	"scripts": {
 		"build": "next build",
 		"dev": "next dev",
+		"start": "next start",
 		"typecheck": "tsc -p tsconfig.json --noEmit"
-	},
-	"type": "module"
+	}
 }

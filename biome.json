@@ -1,13 +1,6 @@
 {
 	"extends": ["@rubriclab/config/biome"],
 	"files": {
-		"includes": ["apps/**", "packages/**", "*.json", "*.ts", "!apps/docs/next-env.d.ts"]
-	},
-	"linter": {
-		"rules": {
-			"style": {
-				"noDescendingSpecificity": "off"
-			}
-		}
+		"includes": ["**", "!apps/docs/next-env.d.ts", "!concepts"]
 	}
 }

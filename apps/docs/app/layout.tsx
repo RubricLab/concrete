@@ -1,40 +1,33 @@
-import '@rubriclab/concrete/styles.css'
-import './globals.css'
-import { Icon } from '@rubriclab/concrete'
+import { BrandMark } from '@rubriclab/concrete'
 import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
+import Link from 'next/link'
+import './globals.css'
 
 export const metadata: Metadata = {
-	description: 'Concrete design system foundations, primitives, components, skill, and API.',
-	title: 'Concrete'
+	description:
+		'Concrete is the Rubric Labs design system for AI-native editorial and product interfaces.',
+	title: 'Concrete - Rubric Labs Design System'
 }
 
-const navigationItems = [
-	{ href: '/#foundations', label: 'Foundations' },
-	{ href: '/#primitives', label: 'Primitives' },
-	{ href: '/#components', label: 'Components' },
-	{ href: '/#skill', label: 'Skill' },
-	{ href: '/#api', label: 'API' }
-] as const
-
-export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en">
 			<body>
-				<header className="docs-nav">
-					<a aria-label="Concrete home" className="docs-brand" href="/#home">
-						<Icon name="layers" size={16} />
-						<span>Concrete</span>
-					</a>
-					<nav aria-label="Primary">
-						{navigationItems.map(item => (
-							<a href={item.href} key={item.href}>
-								{item.label}
-							</a>
-						))}
-					</nav>
-				</header>
-				{children}
+				<div className="siteShell">
+					<header className="topbar">
+						<Link className="brand" href="/#home">
+							<BrandMark />
+							<span>Concrete</span>
+						</Link>
+						<nav className="nav">
+							<Link href="/#foundations">Foundations</Link>
+							<Link href="/#primitives">Primitives</Link>
+							<Link href="/#components">Components</Link>
+							<Link href="/#api">API</Link>
+						</nav>
+					</header>
+					{children}
+				</div>
 			</body>
 		</html>
 	)

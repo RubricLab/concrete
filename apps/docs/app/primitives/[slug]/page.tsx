@@ -1,200 +1,140 @@
-import type { PrimitiveSlug } from '@rubriclab/concrete'
 import {
-	Avatar,
 	Badge,
-	Bubble,
 	Button,
-	Card,
-	Caret,
-	Checkbox,
 	Chip,
-	Code,
-	Delta,
-	Distribution,
-	Divider,
-	EmptyState,
-	Frame,
-	Icon,
-	Indicator,
-	Input,
-	Kbd,
-	Link,
-	Pill,
-	Progress,
+	getPrimitiveEntry,
 	primitiveRegistry,
-	Radio,
-	Row,
-	Scrollbar,
-	Select,
-	Skeleton,
-	Slider,
-	Sparkline,
-	Spinner,
-	Stat,
-	Switch,
-	Tag,
-	Textarea,
-	Tooltip
+	renderPrimitiveExample,
+	TextLink
 } from '@rubriclab/concrete'
 import { notFound } from 'next/navigation'
-import type { ReactNode } from 'react'
+import { Suspense } from 'react'
+import { PrimitivePlayground } from './primitive-playground'
 
-const primitiveSlugs = new Set<PrimitiveSlug>(primitiveRegistry.map(primitive => primitive.slug))
-
-export function generateStaticParams() {
-	return primitiveRegistry.map(primitive => ({ slug: primitive.slug }))
+type PrimitiveDetailPageProps = {
+	params: Promise<{
+		slug: string
+	}>
 }
 
-export default async function PrimitivePage({ params }: { params: Promise<{ slug: string }> }) {
+export function generateStaticParams() {
+	return primitiveRegistry.map(entry => ({
+		slug: entry.slug
+	}))
+}
+
+export default async function PrimitiveDetailPage({ params }: PrimitiveDetailPageProps) {
 	const { slug } = await params
+	const entry = getPrimitiveEntry(slug)
 
-	if (!primitiveSlugs.has(slug as PrimitiveSlug)) {
-		notFound()
-	}
-
-	const primitive = primitiveRegistry.find(record => record.slug === slug)
-
-	if (!primitive) {
+	if (!entry) {
 		notFound()
 	}
 
 	return (
-		<main>
-			<section className="docs-section">
-				<header className="docs-chapter-header">
-					<div>
-						<span>PR</span>
-						<strong>{primitive.role}</strong>
+		<main className="main">
+			<section className="section">
+				<div className="detailHero">
+					<div className="detailIntro">
+						<div className="metaRow">
+							<Badge signal="terminal">{entry.category}</Badge>
+							{entry.pressure.map(pressure => (
+								<Chip key={pressure}>{pressure}</Chip>
+							))}
+						</div>
+						<div>
+							<span className="eyebrow">Primitive</span>
+							<h1>{entry.name}</h1>
+						</div>
+						<p>{entry.description}</p>
+						<p>{entry.guidance}</p>
+						<div className="heroActions">
+							<TextLink href={`/render/primitive/${entry.slug}`}>DOM render</TextLink>
+							<TextLink href={`/render/primitive/${entry.slug}.jpg`}>JPEG render</TextLink>
+						</div>
 					</div>
-					<em>package export</em>
-					<h2>{primitive.name}</h2>
-				</header>
-				<div className="docs-primitive-detail">
-					<Card padding="lg">
-						<p className="docs-lead">{primitive.description}</p>
-						<a className="docs-back-link" href="/#primitives">
-							Back to primitives
-						</a>
-					</Card>
-					<Frame title="Live primitive">
-						<div className="docs-primitive-detail__stage">{renderPrimitiveExample(primitive.slug)}</div>
-					</Frame>
+					<div className="detailPreview">{renderPrimitiveExample(entry.slug)}</div>
 				</div>
+			</section>
+
+			<section className="section">
+				<div className="sectionHead">
+					<div>
+						<span className="eyebrow">Playground</span>
+						<h1>Props in the URL.</h1>
+					</div>
+					<p>
+						Controls update query params directly, so every primitive state can be linked, rendered, and
+						screenshotted deterministically.
+					</p>
+				</div>
+				<Suspense fallback={<div className="playgroundLoading">Loading playground.</div>}>
+					<PrimitivePlayground entry={entry} />
+				</Suspense>
+			</section>
+
+			<section className="section">
+				<div className="sectionHead">
+					<div>
+						<span className="eyebrow">States</span>
+						<h1>Rendered matrix.</h1>
+					</div>
+					<p>Every state maps to the same render route through the `state` query param.</p>
+				</div>
+				<div className="stateGrid">
+					{entry.states.map(state => (
+						<article className="stateCard" key={state.query}>
+							<div className="stateStage">{renderPrimitiveExample(entry.slug, state.query)}</div>
+							<div className="stateMeta">
+								<b>{state.name}</b>
+								<p>{state.description}</p>
+								<TextLink href={`/render/primitive/${entry.slug}?state=${state.query}`}>
+									/render state
+								</TextLink>
+							</div>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section className="section">
+				<div className="sectionHead">
+					<div>
+						<span className="eyebrow">Props</span>
+						<h1>Public contract.</h1>
+					</div>
+					<Button trailingIcon="arrow-right" variant="secondary">
+						Typed export
+					</Button>
+				</div>
+				<table className="propsTable">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						{entry.props.map(prop => (
+							<tr key={`${entry.slug}-${prop.name}`}>
+								<td>
+									<code>
+										{prop.name}
+										{prop.required ? ' *' : ''}
+									</code>
+								</td>
+								<td>
+									<code>{prop.type}</code>
+								</td>
+								<td>{prop.defaultValue ? <code>{prop.defaultValue}</code> : '-'}</td>
+								<td>{prop.description}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</section>
 		</main>
 	)
-}
-
-function renderPrimitiveExample(slug: PrimitiveSlug): ReactNode {
-	switch (slug) {
-		case 'button':
-			return (
-				<Button leadingIcon="sparkles" tone="sky">
-					Run analysis
-				</Button>
-			)
-		case 'input':
-			return <Input aria-label="Search datasets" placeholder="Search datasets" />
-		case 'textarea':
-			return <Textarea aria-label="Prompt" placeholder="Summarize the run..." rows={3} />
-		case 'select':
-			return (
-				<Select aria-label="Environment" defaultValue="production">
-					<option value="production">Production</option>
-					<option value="preview">Preview</option>
-				</Select>
-			)
-		case 'checkbox':
-			return <Checkbox checked label="Include archived" readOnly />
-		case 'radio':
-			return <Radio checked label="Production" readOnly />
-		case 'switch':
-			return <Switch checked label="Enabled" readOnly />
-		case 'slider':
-			return <Slider aria-label="Density" defaultValue={64} />
-		case 'chip':
-			return (
-				<Chip leadingIcon="check" selected tone="sky">
-					Healthy
-				</Chip>
-			)
-		case 'pill':
-			return <Pill tone="sky">Beta</Pill>
-		case 'tag':
-			return <Tag>owner: labs</Tag>
-		case 'badge':
-			return <Badge tone="terminal">Running</Badge>
-		case 'indicator':
-			return <Indicator label="Live" />
-		case 'delta':
-			return <Delta value="18.6%" />
-		case 'card':
-			return (
-				<Card className="docs-mini-card" padding="sm" variant="raised">
-					<strong>Run 42</strong>
-					<span>Complete</span>
-				</Card>
-			)
-		case 'frame':
-			return (
-				<Frame eyebrow="FIG" footer="source: package" title="Frame">
-					<Sparkline />
-				</Frame>
-			)
-		case 'row':
-			return (
-				<Row
-					description="prod-us-east"
-					label="Web app"
-					leading={<Icon name="database" />}
-					trailing={<Badge tone="terminal">Healthy</Badge>}
-				/>
-			)
-		case 'divider':
-			return <Divider />
-		case 'bubble':
-			return <Bubble>Conversion increased 18% in Q2.</Bubble>
-		case 'stat':
-			return <Stat helper="+4.2%" label="Conversion" value="18%" />
-		case 'sparkline':
-			return <Sparkline />
-		case 'avatar':
-			return <Avatar initials="RL" size="lg" />
-		case 'progress':
-			return <Progress value={72} />
-		case 'spinner':
-			return <Spinner />
-		case 'distribution':
-			return <Distribution />
-		case 'skeleton':
-			return (
-				<div className="docs-skeleton-stack">
-					<Skeleton width="84%" />
-					<Skeleton width="62%" />
-					<Skeleton width="72%" />
-				</div>
-			)
-		case 'tooltip':
-			return (
-				<Tooltip content="Inspect source">
-					<Button size="sm" variant="outline">
-						Hover
-					</Button>
-				</Tooltip>
-			)
-		case 'link':
-			return <Link href="/#api">Open API</Link>
-		case 'code':
-			return <Code>bun run build</Code>
-		case 'kbd':
-			return <Kbd>Cmd K</Kbd>
-		case 'icon':
-			return <Icon name="activity" size={24} />
-		case 'caret':
-			return <Caret />
-		case 'scrollbar':
-			return <Scrollbar items={['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon']} />
-		case 'empty-state':
-			return <EmptyState description="Start with a source or generated run." title="No runs yet" />
-	}
 }

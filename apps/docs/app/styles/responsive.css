@@ -1,0 +1,351 @@
+@media (width <= 860px) {
+	.topbar {
+		align-items: flex-start;
+		height: auto;
+		padding: 12px 16px;
+	}
+
+	.nav {
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
+
+	.main {
+		width: min(100vw - 28px, var(--docs-max));
+		padding-top: 34px;
+	}
+
+	.hero {
+		grid-template-columns: 1fr;
+		min-height: auto;
+	}
+
+	.hero h1 {
+		font-size: 56px;
+	}
+
+	.homeHero {
+		grid-template-columns: 1fr;
+		min-height: auto;
+		padding-top: 18px;
+	}
+
+	.homeHero h1 {
+		font-size: 62px;
+	}
+
+	.homeBandCompact,
+	.homePressureGrid,
+	.componentHero,
+	.interactionDemo,
+	.formsDemo,
+	.formsGridFive,
+	.formsGridFour,
+	.formsGridThree,
+	.formsGridTwo,
+	.formsCompositionGrid,
+	.componentMetricGrid,
+	.componentBoundaryGrid,
+	.componentCatalogGrid,
+	.componentStateGrid,
+	.foundationCatalog,
+	.primitiveCatalog,
+	.foundationDataGrid {
+		grid-template-columns: 1fr;
+	}
+
+	.panelHalf,
+	.panelThird,
+	.detailHero,
+	.stateCard,
+	.primitiveCard,
+	.foundationCard,
+	.primitiveConceptCard,
+	.primitiveConceptWide {
+		grid-column: span 12;
+	}
+
+	.detailHero {
+		grid-template-columns: 1fr;
+	}
+
+	.componentDetailHero {
+		grid-template-columns: 1fr;
+	}
+
+	.playgroundShell {
+		grid-template-columns: 1fr;
+	}
+
+	.componentPlaygroundShell {
+		grid-template-columns: 1fr;
+	}
+
+	.playgroundControls {
+		order: -1;
+	}
+
+	.sectionHead {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.chatHeader {
+		flex-direction: column;
+	}
+
+	.detailIntro h1 {
+		font-size: 48px;
+	}
+
+	.componentHero .detailIntro h1 {
+		font-size: var(--concrete-type-48);
+	}
+
+	.stateGrid {
+		grid-template-columns: 1fr;
+	}
+
+	.swatchGrid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.foundationRampInk,
+	.foundationRampSky,
+	.foundationRampSurfaces {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.foundationSignalGrid,
+	.foundationTokenGrid,
+	.foundationElevationGrid,
+	.foundationTextureGrid,
+	.conceptGridThree,
+	.sparkGrid,
+	.iconMiniGrid,
+	.focusTokenGrid,
+	.emptyContextGrid,
+	.skeletonAtoms,
+	.skeletonDashboard {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.skeletonPatternFour,
+	.skeletonPatternSix,
+	.skeletonPatternEight,
+	.skeletonPatternTwelve {
+		grid-column: 1 / -1;
+	}
+
+	.skeletonTokenRows,
+	.skeletonTokenRows > div {
+		grid-template-columns: 1fr;
+	}
+
+	.skeletonTable {
+		overflow-x: auto;
+	}
+
+	.skeletonTableRow {
+		min-width: 620px;
+	}
+
+	.foundationIconGrid {
+		grid-template-columns: repeat(6, 1fr);
+	}
+
+	.metricBar {
+		grid-template-columns: 72px 1fr 44px;
+	}
+
+	.specHeader,
+	.specSubhead,
+	.typeScale,
+	.typeScaleRow {
+		grid-template-columns: 1fr;
+	}
+
+	.specMeta,
+	.typeScaleRole {
+		display: none;
+	}
+
+	.displaySpecimen {
+		min-height: 280px;
+		padding: 28px;
+	}
+
+	.typeIntro h1 {
+		font-size: 56px;
+	}
+
+	.displaySpecimen p {
+		font-size: 76px;
+	}
+
+	.scaleDisplay {
+		font-size: 68px;
+	}
+
+	.scaleHero {
+		font-size: 56px;
+	}
+
+	.scaleH1 {
+		font-size: 42px;
+	}
+}
+
+@media (width <= 920px) {
+	.docsHome {
+		width: min(100vw - 32px, 1120px);
+	}
+
+	.docsChapter {
+		padding: 54px 0;
+	}
+
+	.chapterMeta,
+	.docsSubhead {
+		grid-template-columns: auto 1fr;
+	}
+
+	.chapterMeta span:last-child,
+	.docsSubhead em {
+		grid-column: 2;
+	}
+
+	.docsChapter h1 {
+		font-size: var(--concrete-type-56);
+	}
+
+	.docsChapter h2 {
+		font-size: var(--concrete-type-48);
+	}
+
+	.foundationSplit,
+	.densityGrid,
+	.foundationTrio,
+	.foundationUtilityGrid,
+	.iconSystem,
+	.homePrimitiveGrid,
+	.componentFeatureGrid,
+	.apiGrid,
+	.apiFooter {
+		grid-template-columns: 1fr;
+	}
+
+	.densityGrid article,
+	.spacingScale,
+	.radiusGrid,
+	.motionFigure,
+	.focusFigure,
+	.iconRules {
+		border-right: 0;
+	}
+
+	.densityGrid article,
+	.spacingScale,
+	.radiusGrid,
+	.motionFigure,
+	.focusFigure,
+	.iconRules {
+		border-bottom: 1px solid var(--concrete-border);
+	}
+
+	.iconLibrary {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.componentFeatureCard {
+		grid-template-rows: auto minmax(220px, auto);
+	}
+
+	.componentFeatureStage {
+		min-height: 220px;
+	}
+
+	.componentCatalogStage[data-component],
+	.componentFeatureStage[data-component] {
+		min-height: 260px;
+	}
+
+	.apiMetrics {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (width <= 640px) {
+	.docsHome {
+		width: min(100vw - 28px, 1120px);
+	}
+
+	.docsChapter {
+		padding: 42px 0;
+		scroll-margin-top: 96px;
+	}
+
+	.chapterNumber {
+		font-size: var(--concrete-type-24);
+	}
+
+	.docsChapter h1,
+	.docsChapter h2 {
+		max-width: 12ch;
+		font-size: var(--concrete-type-40);
+	}
+
+	.docsLead {
+		max-width: 34ch;
+		font-size: var(--concrete-type-15);
+	}
+
+	.heroBillboard {
+		min-height: 245px;
+		padding: 20px;
+	}
+
+	.heroBillboard p {
+		font-size: var(--concrete-type-48);
+	}
+
+	.typeSpecimen {
+		min-height: 230px;
+		padding: 24px;
+	}
+
+	.typeSpecimen p,
+	.typeScaleCompact .displayRole {
+		font-size: var(--concrete-type-48);
+	}
+
+	.typeScaleCompact .heroRole,
+	.typeScaleCompact strong {
+		font-size: var(--concrete-type-32);
+	}
+
+	.typeScaleCompact > div {
+		grid-template-columns: 72px minmax(0, 1fr);
+	}
+
+	.signalGrid,
+	.spacingScale,
+	.radiusGrid,
+	.textureFigure,
+	.iconLibrary {
+		grid-template-columns: 1fr;
+	}
+
+	.swatchGridCompact {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.homePrimitiveStage,
+	.componentFeatureStage {
+		padding: 12px;
+	}
+}
+
+.siteShell:has(.renderShell) .topbar {
+	display: none;
+}

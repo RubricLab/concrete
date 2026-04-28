@@ -1,12 +1,22 @@
 {
+	"$schema": "https://json.schemastore.org/tsconfig",
 	"compilerOptions": {
 		"baseUrl": ".",
+		"jsx": "preserve",
 		"paths": {
-			"@/*": ["./app/*"]
+			"@/*": ["./src/*"]
 		},
-		"plugins": [{ "name": "next" }]
+		"plugins": [{ "name": "next" }],
+		"types": ["node"]
 	},
 	"exclude": ["node_modules"],
 	"extends": "@rubriclab/config/tsconfig",
-	"include": ["app/**/*.ts", "app/**/*.tsx", ".next/types/**/*.ts", "next-env.d.ts"]
+	"include": [
+		"next-env.d.ts",
+		".next/types/**/*.ts",
+		"app/**/*.ts",
+		"app/**/*.tsx",
+		"src/**/*.ts",
+		"src/**/*.tsx"
+	]
 }
