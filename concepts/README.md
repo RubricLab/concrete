@@ -9,6 +9,7 @@
 - **Flat, not glossy.** Filled buttons get one inset highlight and one soft ground shadow. No top-light/bottom-dark gradients, no double outlines, no donut rings — when a primitive needs a separator from its background, we notch the background, not stack borders.
 - **Typographic restraint.** Plus Jakarta Sans for UI, Fraunces for display, JetBrains Mono for code and small-caps metadata. Tight letter-spacing, tabular numerals by default.
 - **Density as a feature.** Small controls, short buttons, tight row rhythm. The product should feel like a professional tool, not a marketing page.
+- **Density as a foundation.** Editorial, product, generative, and explainer contexts apply different compression, navigation, artifact depth, annotation, state visibility, and fidelity to the same foundations.
 
 ## Sources & provenance
 
@@ -54,6 +55,7 @@ Example snippets from the system itself:
 - **Spacing.** 4px base, 15 stops (`--s-1` 4px → `--s-48` 192px). Tight at the atom scale, generous at the layout scale.
 - **Radii.** Six values: `4, 6, 10, 14, 20` and `9999` for pills. Most UI atoms land on `6` (buttons) or `10` (cards).
 - **Backgrounds.** Flat. Near-white canvas with an optional lattice / dots / grain texture (see `preview/textures.html`, `lattice.html`, `frame.html`). **Never** gradient backgrounds. Dark panels exist (ink-9) but they're inverse surfaces, not moody gradients.
+- **Density.** Density is the context profile for a surface. Editorial is spacious and singular: hero, billboard, newspaper, blog. Product is peak-density and functional: dashboards, filterable tables, charts with selection and keys. Generative is focused and conversational: single-column chat, mobile artifacts, progressive reveal, fewer toggles. Explainer is mocked: skeletons, grey tables, concept charts, and callouts where fake data should read as data but not demand scrutiny. See `index.html#foundation-density`.
 - **Animation.** One easing, one duration — `cubic-bezier(0.2, 0, 0, 1)` at `180ms`. Fades and position transitions only; no bounces, no springs, no parallax. Hover transitions are fast (`120–140ms`).
 - **Hover states.** Filled buttons: darker fill (e.g. `--ink-9` → `--ink-8`). Secondary: border tightens (`--border` → `--border-hi`) + slight raise. Ghost: `--mist` wash appears. Links: `opacity: 0.65`.
 - **Press states.** Subtle `translateY(0.5px)` on buttons. No scale-down, no color flash.
@@ -98,6 +100,8 @@ See `ui_kits/concrete/` — a single product-surface kit that composes the Concr
 README.md                     · this file
 SKILL.md                      · Agent-Skill manifest for Claude Code
 colors_and_type.css           · tokens — colors, type, spacing, radii, shadows, motion
+index.html                    · docs splash + foundations + primitive browse
+site.css                      · docs shell
 assets/
   logo-mark.svg               · C-glyph (currentColor)
   logo-black.svg · logo-white.svg
