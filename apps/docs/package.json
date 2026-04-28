@@ -1,0 +1,24 @@
+{
+	"dependencies": {
+		"@rubriclab/concrete": "workspace:*",
+		"next": "latest",
+		"playwright": "latest",
+		"react": "latest",
+		"react-dom": "latest",
+		"zod": "latest"
+	},
+	"devDependencies": {
+		"@types/node": "latest",
+		"@types/react": "latest",
+		"@types/react-dom": "latest",
+		"typescript": "^5.9.3"
+	},
+	"name": "@rubriclab/concrete-docs",
+	"private": true,
+	"scripts": {
+		"build": "next build",
+		"dev": "next dev",
+		"start": "next start",
+		"typecheck": "tsc -p tsconfig.json --noEmit"
+	}
+}

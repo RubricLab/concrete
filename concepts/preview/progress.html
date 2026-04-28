@@ -21,7 +21,6 @@
 .bar--sky   > i { background: var(--sky); }
 .bar--term  > i { background: var(--terminal); }
 .bar--error > i { background: var(--error); }
-.bar--warn  > i { background: var(--warning); }
 .bar--ultra > i { background: var(--ultra); }
 
 .bar--thin  { height: 3px; }
@@ -87,7 +86,7 @@
 }
 .ring .fgc--sky   { stroke: var(--sky); }
 .ring .fgc--term  { stroke: var(--terminal); }
-.ring .fgc--warn  { stroke: var(--warning); }
+.ring .fgc--ultra { stroke: var(--ultra); }
 .ring .fgc--error { stroke: var(--error); }
 .ring .center {
   position: absolute; inset: 0; display: flex; flex-direction: column;
@@ -119,9 +118,8 @@
     <div class="pr-row"><span class="k">Default</span><div class="bar" style="--p:72%"><i></i></div><span class="v">72%</span></div>
     <div class="pr-row"><span class="k">Sky</span><div class="bar bar--sky" style="--p:48%"><i></i></div><span class="v">48%</span></div>
     <div class="pr-row"><span class="k">Shipping</span><div class="bar bar--term" style="--p:92%"><i></i></div><span class="v">92%</span></div>
-    <div class="pr-row"><span class="k">Warning</span><div class="bar bar--warn" style="--p:58%"><i></i></div><span class="v">58%</span></div>
-    <div class="pr-row"><span class="k">Blocking</span><div class="bar bar--error" style="--p:34%"><i></i></div><span class="v">34%</span></div>
     <div class="pr-row"><span class="k">Featured</span><div class="bar bar--ultra" style="--p:60%"><i></i></div><span class="v">60%</span></div>
+    <div class="pr-row"><span class="k">Blocking</span><div class="bar bar--error" style="--p:34%"><i></i></div><span class="v">34%</span></div>
   </div>
 
   <div class="rowmeta">Density · thin · default · thick</div>
@@ -180,7 +178,7 @@
       <div class="ring">
         <svg width="96" height="96" viewBox="0 0 96 96">
           <circle class="bgc" cx="48" cy="48" r="42"/>
-          <circle class="fgc fgc--warn" cx="48" cy="48" r="42" stroke-dasharray="60.7 263.89"/>
+          <circle class="fgc fgc--ultra" cx="48" cy="48" r="42" stroke-dasharray="60.7 263.89"/>
         </svg>
         <div class="center"><span class="pct">23<span class="u">%</span></span></div>
       </div>

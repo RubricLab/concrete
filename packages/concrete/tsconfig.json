@@ -1,0 +1,15 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"jsx": "react-jsx",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"rootDir": ".",
+		"types": ["bun-types", "react", "react-dom"]
+	},
+	"exclude": ["node_modules"],
+	"extends": "@rubriclab/config/tsconfig",
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
+}

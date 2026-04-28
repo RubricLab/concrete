@@ -1,0 +1,13 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@rubriclab/concrete": ["./packages/concrete/src/index.ts"],
+			"@rubriclab/concrete/*": ["./packages/concrete/src/*"]
+		}
+	},
+	"exclude": ["node_modules", ".next"],
+	"extends": "@rubriclab/config/tsconfig",
+	"include": ["packages/**/*.ts", "packages/**/*.tsx", "apps/**/*.ts", "apps/**/*.tsx"]
+}

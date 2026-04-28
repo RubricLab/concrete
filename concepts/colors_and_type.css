@@ -3,7 +3,7 @@
    Foundations: color + type tokens
 
    Source of truth derived from WWW/brand.html (v5.0 "Concrete").
-   One neutral. One accent. Three signals. Nothing else.
+   One neutral. One action accent. Three signals.
    ============================================================ */
 
 :root {
@@ -44,14 +44,16 @@
   --hairline:     var(--ink-2);
 
   /* ----------------------------------------------------------
-     ACCENT — Sky (the one UI colour)
+     ACCENT — Sky
      ---------------------------------------------------------- */
-  --sky-1:   #EEF3FB;   /* lightest wash */
-  --sky-2:   #D9E6F8;
-  --sky-3:   #A9C6EF;
-  --sky-4:   #4E8BDE;
-  --sky:     #1F6FD4;   /* anchor — buttons, focus, links */
-  --sky-hi:  #0F4E9E;   /* hover / pressed */
+  --sky-1:    #EEF3FB;  /* wash — selected row, empty state tint */
+  --sky-2:    #D9E6F8;  /* soft — badge / pill / focus-adjacent bg */
+  --sky-3:    #A9C6EF;  /* muted data accent */
+  --sky-4:    #4E8BDE;  /* active data accent */
+  --sky:      #1F6FD4;  /* action — focus, links, primary emphasis */
+  --sky-hi:   #0F4E9E;  /* hover / pressed / text on sky wash */
+  --sky-wash: var(--sky-1);
+  --sky-soft: var(--sky-2);
   --sky-ring: rgba(31, 111, 212, 0.28);
 
   /* Primary = Sky */
@@ -63,34 +65,30 @@
 
   /* ----------------------------------------------------------
      SIGNALS — status only, never decoration.
-     Brighter than the original ink-ward palette. Tuned for use
-     in outlined badges and on white — the dot + border + text
-     all sit in the same saturated hue, text uses the -hi stop.
+     Each signal has a soft stop for fills and an anchor for dots,
+     icons, charts, pills, and status text.
      ---------------------------------------------------------- */
-  --terminal-1:     #F2FBF5;   /* ultra-light wash — soft tint behind text */
-  --terminal:       #16C46A;   /* live / shipping / running — healthy. Bright. */
-  --terminal-hi:    #16C46A;   /* same — text matches arrow */
-  --terminal-deep:  #15803D;   /* darker stop, reserved for solid-on-tint contrast */
-  --terminal-wash:  #E0F5E8;
+  --terminal-1:     #F2FBF5;
+  --terminal-2:     #DDF8E8;
+  --terminal:       #16C46A;
+  --terminal-hi:    #128A47;
+  --terminal-deep:  #0F6F3A;
+  --terminal-wash:  var(--terminal-1);
+  --terminal-soft:  var(--terminal-2);
   --terminal-ring:  rgba(22,196,106,0.22);
 
-  --ultra-1:     #F6F5FF;      /* ultra-light wash */
-  --ultra:       #6B5BFF;      /* pro / featured / information */
-  --ultra-hi:    #6B5BFF;
-  --ultra-deep:  #4A3DE0;
-  --ultra-wash:  #EEECFF;
+  --ultra-soft:  #E7E4FF;
+  --ultra:       #6B5BFF;
+  --ultra-ring:  rgba(107,91,255,0.28);
 
-  --error-1:     #FEF3F3;      /* ultra-light wash */
-  --error:       #F03A3A;      /* error / destructive / critical. Bright. */
-  --error-hi:    #F03A3A;      /* same — text matches arrow */
-  --error-deep:  #B91C1C;
-  --error-wash:  #FCE0E0;
-
-  --warning-1:      #FEF7E8;   /* ultra-light wash */
-  --warning:        #F59E0B;   /* warning / amber — fourth signal */
-  --warning-hi:     #F59E0B;   /* same — text matches arrow */
-  --warning-deep:   #B45309;
-  --warning-wash:   #FCE9C2;
+  --error-1:     #FEF3F3;
+  --error-2:     #FCE0E0;
+  --error:       #F03A3A;
+  --error-hi:    #B91C1C;
+  --error-deep:  #8F1515;
+  --error-wash:  var(--error-1);
+  --error-soft:  var(--error-2);
+  --error-ring:  rgba(240,58,58,0.24);
 
   /* ----------------------------------------------------------
      INVERSE — dark panels / ink moments
@@ -109,7 +107,7 @@
   --data-2: var(--sky);         /* secondary */
   --data-3: var(--terminal);    /* tertiary */
   --data-4: var(--ink-5);       /* graphite */
-  --data-5: var(--ultra);       /* accent */
+  --data-5: var(--ultra);       /* signal */
   --data-grid: var(--ink-1);
   --data-axis: var(--ink-3);
 
@@ -195,6 +193,29 @@
   --grid-line:        rgba(10,11,15,0.045);
   --grid-line-strong: rgba(10,11,15,0.11);
   --lattice:          rgba(10,11,15,0.035);
+
+  /* ============================================================
+     DENSITY — context profiles applied to one system
+     ============================================================ */
+  --density-editorial-max-width: 1280px;
+  --density-editorial-columns: 12;
+  --density-editorial-gutter: 32px;
+  --density-editorial-side-margin: 96px;
+
+  --density-product-max-width: 1440px;
+  --density-product-columns: 12;
+  --density-product-gutter: 16px;
+  --density-product-side-margin: 24px;
+
+  --density-generative-max-width: 760px;
+  --density-generative-columns: 6;
+  --density-generative-gutter: 16px;
+  --density-generative-side-margin: 24px;
+
+  --density-explainer-canvas: 1200px;
+  --density-explainer-columns: 12;
+  --density-explainer-gutter: 24px;
+  --density-explainer-side-margin: 48px;
 
   /* ============================================================
      TEXTURES — dots, lines, grain

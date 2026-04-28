@@ -1,0 +1,60 @@
+{
+	"dependencies": {
+		"zod": "latest"
+	},
+	"devDependencies": {
+		"@types/react": "latest",
+		"@types/react-dom": "latest",
+		"typescript": "^5.9.3"
+	},
+	"exports": {
+		".": {
+			"default": "./src/index.ts",
+			"types": "./src/index.ts"
+		},
+		"./components": {
+			"default": "./src/components/index.tsx",
+			"types": "./src/components/index.tsx"
+		},
+		"./icons": {
+			"default": "./src/icons/index.tsx",
+			"types": "./src/icons/index.tsx"
+		},
+		"./primitives": {
+			"default": "./src/primitives/index.tsx",
+			"types": "./src/primitives/index.tsx"
+		},
+		"./registry": {
+			"default": "./src/registry/index.tsx",
+			"types": "./src/registry/index.tsx"
+		},
+		"./schemas": {
+			"default": "./src/schemas/index.ts",
+			"types": "./src/schemas/index.ts"
+		},
+		"./styles.css": "./src/styles.css"
+	},
+	"files": [
+		"assets",
+		"src"
+	],
+	"name": "@rubriclab/concrete",
+	"peerDependencies": {
+		"react": "latest",
+		"react-dom": "latest"
+	},
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "bun run typecheck",
+		"test": "bun test",
+		"typecheck": "tsc -p tsconfig.json --noEmit"
+	},
+	"sideEffects": [
+		"src/styles.css",
+		"src/**/*.css"
+	],
+	"version": "0.0.0"
+}

@@ -1,8 +1,18 @@
 # dependencies
 node_modules/
 
+# builds
+.next/
+dist/
+coverage/
+*.tsbuildinfo
+.playwright-mcp/
+
 # environment
 .env
 
 # macOS
 .DS_Store
+
+# local agent state
+.codex/

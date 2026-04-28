@@ -1,0 +1,303 @@
+.componentHero {
+	display: grid;
+	grid-template-columns: minmax(0, 0.72fr) minmax(520px, 1.28fr);
+	gap: 30px;
+	align-items: start;
+}
+
+.componentCatalogHero {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	margin-top: 18px;
+}
+
+.componentCatalogGrid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 14px;
+}
+
+.componentCatalogCard {
+	position: relative;
+	display: grid;
+	grid-template-rows: auto minmax(252px, auto) auto;
+	gap: 10px;
+	min-width: 0;
+	padding: 16px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.componentCatalogCard:hover {
+	border-color: var(--concrete-border-strong);
+}
+
+.componentCatalogCard header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.componentCatalogCard header strong {
+	color: var(--concrete-foreground-strong);
+	font-size: 15px;
+	font-weight: 800;
+	letter-spacing: 0;
+}
+
+.componentCatalogCard header span {
+	color: var(--concrete-foreground-muted);
+	font: 800 11px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.componentCatalogStage {
+	display: grid;
+	min-height: 252px;
+	place-items: center;
+	min-width: 0;
+	padding: 18px;
+	overflow: hidden;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-sunken);
+}
+
+.componentCatalogStage > * {
+	max-width: 100%;
+}
+
+.componentCatalogCard footer {
+	display: grid;
+	gap: 8px;
+}
+
+.componentCatalogCard footer p {
+	margin: 0;
+	color: var(--concrete-foreground-muted);
+	font-size: 12.5px;
+	line-height: 1.45;
+}
+
+.componentCatalogMeta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	color: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.componentCatalogMetric {
+	padding-top: 8px;
+	border-top: 1px solid var(--concrete-border-soft);
+}
+
+.componentCatalogStage[data-component="command-menu"],
+.componentCatalogStage[data-component="composer"],
+.componentCatalogStage[data-component="date-picker"],
+.componentCatalogStage[data-component="date-range-picker"],
+.componentCatalogStage[data-component="file-upload"],
+.componentCatalogStage[data-component="form-dialog"],
+.componentCatalogStage[data-component="form-drawer"],
+.componentCatalogStage[data-component="form-shell"],
+.componentCatalogStage[data-component="image-upload"],
+.componentCatalogStage[data-component="multi-select"],
+.componentCatalogStage[data-component="search-bar"],
+.componentCatalogStage[data-component="settings-panel"],
+.componentCatalogStage[data-component="time-picker"] {
+	min-height: 320px;
+}
+
+.componentCatalogStage[data-component="date-picker"],
+.componentCatalogStage[data-component="date-range-picker"],
+.componentCatalogStage[data-component="multi-select"],
+.componentCatalogStage[data-component="time-picker"] {
+	align-items: start;
+}
+
+.componentDetailHero {
+	grid-template-columns: minmax(0, 0.72fr) minmax(520px, 1.28fr);
+}
+
+.componentDetailPreview {
+	min-height: 430px;
+	overflow: hidden;
+}
+
+.componentDetailPreview > * {
+	max-width: 100%;
+}
+
+.componentPlaygroundShell {
+	grid-template-columns: minmax(0, 1fr) 380px;
+}
+
+.componentPlaygroundPreview {
+	align-items: center;
+	min-height: 460px;
+	overflow: hidden;
+}
+
+.componentPlaygroundStage {
+	display: grid;
+	gap: 12px;
+	width: 100%;
+	min-width: 0;
+}
+
+.componentPlaygroundStageComposer {
+	max-width: 860px;
+}
+
+.componentPlaygroundStageCommand {
+	max-width: 720px;
+}
+
+.componentPlaygroundStageMessage {
+	max-width: 680px;
+}
+
+.componentPlaygroundStageForm {
+	max-width: 420px;
+}
+
+.componentPlaygroundStageWide {
+	max-width: 760px;
+}
+
+.componentHero .detailIntro h1 {
+	font-size: var(--concrete-type-72);
+	line-height: 0.92;
+}
+
+.componentHero .detailIntro p {
+	font-size: var(--concrete-type-14);
+	line-height: var(--concrete-line-loose);
+}
+
+.componentDemo {
+	display: grid;
+	gap: 12px;
+	min-width: 0;
+}
+
+.componentMetricGrid,
+.componentBoundaryGrid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.componentMetric {
+	min-height: 118px;
+}
+
+.interactionDemo {
+	display: grid;
+	grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+	gap: 14px;
+	align-items: start;
+}
+
+.interactionPanel,
+.interactionTranscript {
+	display: grid;
+	gap: 12px;
+	min-width: 0;
+}
+
+.interactionPanel {
+	padding: 12px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-5);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.interactionTranscript {
+	padding: 14px;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-5);
+	background: var(--concrete-canvas);
+}
+
+.chatShell {
+	display: grid;
+	gap: 14px;
+	min-width: 0;
+	padding: 16px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-5);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.chatHeader {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: 16px;
+	min-width: 0;
+	padding-bottom: 14px;
+	border-bottom: 1px solid var(--concrete-border-soft);
+}
+
+.chatHeader h2 {
+	margin-top: 6px;
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-24);
+	line-height: var(--concrete-line-tight);
+}
+
+.chatTranscript {
+	display: grid;
+	gap: 12px;
+	min-width: 0;
+	max-height: 720px;
+	padding: 8px 2px 2px;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--concrete-border-strong) transparent;
+}
+
+.chatTranscript > * {
+	min-width: 0;
+}
+
+.componentList {
+	display: grid;
+	gap: 8px;
+	margin: 0;
+	padding-left: 18px;
+	color: var(--concrete-foreground-body);
+	font-size: 13px;
+	line-height: 1.55;
+}
+
+.componentStateGrid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.componentStateCard {
+	min-height: 390px;
+}
+
+.componentStateStage {
+	display: grid;
+	min-height: 252px;
+	place-items: center;
+	padding: 14px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-sunken);
+}

@@ -5,8 +5,7 @@
 /* ============================================================
    Badge — soft-tinted, top-level signal.
 
-   Tinted bg (--*-1 wash) + matching border (--*-wash)
-   + dot in the saturated hue + text in the -hi stop.
+   Soft bg + signal dot + readable signal text.
    Reads as "elevated" without shouting. Soft, powerful, on-brand.
 
    vs Pill: pills are quiet, neutral, inline metadata.
@@ -42,20 +41,13 @@
   flex: none;
 }
 
-/* Signal variants — soft wash bg, matching tint border, signal dot, -hi text */
+/* Signal variants — soft bg, signal dot, readable text */
 .bdg--term  {
   background: var(--terminal-1);
   border-color: var(--terminal-wash);
   color: var(--terminal-hi);
 }
 .bdg--term::before { background: var(--terminal); }
-
-.bdg--warn {
-  background: var(--warning-1);
-  border-color: var(--warning-wash);
-  color: var(--warning-hi);
-}
-.bdg--warn::before { background: var(--warning); }
 
 .bdg--error {
   background: var(--error-1);
@@ -72,9 +64,9 @@
 .bdg--sky::before { background: var(--sky); }
 
 .bdg--ultra {
-  background: var(--ultra-1);
-  border-color: var(--ultra-wash);
-  color: var(--ultra-hi);
+  background: var(--ultra-soft);
+  border-color: color-mix(in oklab, var(--ultra-soft) 74%, var(--ultra));
+  color: var(--ultra);
 }
 .bdg--ultra::before { background: var(--ultra); }
 
@@ -104,7 +96,6 @@
 .bdg--solid.bdg--term  { background: var(--terminal);  border-color: var(--terminal);  color: #fff; }
 .bdg--solid.bdg--ultra { background: var(--ultra);     border-color: var(--ultra);     color: #fff; }
 .bdg--solid.bdg--error { background: var(--error);     border-color: var(--error);     color: #fff; }
-.bdg--solid.bdg--warn  { background: var(--warning);   border-color: var(--warning);   color: #fff; }
 
 /* Count — notifications / nav counters. Circular. No dot. Tabular num. */
 .bdg--count {
@@ -137,10 +128,9 @@
   <div class="rowmeta">Signal · soft tint</div>
   <div class="row">
     <span class="bdg bdg--term">Healthy</span>
-    <span class="bdg bdg--warn">Warning</span>
+    <span class="bdg bdg--ultra">Featured</span>
     <span class="bdg bdg--error">Critical</span>
     <span class="bdg bdg--sky">Info</span>
-    <span class="bdg bdg--ultra">Featured</span>
     <span class="bdg bdg--neutral">Draft</span>
   </div>
 
@@ -148,7 +138,7 @@
   <div class="row">
     <span class="bdg bdg--neutral">Draft</span>
     <span class="bdg bdg--sky">In review</span>
-    <span class="bdg bdg--warn">Staging</span>
+    <span class="bdg bdg--ultra">Staging</span>
     <span class="bdg bdg--term">Shipping</span>
     <span class="bdg bdg--error">Blocked</span>
   </div>
@@ -188,7 +178,7 @@
     </div>
     <div class="demo-card">
       <div class="stack"><h5>Legacy table</h5><span class="sub">Being migrated to DataGrid.</span></div>
-      <span class="bdg bdg--warn">Warning</span>
+      <span class="bdg bdg--ultra">Migrating</span>
     </div>
   </div>
 </div>
