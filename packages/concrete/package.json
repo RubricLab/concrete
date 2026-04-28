@@ -1,0 +1,43 @@
+{
+	"dependencies": {
+		"zod": "^4.2.1"
+	},
+	"description": "Concrete design system primitives, styles, and registries.",
+	"devDependencies": {
+		"@types/react": "^19.2.7",
+		"@types/react-dom": "^19.2.3",
+		"typescript": "^5.9.3"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./package.json": "./package.json",
+		"./styles.css": "./dist/styles.css",
+		"./tokens.css": "./dist/tokens.css"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"name": "@rubriclab/concrete",
+	"peerDependencies": {
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0"
+	},
+	"private": false,
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"build": "rm -rf dist dist-test && NODE_ENV=production bun build ./src/index.ts --outdir ./dist --target browser --format esm --external react --external react-dom --external zod && tsc -p tsconfig.build.json && cp src/styles.css dist/styles.css && cp src/tokens.css dist/tokens.css",
+		"typecheck": "tsc -p tsconfig.json --noEmit"
+	},
+	"sideEffects": [
+		"./dist/styles.css",
+		"./dist/tokens.css"
+	],
+	"type": "module",
+	"version": "0.0.0"
+}
