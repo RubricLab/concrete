@@ -18,6 +18,11 @@ export const uploadItemStatusSchema = z.enum(['error', 'idle', 'success', 'uploa
 export const formShellVariantSchema = z.enum(['panel', 'modal', 'drawer'])
 export const formGridColumnsSchema = z.union([z.literal(1), z.literal(2), z.literal(3)])
 export const formOverlayPresentationSchema = z.enum(['fixed', 'inline'])
+export const dataToneSchema = z.enum(['ink', 'muted', 'sky', 'terminal', 'ultra', 'error'])
+export const dataComponentStateSchema = z.enum(['ready', 'loading', 'empty', 'error'])
+export const dataDeltaIntentSchema = z.enum(['negative', 'neutral', 'positive'])
+
+const finiteNumberSchema = z.number().finite()
 
 export const renderQuerySchema = z
 	.object({
@@ -256,6 +261,374 @@ export const settingsPanelSectionSchema = z
 	})
 	.strict()
 
+export const dataDeltaSchema = z
+	.object({
+		basis: z.string().min(1).optional(),
+		intent: dataDeltaIntentSchema.default('neutral'),
+		value: z.string().min(1)
+	})
+	.strict()
+
+export const dataPointSchema = z
+	.object({
+		id: z.string().min(1).optional(),
+		label: z.string().min(1),
+		tone: dataToneSchema.default('ink'),
+		value: finiteNumberSchema
+	})
+	.strict()
+
+export const dataSeriesSchema = z
+	.object({
+		id: z.string().min(1),
+		label: z.string().min(1),
+		points: z.array(dataPointSchema).default([]),
+		tone: dataToneSchema.default('sky')
+	})
+	.strict()
+
+export const dataProgressValueSchema = z
+	.object({
+		max: finiteNumberSchema.default(100),
+		min: finiteNumberSchema.default(0),
+		value: finiteNumberSchema
+	})
+	.strict()
+	.refine(value => value.max > value.min, 'Progress max must be greater than min.')
+
+export const dataLegendItemSchema = z
+	.object({
+		label: z.string().min(1),
+		tone: dataToneSchema.default('ink'),
+		value: z.string().min(1).optional()
+	})
+	.strict()
+
+export const metricCardSchema = z
+	.object({
+		compact: z.boolean().default(false),
+		delta: dataDeltaSchema.optional(),
+		description: z.string().min(1).optional(),
+		label: z.string().min(1),
+		status: dataLegendItemSchema.optional(),
+		trend: z.array(finiteNumberSchema).default([]),
+		trendTone: dataToneSchema.optional(),
+		unit: z.string().min(1).optional(),
+		value: z.string().min(1)
+	})
+	.strict()
+
+export const meterSchema = z
+	.object({
+		compact: z.boolean().default(false),
+		description: z.string().min(1).optional(),
+		label: z.string().min(1),
+		target: finiteNumberSchema.optional(),
+		tone: dataToneSchema.default('sky'),
+		unit: z.string().min(1).default('%'),
+		value: dataProgressValueSchema,
+		variant: z.enum(['bar', 'ring']).default('bar')
+	})
+	.strict()
+
+const chartBaseSchema = z
+	.object({
+		compact: z.boolean().default(false),
+		description: z.string().min(1).optional(),
+		height: z.number().int().positive().default(220),
+		legend: z.boolean().default(true),
+		message: z.string().min(1).optional(),
+		showHeader: z.boolean().default(true),
+		state: dataComponentStateSchema.default('ready'),
+		surface: z.enum(['raised', 'sunken', 'transparent']).default('raised'),
+		title: z.string().min(1)
+	})
+	.strict()
+
+export const lineChartSchema = chartBaseSchema
+	.extend({
+		series: z.array(dataSeriesSchema).default([]),
+		showDots: z.boolean().default(false),
+		showEndLabels: z.boolean().default(true),
+		showGrid: z.boolean().default(true),
+		showXAxis: z.boolean().default(true),
+		showYAxis: z.boolean().default(true),
+		target: finiteNumberSchema.optional(),
+		variant: z.literal('line')
+	})
+	.strict()
+
+export const areaChartSchema = chartBaseSchema
+	.extend({
+		series: z.array(dataSeriesSchema).default([]),
+		showDots: z.boolean().default(false),
+		showEndLabels: z.boolean().default(true),
+		showGrid: z.boolean().default(true),
+		showXAxis: z.boolean().default(true),
+		showYAxis: z.boolean().default(true),
+		stacked: z.boolean().default(false),
+		target: finiteNumberSchema.optional(),
+		variant: z.literal('area')
+	})
+	.strict()
+
+export const barChartSchema = chartBaseSchema
+	.extend({
+		baseline: finiteNumberSchema.default(0),
+		comparisonPoints: z.array(dataPointSchema).default([]),
+		orientation: z.enum(['horizontal', 'vertical']).default('vertical'),
+		points: z.array(dataPointSchema).default([]),
+		showGrid: z.boolean().default(true),
+		showValues: z.boolean().default(true),
+		showXAxis: z.boolean().default(true),
+		showYAxis: z.boolean().default(true),
+		variant: z.literal('bar')
+	})
+	.strict()
+
+export const stackedBarGroupSchema = z
+	.object({
+		label: z.string().min(1),
+		segments: z.array(dataPointSchema).default([])
+	})
+	.strict()
+
+export const stackedBarChartSchema = chartBaseSchema
+	.extend({
+		groups: z.array(stackedBarGroupSchema).default([]),
+		normalized: z.boolean().default(false),
+		orientation: z.enum(['horizontal', 'vertical']).default('vertical'),
+		showGrid: z.boolean().default(true),
+		showValues: z.boolean().default(true),
+		showXAxis: z.boolean().default(true),
+		showYAxis: z.boolean().default(true),
+		variant: z.literal('stacked-bar')
+	})
+	.strict()
+
+export const donutChartSchema = chartBaseSchema
+	.extend({
+		centerLabel: z.string().min(1).optional(),
+		segments: z.array(dataPointSchema).default([]),
+		showCenterLabel: z.boolean().default(true),
+		thickness: z.enum(['thin', 'medium', 'thick']).default('medium'),
+		variant: z.literal('donut')
+	})
+	.strict()
+
+export const heatmapCellSchema = z
+	.object({
+		label: z.string().min(1).optional(),
+		value: finiteNumberSchema,
+		x: z.string().min(1),
+		y: z.string().min(1)
+	})
+	.strict()
+
+export const heatmapChartSchema = chartBaseSchema
+	.extend({
+		cells: z.array(heatmapCellSchema).default([]),
+		showValues: z.boolean().default(true),
+		variant: z.literal('heatmap')
+	})
+	.strict()
+
+export const chartSchema = z.discriminatedUnion('variant', [
+	lineChartSchema,
+	areaChartSchema,
+	barChartSchema,
+	stackedBarChartSchema,
+	donutChartSchema,
+	heatmapChartSchema
+])
+
+export const dataTableStatusCellSchema = z
+	.object({
+		kind: z.literal('status'),
+		label: z.string().min(1),
+		tone: dataToneSchema.default('muted')
+	})
+	.strict()
+
+export const dataTableDeltaCellSchema = z
+	.object({
+		delta: dataDeltaSchema,
+		kind: z.literal('delta')
+	})
+	.strict()
+
+export const dataTableSparklineCellSchema = z
+	.object({
+		kind: z.literal('sparkline'),
+		tone: dataToneSchema.default('muted'),
+		values: z.array(finiteNumberSchema).default([])
+	})
+	.strict()
+
+export const dataTableMeterCellSchema = z
+	.object({
+		kind: z.literal('meter'),
+		tone: dataToneSchema.default('sky'),
+		value: dataProgressValueSchema
+	})
+	.strict()
+
+export const dataTableCellValueSchema = z.union([
+	z.string(),
+	finiteNumberSchema,
+	z.boolean(),
+	z.null(),
+	dataTableStatusCellSchema,
+	dataTableDeltaCellSchema,
+	dataTableSparklineCellSchema,
+	dataTableMeterCellSchema
+])
+
+export const dataTableColumnSchema = z
+	.object({
+		align: z.enum(['center', 'left', 'right']).default('left'),
+		frozen: z.boolean().default(false),
+		header: z.string().min(1),
+		key: z.string().min(1),
+		sortable: z.boolean().default(false),
+		width: z.string().min(1).optional()
+	})
+	.strict()
+
+export const dataTableSortSchema = z
+	.object({
+		direction: z.enum(['ascending', 'descending']),
+		key: z.string().min(1)
+	})
+	.strict()
+
+export const dataTableFilterOptionSchema = z
+	.object({
+		count: z.number().int().nonnegative().optional(),
+		label: z.string().min(1),
+		value: z.string().min(1)
+	})
+	.strict()
+
+export const dataTableFilterSchema = z
+	.object({
+		id: z.string().min(1),
+		label: z.string().min(1),
+		options: z.array(dataTableFilterOptionSchema).default([]),
+		value: z.string().min(1).optional()
+	})
+	.strict()
+
+export const dataTablePaginationSchema = z
+	.object({
+		page: z.number().int().positive().default(1),
+		pageSize: z.number().int().positive().default(25),
+		totalRows: z.number().int().nonnegative().optional()
+	})
+	.strict()
+
+export const dataTableToolbarActionSchema = z
+	.object({
+		disabled: z.boolean().default(false),
+		icon: z.enum(['download', 'inspect', 'more']).optional(),
+		id: z.string().min(1),
+		label: z.string().min(1),
+		tone: dataToneSchema.default('muted')
+	})
+	.strict()
+
+export const dataTableSchema = z
+	.object({
+		caption: z.string().min(1).optional(),
+		columns: z.array(dataTableColumnSchema).default([]),
+		compact: z.boolean().default(true),
+		emptyLabel: z.string().min(1).default('No rows'),
+		filters: z.array(dataTableFilterSchema).default([]),
+		maxHeight: z.string().min(1).optional(),
+		pagination: dataTablePaginationSchema.optional(),
+		rows: z.array(z.record(z.string(), dataTableCellValueSchema)).default([]),
+		searchPlaceholder: z.string().min(1).default('Search rows'),
+		searchValue: z.string().default(''),
+		selectable: z.boolean().default(false),
+		selectedRowIds: z.array(z.string().min(1)).default([]),
+		sort: dataTableSortSchema.optional(),
+		title: z.string().min(1).optional(),
+		toolbarActions: z.array(dataTableToolbarActionSchema).default([])
+	})
+	.strict()
+
+export const flowDiagramNodeSchema = z
+	.object({
+		height: z.number().int().positive().default(64),
+		id: z.string().min(1),
+		selected: z.boolean().default(false),
+		subtitle: z.string().min(1).optional(),
+		title: z.string().min(1),
+		tone: z.enum(['accent', 'inverse', 'surface']).default('surface'),
+		width: z.number().int().positive().default(160),
+		x: finiteNumberSchema,
+		y: finiteNumberSchema
+	})
+	.strict()
+
+export const flowDiagramEdgeSchema = z
+	.object({
+		from: z.string().min(1),
+		id: z.string().min(1),
+		label: z.string().min(1).optional(),
+		selected: z.boolean().default(false),
+		to: z.string().min(1),
+		tone: dataToneSchema.default('muted'),
+		variant: z.enum(['dashed', 'dotted', 'pulse', 'solid', 'step']).default('solid')
+	})
+	.strict()
+
+export const flowDiagramSchema = z
+	.object({
+		edges: z.array(flowDiagramEdgeSchema).default([]),
+		nodes: z.array(flowDiagramNodeSchema).default([])
+	})
+	.strict()
+	.superRefine((flow, context) => {
+		const nodeIds = new Set(flow.nodes.map(node => node.id))
+
+		flow.edges.forEach((edge, edgeIndex) => {
+			if (!nodeIds.has(edge.from)) {
+				context.addIssue({
+					code: 'custom',
+					message: `Unknown source node "${edge.from}".`,
+					path: ['edges', edgeIndex, 'from']
+				})
+			}
+
+			if (!nodeIds.has(edge.to)) {
+				context.addIssue({
+					code: 'custom',
+					message: `Unknown target node "${edge.to}".`,
+					path: ['edges', edgeIndex, 'to']
+				})
+			}
+		})
+	})
+
+export const flowDiagramPropsSchema = z
+	.object({
+		compact: z.boolean().default(true),
+		controls: z.boolean().default(false),
+		description: z.string().min(1).optional(),
+		draggableNodes: z.boolean().default(false),
+		flow: flowDiagramSchema,
+		height: z.number().int().positive().default(320),
+		legend: z.array(dataLegendItemSchema).default([]),
+		pannable: z.boolean().default(false),
+		selectedEdgeId: z.string().min(1).optional(),
+		selectedNodeId: z.string().min(1).optional(),
+		title: z.string().min(1),
+		width: z.number().int().positive().default(760),
+		zoomable: z.boolean().default(false)
+	})
+	.strict()
+
 export type CommandItem = z.infer<typeof commandItemSchema>
 export type CommandItemTone = z.infer<typeof commandItemToneSchema>
 export type ComposerAttachment = z.infer<typeof composerAttachmentSchema>
@@ -269,15 +642,65 @@ export type ConcretePressure = z.infer<typeof concretePressureSchema>
 export type ConcreteRenderKind = z.infer<typeof concreteRenderKindSchema>
 export type ConcreteSignal = z.infer<typeof concreteSignalSchema>
 export type ConcreteViewport = z.infer<typeof concreteViewportSchema>
+export type AreaChartProps = Omit<z.input<typeof areaChartSchema>, 'variant'>
+export type BarChartProps = Omit<z.input<typeof barChartSchema>, 'variant'>
+export type ChartProps = z.input<typeof chartSchema>
+export type DataComponentState = z.infer<typeof dataComponentStateSchema>
+export type DataDelta = z.output<typeof dataDeltaSchema>
+export type DataDeltaIntent = z.infer<typeof dataDeltaIntentSchema>
+export type DataLegendItem = z.output<typeof dataLegendItemSchema>
+export type DataPoint = z.output<typeof dataPointSchema>
+export type DataProgressValue = z.output<typeof dataProgressValueSchema>
+export type DataSeries = z.output<typeof dataSeriesSchema>
+export type DonutChartProps = Omit<z.input<typeof donutChartSchema>, 'variant'>
+export type DataTableCellValue = z.input<typeof dataTableCellValueSchema>
+export type DataTableColumn<Row extends DataTableRow = DataTableRow> = Omit<
+	z.input<typeof dataTableColumnSchema>,
+	'key'
+> & {
+	key: Extract<keyof Row, string>
+}
+export type DataTableFilter = z.output<typeof dataTableFilterSchema>
+export type DataTablePagination = z.output<typeof dataTablePaginationSchema>
+export type DataTableProps<Row extends DataTableRow = DataTableRow> = Omit<
+	z.input<typeof dataTableSchema>,
+	'columns' | 'rows'
+> & {
+	columns: readonly DataTableColumn<Row>[]
+	getRowId?: (row: Row, rowIndex: number) => string
+	onFilterChange?: (filterId: string, value: string) => void
+	onPageChange?: (page: number, pageSize: number) => void
+	onRowSelectionChange?: (selectedRowIds: readonly string[]) => void
+	onSearchChange?: (value: string) => void
+	onSortChange?: (sort: DataTableSort | null) => void
+	onToolbarAction?: (actionId: string, selectedRowIds: readonly string[]) => void
+	rows: readonly Row[]
+}
+export type DataTableRow = Record<string, DataTableCellValue>
+export type DataTableSort = z.output<typeof dataTableSortSchema>
+export type DataTableToolbarAction = z.output<typeof dataTableToolbarActionSchema>
+export type DataTone = z.infer<typeof dataToneSchema>
 export type DateRangeValue = z.infer<typeof dateRangeValueSchema>
 export type DateValue = z.infer<typeof dateValueSchema>
 export type FieldStatus = z.infer<typeof fieldStatusSchema>
+export type HeatmapProps = Omit<z.input<typeof heatmapChartSchema>, 'variant'>
+export type LineChartProps = Omit<z.input<typeof lineChartSchema>, 'variant'>
+export type FlowDiagramEdge = z.output<typeof flowDiagramEdgeSchema>
+export type FlowDiagramFlow = z.output<typeof flowDiagramSchema>
+export type FlowDiagramNode = z.output<typeof flowDiagramNodeSchema>
+export type FlowDiagramProps = z.input<typeof flowDiagramPropsSchema> & {
+	onNodeMove?: (nodeId: string, position: { x: number; y: number }) => void
+	onNodeSelect?: (nodeId: string) => void
+	onViewportChange?: (viewport: { x: number; y: number; zoom: number }) => void
+}
 export type FormGridColumnCount = z.infer<typeof formGridColumnsSchema>
 export type FormOverlayPresentation = z.infer<typeof formOverlayPresentationSchema>
 export type FormSectionConfig = z.infer<typeof formSectionConfigSchema>
 export type FormShellConfig = z.infer<typeof formShellConfigSchema>
 export type FormShellVariantValue = z.infer<typeof formShellVariantSchema>
 export type FormValidationItem = z.infer<typeof formValidationItemSchema>
+export type MeterProps = z.input<typeof meterSchema>
+export type MetricCardProps = z.input<typeof metricCardSchema>
 export type MessageShape = z.infer<typeof messageSchema>
 export type MessageRole = z.infer<typeof messageRoleSchema>
 export type MessageSurface = z.infer<typeof messageSurfaceSchema>
@@ -292,6 +715,7 @@ export type RenderQuery = z.infer<typeof renderQuerySchema>
 export type SearchBarToken = z.infer<typeof searchBarTokenSchema>
 export type SettingsPanelRowShape = z.infer<typeof settingsPanelRowSchema>
 export type SettingsPanelSectionShape = z.infer<typeof settingsPanelSectionSchema>
+export type StackedBarChartProps = Omit<z.input<typeof stackedBarChartSchema>, 'variant'>
 export type TimeValue = z.infer<typeof timeValueSchema>
 export type ToolCall = z.infer<typeof toolCallSchema>
 export type ToolCallStatus = z.infer<typeof toolCallStatusSchema>

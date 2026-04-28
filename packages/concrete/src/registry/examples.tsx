@@ -1,20 +1,31 @@
 import type { ReactNode } from 'react'
 import {
+	AreaChart,
+	BarChart,
+	Chart,
 	CommandMenu,
 	type CommandMenuItem,
 	Composer,
 	type ComposerValue,
+	createDataTableColumns,
+	DataTable,
 	DatePicker,
 	DateRangePicker,
+	DonutChart,
 	FileUpload,
+	FlowDiagram,
 	FormDialog,
 	FormDrawer,
 	FormGrid,
 	FormRow,
 	FormSection,
 	FormShell,
+	Heatmap,
 	ImageUpload,
+	LineChart,
 	Message,
+	Meter,
+	MetricCard,
 	MultiSelect,
 	NumberStepper,
 	PasswordInput,
@@ -22,6 +33,7 @@ import {
 	ReasoningMessage,
 	SearchBar,
 	SettingsPanel,
+	StackedBarChart,
 	TimePicker,
 	Toolbar,
 	ToolbarButton,
@@ -73,6 +85,7 @@ import {
 	UploadItem,
 	Wordmark
 } from '../primitives'
+import type { DataPoint, DataSeries, FlowDiagramProps } from '../schemas'
 import { composerExampleValue } from './entries'
 
 export function renderPrimitiveExample(slug: string, state = 'default'): ReactNode {
@@ -402,26 +415,46 @@ export function renderPrimitiveExample(slug: string, state = 'default'): ReactNo
 
 export function renderComponentExample(slug: string, state = 'default'): ReactNode {
 	switch (slug) {
+		case 'area-chart':
+			return renderAreaChartState(state)
+		case 'bar-chart':
+			return renderBarChartState(state)
+		case 'chart':
+			return renderChartState(state)
 		case 'command-menu':
 			return renderCommandMenuState(state)
 		case 'composer':
 			return renderComposerState(state)
+		case 'data-table':
+			return renderDataTableState(state)
 		case 'date-picker':
 			return renderDatePickerState(state)
 		case 'date-range-picker':
 			return renderDateRangePickerState(state)
+		case 'donut-chart':
+			return renderDonutChartState(state)
 		case 'file-upload':
 			return renderFileUploadState(state)
+		case 'flow-diagram':
+			return renderFlowDiagramState(state)
 		case 'form-dialog':
 			return renderFormDialogState(state)
 		case 'form-drawer':
 			return renderFormDrawerState(state)
 		case 'form-shell':
 			return renderFormShellState(state)
+		case 'heatmap':
+			return renderHeatmapState(state)
 		case 'image-upload':
 			return renderImageUploadState(state)
+		case 'line-chart':
+			return renderLineChartState(state)
+		case 'meter':
+			return renderMeterState(state)
 		case 'message':
 			return renderMessageState(state)
+		case 'metric-card':
+			return renderMetricCardState(state)
 		case 'multi-select':
 			return renderMultiSelectState(state)
 		case 'number-stepper':
@@ -436,6 +469,8 @@ export function renderComponentExample(slug: string, state = 'default'): ReactNo
 			return renderSearchBarState(state)
 		case 'settings-panel':
 			return renderSettingsPanelState(state)
+		case 'stacked-bar-chart':
+			return renderStackedBarChartState(state)
 		case 'time-picker':
 			return renderTimePickerState(state)
 		case 'toolbar':
@@ -447,6 +482,513 @@ export function renderComponentExample(slug: string, state = 'default'): ReactNo
 		default:
 			return null
 	}
+}
+
+const metricTrend = [42, 48, 45, 53, 58, 57, 64, 72, 76, 83]
+
+const chartSeries: DataSeries[] = [
+	{
+		id: 'agents',
+		label: 'Agent runs',
+		points: [
+			{ label: 'Mon', tone: 'sky', value: 28 },
+			{ label: 'Tue', tone: 'sky', value: 34 },
+			{ label: 'Wed', tone: 'sky', value: 31 },
+			{ label: 'Thu', tone: 'sky', value: 47 },
+			{ label: 'Fri', tone: 'sky', value: 55 },
+			{ label: 'Sat', tone: 'sky', value: 52 },
+			{ label: 'Sun', tone: 'sky', value: 63 }
+		],
+		tone: 'sky'
+	},
+	{
+		id: 'accepted',
+		label: 'Accepted',
+		points: [
+			{ label: 'Mon', tone: 'terminal', value: 18 },
+			{ label: 'Tue', tone: 'terminal', value: 22 },
+			{ label: 'Wed', tone: 'terminal', value: 24 },
+			{ label: 'Thu', tone: 'terminal', value: 32 },
+			{ label: 'Fri', tone: 'terminal', value: 36 },
+			{ label: 'Sat', tone: 'terminal', value: 35 },
+			{ label: 'Sun', tone: 'terminal', value: 44 }
+		],
+		tone: 'terminal'
+	}
+]
+
+const chartPoints: DataPoint[] = [
+	{ label: 'Router', tone: 'sky', value: 52 },
+	{ label: 'Memory', tone: 'terminal', value: 38 },
+	{ label: 'Tools', tone: 'ultra', value: 44 },
+	{ label: 'Eval', tone: 'muted', value: 31 },
+	{ label: 'Policy', tone: 'error', value: 18 }
+]
+
+const stackedChartGroups: { label: string; segments: DataPoint[] }[] = [
+	{
+		label: 'Mon',
+		segments: [
+			{ label: 'Search', tone: 'sky', value: 22 },
+			{ label: 'Reasoning', tone: 'terminal', value: 18 },
+			{ label: 'Tools', tone: 'ultra', value: 9 }
+		]
+	},
+	{
+		label: 'Tue',
+		segments: [
+			{ label: 'Search', tone: 'sky', value: 26 },
+			{ label: 'Reasoning', tone: 'terminal', value: 14 },
+			{ label: 'Tools', tone: 'ultra', value: 13 }
+		]
+	},
+	{
+		label: 'Wed',
+		segments: [
+			{ label: 'Search', tone: 'sky', value: 18 },
+			{ label: 'Reasoning', tone: 'terminal', value: 22 },
+			{ label: 'Tools', tone: 'ultra', value: 16 }
+		]
+	}
+]
+
+const heatmapCells = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].flatMap((day, dayIndex) =>
+	['AM', 'Mid', 'PM'].map((slot, slotIndex) => ({
+		label: `${day} ${slot}`,
+		value: 12 + dayIndex * 8 + slotIndex * 5 + (dayIndex === 3 && slotIndex === 2 ? 18 : 0),
+		x: day,
+		y: slot
+	}))
+)
+
+type DataTableFixtureRow = {
+	change: {
+		delta: { basis: string; intent: 'negative' | 'neutral' | 'positive'; value: string }
+		kind: 'delta'
+	}
+	cost: number
+	id: string
+	owner: string
+	run: string
+	score: {
+		kind: 'meter'
+		tone: 'error' | 'sky' | 'terminal' | 'ultra'
+		value: { max: number; min: number; value: number }
+	}
+	status: {
+		kind: 'status'
+		label: string
+		tone: 'error' | 'muted' | 'sky' | 'terminal' | 'ultra'
+	}
+	trend: {
+		kind: 'sparkline'
+		tone: 'error' | 'muted' | 'sky' | 'terminal'
+		values: number[]
+	}
+}
+
+const dataTableRows: DataTableFixtureRow[] = [
+	{
+		change: { delta: { basis: '7d', intent: 'positive', value: '+18.6%' }, kind: 'delta' },
+		cost: 184,
+		id: 'router-contract',
+		owner: 'Arihan',
+		run: 'Router contract',
+		score: { kind: 'meter', tone: 'terminal', value: { max: 100, min: 0, value: 86 } },
+		status: { kind: 'status', label: 'Shipping', tone: 'terminal' },
+		trend: { kind: 'sparkline', tone: 'sky', values: [32, 38, 35, 44, 52, 49, 61] }
+	},
+	{
+		change: { delta: { basis: '7d', intent: 'neutral', value: '+0.8%' }, kind: 'delta' },
+		cost: 92,
+		id: 'memory-recall',
+		owner: 'Jordan',
+		run: 'Memory recall',
+		score: { kind: 'meter', tone: 'sky', value: { max: 100, min: 0, value: 71 } },
+		status: { kind: 'status', label: 'Review', tone: 'sky' },
+		trend: { kind: 'sparkline', tone: 'terminal', values: [20, 24, 28, 25, 29, 31, 34] }
+	},
+	{
+		change: { delta: { basis: '7d', intent: 'positive', value: '+9.2%' }, kind: 'delta' },
+		cost: 138,
+		id: 'tool-router',
+		owner: 'Tom',
+		run: 'Tool router',
+		score: { kind: 'meter', tone: 'ultra', value: { max: 100, min: 0, value: 78 } },
+		status: { kind: 'status', label: 'Featured', tone: 'ultra' },
+		trend: { kind: 'sparkline', tone: 'sky', values: [18, 21, 19, 30, 33, 38, 42] }
+	},
+	{
+		change: { delta: { basis: '7d', intent: 'negative', value: '-4.4%' }, kind: 'delta' },
+		cost: 211,
+		id: 'policy-eval',
+		owner: 'Dexter',
+		run: 'Policy eval',
+		score: { kind: 'meter', tone: 'error', value: { max: 100, min: 0, value: 42 } },
+		status: { kind: 'status', label: 'Blocked', tone: 'error' },
+		trend: { kind: 'sparkline', tone: 'error', values: [48, 44, 41, 39, 37, 31, 29] }
+	}
+]
+
+const dataTableColumns = createDataTableColumns<DataTableFixtureRow>()([
+	{ frozen: true, header: 'Run', key: 'run', sortable: true, width: '190px' },
+	{ header: 'Status', key: 'status', sortable: true, width: '112px' },
+	{ header: 'Owner', key: 'owner', sortable: true, width: '112px' },
+	{ align: 'right', header: 'Score', key: 'score', sortable: true, width: '116px' },
+	{ align: 'right', header: 'Change', key: 'change', width: '96px' },
+	{ header: 'Trend', key: 'trend', width: '132px' },
+	{ align: 'right', header: 'Cost', key: 'cost', sortable: true, width: '84px' }
+])
+
+const flowDiagram: FlowDiagramProps['flow'] = {
+	edges: [
+		{ from: 'prompt', id: 'edge-context', label: 'retrieve', to: 'context', variant: 'step' },
+		{ from: 'context', id: 'edge-plan', label: 'shape', to: 'plan', tone: 'sky' },
+		{
+			from: 'plan',
+			id: 'edge-tools',
+			label: 'execute',
+			selected: true,
+			to: 'tools',
+			tone: 'terminal'
+		},
+		{
+			from: 'tools',
+			id: 'edge-answer',
+			label: 'synthesize',
+			to: 'answer',
+			tone: 'ultra',
+			variant: 'pulse'
+		}
+	],
+	nodes: [
+		{ id: 'prompt', subtitle: 'user input', title: 'Prompt', tone: 'inverse', x: 24, y: 92 },
+		{ id: 'context', subtitle: 'memory + files', title: 'Context', x: 224, y: 28 },
+		{
+			id: 'plan',
+			selected: true,
+			subtitle: 'typed steps',
+			title: 'Plan',
+			tone: 'accent',
+			x: 424,
+			y: 92
+		},
+		{ id: 'tools', subtitle: 'safe actions', title: 'Tools', x: 624, y: 28 },
+		{ id: 'answer', subtitle: 'final response', title: 'Answer', x: 824, y: 92 }
+	]
+}
+
+function renderMetricCardState(state: string): ReactNode {
+	return (
+		<DataGridStage>
+			<MetricCard
+				compact={state === 'compact'}
+				delta={{
+					basis: 'vs last week',
+					intent: state === 'status' ? 'neutral' : 'positive',
+					value: state === 'status' ? '+0.8%' : '+18.6%'
+				}}
+				description={
+					state === 'compact' ? undefined : 'Accepted agent runs across production workspaces.'
+				}
+				label={state === 'status' ? 'Eval health' : 'Agent runs'}
+				status={state === 'status' ? { label: 'Live', tone: 'terminal' } : undefined}
+				trend={metricTrend}
+				value={state === 'compact' ? '14.8k' : '14,842'}
+			/>
+			<MetricCard
+				compact={state === 'compact'}
+				delta={{ basis: 'blocked', intent: 'negative', value: '-2.4%' }}
+				label="Intervention rate"
+				status={state === 'status' ? { label: 'Watch', tone: 'ultra' } : undefined}
+				trend={[48, 44, 41, 39, 35, 32, 29]}
+				trendTone="error"
+				value="4.2%"
+			/>
+		</DataGridStage>
+	)
+}
+
+function renderMeterState(state: string): ReactNode {
+	return (
+		<DataGridStage>
+			<Meter
+				description="Workspace command budget"
+				label="Usage"
+				target={80}
+				tone={state === 'signal' ? 'terminal' : 'sky'}
+				value={{ max: 100, min: 0, value: 72 }}
+				variant={state === 'ring' ? 'ring' : 'bar'}
+			/>
+			<Meter
+				description="Policy confidence"
+				label="Review"
+				tone={state === 'signal' ? 'error' : 'ultra'}
+				value={{ max: 100, min: 0, value: state === 'signal' ? 34 : 58 }}
+				variant="ring"
+			/>
+		</DataGridStage>
+	)
+}
+
+function renderLineChartState(state: string): ReactNode {
+	if (state === 'loading' || state === 'empty' || state === 'error') {
+		return (
+			<DataWideStage>
+				<LineChart
+					height={220}
+					message={state === 'error' ? 'Could not load the run summary.' : undefined}
+					series={[]}
+					state={state}
+					title="Agent runs"
+				/>
+			</DataWideStage>
+		)
+	}
+
+	return (
+		<DataWideStage>
+			<LineChart
+				description="Agent run volume with accepted output overlay."
+				series={chartSeries}
+				showDots={state === 'inspect'}
+				target={state === 'target' ? 58 : undefined}
+				title="Agent runs"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderAreaChartState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<AreaChart
+				description={state === 'quiet' ? undefined : 'Accepted runs and total executions.'}
+				series={chartSeries}
+				showDots={state === 'dots'}
+				showEndLabels={state !== 'quiet'}
+				showGrid={state !== 'quiet'}
+				showXAxis={state !== 'quiet'}
+				showYAxis={state !== 'quiet'}
+				surface={state === 'quiet' ? 'transparent' : 'raised'}
+				target={state === 'quiet' ? undefined : 58}
+				title="Execution trend"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderBarChartState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<BarChart
+				comparisonPoints={
+					state === 'comparison'
+						? [
+								{ label: 'Router', value: 42 },
+								{ label: 'Memory', value: 31 },
+								{ label: 'Tools', value: 39 },
+								{ label: 'Eval', value: 28 },
+								{ label: 'Policy', value: 22 }
+							]
+						: []
+				}
+				orientation={state === 'horizontal' ? 'horizontal' : 'vertical'}
+				points={chartPoints}
+				showValues={state !== 'quiet'}
+				title="Capability score"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderStackedBarChartState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<StackedBarChart
+				groups={stackedChartGroups}
+				normalized={state === 'normalized'}
+				orientation={state === 'horizontal' ? 'horizontal' : 'vertical'}
+				title="Run composition"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderDonutChartState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<DonutChart
+				centerLabel="64%"
+				segments={chartPoints.slice(0, 4)}
+				showCenterLabel={state !== 'plain'}
+				thickness={state === 'thin' ? 'thin' : state === 'thick' ? 'thick' : 'medium'}
+				title="Workload split"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderHeatmapState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<Heatmap
+				cells={heatmapCells}
+				showValues={state !== 'quiet'}
+				surface={state === 'sunken' ? 'sunken' : 'raised'}
+				title="Run intensity"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderChartState(state: string): ReactNode {
+	if (state === 'loading' || state === 'empty' || state === 'error') {
+		return (
+			<DataWideStage>
+				<Chart
+					height={220}
+					message={state === 'error' ? 'Could not load the run summary.' : undefined}
+					series={[]}
+					state={state}
+					title="Agent runs"
+					variant="line"
+				/>
+			</DataWideStage>
+		)
+	}
+
+	switch (state) {
+		case 'area':
+			return (
+				<DataWideStage>
+					<Chart
+						description="Accepted runs and total executions."
+						height={230}
+						series={chartSeries}
+						target={58}
+						title="Execution trend"
+						variant="area"
+					/>
+				</DataWideStage>
+			)
+		case 'bar':
+			return (
+				<DataWideStage>
+					<Chart
+						comparisonPoints={[
+							{ label: 'Router', value: 42 },
+							{ label: 'Memory', value: 31 },
+							{ label: 'Tools', value: 39 },
+							{ label: 'Eval', value: 28 },
+							{ label: 'Policy', value: 22 }
+						]}
+						points={chartPoints}
+						title="Capability score"
+						variant="bar"
+					/>
+				</DataWideStage>
+			)
+		case 'stacked':
+			return (
+				<DataWideStage>
+					<Chart groups={stackedChartGroups} title="Run composition" variant="stacked-bar" />
+				</DataWideStage>
+			)
+		case 'donut':
+			return (
+				<DataWideStage>
+					<Chart
+						centerLabel="64%"
+						segments={chartPoints.slice(0, 4)}
+						title="Workload split"
+						variant="donut"
+					/>
+				</DataWideStage>
+			)
+		case 'heatmap':
+			return (
+				<DataWideStage>
+					<Chart cells={heatmapCells} title="Run intensity" variant="heatmap" />
+				</DataWideStage>
+			)
+		default:
+			return (
+				<DataWideStage>
+					<Chart
+						description="Agent run volume with accepted output overlay."
+						series={chartSeries}
+						target={58}
+						title="Agent runs"
+						variant="line"
+					/>
+				</DataWideStage>
+			)
+	}
+}
+
+function renderDataTableState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<DataTable
+				caption="Typed cells stay compact while still supporting signals and microvisuals."
+				columns={dataTableColumns}
+				filters={
+					state === 'filtered'
+						? [
+								{
+									id: 'status',
+									label: 'Status',
+									options: [
+										{ count: 1, label: 'Shipping', value: 'shipping' },
+										{ count: 1, label: 'Review', value: 'review' },
+										{ count: 1, label: 'Blocked', value: 'blocked' }
+									],
+									value: 'shipping'
+								}
+							]
+						: []
+				}
+				pagination={{ page: 1, pageSize: 4, totalRows: state === 'empty' ? 0 : dataTableRows.length }}
+				rows={state === 'empty' ? [] : dataTableRows}
+				searchPlaceholder="Search runs"
+				selectable={state === 'selected'}
+				selectedRowIds={state === 'selected' ? ['router-contract', 'tool-router'] : []}
+				sort={state === 'default' ? { direction: 'descending', key: 'cost' } : undefined}
+				title="Evaluation runs"
+				toolbarActions={
+					state === 'selected'
+						? [
+								{ icon: 'download', id: 'export', label: 'Export', tone: 'sky' },
+								{ icon: 'more', id: 'more', label: 'More' }
+							]
+						: [{ icon: 'inspect', id: 'inspect', label: 'Inspect' }]
+				}
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderFlowDiagramState(state: string): ReactNode {
+	return (
+		<DataWideStage>
+			<FlowDiagram
+				controls={state === 'interactive'}
+				description="A compact map of context, planning, tool execution, and final synthesis."
+				draggableNodes={state === 'interactive'}
+				flow={state === 'empty' ? { edges: [], nodes: [] } : flowDiagram}
+				legend={[
+					{ label: 'context', tone: 'sky' },
+					{ label: 'tool path', tone: 'terminal' },
+					{ label: 'selected', tone: 'ultra' }
+				]}
+				selectedEdgeId={state === 'selected' ? 'edge-tools' : undefined}
+				selectedNodeId={state === 'selected' ? 'plan' : undefined}
+				title="Agent execution flow"
+				width={1020}
+			/>
+		</DataWideStage>
+	)
 }
 
 const multiSelectOptions = [
@@ -1235,6 +1777,26 @@ function FormStage({ children }: { children: ReactNode }) {
 
 function FormWideStage({ children }: { children: ReactNode }) {
 	return <div style={{ display: 'grid', gap: 12, maxWidth: 720, width: '100%' }}>{children}</div>
+}
+
+function DataGridStage({ children }: { children: ReactNode }) {
+	return (
+		<div
+			style={{
+				display: 'grid',
+				gap: 12,
+				gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+				maxWidth: 720,
+				width: '100%'
+			}}
+		>
+			{children}
+		</div>
+	)
+}
+
+function DataWideStage({ children }: { children: ReactNode }) {
+	return <div style={{ display: 'grid', gap: 12, maxWidth: 860, width: '100%' }}>{children}</div>
 }
 
 function IText() {

@@ -7,7 +7,7 @@ const repoRoot = fileURLToPath(new URL('../../../../', import.meta.url))
 const sourceRoots = ['packages/concrete/src', 'apps/docs/app', 'apps/docs/src']
 const sourceExtensions = new Set(['.css', '.ts', '.tsx'])
 const ignoredFiles = new Set(['packages/concrete/src/tests/import-boundaries.test.ts'])
-const forbiddenSourcePatterns = [/concepts[\\/]/u, /concepts-assets/u]
+const forbiddenSourcePatterns = [/concepts[\\/]/u, /concepts-assets/u, /apps[\\/]showcase/u]
 const forbiddenDocsImportPatterns = [
 	/@rubriclab\/concrete\/src/u,
 	/packages\/concrete\/src/u,

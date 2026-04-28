@@ -334,6 +334,192 @@ export function getImageUploadProps(): readonly PrimitiveProp[] {
 	]
 }
 
+export function getMetricCardProps(): readonly PrimitiveProp[] {
+	return [
+		prop('label', 'string', 'Metric label shown above the value.', undefined, true),
+		prop('value', 'string', 'Formatted metric value.', undefined, true),
+		prop('unit', 'string', 'Optional unit suffix beside the value.'),
+		prop('delta', 'DataDelta', 'Optional terminal/error/neutral change indicator.'),
+		prop('trend', 'readonly number[]', 'Optional inline sparkline values.', '[]'),
+		prop('trendTone', 'DataTone', 'Overrides the sparkline tone derived from delta intent.'),
+		prop('status', 'DataLegendItem', 'Small status indicator in the header.'),
+		prop('compact', 'boolean', 'Tight metric card rhythm for dense dashboards.', 'false')
+	]
+}
+
+export function getMeterProps(): readonly PrimitiveProp[] {
+	return [
+		prop('label', 'string', 'Meter label shown in the card header.', undefined, true),
+		prop('value', 'DataProgressValue', 'Bounded value object parsed at runtime.', undefined, true),
+		prop('variant', "'bar' | 'ring'", 'Linear or circular meter rendering.', 'bar'),
+		prop('tone', 'DataTone', 'Progress tone mapped to Concrete signals.', 'sky'),
+		prop('target', 'number', 'Optional target value called out in the footer.'),
+		prop('unit', 'string', 'Rendered value unit.', '%'),
+		prop('compact', 'boolean', 'Tighter rail/ring dimensions.', 'false')
+	]
+}
+
+export function getChartProps(): readonly PrimitiveProp[] {
+	return [
+		prop(
+			'variant',
+			"'line' | 'area' | 'bar' | 'stacked-bar' | 'donut' | 'heatmap'",
+			'Chart renderer selected by the discriminated schema.',
+			'line',
+			true
+		),
+		prop('title', 'string', 'Chart title.', undefined, true),
+		prop('description', 'string', 'Muted supporting copy.'),
+		prop('state', "'ready' | 'loading' | 'empty' | 'error'", 'Async data state.', 'ready'),
+		prop('height', 'number', 'SVG or grid stage height.', '220'),
+		prop('legend', 'boolean', 'Shows derived legend indicators.', 'true'),
+		prop('showHeader', 'boolean', 'Shows title, description, and async state indicator.', 'true'),
+		prop(
+			'surface',
+			"'raised' | 'sunken' | 'transparent'",
+			'Foundation surface treatment for the plot stage.',
+			'raised'
+		),
+		prop('series', 'readonly DataSeries[]', 'Line and area series data.'),
+		prop('points', 'readonly DataPoint[]', 'Bar chart points.'),
+		prop('groups', 'readonly StackedBarGroup[]', 'Stacked bar groups.'),
+		prop('segments', 'readonly DataPoint[]', 'Donut segments.'),
+		prop('cells', 'readonly HeatmapCell[]', 'Heatmap cells.')
+	]
+}
+
+export function getLineChartProps(): readonly PrimitiveProp[] {
+	return [
+		prop('title', 'string', 'Chart title.', undefined, true),
+		prop('series', 'readonly DataSeries[]', 'One or more typed data series.', '[]'),
+		prop('target', 'number', 'Optional horizontal reference line.'),
+		prop('showDots', 'boolean', 'Shows every point marker for inspection states.', 'false'),
+		prop('showEndLabels', 'boolean', 'Labels each series endpoint.', 'true'),
+		prop('showGrid', 'boolean', 'Shows horizontal grid rules.', 'true'),
+		prop('showXAxis', 'boolean', 'Shows sparse x-axis labels.', 'true'),
+		prop('showYAxis', 'boolean', 'Shows y-axis tick labels.', 'true'),
+		prop('height', 'number', 'SVG plot height.', '220'),
+		prop('legend', 'boolean', 'Shows derived legend indicators.', 'true'),
+		prop('surface', "'raised' | 'sunken' | 'transparent'", 'Plot stage surface.', 'raised')
+	]
+}
+
+export function getAreaChartProps(): readonly PrimitiveProp[] {
+	return [
+		...getLineChartProps(),
+		prop('stacked', 'boolean', 'Reserved for stacked area compositions.', 'false')
+	]
+}
+
+export function getBarChartProps(): readonly PrimitiveProp[] {
+	return [
+		prop('title', 'string', 'Chart title.', undefined, true),
+		prop('points', 'readonly DataPoint[]', 'Primary bar data.', '[]'),
+		prop('comparisonPoints', 'readonly DataPoint[]', 'Muted comparison bars.', '[]'),
+		prop('baseline', 'number', 'Value used as the zero rail for positive or negative bars.', '0'),
+		prop('orientation', "'vertical' | 'horizontal'", 'Column or rail layout.', 'vertical'),
+		prop('showValues', 'boolean', 'Shows value labels.', 'true'),
+		prop('showGrid', 'boolean', 'Shows horizontal grid rules in vertical mode.', 'true'),
+		prop('showXAxis', 'boolean', 'Shows axis labels in vertical mode.', 'true'),
+		prop('showYAxis', 'boolean', 'Shows tick labels in vertical mode.', 'true'),
+		prop('height', 'number', 'SVG plot height.', '220'),
+		prop('legend', 'boolean', 'Shows derived legend indicators.', 'true'),
+		prop('surface', "'raised' | 'sunken' | 'transparent'", 'Plot stage surface.', 'raised')
+	]
+}
+
+export function getStackedBarChartProps(): readonly PrimitiveProp[] {
+	return [
+		prop('title', 'string', 'Chart title.', undefined, true),
+		prop('groups', 'readonly StackedBarGroup[]', 'Stacked bar groups.', '[]'),
+		prop('normalized', 'boolean', 'Normalizes each group to 100%.', 'false'),
+		prop('orientation', "'vertical' | 'horizontal'", 'Column or rail layout.', 'vertical'),
+		prop('showValues', 'boolean', 'Shows group total labels.', 'true'),
+		prop('showGrid', 'boolean', 'Shows horizontal grid rules in vertical mode.', 'true'),
+		prop('showXAxis', 'boolean', 'Shows axis labels in vertical mode.', 'true'),
+		prop('showYAxis', 'boolean', 'Shows tick labels in vertical mode.', 'true'),
+		prop('height', 'number', 'SVG plot height.', '220'),
+		prop('legend', 'boolean', 'Shows derived legend indicators.', 'true')
+	]
+}
+
+export function getDonutChartProps(): readonly PrimitiveProp[] {
+	return [
+		prop('title', 'string', 'Chart title.', undefined, true),
+		prop('segments', 'readonly DataPoint[]', 'Part-to-whole segments.', '[]'),
+		prop('centerLabel', 'string', 'Optional center metric override.'),
+		prop('showCenterLabel', 'boolean', 'Shows the center metric and leading segment label.', 'true'),
+		prop('thickness', "'thin' | 'medium' | 'thick'", 'Ring stroke thickness.', 'medium'),
+		prop('height', 'number', 'Plot stage height.', '220'),
+		prop('legend', 'boolean', 'Shows derived legend indicators.', 'true'),
+		prop('surface', "'raised' | 'sunken' | 'transparent'", 'Plot stage surface.', 'raised')
+	]
+}
+
+export function getHeatmapProps(): readonly PrimitiveProp[] {
+	return [
+		prop('title', 'string', 'Chart title.', undefined, true),
+		prop('cells', 'readonly HeatmapCell[]', 'Two-axis intensity cells.', '[]'),
+		prop('showValues', 'boolean', 'Shows cell values.', 'true'),
+		prop('height', 'number', 'Grid stage height.', '220'),
+		prop('surface', "'raised' | 'sunken' | 'transparent'", 'Grid stage surface.', 'raised')
+	]
+}
+
+export function getDataTableProps(): readonly PrimitiveProp[] {
+	return [
+		prop(
+			'columns',
+			'readonly DataTableColumn<Row>[]',
+			'Typed column definitions. Use createDataTableColumns<Row>() for best DX.',
+			undefined,
+			true
+		),
+		prop(
+			'rows',
+			'readonly Row[]',
+			'Typed row data with primitive or rich cell values.',
+			undefined,
+			true
+		),
+		prop('selectable', 'boolean', 'Adds a checkbox selection column.', 'false'),
+		prop('selectedRowIds', 'readonly string[]', 'Controlled selected row ids.', '[]'),
+		prop('sort', 'DataTableSort', 'Controlled sort state.'),
+		prop('filters', 'readonly DataTableFilter[]', 'Compact toolbar filter controls.', '[]'),
+		prop('searchValue', 'string', 'Controlled search query.', "''"),
+		prop('pagination', 'DataTablePagination', 'Optional page status and controls.'),
+		prop('toolbarActions', 'readonly DataTableToolbarAction[]', 'Right-side table toolbar actions.'),
+		prop('onSortChange', '(sort: DataTableSort | null) => void', 'Receives local sort changes.'),
+		prop(
+			'onFilterChange',
+			'(filterId: string, value: string) => void',
+			'Receives filter selection changes.'
+		),
+		prop(
+			'onPageChange',
+			'(page: number, pageSize: number) => void',
+			'Receives pagination control clicks.'
+		)
+	]
+}
+
+export function getFlowDiagramProps(): readonly PrimitiveProp[] {
+	return [
+		prop('flow', 'FlowDiagramFlow', 'Validated node and edge graph.', undefined, true),
+		prop('title', 'string', 'Diagram title.', undefined, true),
+		prop('description', 'string', 'Muted supporting copy.'),
+		prop('selectedNodeId', 'string', 'Highlights one node.'),
+		prop('selectedEdgeId', 'string', 'Highlights one routed edge.'),
+		prop('controls', 'boolean', 'Shows zoom controls.', 'false'),
+		prop('draggableNodes', 'boolean', 'Allows local node dragging.', 'false'),
+		prop('pannable', 'boolean', 'Reserved for product-level pan orchestration.', 'false'),
+		prop('zoomable', 'boolean', 'Reserved for product-level zoom orchestration.', 'false'),
+		prop('legend', 'readonly DataLegendItem[]', 'Optional legend indicators.', '[]'),
+		prop('onNodeSelect', '(nodeId: string) => void', 'Node click callback.'),
+		prop('onNodeMove', '(nodeId: string, position: Point) => void', 'Drag position callback.')
+	]
+}
+
 export function fieldChromeProps(): readonly PrimitiveProp[] {
 	return [
 		prop('label', 'ReactNode', 'Field label.'),

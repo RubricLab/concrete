@@ -1,5 +1,7 @@
 export * from './ai'
 export * from './composer'
+export * from './data'
+export * from './data-table-columns'
 export * from './form-composition'
 export * from './forms'
 export * from './interaction'

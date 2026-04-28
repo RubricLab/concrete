@@ -779,18 +779,29 @@
 	line-height: 1.45;
 }
 
+.componentFeatureStage[data-component="area-chart"],
+.componentFeatureStage[data-component="bar-chart"],
 .componentFeatureStage[data-component="command-menu"],
 .componentFeatureStage[data-component="composer"],
+.componentFeatureStage[data-component="chart"],
+.componentFeatureStage[data-component="data-table"],
 .componentFeatureStage[data-component="date-picker"],
 .componentFeatureStage[data-component="date-range-picker"],
+.componentFeatureStage[data-component="donut-chart"],
 .componentFeatureStage[data-component="file-upload"],
+.componentFeatureStage[data-component="flow-diagram"],
 .componentFeatureStage[data-component="form-dialog"],
 .componentFeatureStage[data-component="form-drawer"],
 .componentFeatureStage[data-component="form-shell"],
+.componentFeatureStage[data-component="heatmap"],
 .componentFeatureStage[data-component="image-upload"],
+.componentFeatureStage[data-component="line-chart"],
+.componentFeatureStage[data-component="meter"],
+.componentFeatureStage[data-component="metric-card"],
 .componentFeatureStage[data-component="multi-select"],
 .componentFeatureStage[data-component="search-bar"],
 .componentFeatureStage[data-component="settings-panel"],
+.componentFeatureStage[data-component="stacked-bar-chart"],
 .componentFeatureStage[data-component="time-picker"] {
 	min-height: 320px;
 }

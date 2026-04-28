@@ -100,18 +100,29 @@
 	border-top: 1px solid var(--concrete-border-soft);
 }
 
+.componentCatalogStage[data-component="area-chart"],
+.componentCatalogStage[data-component="bar-chart"],
 .componentCatalogStage[data-component="command-menu"],
 .componentCatalogStage[data-component="composer"],
+.componentCatalogStage[data-component="chart"],
+.componentCatalogStage[data-component="data-table"],
 .componentCatalogStage[data-component="date-picker"],
 .componentCatalogStage[data-component="date-range-picker"],
+.componentCatalogStage[data-component="donut-chart"],
 .componentCatalogStage[data-component="file-upload"],
+.componentCatalogStage[data-component="flow-diagram"],
 .componentCatalogStage[data-component="form-dialog"],
 .componentCatalogStage[data-component="form-drawer"],
 .componentCatalogStage[data-component="form-shell"],
+.componentCatalogStage[data-component="heatmap"],
 .componentCatalogStage[data-component="image-upload"],
+.componentCatalogStage[data-component="line-chart"],
+.componentCatalogStage[data-component="meter"],
+.componentCatalogStage[data-component="metric-card"],
 .componentCatalogStage[data-component="multi-select"],
 .componentCatalogStage[data-component="search-bar"],
 .componentCatalogStage[data-component="settings-panel"],
+.componentCatalogStage[data-component="stacked-bar-chart"],
 .componentCatalogStage[data-component="time-picker"] {
 	min-height: 320px;
 }
@@ -170,6 +181,15 @@
 }
 
 .componentPlaygroundStageWide {
+	max-width: 760px;
+}
+
+.componentPlaygroundStageData {
+	max-width: 900px;
+}
+
+.componentPlaygroundStageDataGrid {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
 	max-width: 760px;
 }
 

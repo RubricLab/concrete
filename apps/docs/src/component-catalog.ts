@@ -6,6 +6,7 @@ export const componentCategoryOrder = [
 	'control',
 	'navigation',
 	'surface',
+	'data',
 	'feedback',
 	'layout',
 	'form',
@@ -13,16 +14,26 @@ export const componentCategoryOrder = [
 ] as const satisfies readonly ComponentCategory[]
 
 const componentPreviewStates = {
+	'area-chart': 'quiet',
+	'bar-chart': 'comparison',
+	chart: 'area',
 	'command-menu': 'default',
 	composer: 'default',
+	'data-table': 'selected',
 	'date-picker': 'open',
 	'date-range-picker': 'open',
+	'donut-chart': 'thin',
 	'file-upload': 'default',
+	'flow-diagram': 'interactive',
 	'form-dialog': 'default',
 	'form-drawer': 'review',
 	'form-shell': 'default',
+	heatmap: 'quiet',
 	'image-upload': 'grid',
+	'line-chart': 'target',
 	message: 'assistant',
+	meter: 'ring',
+	'metric-card': 'status',
 	'multi-select': 'open',
 	'number-stepper': 'default',
 	'password-input': 'visible',
@@ -30,6 +41,7 @@ const componentPreviewStates = {
 	'reasoning-message': 'streaming',
 	'search-bar': 'menu',
 	'settings-panel': 'compact',
+	'stacked-bar-chart': 'horizontal',
 	'time-picker': 'open',
 	'tool-call-message': 'success',
 	toolbar: 'selected',
@@ -55,6 +67,8 @@ export function getCategoryTitle(category: ComponentCategory): string {
 	switch (category) {
 		case 'control':
 			return 'Interaction controls.'
+		case 'data':
+			return 'Data surfaces.'
 		case 'feedback':
 			return 'Agent process artifacts.'
 		case 'form':
@@ -76,6 +90,8 @@ export function getCategoryDescription(category: ComponentCategory): string {
 	switch (category) {
 		case 'control':
 			return 'Small but stateful control clusters that coordinate keyboard, focus, and selected state.'
+		case 'data':
+			return 'Typed KPI, chart, table, meter, and diagram components for dense product data and generated UI.'
 		case 'feedback':
 			return 'Subdued, expandable artifacts for visible reasoning, validation, and tool execution.'
 		case 'form':

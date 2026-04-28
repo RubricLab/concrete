@@ -1,6 +1,8 @@
 'use client'
 
 import {
+	AreaChart,
+	BarChart,
 	Button,
 	CommandMenu,
 	type CommandMenuItem,
@@ -8,8 +10,11 @@ import {
 	type ComponentSlug,
 	Composer,
 	type ComposerValue,
+	type DataPoint,
+	type DataSeries,
 	DatePicker,
 	DateRangePicker,
+	DonutChart,
 	FileUpload,
 	FormDialog,
 	FormDrawer,
@@ -17,9 +22,13 @@ import {
 	FormRow,
 	FormSection,
 	FormShell,
+	Heatmap,
 	ImageUpload,
 	Input,
+	LineChart,
 	Message,
+	Meter,
+	MetricCard,
 	MultiSelect,
 	NumberStepper,
 	PasswordInput,
@@ -31,6 +40,7 @@ import {
 	type SearchToken,
 	Select,
 	SettingsPanel,
+	StackedBarChart,
 	Switch,
 	TimePicker,
 	Toolbar,
@@ -115,6 +125,89 @@ const scopedSearchTokens = [
 	{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
 	{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
 ] as const satisfies readonly SearchToken[]
+
+const playgroundChartSeries: DataSeries[] = [
+	{
+		id: 'runs',
+		label: 'Agent runs',
+		points: [
+			{ label: 'Mon', tone: 'sky', value: 28 },
+			{ label: 'Tue', tone: 'sky', value: 34 },
+			{ label: 'Wed', tone: 'sky', value: 31 },
+			{ label: 'Thu', tone: 'sky', value: 47 },
+			{ label: 'Fri', tone: 'sky', value: 55 },
+			{ label: 'Sat', tone: 'sky', value: 52 },
+			{ label: 'Sun', tone: 'sky', value: 63 }
+		],
+		tone: 'sky'
+	},
+	{
+		id: 'accepted',
+		label: 'Accepted',
+		points: [
+			{ label: 'Mon', tone: 'terminal', value: 18 },
+			{ label: 'Tue', tone: 'terminal', value: 22 },
+			{ label: 'Wed', tone: 'terminal', value: 24 },
+			{ label: 'Thu', tone: 'terminal', value: 32 },
+			{ label: 'Fri', tone: 'terminal', value: 36 },
+			{ label: 'Sat', tone: 'terminal', value: 35 },
+			{ label: 'Sun', tone: 'terminal', value: 44 }
+		],
+		tone: 'terminal'
+	}
+]
+
+const playgroundChartPoints: DataPoint[] = [
+	{ label: 'Router', tone: 'sky', value: 52 },
+	{ label: 'Memory', tone: 'terminal', value: 38 },
+	{ label: 'Tools', tone: 'ultra', value: 44 },
+	{ label: 'Eval', tone: 'muted', value: 31 },
+	{ label: 'Policy', tone: 'error', value: 18 }
+]
+
+const playgroundComparisonPoints: DataPoint[] = [
+	{ label: 'Router', tone: 'muted', value: 42 },
+	{ label: 'Memory', tone: 'muted', value: 31 },
+	{ label: 'Tools', tone: 'muted', value: 39 },
+	{ label: 'Eval', tone: 'muted', value: 28 },
+	{ label: 'Policy', tone: 'muted', value: 22 }
+]
+
+const playgroundStackedGroups: { label: string; segments: DataPoint[] }[] = [
+	{
+		label: 'Mon',
+		segments: [
+			{ label: 'Search', tone: 'sky', value: 22 },
+			{ label: 'Reasoning', tone: 'terminal', value: 18 },
+			{ label: 'Tools', tone: 'ultra', value: 9 }
+		]
+	},
+	{
+		label: 'Tue',
+		segments: [
+			{ label: 'Search', tone: 'sky', value: 26 },
+			{ label: 'Reasoning', tone: 'terminal', value: 14 },
+			{ label: 'Tools', tone: 'ultra', value: 13 }
+		]
+	},
+	{
+		label: 'Wed',
+		segments: [
+			{ label: 'Search', tone: 'sky', value: 18 },
+			{ label: 'Reasoning', tone: 'terminal', value: 22 },
+			{ label: 'Tools', tone: 'ultra', value: 16 }
+		]
+	}
+]
+
+const playgroundHeatmapCells = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].flatMap((day, dayIndex) =>
+	['AM', 'Mid', 'PM'].map((slot, slotIndex) => ({
+		label: `${day} ${slot}`,
+		value: 12 + dayIndex * 8 + slotIndex * 5 + (dayIndex === 3 && slotIndex === 2 ? 18 : 0),
+		x: day,
+		y: slot
+	}))
+)
 
 const uploadPreview =
 	'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"%3E%3Crect width="80" height="80" fill="%23eef3fb"/%3E%3Cpath d="M18 56 34 36l10 12 8-10 10 18H18Z" fill="%231f6fd4"/%3E%3Ccircle cx="55" cy="25" r="6" fill="%23a9c6ef"/%3E%3C/svg%3E'
@@ -230,6 +323,76 @@ function getComponentPlaygroundControls(
 				selectControl('menuKind', 'Menu', '', ['', 'mention', 'command']),
 				booleanControl('disabled', 'Disabled', 'false'),
 				textControl('submitLabel', 'Submit label', 'Send')
+			]
+		case 'metric-card':
+			return [
+				selectControl('fixture', 'Fixture', 'default', ['default', 'status', 'compact']),
+				textControl('label', 'Label', 'Agent runs'),
+				textControl('value', 'Value', '14,842'),
+				textControl('delta', 'Delta', '+18.6%'),
+				selectControl('intent', 'Intent', 'positive', ['positive', 'neutral', 'negative'])
+			]
+		case 'meter':
+			return [
+				selectControl('variant', 'Variant', 'bar', ['bar', 'ring']),
+				textControl('label', 'Label', 'Usage'),
+				numberControl('value', 'Value', '72'),
+				selectControl('tone', 'Tone', 'sky', ['sky', 'terminal', 'ultra', 'error']),
+				booleanControl('compact', 'Compact', 'false')
+			]
+		case 'line-chart':
+		case 'area-chart':
+			return [
+				booleanControl('showGrid', 'Grid', 'true'),
+				booleanControl('showAxis', 'Axes', 'true'),
+				booleanControl('showEndLabels', 'End labels', 'true'),
+				booleanControl('showDots', 'Dots', 'false'),
+				selectControl('surface', 'Surface', 'raised', ['raised', 'sunken', 'transparent'])
+			]
+		case 'bar-chart':
+			return [
+				selectControl('orientation', 'Orientation', 'vertical', ['vertical', 'horizontal']),
+				booleanControl('comparison', 'Comparison', 'true'),
+				booleanControl('showValues', 'Values', 'true'),
+				booleanControl('showGrid', 'Grid', 'true'),
+				selectControl('surface', 'Surface', 'raised', ['raised', 'sunken', 'transparent'])
+			]
+		case 'stacked-bar-chart':
+			return [
+				selectControl('orientation', 'Orientation', 'vertical', ['vertical', 'horizontal']),
+				booleanControl('normalized', 'Normalized', 'false'),
+				booleanControl('showValues', 'Values', 'true'),
+				selectControl('surface', 'Surface', 'raised', ['raised', 'sunken', 'transparent'])
+			]
+		case 'donut-chart':
+			return [
+				selectControl('thickness', 'Thickness', 'medium', ['thin', 'medium', 'thick']),
+				booleanControl('showCenterLabel', 'Center label', 'true'),
+				selectControl('surface', 'Surface', 'raised', ['raised', 'sunken', 'transparent'])
+			]
+		case 'heatmap':
+			return [
+				booleanControl('showValues', 'Values', 'true'),
+				selectControl('surface', 'Surface', 'raised', ['raised', 'sunken', 'transparent'])
+			]
+		case 'chart':
+			return [
+				selectControl('variant', 'Variant', 'line', [
+					'line',
+					'area',
+					'bar',
+					'stacked',
+					'donut',
+					'heatmap'
+				])
+			]
+		case 'data-table':
+			return [
+				selectControl('fixture', 'Fixture', 'default', ['default', 'selected', 'filtered', 'empty'])
+			]
+		case 'flow-diagram':
+			return [
+				selectControl('fixture', 'Fixture', 'default', ['default', 'selected', 'interactive', 'empty'])
 			]
 		case 'message':
 			return [
@@ -370,6 +533,12 @@ function renderPlaygroundComponent(slug: ComponentSlug, searchParams: URLSearchP
 	const state = getQueryValue(searchParams, 'state', 'default')
 
 	switch (slug) {
+		case 'area-chart':
+			return renderAreaChartPlayground(searchParams)
+		case 'bar-chart':
+			return renderBarChartPlayground(searchParams)
+		case 'chart':
+			return renderChartPlayground(searchParams, state)
 		case 'toolbar':
 			return renderToolbarPlayground(searchParams)
 		case 'command-menu':
@@ -378,6 +547,20 @@ function renderPlaygroundComponent(slug: ComponentSlug, searchParams: URLSearchP
 			return renderSearchBarPlayground(searchParams)
 		case 'composer':
 			return renderComposerPlayground(searchParams)
+		case 'donut-chart':
+			return renderDonutChartPlayground(searchParams)
+		case 'data-table':
+			return renderDataTablePlayground(searchParams, state)
+		case 'flow-diagram':
+			return renderFlowDiagramPlayground(searchParams, state)
+		case 'meter':
+			return renderMeterPlayground(searchParams)
+		case 'heatmap':
+			return renderHeatmapPlayground(searchParams)
+		case 'line-chart':
+			return renderLineChartPlayground(searchParams)
+		case 'metric-card':
+			return renderMetricCardPlayground(searchParams)
 		case 'message':
 			return renderMessagePlayground(searchParams)
 		case 'reasoning-message':
@@ -390,6 +573,8 @@ function renderPlaygroundComponent(slug: ComponentSlug, searchParams: URLSearchP
 			return renderValidationSummaryPlayground(searchParams)
 		case 'settings-panel':
 			return renderSettingsPanelPlayground(searchParams)
+		case 'stacked-bar-chart':
+			return renderStackedBarChartPlayground(searchParams)
 		case 'form-dialog':
 			return renderFormDialogPlayground(searchParams)
 		case 'form-drawer':
@@ -544,6 +729,220 @@ function renderComposerPlayground(searchParams: URLSearchParams): ReactNode {
 				{...(menuKind === 'command' || menuKind === 'mention' ? { defaultMenuKind: menuKind } : {})}
 			/>
 		</ComposerStage>
+	)
+}
+
+function renderMetricCardPlayground(searchParams: URLSearchParams): ReactNode {
+	const fixture = getQueryValue(searchParams, 'fixture', 'default')
+	const intent = getQueryValue(searchParams, 'intent', 'positive') as
+		| 'negative'
+		| 'neutral'
+		| 'positive'
+
+	return (
+		<DataGridStage>
+			<MetricCard
+				compact={fixture === 'compact'}
+				delta={{
+					basis: 'vs last week',
+					intent,
+					value: getQueryValue(searchParams, 'delta', '+18.6%')
+				}}
+				description={
+					fixture === 'compact' ? undefined : 'Accepted agent runs across production workspaces.'
+				}
+				label={getQueryValue(searchParams, 'label', 'Agent runs')}
+				status={fixture === 'status' ? { label: 'Live', tone: 'terminal' } : undefined}
+				trend={[42, 48, 45, 53, 58, 57, 64, 72, 76, 83]}
+				value={getQueryValue(searchParams, 'value', '14,842')}
+			/>
+		</DataGridStage>
+	)
+}
+
+function renderMeterPlayground(searchParams: URLSearchParams): ReactNode {
+	const value = getQueryNumber(searchParams, 'value', 72)
+
+	return (
+		<DataGridStage>
+			<Meter
+				compact={getQueryBoolean(searchParams, 'compact', false)}
+				description="Workspace command budget"
+				label={getQueryValue(searchParams, 'label', 'Usage')}
+				target={80}
+				tone={getQueryValue(searchParams, 'tone', 'sky') as 'error' | 'sky' | 'terminal' | 'ultra'}
+				value={{ max: 100, min: 0, value }}
+				variant={getQueryValue(searchParams, 'variant', 'bar') as 'bar' | 'ring'}
+			/>
+		</DataGridStage>
+	)
+}
+
+function renderLineChartPlayground(searchParams: URLSearchParams): ReactNode {
+	const showAxis = getQueryBoolean(searchParams, 'showAxis', true)
+
+	return (
+		<DataWideStage>
+			<LineChart
+				description="Agent run volume with accepted output overlay."
+				series={playgroundChartSeries}
+				showDots={getQueryBoolean(searchParams, 'showDots', false)}
+				showEndLabels={getQueryBoolean(searchParams, 'showEndLabels', true)}
+				showGrid={getQueryBoolean(searchParams, 'showGrid', true)}
+				showXAxis={showAxis}
+				showYAxis={showAxis}
+				surface={getChartSurface(searchParams)}
+				target={58}
+				title="Agent runs"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderAreaChartPlayground(searchParams: URLSearchParams): ReactNode {
+	const showAxis = getQueryBoolean(searchParams, 'showAxis', true)
+
+	return (
+		<DataWideStage>
+			<AreaChart
+				description="Accepted runs and total executions."
+				series={playgroundChartSeries}
+				showDots={getQueryBoolean(searchParams, 'showDots', false)}
+				showEndLabels={getQueryBoolean(searchParams, 'showEndLabels', true)}
+				showGrid={getQueryBoolean(searchParams, 'showGrid', true)}
+				showXAxis={showAxis}
+				showYAxis={showAxis}
+				surface={getChartSurface(searchParams)}
+				target={58}
+				title="Execution trend"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderBarChartPlayground(searchParams: URLSearchParams): ReactNode {
+	return (
+		<DataWideStage>
+			<BarChart
+				comparisonPoints={
+					getQueryBoolean(searchParams, 'comparison', true) ? playgroundComparisonPoints : []
+				}
+				orientation={getChartOrientation(searchParams)}
+				points={playgroundChartPoints}
+				showGrid={getQueryBoolean(searchParams, 'showGrid', true)}
+				showValues={getQueryBoolean(searchParams, 'showValues', true)}
+				surface={getChartSurface(searchParams)}
+				title="Capability score"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderStackedBarChartPlayground(searchParams: URLSearchParams): ReactNode {
+	return (
+		<DataWideStage>
+			<StackedBarChart
+				groups={playgroundStackedGroups}
+				normalized={getQueryBoolean(searchParams, 'normalized', false)}
+				orientation={getChartOrientation(searchParams)}
+				showValues={getQueryBoolean(searchParams, 'showValues', true)}
+				surface={getChartSurface(searchParams)}
+				title="Run composition"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderDonutChartPlayground(searchParams: URLSearchParams): ReactNode {
+	return (
+		<DataWideStage>
+			<DonutChart
+				centerLabel="64%"
+				segments={playgroundChartPoints.slice(0, 4)}
+				showCenterLabel={getQueryBoolean(searchParams, 'showCenterLabel', true)}
+				surface={getChartSurface(searchParams)}
+				thickness={getChartThickness(searchParams)}
+				title="Workload split"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderHeatmapPlayground(searchParams: URLSearchParams): ReactNode {
+	return (
+		<DataWideStage>
+			<Heatmap
+				cells={playgroundHeatmapCells}
+				showValues={getQueryBoolean(searchParams, 'showValues', true)}
+				surface={getChartSurface(searchParams)}
+				title="Run intensity"
+			/>
+		</DataWideStage>
+	)
+}
+
+function getChartSurface(searchParams: URLSearchParams): 'raised' | 'sunken' | 'transparent' {
+	const surface = getQueryValue(searchParams, 'surface', 'raised')
+
+	switch (surface) {
+		case 'sunken':
+		case 'transparent':
+			return surface
+		default:
+			return 'raised'
+	}
+}
+
+function getChartOrientation(searchParams: URLSearchParams): 'horizontal' | 'vertical' {
+	const orientation = getQueryValue(searchParams, 'orientation', 'vertical')
+
+	switch (orientation) {
+		case 'horizontal':
+			return 'horizontal'
+		default:
+			return 'vertical'
+	}
+}
+
+function getChartThickness(searchParams: URLSearchParams): 'medium' | 'thick' | 'thin' {
+	const thickness = getQueryValue(searchParams, 'thickness', 'medium')
+
+	switch (thickness) {
+		case 'thin':
+		case 'thick':
+			return thickness
+		default:
+			return 'medium'
+	}
+}
+
+function renderChartPlayground(searchParams: URLSearchParams, state: string): ReactNode {
+	const variant = getQueryValue(searchParams, 'variant', 'line')
+
+	return (
+		<DataWideStage>
+			{renderComponentExample('chart', state === 'default' ? variant : state)}
+		</DataWideStage>
+	)
+}
+
+function renderDataTablePlayground(searchParams: URLSearchParams, state: string): ReactNode {
+	const fixture = getQueryValue(searchParams, 'fixture', 'default')
+
+	return (
+		<DataWideStage>
+			{renderComponentExample('data-table', state === 'default' ? fixture : state)}
+		</DataWideStage>
+	)
+}
+
+function renderFlowDiagramPlayground(searchParams: URLSearchParams, state: string): ReactNode {
+	const fixture = getQueryValue(searchParams, 'fixture', 'default')
+
+	return (
+		<DataWideStage>
+			{renderComponentExample('flow-diagram', state === 'default' ? fixture : state)}
+		</DataWideStage>
 	)
 }
 
@@ -978,6 +1377,14 @@ function FormStage({ children }: { children: ReactNode }) {
 
 function FormWideStage({ children }: { children: ReactNode }) {
 	return <div className="componentPlaygroundStage componentPlaygroundStageWide">{children}</div>
+}
+
+function DataGridStage({ children }: { children: ReactNode }) {
+	return <div className="componentPlaygroundStage componentPlaygroundStageDataGrid">{children}</div>
+}
+
+function DataWideStage({ children }: { children: ReactNode }) {
+	return <div className="componentPlaygroundStage componentPlaygroundStageData">{children}</div>
 }
 
 function createComposerValue(value: Partial<ComposerValue>): ComposerValue {

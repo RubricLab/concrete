@@ -1,16 +1,26 @@
 import type { ComposerValue } from '../components'
 import type { ConcretePressure, PrimitiveCategory } from '../schemas'
 import {
+	getAreaChartProps,
+	getBarChartProps,
+	getChartProps,
 	getCommandMenuProps,
 	getComposerProps,
+	getDataTableProps,
 	getDatePickerProps,
 	getDateRangePickerProps,
+	getDonutChartProps,
 	getFileUploadProps,
+	getFlowDiagramProps,
 	getFormDialogProps,
 	getFormDrawerProps,
 	getFormShellProps,
+	getHeatmapProps,
 	getImageUploadProps,
+	getLineChartProps,
 	getMessageProps,
+	getMeterProps,
+	getMetricCardProps,
 	getMultiSelectProps,
 	getNumberStepperProps,
 	getPasswordInputProps,
@@ -20,6 +30,7 @@ import {
 	getReasoningMessageProps,
 	getSearchBarProps,
 	getSettingsPanelProps,
+	getStackedBarChartProps,
 	getTimePickerProps,
 	getToolbarProps,
 	getToolCallMessageProps,
@@ -531,6 +542,173 @@ export const componentRegistry = [
 			['single', 'Single preview image upload.'],
 			['avatar', 'Compact avatar-oriented image picker.'],
 			['grid', 'Multi-image grid treatment.']
+		])
+	),
+	componentEntry(
+		'metric-card',
+		'Metric card',
+		'KPI tile composed from Stat, Delta, Sparkline, Indicator, and Concrete surface primitives.',
+		'data',
+		['product', 'generative'],
+		'Metric card is for compact dashboard summaries. It accepts formatted values at the boundary and leaves business math to product code.',
+		getMetricCardProps(),
+		states([
+			['default', 'KPI tile with value, delta, and sparkline.'],
+			['status', 'Metric with a terminal status indicator.'],
+			['compact', 'Dense grid tile for dashboard rows.']
+		])
+	),
+	componentEntry(
+		'meter',
+		'Meter',
+		'Progress summary card that composes Concrete linear and ring progress primitives.',
+		'data',
+		['product', 'generative'],
+		'Meter is a bounded progress summary, not a charting framework. Use it for quotas, completion, utilization, and health summaries.',
+		getMeterProps(),
+		states([
+			['bar', 'Linear progress summary with target copy.'],
+			['ring', 'Circular progress summary for compact scorecards.'],
+			['signal', 'Terminal, ultra, and error signal meters.']
+		])
+	),
+	componentEntry(
+		'line-chart',
+		'Line chart',
+		'Multi-series trend chart with Concrete grid, endpoint, target, and legend language.',
+		'data',
+		['product', 'generative'],
+		'Line chart is the default trend primitive for product summaries. Use dots only for inspection states; let the line and endpoint carry the hierarchy.',
+		getLineChartProps(),
+		states([
+			['default', 'Multi-series line chart with endpoint labels.'],
+			['target', 'Trend with a horizontal reference target.'],
+			['inspect', 'Point markers enabled for inspection.'],
+			['loading', 'Stable loading state.'],
+			['empty', 'No-data state.'],
+			['error', 'Failed data state.']
+		])
+	),
+	componentEntry(
+		'area-chart',
+		'Area chart',
+		'Soft filled trend chart for volume, confidence, and generated UI previews.',
+		'data',
+		['generative', 'product'],
+		'Area chart should stay light. It is useful when the signal is cumulative or atmospheric, not when exact comparison is the main task.',
+		getAreaChartProps(),
+		states([
+			['default', 'Soft area chart with endpoint labels.'],
+			['quiet', 'Transparent surface and hidden axes for compact generated UI.'],
+			['dots', 'Inspection state with point markers.']
+		])
+	),
+	componentEntry(
+		'bar-chart',
+		'Bar chart',
+		'Categorical comparison chart with optional comparison bars and horizontal rails.',
+		'data',
+		['product', 'generative'],
+		'Bar chart is for ranked or categorical values. Keep labels sparse and use comparison bars only when they answer a direct before/after question.',
+		getBarChartProps(),
+		states([
+			['default', 'Vertical bars with value labels.'],
+			['comparison', 'Muted comparison bars behind the primary series.'],
+			['horizontal', 'Horizontal rail layout for ranked lists.'],
+			['quiet', 'No value labels for dense cards.']
+		])
+	),
+	componentEntry(
+		'stacked-bar-chart',
+		'Stacked bar chart',
+		'Composition chart for small category stacks across time or groups.',
+		'data',
+		['product', 'generative'],
+		'Stacked bar chart is for composition, not precise comparison. Keep the segment count low and prefer normalized bars when the share is more important than total volume.',
+		getStackedBarChartProps(),
+		states([
+			['default', 'Vertical stacked composition.'],
+			['normalized', 'Normalized 100% composition.'],
+			['horizontal', 'Rail layout for compact summaries.']
+		])
+	),
+	componentEntry(
+		'donut-chart',
+		'Donut chart',
+		'Part-to-whole ring summary with controlled center metric and thickness.',
+		'data',
+		['generative', 'product'],
+		'Donut chart works best for a small number of stable segments. It should summarize, not explain an entire distribution.',
+		getDonutChartProps(),
+		states([
+			['default', 'Medium ring with center label.'],
+			['thin', 'Thin ring for quiet summaries.'],
+			['thick', 'Thick ring for primary scorecards.'],
+			['plain', 'Ring without center label.']
+		])
+	),
+	componentEntry(
+		'heatmap',
+		'Heatmap',
+		'Two-axis intensity grid for compact activity and density summaries.',
+		'data',
+		['product', 'educational', 'generative'],
+		'Heatmap should use one accent scale with restrained contrast. Use it when relative density matters more than exact values.',
+		getHeatmapProps(),
+		states([
+			['default', 'Labeled intensity grid with values.'],
+			['quiet', 'Values hidden for denser overview cards.'],
+			['sunken', 'Sunken plot surface for dashboard wells.']
+		])
+	),
+	componentEntry(
+		'chart',
+		'Chart',
+		'Backward-compatible discriminated union wrapper for every focused chart component.',
+		'data',
+		['product', 'generative'],
+		'Chart is a convenience wrapper. Prefer LineChart, BarChart, DonutChart, and Heatmap in product code when the chart type is known.',
+		getChartProps(),
+		states([
+			['line', 'Multi-series line chart with a target marker.'],
+			['area', 'Soft area chart for trend previews.'],
+			['bar', 'Grouped bar comparison.'],
+			['stacked', 'Stacked bar composition.'],
+			['donut', 'Part-to-whole ring summary.'],
+			['heatmap', 'Compact two-axis intensity grid.'],
+			['loading', 'Stable loading state.'],
+			['empty', 'No-data state.'],
+			['error', 'Failed data state.']
+		])
+	),
+	componentEntry(
+		'data-table',
+		'Data table',
+		'Dense typed table with sortable columns, selection, search, filters, pagination, and rich cells.',
+		'data',
+		['product'],
+		'Data table is the canonical product grid for Concrete. Use createDataTableColumns<Row>() to keep columns aligned to row data.',
+		getDataTableProps(),
+		states([
+			['default', 'Dense table with status, delta, sparkline, and meter cells.'],
+			['selected', 'Selectable rows with toolbar actions.'],
+			['filtered', 'Search and filter controls with pagination.'],
+			['empty', 'No-row state inside the same table shell.']
+		])
+	),
+	componentEntry(
+		'flow-diagram',
+		'Flow diagram',
+		'Routed node and edge diagram for agent plans, systems, memory flows, and tool pipelines.',
+		'data',
+		['product', 'generative', 'educational'],
+		'Flow diagram is a deterministic SVG map for explainers and product inspectors. It exposes selection and local node movement without owning graph persistence.',
+		getFlowDiagramProps(),
+		states([
+			['default', 'Routed node graph with muted edges.'],
+			['selected', 'Selected node and edge states.'],
+			['interactive', 'Controls and draggable nodes enabled.'],
+			['empty', 'Empty graph state.']
 		])
 	),
 	componentEntry(

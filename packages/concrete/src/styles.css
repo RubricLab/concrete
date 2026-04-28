@@ -213,7 +213,9 @@ h3 {
 	line-height: var(--concrete-line-snug);
 }
 
-.concrete-display {
+.display,
+.concrete-display,
+.hero h1 {
 	color: var(--concrete-foreground-strong);
 	font-family: var(--concrete-font-display);
 	font-optical-sizing: none;
@@ -223,7 +225,9 @@ h3 {
 	line-height: var(--concrete-line-tight);
 }
 
-.concrete-display em {
+.display em,
+.concrete-display em,
+.hero h1 em {
 	font-style: italic;
 	font-variation-settings: var(--concrete-font-display-settings);
 }

@@ -2253,6 +2253,765 @@
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* Data Components */
+.metricCard,
+.meterCard,
+.chartCard,
+.dataTableCard,
+.flowDiagramCard {
+	display: grid;
+	gap: 12px;
+	min-width: 0;
+	padding: 14px;
+}
+
+.metricCardCompact {
+	gap: 8px;
+	padding: 12px;
+}
+
+.metricHeader,
+.meterHeader,
+.dataCardHeader,
+.dataTableHeader {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: 14px;
+	min-width: 0;
+}
+
+.metricLabel,
+.meterHeader span,
+.dataCardHeader h3,
+.dataTableHeader h3 {
+	margin: 0;
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-13);
+	font-weight: 800;
+	letter-spacing: 0;
+}
+
+.dataCardHeader p,
+.dataTableHeader p,
+.metricDescription,
+.meterFooter {
+	margin: 0;
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-12);
+	line-height: var(--concrete-line-normal);
+}
+
+.metricSparkline {
+	width: 100%;
+	height: 34px;
+}
+
+.meterRingCard {
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+}
+
+.meterHeader {
+	grid-column: 1 / -1;
+}
+
+.meterHeader b {
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-13);
+	font-weight: 800;
+}
+
+.meterFooter {
+	display: flex;
+	grid-column: 1 / -1;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: space-between;
+}
+
+.chartCard {
+	overflow: hidden;
+}
+
+.chartSurface {
+	position: relative;
+	display: grid;
+	min-height: var(--chart-height, 220px);
+	place-items: stretch;
+	overflow: hidden;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-raised);
+	color: var(--concrete-sky);
+}
+
+.chartSurface[data-surface="sunken"] {
+	background: var(--concrete-sunken);
+}
+
+.chartSurface[data-surface="transparent"] {
+	border-color: transparent;
+	background: transparent;
+}
+
+.chartSvg {
+	width: 100%;
+	height: 100%;
+	min-height: var(--chart-height, 220px);
+	overflow: visible;
+}
+
+.chartGrid line {
+	stroke: color-mix(in oklab, var(--concrete-border-soft) 72%, transparent);
+	stroke-width: 1;
+}
+
+.chartPlotBackground {
+	fill: transparent;
+	stroke: none;
+}
+
+.chartAxis,
+.chartBaseline {
+	stroke: color-mix(in oklab, var(--concrete-border) 76%, transparent);
+	stroke-width: 1;
+}
+
+.chartTickLabel,
+.chartAxisLabel,
+.chartRowLabel,
+.chartValueLabel,
+.chartEndLabel {
+	fill: var(--concrete-foreground-faint);
+	font: 800 9px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.chartRowLabel,
+.chartValueLabel,
+.chartEndLabel {
+	font-family: var(--concrete-font-sans);
+	font-size: 10px;
+	font-weight: 800;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.chartValueLabel,
+.chartEndLabel {
+	fill: var(--concrete-foreground-muted);
+}
+
+.chartLine,
+.chartArea,
+.chartEndpoint,
+.chartPoint,
+.chartBar,
+.chartBarComparison,
+.chartStackSegment,
+.chartTarget line,
+.donutSegment,
+.donutTrack {
+	stroke: currentcolor;
+}
+
+.chartLine {
+	fill: none;
+	stroke-width: 1.75;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.chartArea {
+	fill: currentcolor;
+	opacity: 0.08;
+	stroke: none;
+}
+
+.chartPoint {
+	fill: var(--concrete-surface);
+	opacity: 0.78;
+	stroke-width: 1.4;
+}
+
+.chartEndpoint {
+	fill: currentcolor;
+	stroke: var(--concrete-surface);
+	stroke-width: 2;
+}
+
+.chartBar,
+.chartBarComparison,
+.chartStackSegment {
+	fill: currentcolor;
+	stroke: none;
+}
+
+.chartBar {
+	filter: drop-shadow(0 1px 0 rgb(13 18 28 / 6%));
+}
+
+.chartBarTrack,
+.donutTrack {
+	fill: var(--concrete-surface);
+	stroke: none;
+}
+
+.chartBarComparison {
+	color: var(--concrete-foreground-muted);
+	opacity: 0.18;
+}
+
+.chartTarget line {
+	stroke: var(--concrete-foreground-faint);
+	stroke-dasharray: 4 4;
+}
+
+.chartTarget text {
+	fill: var(--concrete-foreground-soft);
+	font: 800 9px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.chartMessage {
+	display: grid;
+	min-height: var(--chart-height, 220px);
+	place-items: center;
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-13);
+	font-weight: 700;
+}
+
+.chartLegend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px 12px;
+	align-items: center;
+	min-width: 0;
+}
+
+.chartLegend span span {
+	color: var(--concrete-foreground-muted);
+	font-variant-numeric: tabular-nums;
+}
+
+.horizontalBars,
+.stackedBars {
+	display: grid;
+	gap: 9px;
+	align-content: center;
+	min-height: var(--chart-height, 220px);
+	padding: 16px;
+}
+
+.horizontalBarRow,
+.stackedBarGroup {
+	display: grid;
+	grid-template-columns: 86px minmax(0, 1fr) 48px;
+	gap: 10px;
+	align-items: center;
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-12);
+}
+
+.horizontalBarRow i {
+	display: block;
+	height: 9px;
+	max-width: 100%;
+	border-radius: var(--concrete-radius-pill);
+	background: currentcolor;
+	color: var(--concrete-sky);
+}
+
+.horizontalBarRow b,
+.stackedBarGroup b {
+	color: var(--concrete-foreground-strong);
+	font-variant-numeric: tabular-nums;
+	text-align: right;
+}
+
+.stackedBarGroup > div {
+	display: flex;
+	height: 12px;
+	overflow: hidden;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-raised);
+}
+
+.stackedBarGroup i {
+	min-width: 4px;
+	background: currentcolor;
+	color: var(--concrete-sky);
+}
+
+.stackedBars[data-orientation="vertical"] {
+	grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+	align-items: end;
+}
+
+.stackedBars[data-orientation="vertical"] .stackedBarGroup {
+	grid-template-columns: 1fr;
+	justify-items: stretch;
+	text-align: center;
+}
+
+.stackedBars[data-orientation="vertical"] .stackedBarGroup > div {
+	height: 132px;
+	flex-direction: column-reverse;
+}
+
+.donutChart {
+	position: relative;
+	display: grid;
+	min-height: var(--chart-height, 220px);
+	place-items: center;
+	color: var(--concrete-sky);
+}
+
+.donutChart svg {
+	width: min(152px, 72%);
+	transform: rotate(-90deg);
+}
+
+.donutSegment {
+	fill: none;
+	stroke-width: var(--donut-stroke-width, 10);
+	stroke-linecap: butt;
+}
+
+.donutTrack {
+	fill: none;
+	stroke-width: var(--donut-stroke-width, 10);
+}
+
+.donutCenter {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-content: center;
+	text-align: center;
+}
+
+.donutCenter b {
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-24);
+	line-height: 1;
+}
+
+.donutCenter span {
+	color: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.heatmapChart {
+	display: grid;
+	gap: 4px;
+	align-content: center;
+	min-height: var(--chart-height, 220px);
+	padding: 16px;
+	color: var(--concrete-sky);
+}
+
+.heatmapChart b,
+.heatmapChart strong {
+	color: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.heatmapChart b {
+	text-align: center;
+}
+
+.heatmapCell {
+	position: relative;
+	display: grid;
+	min-height: 24px;
+	place-items: center;
+	overflow: hidden;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-strong);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+.heatmapCell::before {
+	position: absolute;
+	inset: 0;
+	background: var(--concrete-sky);
+	content: "";
+	opacity: var(--heatmap-intensity, 0.24);
+}
+
+.heatmapCell span {
+	position: relative;
+}
+
+.dataTableHeader {
+	align-items: center;
+}
+
+.dataTableToolbar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	justify-content: end;
+}
+
+.dataTableSearch {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 30px;
+	padding: 0 8px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-muted);
+}
+
+.dataTableSearch svg,
+.dataTableAction svg {
+	width: 14px;
+	height: 14px;
+}
+
+.dataTableSearch input {
+	width: 150px;
+	border: 0;
+	background: transparent;
+	color: var(--concrete-foreground-body);
+	font: 500 var(--concrete-type-13) / 1 var(--concrete-font-sans);
+	outline: 0;
+}
+
+.dataTableFilter {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 30px;
+	padding: 0 7px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.dataTableFilter select {
+	min-width: 76px;
+	border: 0;
+	background: transparent;
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	font: 700 var(--concrete-type-12) / 1 var(--concrete-font-sans);
+	letter-spacing: 0;
+	outline: 0;
+	text-transform: none;
+}
+
+.dataTableAction,
+.flowDiagramControls button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	height: 30px;
+	padding: 0 9px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	font: 700 var(--concrete-type-12) / 1 var(--concrete-font-sans);
+}
+
+.dataTableAction:hover,
+.flowDiagramControls button:hover {
+	border-color: var(--concrete-border-strong);
+	color: var(--concrete-foreground-strong);
+}
+
+.dataTableScroll {
+	overflow: auto;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+}
+
+.dataTable {
+	width: 100%;
+	min-width: 760px;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: var(--concrete-type-12);
+}
+
+.dataTable th,
+.dataTable td {
+	min-width: 0;
+	padding: 9px 10px;
+	border-bottom: 1px solid var(--concrete-border-soft);
+	color: var(--concrete-foreground-body);
+	text-align: left;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+.dataTable th {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	background: var(--concrete-raised);
+	color: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.dataTable tbody tr:hover td,
+.dataTable tr[data-selected="true"] td {
+	background: var(--concrete-sunken);
+}
+
+.dataTableSort {
+	display: inline-flex;
+	gap: 4px;
+	align-items: center;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	font: inherit;
+	letter-spacing: inherit;
+	text-transform: inherit;
+}
+
+.dataTableSort:disabled {
+	cursor: default;
+}
+
+.dataTableSort svg {
+	width: 12px;
+	height: 12px;
+}
+
+.dataTableAlignRight {
+	text-align: right;
+}
+
+.dataTableAlignCenter {
+	text-align: center;
+}
+
+.dataTableSelectionCell {
+	width: 34px;
+	text-align: center;
+}
+
+.dataTableSelectionCell input {
+	width: 14px;
+	height: 14px;
+	margin: 0;
+	accent-color: var(--concrete-sky);
+}
+
+.dataTableFrozen {
+	position: sticky;
+	left: 0;
+	z-index: 2;
+	background: inherit;
+}
+
+.dataTableEmpty,
+.dataTableEmptyCell {
+	color: var(--concrete-foreground-muted);
+}
+
+.dataTableEmpty {
+	padding: 24px;
+	text-align: center;
+}
+
+.dataTablePagination {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-12);
+}
+
+.dataTablePagination button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+}
+
+.dataTablePagination button:disabled {
+	opacity: 0.48;
+	cursor: not-allowed;
+}
+
+.dataTablePagination button:not(:disabled):hover {
+	border-color: var(--concrete-border-strong);
+	color: var(--concrete-foreground-strong);
+}
+
+.dataTablePagination svg {
+	width: 13px;
+	height: 13px;
+}
+
+.dataTable svg {
+	max-width: 116px;
+}
+
+.flowDiagramViewport {
+	overflow: hidden;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-sunken);
+}
+
+.flowDiagramControls {
+	display: flex;
+	gap: 4px;
+}
+
+.flowDiagramControls button {
+	width: 30px;
+	padding: 0;
+	font-family: var(--concrete-font-mono);
+}
+
+.flowDiagramCanvas {
+	display: block;
+	width: 100%;
+	height: var(--diagram-height, 320px);
+	color: var(--concrete-foreground-muted);
+}
+
+.flowDiagramGrid {
+	stroke: none;
+}
+
+.flowDiagramEdge path {
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.4;
+}
+
+.flowDiagramEdge text {
+	fill: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-anchor: middle;
+	text-transform: uppercase;
+}
+
+.flowDiagramEdgeSelected path {
+	stroke: var(--concrete-sky);
+	stroke-width: 2;
+}
+
+.flowDiagramEdgeDashed path {
+	stroke-dasharray: 6 5;
+}
+
+.flowDiagramEdgeDotted path {
+	stroke-dasharray: 2 5;
+}
+
+.flowDiagramEdgePulse path {
+	stroke: var(--concrete-terminal);
+}
+
+.flowDiagramCanvas pattern path {
+	stroke: var(--concrete-border-soft);
+	stroke-width: 1;
+}
+
+.flowDiagramNode {
+	cursor: pointer;
+}
+
+.flowDiagramNode rect {
+	fill: var(--concrete-surface);
+	stroke: var(--concrete-border);
+	stroke-width: 1.2;
+}
+
+.flowDiagramNode:hover rect,
+.flowDiagramNodeSelected rect {
+	stroke: var(--concrete-sky);
+	stroke-width: 2;
+}
+
+.flowDiagramNodeAccent rect {
+	fill: var(--concrete-sky-1);
+	stroke: var(--concrete-sky-3);
+}
+
+.flowDiagramNodeInverse rect {
+	fill: var(--concrete-ink-9);
+	stroke: var(--concrete-ink-9);
+}
+
+.flowDiagramNodeTitle {
+	fill: var(--concrete-foreground-strong);
+	font: 800 13px / 1 var(--concrete-font-sans);
+}
+
+.flowDiagramNodeSubtitle {
+	fill: var(--concrete-foreground-muted);
+	font: 600 11px / 1 var(--concrete-font-sans);
+}
+
+.flowDiagramNodeInverse .flowDiagramNodeTitle,
+.flowDiagramNodeInverse .flowDiagramNodeSubtitle {
+	fill: var(--concrete-canvas);
+}
+
+.dataToneMuted {
+	color: var(--concrete-foreground-muted);
+}
+
+.dataToneSky {
+	color: var(--concrete-sky);
+}
+
+.dataToneTerminal {
+	color: var(--concrete-terminal);
+}
+
+.dataToneUltra {
+	color: var(--concrete-ultra);
+}
+
+.dataToneError {
+	color: var(--concrete-error);
+}
+
 @media (width <= 640px) {
 	.composerRail,
 	.footer {
