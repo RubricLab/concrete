@@ -19,7 +19,7 @@
 		"dev:docs": "bun run --cwd apps/docs dev",
 		"format": "bun x biome check . --write",
 		"lint": "bun x biome check .",
-		"typecheck": "bun run --cwd packages/concrete typecheck && bun run --cwd apps/docs typecheck"
+		"typecheck": "bun run --cwd packages/concrete typecheck && bun run build:package && bun run --cwd apps/docs typecheck"
 	},
 	"workspaces": [
 		"apps/*",

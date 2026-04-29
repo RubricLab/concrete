@@ -16,3 +16,5 @@ coverage/
 
 # local agent state
 .codex/
+.vercel
+.env*.local
