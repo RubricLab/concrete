@@ -137,7 +137,7 @@ export default function FoundationsPage() {
 				<div className="specSubhead">
 					<code>Display</code>
 					<h2>Display - Fraunces</h2>
-					<span>Google specimen defaults - optical auto</span>
+					<span>Specimen display instance - opsz 144 / SOFT 100 / WONK 1</span>
 				</div>
 				<div className="displaySpecimen">
 					<p>
