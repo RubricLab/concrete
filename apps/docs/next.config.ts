@@ -1,4 +1,9 @@
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import type { NextConfig } from 'next'
+
+const docsDirectory = dirname(fileURLToPath(import.meta.url))
+const workspaceRoot = resolve(docsDirectory, '../..')
 
 const nextConfig: NextConfig = {
 	devIndicators: false,
@@ -12,7 +17,7 @@ const nextConfig: NextConfig = {
 	},
 	transpilePackages: ['@rubriclab/concrete'],
 	turbopack: {
-		root: new URL('../..', import.meta.url).pathname
+		root: workspaceRoot
 	}
 }
 

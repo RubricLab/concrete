@@ -16,9 +16,12 @@
 	"name": "@rubriclab/concrete-docs",
 	"private": true,
 	"scripts": {
-		"build": "next build",
+		"build": "bun run build:package && bun run build:app",
+		"build:app": "next build",
+		"build:package": "bun run --cwd ../../packages/concrete build",
 		"dev": "next dev",
 		"start": "next start",
-		"typecheck": "tsc -p tsconfig.json --noEmit"
+		"typecheck": "bun run build:package && bun run typecheck:app",
+		"typecheck:app": "tsc -p tsconfig.json --noEmit"
 	}
 }

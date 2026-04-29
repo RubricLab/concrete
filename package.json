@@ -11,7 +11,7 @@
 		"audit:imports": "bun test packages/concrete/src/tests/import-boundaries.test.ts",
 		"bleed": "bun x npm-check-updates -u",
 		"build": "bun run build:package && bun run build:docs",
-		"build:docs": "bun run --cwd apps/docs build",
+		"build:docs": "bun run --cwd apps/docs build:app",
 		"build:package": "bun run --cwd packages/concrete build",
 		"check": "bun run typecheck && bun run lint && bun test",
 		"clean": "rm -rf node_modules apps/docs/.next packages/concrete/.tsbuildinfo",
@@ -19,7 +19,7 @@
 		"dev:docs": "bun run --cwd apps/docs dev",
 		"format": "bun x biome check . --write",
 		"lint": "bun x biome check .",
-		"typecheck": "bun run --cwd packages/concrete typecheck && bun run build:package && bun run --cwd apps/docs typecheck"
+		"typecheck": "bun run --cwd packages/concrete typecheck && bun run build:package && bun run --cwd apps/docs typecheck:app"
 	},
 	"workspaces": [
 		"apps/*",
