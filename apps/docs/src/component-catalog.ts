@@ -6,6 +6,7 @@ export const componentCategoryOrder = [
 	'control',
 	'navigation',
 	'surface',
+	'diagram',
 	'data',
 	'feedback',
 	'layout',
@@ -19,9 +20,11 @@ const componentPreviewStates = {
 	chart: 'area',
 	'command-menu': 'default',
 	composer: 'default',
+	'context-frame': 'browser',
 	'data-table': 'selected',
 	'date-picker': 'open',
 	'date-range-picker': 'open',
+	'diagram-canvas': 'interactive',
 	'donut-chart': 'thin',
 	'file-upload': 'default',
 	'flow-diagram': 'interactive',
@@ -69,6 +72,8 @@ export function getCategoryTitle(category: ComponentCategory): string {
 			return 'Interaction controls.'
 		case 'data':
 			return 'Data surfaces.'
+		case 'diagram':
+			return 'Explainer diagrams.'
 		case 'feedback':
 			return 'Agent process artifacts.'
 		case 'form':
@@ -92,6 +97,8 @@ export function getCategoryDescription(category: ComponentCategory): string {
 			return 'Small but stateful control clusters that coordinate keyboard, focus, and selected state.'
 		case 'data':
 			return 'Typed KPI, chart, table, meter, and diagram components for dense product data and generated UI.'
+		case 'diagram':
+			return 'Concept frames, context frames, and graph canvases for editorial and educational explanation.'
 		case 'feedback':
 			return 'Subdued, expandable artifacts for visible reasoning, validation, and tool execution.'
 		case 'form':

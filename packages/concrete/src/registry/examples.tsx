@@ -7,10 +7,12 @@ import {
 	type CommandMenuItem,
 	Composer,
 	type ComposerValue,
+	ContextFrame,
 	createDataTableColumns,
 	DataTable,
 	DatePicker,
 	DateRangePicker,
+	DiagramCanvas,
 	DonutChart,
 	FileUpload,
 	FlowDiagram,
@@ -53,7 +55,11 @@ import {
 	Checkbox,
 	Chip,
 	CodeBlock,
+	ConceptConnector,
+	ConceptFrame,
 	Delta,
+	DiagramItem,
+	DiagramNode,
 	Distribution,
 	Divider,
 	Dropzone,
@@ -85,7 +91,7 @@ import {
 	UploadItem,
 	Wordmark
 } from '../primitives'
-import type { DataPoint, DataSeries, FlowDiagramProps } from '../schemas'
+import type { DataPoint, DataSeries, DiagramCanvasProps, FlowDiagramProps } from '../schemas'
 import { composerExampleValue } from './entries'
 
 export function renderPrimitiveExample(slug: string, state = 'default'): ReactNode {
@@ -156,6 +162,14 @@ export function renderPrimitiveExample(slug: string, state = 'default'): ReactNo
 					<CodeBlock code={'const signal = concreteSignalSchema.parse("terminal")'} />
 				</Frame>
 			)
+		case 'concept-frame':
+			return renderConceptFrameState(state)
+		case 'concept-connector':
+			return renderConceptConnectorState(state)
+		case 'diagram-node':
+			return renderDiagramNodeState(state)
+		case 'diagram-item':
+			return renderDiagramItemState(state)
 		case 'delta':
 			return (
 				<Frame>
@@ -425,12 +439,16 @@ export function renderComponentExample(slug: string, state = 'default'): ReactNo
 			return renderCommandMenuState(state)
 		case 'composer':
 			return renderComposerState(state)
+		case 'context-frame':
+			return renderContextFrameState(state)
 		case 'data-table':
 			return renderDataTableState(state)
 		case 'date-picker':
 			return renderDatePickerState(state)
 		case 'date-range-picker':
 			return renderDateRangePickerState(state)
+		case 'diagram-canvas':
+			return renderDiagramCanvasState(state)
 		case 'donut-chart':
 			return renderDonutChartState(state)
 		case 'file-upload':
@@ -676,6 +694,226 @@ const flowDiagram: FlowDiagramProps['flow'] = {
 		{ id: 'tools', subtitle: 'safe actions', title: 'Tools', x: 624, y: 28 },
 		{ id: 'answer', subtitle: 'final response', title: 'Answer', x: 824, y: 92 }
 	]
+}
+
+const diagramCanvasGraph = {
+	edges: [
+		{
+			from: 'input',
+			id: 'edge-decide',
+			label: 'decide',
+			to: 'router',
+			tone: 'ink'
+		},
+		{
+			from: 'input',
+			id: 'edge-fetch',
+			label: 'fetch',
+			to: 'tools',
+			toAnchor: 'left',
+			variant: 'dashed'
+		},
+		{
+			from: 'router',
+			id: 'edge-synthesize',
+			label: 'synthesize',
+			to: 'model',
+			tone: 'ultra'
+		},
+		{
+			from: 'tools',
+			id: 'edge-results',
+			label: 'results',
+			to: 'model',
+			tone: 'sky'
+		},
+		{
+			from: 'model',
+			id: 'edge-stream',
+			label: 'stream',
+			to: 'stream',
+			tone: 'terminal'
+		},
+		{
+			from: 'model',
+			fromAnchor: 'bottom',
+			id: 'edge-trace',
+			label: 'trace',
+			to: 'trace',
+			toAnchor: 'right',
+			variant: 'reference'
+		}
+	],
+	items: [
+		{
+			id: 'trace',
+			kind: 'metric',
+			meta: 'p95',
+			title: 'Trace',
+			tone: 'sky',
+			value: '184ms',
+			width: 122,
+			x: 60,
+			y: 82
+		}
+	],
+	nodes: [
+		{
+			id: 'input',
+			meta: 'HTTPS · JSON',
+			role: 'external',
+			title: 'User input',
+			width: 190,
+			x: 20,
+			y: 50
+		},
+		{
+			id: 'router',
+			meta: 'intent · priority',
+			role: 'decision',
+			title: 'Router',
+			width: 206,
+			x: 45,
+			y: 31
+		},
+		{
+			id: 'tools',
+			meta: 'search · db · mcp',
+			role: 'data',
+			title: 'Tools',
+			width: 206,
+			x: 45,
+			y: 69
+		},
+		{
+			id: 'model',
+			meta: 'sonnet · policy',
+			role: 'compute',
+			title: 'Model',
+			width: 176,
+			x: 72,
+			y: 50
+		},
+		{
+			id: 'stream',
+			meta: 'SSE',
+			role: 'process',
+			title: 'Stream',
+			width: 118,
+			x: 90,
+			y: 50
+		}
+	]
+} satisfies DiagramCanvasProps['graph']
+
+const connectorTones = ['ink', 'sky', 'terminal', 'ultra', 'error'] as const
+const itemTones = ['sky', 'ink', 'terminal', 'ultra'] as const
+
+function renderConceptFrameState(state: string): ReactNode {
+	const frames = [
+		'browser-window',
+		'model-card',
+		'database-panel',
+		'code-editor',
+		'chart-frame',
+		'assistant-response',
+		'workflow-canvas',
+		'mobile-screen'
+	] as const
+
+	return (
+		<Frame>
+			{frames.map(kind => (
+				<ConceptFrame
+					key={kind}
+					kind={kind}
+					muted={state === 'muted'}
+					selected={state === 'selected' && kind === 'model-card'}
+				/>
+			))}
+		</Frame>
+	)
+}
+
+function renderConceptConnectorState(state: string): ReactNode {
+	const connectors = [
+		'straight',
+		'elbow',
+		'curved',
+		'dashed-relation',
+		'bidirectional',
+		'branch',
+		'feedback-loop',
+		'annotation-leader'
+	] as const
+
+	return (
+		<Frame>
+			{connectors.map((kind, index) => (
+				<ConceptConnector
+					key={kind}
+					kind={kind}
+					selected={state === 'selected' && index === 1}
+					tone={state === 'tones' ? (connectorTones[index % connectorTones.length] ?? 'ink') : 'muted'}
+				/>
+			))}
+		</Frame>
+	)
+}
+
+function renderDiagramNodeState(state: string): ReactNode {
+	const nodes = [
+		['external', 'User input', 'HTTPS'],
+		['decision', 'Router', 'intent'],
+		['data', 'Context', 'memory'],
+		['compute', 'Model', 'reasoning'],
+		['process', 'Stream', 'SSE'],
+		['error', 'Reject', 'policy']
+	] as const
+
+	return (
+		<Frame>
+			<div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+				{nodes.map(([role, title, meta]) => (
+					<DiagramNode
+						key={role}
+						meta={meta}
+						muted={state === 'muted' && role !== 'compute'}
+						role={role}
+						selected={state === 'selected' && role === 'compute'}
+						title={title}
+					/>
+				))}
+			</div>
+		</Frame>
+	)
+}
+
+function renderDiagramItemState(state: string): ReactNode {
+	const items = [
+		['metric', 'Trace', '184ms', 'p95'],
+		['code', 'Hydrate', undefined, 'ts'],
+		['status', 'Ready', undefined, 'live'],
+		['note', 'Constraint', undefined, 'policy']
+	] as const
+
+	return (
+		<Frame>
+			<div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+				{items.map(([kind, title, value, meta], index) => (
+					<DiagramItem
+						key={kind}
+						kind={kind}
+						meta={meta}
+						selected={state === 'selected' && index === 0}
+						title={title}
+						tone={state === 'tones' ? (itemTones[index] ?? 'ink') : 'ink'}
+						value={value}
+					/>
+				))}
+			</div>
+		</Frame>
+	)
 }
 
 function renderMetricCardState(state: string): ReactNode {
@@ -986,6 +1224,53 @@ function renderFlowDiagramState(state: string): ReactNode {
 				selectedNodeId={state === 'selected' ? 'plan' : undefined}
 				title="Agent execution flow"
 				width={1020}
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderContextFrameState(state: string): ReactNode {
+	const kind = state === 'default' ? 'browser' : state
+
+	return (
+		<DataWideStage>
+			<ContextFrame
+				kind={
+					['application', 'browser', 'ide', 'laptop', 'mobile', 'terminal'].includes(kind)
+						? (kind as 'application' | 'browser' | 'ide' | 'laptop' | 'mobile' | 'terminal')
+						: 'browser'
+				}
+				meta={kind === 'terminal' ? 'zsh' : kind === 'ide' ? 'TypeScript' : 'Concrete'}
+				title={kind === 'terminal' ? 'run context' : kind === 'ide' ? 'agent.ts' : 'Research frame'}
+				url="rubric.local/research/context"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderDiagramCanvasState(state: string): ReactNode {
+	const graph =
+		state === 'compact'
+			? {
+					edges: diagramCanvasGraph.edges.slice(0, 2),
+					items: [],
+					nodes: diagramCanvasGraph.nodes.slice(0, 3)
+				}
+			: diagramCanvasGraph
+
+	return (
+		<DataWideStage>
+			<DiagramCanvas
+				controls={state !== 'compact'}
+				description="Editorial explainer graph for request routing, context, model synthesis, and streamed output."
+				graph={graph}
+				height={state === 'compact' ? 260 : 360}
+				minimap={state === 'interactive'}
+				selectedId={
+					state === 'selected' ? 'model' : state === 'interactive' ? 'edge-synthesize' : undefined
+				}
+				title="Request flow"
+				zoomable={state !== 'compact'}
 			/>
 		</DataWideStage>
 	)

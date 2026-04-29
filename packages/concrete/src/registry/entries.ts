@@ -6,9 +6,11 @@ import {
 	getChartProps,
 	getCommandMenuProps,
 	getComposerProps,
+	getContextFrameProps,
 	getDataTableProps,
 	getDatePickerProps,
 	getDateRangePickerProps,
+	getDiagramCanvasProps,
 	getDonutChartProps,
 	getFileUploadProps,
 	getFlowDiagramProps,
@@ -197,6 +199,38 @@ export const primitiveRegistry = [
 		'editorial',
 		'product'
 	]),
+	entry(
+		'concept-frame',
+		'Concept frame',
+		'Symbolic currentColor SVG frame for editorial and educational explainers.',
+		'diagram',
+		['editorial', 'educational'],
+		'Concept frames identify an interface, artifact, model, or system without pretending to be a product screenshot.'
+	),
+	entry(
+		'concept-connector',
+		'Concept connector',
+		'Small relation glyphs for flow, sync, branch, loop, and callout diagrams.',
+		'diagram',
+		['editorial', 'educational'],
+		'Use connectors deliberately: one relation type per meaning, muted by default, highlighted only when the relation is the point.'
+	),
+	entry(
+		'diagram-node',
+		'Diagram node',
+		'Compact typed node for concept graphs, architecture sketches, and agent explainers.',
+		'diagram',
+		['educational', 'editorial', 'generative'],
+		'Diagram nodes are primary graph entities. Use role to clarify category and keep labels short.'
+	),
+	entry(
+		'diagram-item',
+		'Diagram item',
+		'Supporting evidence item for metrics, notes, code, documents, charts, tables, and status.',
+		'diagram',
+		['educational', 'editorial', 'generative'],
+		'Diagram items are secondary evidence inside a graph; they should not compete with the main nodes.'
+	),
 	entry('kbd', 'Kbd', 'Keyboard shortcut keycap.', 'typography', ['product']),
 	entry(
 		'spinner',
@@ -709,6 +743,38 @@ export const componentRegistry = [
 			['selected', 'Selected node and edge states.'],
 			['interactive', 'Controls and draggable nodes enabled.'],
 			['empty', 'Empty graph state.']
+		])
+	),
+	componentEntry(
+		'context-frame',
+		'Context frame',
+		'Browser, app, laptop, mobile, IDE, and terminal shells for placing real content in explainers.',
+		'diagram',
+		['editorial', 'educational'],
+		'Context frame provides recognizable environment chrome while the inner slot stays product- or article-specific.',
+		getContextFrameProps(),
+		states([
+			['browser', 'Browser context with URL chrome.'],
+			['application', 'Application shell context.'],
+			['ide', 'Code editor context.'],
+			['terminal', 'Terminal context.'],
+			['mobile', 'Mobile device context.'],
+			['laptop', 'Laptop presentation frame.']
+		])
+	),
+	componentEntry(
+		'diagram-canvas',
+		'Diagram canvas',
+		'Interactive explainer canvas with DOM nodes, supporting items, SVG edges, pan, zoom, fit, and minimap.',
+		'diagram',
+		['educational', 'editorial', 'generative'],
+		'Diagram canvas is the editorial counterpart to FlowDiagram. It explains ideas and relationships, not product graph persistence.',
+		getDiagramCanvasProps(),
+		states([
+			['default', 'Request-flow explainer with nodes, items, and labels.'],
+			['selected', 'Selected node, item, and edge states.'],
+			['interactive', 'Pan, zoom, fit controls, and minimap enabled.'],
+			['compact', 'Smaller educational composition.']
 		])
 	),
 	componentEntry(

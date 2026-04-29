@@ -43,6 +43,14 @@ Pressure is recorded in registry examples and composition guidance. Do not map p
 - Composer owns reusable local behavior only: rich text shell, toolbar interactions, token insertion, menus, deterministic value shape, and keyboard submission.
 - Product code owns persistence, uploads, remote suggestion data, slash-command execution, permissions, collaboration, analytics, and any domain-specific editor schema.
 
+## Diagram Language
+
+- `ConceptFrame`, `ConceptConnector`, `DiagramNode`, and `DiagramItem` are the explainer primitives for editorial and educational compositions.
+- `ContextFrame` provides browser, app, laptop, mobile, IDE, and terminal shells for real content inside articles and diagrams.
+- `DiagramCanvas` is for explanatory node graphs with DOM nodes, supporting items, SVG edges, pan, zoom, fit, and minimap behavior.
+- Keep `FlowDiagram` for product/data flows. Use `DiagramCanvas` when the goal is explaining ideas, systems, context, or relationships.
+- Diagram tones stay Concrete-native: ink/muted/sky plus terminal, ultra, and error. Do not add warning, amber, or decorative gradients.
+
 ## Render Routes
 
 - `/render/primitive/:slug?state=default&pressure=product&viewport=desktop`

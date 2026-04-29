@@ -10,10 +10,13 @@ import {
 	type ComponentSlug,
 	Composer,
 	type ComposerValue,
+	ContextFrame,
 	type DataPoint,
 	type DataSeries,
 	DatePicker,
 	DateRangePicker,
+	DiagramCanvas,
+	type DiagramCanvasProps,
 	DonutChart,
 	FileUpload,
 	FormDialog,
@@ -125,6 +128,44 @@ const scopedSearchTokens = [
 	{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
 	{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
 ] as const satisfies readonly SearchToken[]
+
+const playgroundDiagramGraph = {
+	edges: [
+		{ from: 'input', id: 'decide', label: 'decide', to: 'router', tone: 'ink' },
+		{ from: 'router', id: 'synthesize', label: 'synthesize', to: 'model', tone: 'ultra' },
+		{ from: 'tools', id: 'results', label: 'results', to: 'model', tone: 'sky' },
+		{ from: 'model', id: 'stream', label: 'stream', to: 'stream', tone: 'terminal' },
+		{
+			from: 'model',
+			fromAnchor: 'bottom',
+			id: 'trace',
+			label: 'trace',
+			to: 'trace-item',
+			toAnchor: 'right',
+			variant: 'reference'
+		}
+	],
+	items: [
+		{
+			id: 'trace-item',
+			kind: 'metric',
+			meta: 'p95',
+			title: 'Trace',
+			tone: 'sky',
+			value: '184ms',
+			width: 122,
+			x: 60,
+			y: 82
+		}
+	],
+	nodes: [
+		{ id: 'input', meta: 'HTTPS', role: 'external', title: 'User input', width: 182, x: 18, y: 50 },
+		{ id: 'router', meta: 'intent', role: 'decision', title: 'Router', width: 190, x: 42, y: 32 },
+		{ id: 'tools', meta: 'search', role: 'data', title: 'Tools', width: 190, x: 42, y: 68 },
+		{ id: 'model', meta: 'policy', role: 'compute', title: 'Model', width: 170, x: 70, y: 50 },
+		{ id: 'stream', meta: 'SSE', role: 'process', title: 'Stream', width: 116, x: 90, y: 50 }
+	]
+} satisfies DiagramCanvasProps['graph']
 
 const playgroundChartSeries: DataSeries[] = [
 	{
@@ -323,6 +364,31 @@ function getComponentPlaygroundControls(
 				selectControl('menuKind', 'Menu', '', ['', 'mention', 'command']),
 				booleanControl('disabled', 'Disabled', 'false'),
 				textControl('submitLabel', 'Submit label', 'Send')
+			]
+		case 'context-frame':
+			return [
+				selectControl('kind', 'Kind', 'browser', [
+					'browser',
+					'application',
+					'ide',
+					'terminal',
+					'mobile',
+					'laptop'
+				]),
+				textControl('title', 'Title', 'Research frame'),
+				textControl('meta', 'Meta', 'Concrete'),
+				booleanControl('compact', 'Compact', 'false')
+			]
+		case 'diagram-canvas':
+			return [
+				selectControl('fixture', 'Fixture', 'default', [
+					'default',
+					'selected',
+					'interactive',
+					'compact'
+				]),
+				booleanControl('controls', 'Controls', 'true'),
+				booleanControl('minimap', 'Minimap', 'false')
 			]
 		case 'metric-card':
 			return [
@@ -547,10 +613,14 @@ function renderPlaygroundComponent(slug: ComponentSlug, searchParams: URLSearchP
 			return renderSearchBarPlayground(searchParams)
 		case 'composer':
 			return renderComposerPlayground(searchParams)
+		case 'context-frame':
+			return renderContextFramePlayground(searchParams, state)
 		case 'donut-chart':
 			return renderDonutChartPlayground(searchParams)
 		case 'data-table':
 			return renderDataTablePlayground(searchParams, state)
+		case 'diagram-canvas':
+			return renderDiagramCanvasPlayground(searchParams, state)
 		case 'flow-diagram':
 			return renderFlowDiagramPlayground(searchParams, state)
 		case 'meter':
@@ -942,6 +1012,64 @@ function renderFlowDiagramPlayground(searchParams: URLSearchParams, state: strin
 	return (
 		<DataWideStage>
 			{renderComponentExample('flow-diagram', state === 'default' ? fixture : state)}
+		</DataWideStage>
+	)
+}
+
+function renderContextFramePlayground(searchParams: URLSearchParams, state: string): ReactNode {
+	const kind = getQueryValue(searchParams, 'kind', state === 'default' ? 'browser' : state)
+
+	return (
+		<DataWideStage>
+			<ContextFrame
+				compact={getQueryBoolean(searchParams, 'compact', false)}
+				kind={
+					['application', 'browser', 'ide', 'laptop', 'mobile', 'terminal'].includes(kind)
+						? (kind as 'application' | 'browser' | 'ide' | 'laptop' | 'mobile' | 'terminal')
+						: 'browser'
+				}
+				meta={getQueryValue(searchParams, 'meta', 'Concrete')}
+				title={getQueryValue(searchParams, 'title', 'Research frame')}
+				url="rubric.local/research/context"
+			/>
+		</DataWideStage>
+	)
+}
+
+function renderDiagramCanvasPlayground(searchParams: URLSearchParams, state: string): ReactNode {
+	const fixture = getQueryValue(searchParams, 'fixture', 'default')
+	const activeState = state === 'default' ? fixture : state
+
+	if (activeState === 'compact') {
+		return (
+			<DataWideStage>
+				<DiagramCanvas
+					controls={getQueryBoolean(searchParams, 'controls', false)}
+					graph={{
+						edges: playgroundDiagramGraph.edges.slice(0, 2),
+						items: [],
+						nodes: playgroundDiagramGraph.nodes.slice(0, 3)
+					}}
+					height={260}
+					minimap={getQueryBoolean(searchParams, 'minimap', false)}
+					title="Compact concept flow"
+				/>
+			</DataWideStage>
+		)
+	}
+
+	return (
+		<DataWideStage>
+			<DiagramCanvas
+				controls={getQueryBoolean(searchParams, 'controls', true)}
+				description="Editable local diagram state for educational and editorial explainers."
+				graph={playgroundDiagramGraph}
+				minimap={getQueryBoolean(searchParams, 'minimap', activeState === 'interactive')}
+				selectedId={
+					activeState === 'selected' ? 'model' : activeState === 'interactive' ? 'synthesize' : undefined
+				}
+				title="Request flow"
+			/>
 		</DataWideStage>
 	)
 }

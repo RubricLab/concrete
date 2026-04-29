@@ -520,6 +520,43 @@ export function getFlowDiagramProps(): readonly PrimitiveProp[] {
 	]
 }
 
+export function getContextFrameProps(): readonly PrimitiveProp[] {
+	return [
+		prop(
+			'kind',
+			"'application' | 'browser' | 'ide' | 'laptop' | 'mobile' | 'terminal'",
+			'Recognizable container chrome.',
+			'browser'
+		),
+		prop('title', 'string', 'Frame title or tab label.'),
+		prop('meta', 'string', 'Small right-side environment metadata.'),
+		prop('url', 'string', 'Browser-style location label.'),
+		prop('compact', 'boolean', 'Constrained frame width for side-by-side explainers.', 'false'),
+		prop('children', 'ReactNode', 'Real content slot inside the frame body.')
+	]
+}
+
+export function getDiagramCanvasProps(): readonly PrimitiveProp[] {
+	return [
+		prop('graph', 'DiagramCanvasGraph', 'Validated nodes, items, and routed edges.', undefined, true),
+		prop('title', 'string', 'Diagram title.', undefined, true),
+		prop('description', 'string', 'Muted supporting copy.'),
+		prop('selectedId', 'string', 'Highlights a node, item, or edge.'),
+		prop('controls', 'boolean', 'Shows zoom and fit controls.', 'true'),
+		prop('minimap', 'boolean', 'Shows a small node overview map.', 'false'),
+		prop('pannable', 'boolean', 'Allows local pan interaction.', 'true'),
+		prop('zoomable', 'boolean', 'Allows local zoom interaction.', 'true'),
+		prop('height', 'number', 'Canvas stage height.', '360'),
+		prop('width', 'number', 'Canvas design coordinate width.', '1000'),
+		prop(
+			'onSelectionChange',
+			'(selectedId: string) => void',
+			'Receives local node, item, or edge selection.'
+		),
+		prop('onViewportChange', '(viewport: DiagramViewport) => void', 'Receives pan and zoom changes.')
+	]
+}
+
 export function fieldChromeProps(): readonly PrimitiveProp[] {
 	return [
 		prop('label', 'ReactNode', 'Field label.'),
@@ -777,6 +814,60 @@ export function getPrimitiveProps(slug: PrimitiveSlug): readonly PrimitiveProp[]
 				prop('showLineNumbers', 'boolean', 'Renders the numeric gutter.', 'true'),
 				prop('copyLabel', 'ReactNode', 'Copy button label.', 'Copy'),
 				prop('children', 'ReactNode', 'InlineCode text content.')
+			]
+		case 'concept-frame':
+			return [
+				prop('kind', 'ConceptFrameKind', 'Symbolic frame asset name.', 'browser-window'),
+				prop('size', "'small' | 'medium' | 'large'", 'SVG display scale.', 'medium'),
+				prop('selected', 'boolean', 'Promotes the frame for focused explainer states.', 'false'),
+				prop('muted', 'boolean', 'Subdues the frame for background context.', 'false'),
+				prop('title', 'string', 'Optional accessible title.')
+			]
+		case 'concept-connector':
+			return [
+				prop('kind', 'ConceptConnectorKind', 'Connector grammar asset name.', 'straight'),
+				prop(
+					'tone',
+					"'ink' | 'muted' | 'sky' | 'terminal' | 'ultra' | 'error'",
+					'Concrete-native connector tone.',
+					'muted'
+				),
+				prop('selected', 'boolean', 'Highlights the relation.', 'false'),
+				prop('muted', 'boolean', 'Subdues the relation.', 'false')
+			]
+		case 'diagram-node':
+			return [
+				prop('title', 'ReactNode', 'Primary node label.', '', true),
+				prop('meta', 'ReactNode', 'Compact secondary label.'),
+				prop(
+					'role',
+					"'boundary' | 'compute' | 'data' | 'decision' | 'error' | 'external' | 'process'",
+					'Node semantic category.',
+					'process'
+				),
+				prop('selected', 'boolean', 'Selected canvas state.', 'false'),
+				prop('muted', 'boolean', 'Background canvas state.', 'false')
+			]
+		case 'diagram-item':
+			return [
+				prop('title', 'ReactNode', 'Primary item label.', '', true),
+				prop('value', 'ReactNode', 'Optional prominent value.'),
+				prop('body', 'ReactNode', 'Optional supporting copy.'),
+				prop('meta', 'ReactNode', 'Optional small metadata.'),
+				prop(
+					'kind',
+					"'card' | 'chart' | 'code' | 'document' | 'metric' | 'note' | 'status' | 'table'",
+					'Item evidence type.',
+					'note'
+				),
+				prop(
+					'tone',
+					"'ink' | 'muted' | 'sky' | 'terminal' | 'ultra' | 'error'",
+					'Concrete-native item tone.',
+					'ink'
+				),
+				prop('selected', 'boolean', 'Selected canvas state.', 'false'),
+				prop('muted', 'boolean', 'Background canvas state.', 'false')
 			]
 		case 'delta':
 			return [
@@ -1094,6 +1185,30 @@ export function getPrimitiveStates(slug: PrimitiveSlug): readonly PrimitiveState
 				['bar', 'Bar density.'],
 				['dot', 'Dot distribution.'],
 				['volatile', 'High variance trend.']
+			])
+		case 'concept-frame':
+			return states([
+				['default', 'Frame atlas with generic symbolic content.'],
+				['selected', 'Focused frame state.'],
+				['muted', 'Background context state.']
+			])
+		case 'concept-connector':
+			return states([
+				['default', 'Connector atlas for flow, relation, and callouts.'],
+				['selected', 'Highlighted relation.'],
+				['tones', 'Concrete-native connector tones.']
+			])
+		case 'diagram-node':
+			return states([
+				['default', 'Node role atlas.'],
+				['selected', 'Selected node state.'],
+				['muted', 'Subdued background node state.']
+			])
+		case 'diagram-item':
+			return states([
+				['default', 'Supporting evidence item atlas.'],
+				['selected', 'Selected item state.'],
+				['tones', 'Metric, code, status, and note tones.']
 			])
 		case 'badge':
 			return states([

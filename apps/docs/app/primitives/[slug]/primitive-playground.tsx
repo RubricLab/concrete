@@ -11,7 +11,11 @@ import {
 	Checkbox,
 	Chip,
 	CodeBlock,
+	ConceptConnector,
+	ConceptFrame,
 	Delta,
+	DiagramItem,
+	DiagramNode,
 	Divider,
 	EmptyState,
 	Frame,
@@ -185,6 +189,72 @@ function getPlaygroundControls(entry: PrimitiveRegistryEntry): readonly ControlD
 				textControl('code', 'Code', 'const signal = concreteSignalSchema.parse("terminal")'),
 				selectControl('language', 'Language', 'TypeScript', ['TypeScript', 'HTML']),
 				booleanControl('showLineNumbers', 'Line numbers', 'true')
+			]
+		case 'concept-frame':
+			return [
+				selectControl('kind', 'Kind', 'browser-window', [
+					'browser-window',
+					'model-card',
+					'database-panel',
+					'code-editor',
+					'chart-frame',
+					'assistant-response',
+					'workflow-canvas',
+					'mobile-screen'
+				]),
+				selectControl('size', 'Size', 'medium', ['small', 'medium', 'large']),
+				booleanControl('selected', 'Selected', 'false'),
+				booleanControl('muted', 'Muted', 'false')
+			]
+		case 'concept-connector':
+			return [
+				selectControl('kind', 'Kind', 'straight', [
+					'straight',
+					'elbow',
+					'curved',
+					'dashed-relation',
+					'bidirectional',
+					'branch',
+					'feedback-loop',
+					'annotation-leader'
+				]),
+				selectControl('tone', 'Tone', 'muted', ['ink', 'muted', 'sky', 'terminal', 'ultra', 'error']),
+				booleanControl('selected', 'Selected', 'false'),
+				booleanControl('muted', 'Muted', 'false')
+			]
+		case 'diagram-node':
+			return [
+				textControl('title', 'Title', 'Router'),
+				textControl('meta', 'Meta', 'intent'),
+				selectControl('role', 'Role', 'process', [
+					'process',
+					'compute',
+					'data',
+					'external',
+					'decision',
+					'boundary',
+					'error'
+				]),
+				booleanControl('selected', 'Selected', 'false'),
+				booleanControl('muted', 'Muted', 'false')
+			]
+		case 'diagram-item':
+			return [
+				textControl('title', 'Title', 'Trace'),
+				textControl('value', 'Value', '184ms'),
+				textControl('meta', 'Meta', 'p95'),
+				selectControl('kind', 'Kind', 'metric', [
+					'metric',
+					'code',
+					'status',
+					'note',
+					'chart',
+					'table',
+					'document',
+					'card'
+				]),
+				selectControl('tone', 'Tone', 'ink', ['ink', 'muted', 'sky', 'terminal', 'ultra', 'error']),
+				booleanControl('selected', 'Selected', 'false')
 			]
 		case 'delta':
 			return [
@@ -452,6 +522,120 @@ function renderPlaygroundPrimitive(slug: PrimitiveSlug, searchParams: URLSearchP
 						language={getQueryValue(searchParams, 'language', 'TypeScript')}
 						showLineNumbers={getQueryBoolean(searchParams, 'showLineNumbers', true)}
 					/>
+				</Frame>
+			)
+		case 'concept-frame':
+			return (
+				<Frame>
+					<ConceptFrame
+						kind={
+							getQueryValue(searchParams, 'kind', 'browser-window') as
+								| 'ai-website'
+								| 'api-card'
+								| 'assistant-response'
+								| 'browser-window'
+								| 'chart-frame'
+								| 'chat-interface'
+								| 'code-editor'
+								| 'dashboard-frame'
+								| 'data-table'
+								| 'database-panel'
+								| 'document-page'
+								| 'mobile-screen'
+								| 'model-card'
+								| 'stacked-windows'
+								| 'terminal-window'
+								| 'workflow-canvas'
+						}
+						muted={getQueryBoolean(searchParams, 'muted', false)}
+						selected={getQueryBoolean(searchParams, 'selected', false)}
+						size={getQueryValue(searchParams, 'size', 'medium') as 'large' | 'medium' | 'small'}
+					/>
+				</Frame>
+			)
+		case 'concept-connector':
+			return (
+				<Frame>
+					<ConceptConnector
+						kind={
+							getQueryValue(searchParams, 'kind', 'straight') as
+								| 'annotation-leader'
+								| 'bidirectional'
+								| 'branch'
+								| 'curved'
+								| 'dashed-relation'
+								| 'elbow'
+								| 'feedback-loop'
+								| 'straight'
+						}
+						muted={getQueryBoolean(searchParams, 'muted', false)}
+						selected={getQueryBoolean(searchParams, 'selected', false)}
+						tone={
+							getQueryValue(searchParams, 'tone', 'muted') as
+								| 'error'
+								| 'ink'
+								| 'muted'
+								| 'sky'
+								| 'terminal'
+								| 'ultra'
+						}
+					/>
+				</Frame>
+			)
+		case 'diagram-node':
+			return (
+				<Frame>
+					<div style={{ width: 220 }}>
+						<DiagramNode
+							meta={getQueryValue(searchParams, 'meta', 'intent')}
+							muted={getQueryBoolean(searchParams, 'muted', false)}
+							role={
+								getQueryValue(searchParams, 'role', 'process') as
+									| 'boundary'
+									| 'compute'
+									| 'data'
+									| 'decision'
+									| 'error'
+									| 'external'
+									| 'process'
+							}
+							selected={getQueryBoolean(searchParams, 'selected', false)}
+							title={getQueryValue(searchParams, 'title', 'Router')}
+						/>
+					</div>
+				</Frame>
+			)
+		case 'diagram-item':
+			return (
+				<Frame>
+					<div style={{ width: 170 }}>
+						<DiagramItem
+							kind={
+								getQueryValue(searchParams, 'kind', 'metric') as
+									| 'card'
+									| 'chart'
+									| 'code'
+									| 'document'
+									| 'metric'
+									| 'note'
+									| 'status'
+									| 'table'
+							}
+							meta={getQueryValue(searchParams, 'meta', 'p95')}
+							selected={getQueryBoolean(searchParams, 'selected', false)}
+							title={getQueryValue(searchParams, 'title', 'Trace')}
+							tone={
+								getQueryValue(searchParams, 'tone', 'ink') as
+									| 'error'
+									| 'ink'
+									| 'muted'
+									| 'sky'
+									| 'terminal'
+									| 'ultra'
+							}
+							value={getQueryValue(searchParams, 'value', '184ms') || undefined}
+						/>
+					</div>
 				</Frame>
 			)
 		case 'delta':

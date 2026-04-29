@@ -2992,6 +2992,378 @@
 	fill: var(--concrete-canvas);
 }
 
+/* Diagram language */
+
+.contextFrame {
+	overflow: hidden;
+	padding: 0;
+	color: var(--concrete-foreground-body);
+}
+
+.contextFrameCompact {
+	max-width: 420px;
+}
+
+.contextBrowserChrome,
+.contextApplicationChrome,
+.contextIdeChrome,
+.contextTerminalChrome {
+	display: grid;
+	border-bottom: 1px solid var(--concrete-border-soft);
+	background: var(--concrete-raised);
+}
+
+.contextBrowserTabs {
+	display: grid;
+	grid-template-columns: 20px minmax(0, 160px) 1fr;
+	gap: 8px;
+	align-items: end;
+	height: 28px;
+	padding: 5px 12px 0;
+}
+
+.contextBrowserTabs span {
+	width: 18px;
+	height: 9px;
+	border-radius: var(--concrete-radius-pill);
+	background: radial-gradient(circle, var(--concrete-ink-4) 1px, transparent 1.5px) 0 50% / 6px 6px;
+}
+
+.contextBrowserTabs b {
+	display: flex;
+	align-items: center;
+	height: 23px;
+	min-width: 0;
+	padding: 0 10px;
+	border: 1px solid var(--concrete-border-soft);
+	border-bottom-color: var(--concrete-surface);
+	border-radius: 7px 7px 0 0;
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	font: 700 11px / 1 var(--concrete-font-sans);
+}
+
+.contextBrowserToolbar {
+	display: grid;
+	grid-template-columns: 1fr;
+	align-items: center;
+	height: 34px;
+	padding: 0 12px;
+	border-top: 1px solid var(--concrete-border-soft);
+	background: var(--concrete-surface);
+}
+
+.contextBrowserToolbar span {
+	display: flex;
+	align-items: center;
+	height: 22px;
+	padding: 0 11px;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+	font: 650 11px / 1 var(--concrete-font-mono);
+}
+
+.contextApplicationChrome,
+.contextIdeChrome,
+.contextTerminalChrome {
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 12px;
+	min-height: 38px;
+	padding: 0 14px;
+}
+
+.contextApplicationChrome strong,
+.contextIdeChrome strong,
+.contextTerminalChrome strong {
+	color: var(--concrete-foreground-strong);
+	font: 800 12px / 1 var(--concrete-font-sans);
+}
+
+.contextApplicationChrome span,
+.contextIdeChrome span,
+.contextTerminalChrome span {
+	color: var(--concrete-foreground-muted);
+	font: 700 10px / 1 var(--concrete-font-mono);
+	text-transform: uppercase;
+}
+
+.contextLaptopLid {
+	display: grid;
+	place-items: center;
+	height: 34px;
+	border-bottom: 1px solid var(--concrete-border-soft);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-canvas);
+	font: 800 11px / 1 var(--concrete-font-mono);
+	text-transform: uppercase;
+}
+
+.contextMobileSpeaker {
+	justify-self: center;
+	width: 42px;
+	height: 5px;
+	margin: 10px auto 0;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-3);
+}
+
+.contextFrameBody {
+	min-height: 210px;
+	padding: 16px;
+	background: var(--concrete-surface);
+}
+
+.contextFrameBrowser .contextFrameBody,
+.contextFrameApplication .contextFrameBody {
+	background: var(--concrete-sunken);
+}
+
+.contextFrameLaptop {
+	position: relative;
+	border-radius: var(--concrete-radius-5);
+}
+
+.contextFrameLaptop::after {
+	display: block;
+	height: 12px;
+	margin: 0 28px;
+	border-radius: 0 0 var(--concrete-radius-4) var(--concrete-radius-4);
+	background: var(--concrete-ink-3);
+	content: "";
+}
+
+.contextFrameMobile {
+	max-width: 260px;
+	border-radius: 22px;
+}
+
+.contextFrameMobile .contextFrameBody {
+	min-height: 310px;
+	padding: 18px;
+}
+
+.contextFrameTerminalShell .contextFrameBody,
+.contextFrameIde .contextFrameBody {
+	background: var(--concrete-ink-9);
+	color: var(--concrete-canvas);
+}
+
+.contextFrameMockGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px;
+	height: 100%;
+	min-height: 180px;
+}
+
+.contextFrameMockGrid span,
+.contextMobileStack span {
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+}
+
+.contextFrameMockGrid .contextFrameWide {
+	grid-column: 1 / -1;
+	min-height: 92px;
+}
+
+.contextMobileStack {
+	display: grid;
+	gap: 10px;
+}
+
+.contextMobileStack span {
+	min-height: 66px;
+}
+
+.contextFrameCode,
+.contextFrameTerminal {
+	overflow: auto;
+	margin: 0;
+	color: currentcolor;
+	font: 650 12px / 1.7 var(--concrete-font-mono);
+}
+
+.diagramCanvasCard {
+	overflow: hidden;
+	padding: 0;
+}
+
+.diagramCanvasHeader {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: 18px;
+	padding: 14px 16px;
+	border-bottom: 1px solid var(--concrete-border-soft);
+	background: var(--concrete-surface);
+}
+
+.diagramCanvasHeader h3 {
+	margin: 0;
+	color: var(--concrete-foreground-strong);
+	font: 800 14px / 1.2 var(--concrete-font-sans);
+}
+
+.diagramCanvasHeader p {
+	max-width: 60ch;
+	margin: 4px 0 0;
+	color: var(--concrete-foreground-muted);
+	font: 500 12px / 1.45 var(--concrete-font-sans);
+}
+
+.diagramCanvasControls {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.diagramCanvasViewport {
+	position: relative;
+	overflow: hidden;
+	min-height: var(--diagram-canvas-height, 360px);
+	background:
+		radial-gradient(circle, var(--concrete-border-soft) 1px, transparent 1.25px) 0 0 / 18px 18px,
+		var(--concrete-sunken);
+	cursor: grab;
+	touch-action: none;
+}
+
+.diagramCanvasPanning {
+	cursor: grabbing;
+}
+
+.diagramCanvasStage {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: var(--diagram-canvas-width, 1000px);
+	height: var(--diagram-canvas-height, 360px);
+	transform: translate(-50%, -50%) var(--diagram-canvas-transform);
+	transform-origin: center;
+	transition: transform var(--concrete-duration-disclosure) var(--concrete-ease-disclosure);
+}
+
+.diagramCanvasEdges {
+	position: absolute;
+	inset: 0;
+	overflow: visible;
+	color: var(--concrete-foreground-muted);
+	pointer-events: none;
+}
+
+.diagramCanvasEdge path {
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: 1.35;
+}
+
+.diagramCanvasEdge marker path {
+	fill: none;
+	stroke: currentcolor;
+}
+
+.diagramCanvasEdge text {
+	fill: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	text-anchor: middle;
+	text-transform: uppercase;
+}
+
+.diagramCanvasEdgeSelected path {
+	stroke-width: 2;
+}
+
+.diagramCanvasEdgeDashed path {
+	stroke-dasharray: 7 5;
+}
+
+.diagramCanvasEdgeDotted path {
+	stroke-dasharray: 2 6;
+}
+
+.diagramCanvasEdgeStep path {
+	stroke-linejoin: round;
+}
+
+.diagramCanvasEdgeReference path {
+	stroke-dasharray: 3 5;
+}
+
+.diagramCanvasElement {
+	position: absolute;
+	width: var(--diagram-element-width);
+	min-height: var(--diagram-element-height);
+	transform: translate(-50%, -50%);
+}
+
+.diagramCanvasElement > * {
+	width: 100%;
+}
+
+.diagramCanvasItemButton {
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+}
+
+.diagramCanvasItemButton:focus-visible {
+	outline: var(--concrete-ring-focus);
+	outline-offset: 3px;
+}
+
+.diagramCanvasMinimap {
+	position: absolute;
+	right: 12px;
+	bottom: 12px;
+	width: 116px;
+	height: 56px;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: color-mix(in srgb, var(--concrete-surface) 92%, transparent);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.diagramCanvasMinimapNode {
+	position: absolute;
+	width: 6px;
+	height: 6px;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-4);
+	transform: translate(-50%, -50%);
+}
+
+.diagramCanvasMinimapSelected {
+	background: var(--concrete-sky);
+	box-shadow: 0 0 0 3px var(--concrete-sky-1);
+}
+
+.diagramCanvasToneInk {
+	color: var(--concrete-foreground-strong);
+}
+
+.diagramCanvasToneSky {
+	color: var(--concrete-sky);
+}
+
+.diagramCanvasToneTerminal {
+	color: var(--concrete-terminal);
+}
+
+.diagramCanvasToneUltra {
+	color: var(--concrete-ultra);
+}
+
+.diagramCanvasToneError {
+	color: var(--concrete-error);
+}
+
 .dataToneMuted {
 	color: var(--concrete-foreground-muted);
 }

@@ -1,6 +1,7 @@
 export * from './brand'
 export * from './controls'
 export * from './data-display'
+export * from './diagrams'
 export * from './feedback'
 export * from './fields'
 export * from './forms'

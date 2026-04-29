@@ -2453,6 +2453,265 @@
 	flex-wrap: wrap;
 }
 
+/* Diagram language */
+
+.conceptFrame {
+	display: block;
+	width: 96px;
+	height: 72px;
+	color: var(--concrete-foreground-muted);
+	transition:
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		opacity var(--concrete-duration-fast) var(--concrete-ease),
+		filter var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.conceptFrameSmall {
+	width: 72px;
+	height: 54px;
+}
+
+.conceptFrameLarge {
+	width: 128px;
+	height: 96px;
+}
+
+.conceptFrameSelected {
+	color: var(--concrete-foreground-strong);
+	filter: drop-shadow(0 0 0 var(--concrete-sky));
+}
+
+.conceptFrameMuted {
+	color: var(--concrete-ink-4);
+	opacity: 0.62;
+}
+
+.conceptConnector {
+	display: block;
+	width: 96px;
+	height: 24px;
+	color: var(--concrete-foreground-muted);
+	transition:
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		opacity var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.conceptConnectorSelected {
+	color: var(--concrete-sky);
+}
+
+.conceptConnectorMuted {
+	opacity: 0.52;
+}
+
+.diagramNode {
+	display: grid;
+	grid-template-columns: 24px minmax(0, 1fr);
+	gap: 10px;
+	align-items: center;
+	width: 100%;
+	min-height: 52px;
+	padding: 8px 10px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	text-align: left;
+	box-shadow: var(--concrete-shadow-1);
+	cursor: pointer;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.diagramNode:hover {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-shadow-2);
+	transform: translateY(-1px);
+}
+
+.diagramNode:active {
+	transform: translateY(0);
+}
+
+.diagramNode:focus-visible {
+	outline: var(--concrete-ring-focus);
+	outline-offset: 2px;
+}
+
+.diagramNodeIcon {
+	display: grid;
+	place-items: center;
+	width: 24px;
+	height: 24px;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+}
+
+.diagramNodeIcon svg {
+	width: 14px;
+	height: 14px;
+}
+
+.diagramNodeText {
+	display: grid;
+	min-width: 0;
+	gap: 2px;
+}
+
+.diagramNodeText strong {
+	overflow: hidden;
+	color: var(--concrete-foreground-strong);
+	font: 800 13px / 1.2 var(--concrete-font-sans);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.diagramNodeText span {
+	overflow: hidden;
+	color: var(--concrete-foreground-muted);
+	font: 650 11px / 1.2 var(--concrete-font-sans);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.diagramNodeSelected {
+	border-color: var(--concrete-sky);
+	background: var(--concrete-sky-1);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--concrete-sky) 14%, transparent);
+}
+
+.diagramNodeMuted {
+	opacity: 0.54;
+}
+
+.diagramRoleCompute .diagramNodeIcon {
+	color: var(--concrete-ultra);
+}
+
+.diagramRoleData .diagramNodeIcon {
+	color: var(--concrete-sky);
+}
+
+.diagramRoleDecision .diagramNodeIcon,
+.diagramRoleBoundary .diagramNodeIcon {
+	color: var(--concrete-foreground-strong);
+}
+
+.diagramRoleExternal .diagramNodeIcon {
+	color: var(--concrete-terminal);
+}
+
+.diagramRoleError .diagramNodeIcon {
+	color: var(--concrete-error);
+}
+
+.diagramItem {
+	display: grid;
+	width: 100%;
+	min-height: 52px;
+	gap: 2px;
+	padding: 8px 10px;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	text-align: left;
+	box-shadow: var(--concrete-shadow-1);
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.diagramItemKind,
+.diagramItemMeta {
+	color: var(--concrete-foreground-muted);
+	font: 800 10px / 1 var(--concrete-font-mono);
+	text-transform: uppercase;
+}
+
+.diagramItem strong {
+	overflow: hidden;
+	color: var(--concrete-foreground-strong);
+	font: 800 12px / 1.2 var(--concrete-font-sans);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.diagramItem b {
+	color: currentcolor;
+	font: 800 18px / 1.05 var(--concrete-font-sans);
+}
+
+.diagramItem p {
+	margin: 2px 0 0;
+	color: var(--concrete-foreground-muted);
+	font: 600 11px / 1.35 var(--concrete-font-sans);
+}
+
+.diagramItemSelected {
+	border-color: currentcolor;
+	background: var(--concrete-sky-1);
+	box-shadow: 0 0 0 3px color-mix(in srgb, currentcolor 12%, transparent);
+}
+
+.diagramItemMuted {
+	opacity: 0.54;
+}
+
+.diagramItemCode {
+	background: var(--concrete-ink-9);
+	color: var(--concrete-canvas);
+}
+
+.diagramItemCode strong,
+.diagramItemCode .diagramItemKind,
+.diagramItemCode .diagramItemMeta,
+.diagramItemCode p {
+	color: currentcolor;
+}
+
+.diagramItemMetric b {
+	color: var(--concrete-sky);
+}
+
+.diagramItemStatus {
+	border-radius: var(--concrete-radius-pill);
+}
+
+.diagramItemChart,
+.diagramItemTable,
+.diagramItemDocument {
+	background: var(--concrete-raised);
+}
+
+.diagramToneInk {
+	color: var(--concrete-foreground-strong);
+}
+
+.diagramToneSky {
+	color: var(--concrete-sky);
+}
+
+.diagramToneTerminal {
+	color: var(--concrete-terminal);
+}
+
+.diagramToneUltra {
+	color: var(--concrete-ultra);
+}
+
+.diagramToneError {
+	color: var(--concrete-error);
+}
+
 .formField {
 	display: grid;
 	gap: 6px;
