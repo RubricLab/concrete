@@ -1,0 +1,157 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      publish:
+        default: true
+        description: Publish the current main package version.
+        required: true
+        type: boolean
+
+permissions:
+  actions: write
+  contents: write
+  packages: write
+  id-token: write
+
+concurrency:
+  group: concrete-release
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Resolve release version
+        id: release
+        run: |
+          set -euo pipefail
+
+          current_version="$(bun -e "const packageJson = await Bun.file('packages/concrete/package.json').json(); console.log(packageJson.version)")"
+          published_version="$(npm view @rubriclab/concrete version --json 2>/dev/null | tr -d '\"\n' || true)"
+
+          if [ -z "${published_version}" ]; then
+            published_version="0.0.0"
+          fi
+
+          next_version="$(node -e "const current = process.argv[1].split('.').map(Number); const published = process.argv[2].split('.').map(Number); const comparison = current[0] - published[0] || current[1] - published[1] || current[2] - published[2]; console.log(comparison > 0 ? process.argv[1] : [published[0], published[1], published[2] + 1].join('.'))" "${current_version}" "${published_version}")"
+
+          echo "version=${next_version}" >> "${GITHUB_OUTPUT}"
+          echo "current_version=${current_version}" >> "${GITHUB_OUTPUT}"
+          echo "published_version=${published_version}" >> "${GITHUB_OUTPUT}"
+
+      - name: Bump package version
+        env:
+          NEXT_VERSION: ${{ steps.release.outputs.version }}
+          CURRENT_VERSION: ${{ steps.release.outputs.current_version }}
+        run: |
+          set -euo pipefail
+
+          if [ "${NEXT_VERSION}" = "${CURRENT_VERSION}" ]; then
+            echo "Package version is already ahead of npm: ${NEXT_VERSION}"
+            exit 0
+          fi
+
+          bun -e "const path = 'packages/concrete/package.json'; const packageJson = await Bun.file(path).json(); packageJson.version = process.env.NEXT_VERSION; await Bun.write(path, JSON.stringify(packageJson, null, '\t') + '\n')"
+
+          release_date="$(date -u +%F)"
+          commit_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          release_entry="- [${release_date}] Release @rubriclab/concrete v${NEXT_VERSION} from [${GITHUB_SHA::7}](${commit_url})."
+          changelog_path="packages/concrete/CHANGELOG.md"
+          changelog_temp="$(mktemp)"
+
+          if [ -f "${changelog_path}" ]; then
+            {
+              sed -n '1p' "${changelog_path}"
+              echo
+              echo "${release_entry}"
+              tail -n +3 "${changelog_path}"
+            } > "${changelog_temp}"
+          else
+            {
+              echo "# Changelog"
+              echo
+              echo "${release_entry}"
+            } > "${changelog_temp}"
+          fi
+
+          mv "${changelog_temp}" "${changelog_path}"
+          bun install --lockfile-only --ignore-scripts
+
+      - name: Commit release bump
+        env:
+          NEXT_VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- packages/concrete/package.json packages/concrete/CHANGELOG.md bun.lock; then
+            echo "No release bump changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/concrete/package.json packages/concrete/CHANGELOG.md bun.lock
+          git commit -m "release: concrete v${NEXT_VERSION} [skip ci]"
+          git push origin HEAD:main
+
+      - name: Dispatch publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish.yml --ref main -f publish=true
+
+  release:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Verify package
+        run: bun run --cwd packages/concrete verify:publish
+
+      - name: Publish package
+        run: npm publish --provenance --access public
+        working-directory: packages/concrete

@@ -2,7 +2,9 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.8",
 		"@rubriclab/config": "*",
+		"@rubriclab/package": "*",
 		"@types/bun": "latest",
+		"simple-git-hooks": "latest",
 		"typescript": "^5.9.3"
 	},
 	"name": "concrete",
@@ -18,7 +20,11 @@
 		"dev": "bun run --cwd apps/docs dev",
 		"format": "bun x biome check . --write",
 		"lint": "bun x biome check .",
+		"prepare": "bun x @rubriclab/package prepare",
 		"typecheck": "bun run --cwd packages/concrete typecheck && bun run --cwd apps/docs typecheck"
+	},
+	"simple-git-hooks": {
+		"post-commit": "cd \"$(git rev-parse --show-toplevel)/packages/concrete\" && bun x @rubriclab/package post-commit"
 	},
 	"workspaces": [
 		"apps/*",

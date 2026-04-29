@@ -28,4 +28,6 @@ import { Button as PrimitiveButton } from '@rubriclab/concrete/primitives'
 
 The root export is the ergonomic default. Subpath exports are available when an app wants explicit primitive, component, registry, icon, or schema boundaries.
 
+Concrete ships built ESM, declaration files, CSS, and SVG assets. It is intentionally ESM-only and keeps package subpaths small so application bundlers can tree-shake unused surfaces.
+
 Pressure modes are creative direction and registry metadata. They are not universal primitive props.
