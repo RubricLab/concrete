@@ -120,10 +120,37 @@ jobs:
           git commit -m "release: concrete v${NEXT_VERSION}"
           git push origin HEAD:main
 
-      - name: Dispatch publish
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run publish.yml --ref main -f publish=true
+  publish:
+    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' }}
+    needs: bump
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Verify package
+        run: bun run --cwd packages/concrete verify:publish
+
+      - name: Publish package
+        run: npm publish --provenance --access public
+        working-directory: packages/concrete
 
   release:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish }}
