@@ -753,7 +753,7 @@ const diagramCanvasGraph = {
 			tone: 'sky',
 			value: '184ms',
 			width: 122,
-			x: 60,
+			x: 63,
 			y: 82
 		}
 	],
@@ -764,7 +764,7 @@ const diagramCanvasGraph = {
 			role: 'external',
 			title: 'User input',
 			width: 190,
-			x: 20,
+			x: 24,
 			y: 50
 		},
 		{
@@ -773,7 +773,7 @@ const diagramCanvasGraph = {
 			role: 'decision',
 			title: 'Router',
 			width: 206,
-			x: 45,
+			x: 47,
 			y: 31
 		},
 		{
@@ -782,7 +782,7 @@ const diagramCanvasGraph = {
 			role: 'data',
 			title: 'Tools',
 			width: 206,
-			x: 45,
+			x: 47,
 			y: 69
 		},
 		{
@@ -791,7 +791,7 @@ const diagramCanvasGraph = {
 			role: 'compute',
 			title: 'Model',
 			width: 176,
-			x: 72,
+			x: 69,
 			y: 50
 		},
 		{
@@ -800,7 +800,7 @@ const diagramCanvasGraph = {
 			role: 'process',
 			title: 'Stream',
 			width: 118,
-			x: 90,
+			x: 83,
 			y: 50
 		}
 	]
@@ -1270,6 +1270,7 @@ function renderDiagramCanvasState(state: string): ReactNode {
 					state === 'selected' ? 'model' : state === 'interactive' ? 'edge-synthesize' : undefined
 				}
 				title="Request flow"
+				width={state === 'compact' ? 720 : 820}
 				zoomable={state !== 'compact'}
 			/>
 		</DataWideStage>

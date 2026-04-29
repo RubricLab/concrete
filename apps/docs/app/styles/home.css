@@ -32,6 +32,8 @@
 	font-family: var(--concrete-font-display);
 	font-size: 28px;
 	font-style: italic;
+	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
 	letter-spacing: 0;
@@ -51,6 +53,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 72px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
 	letter-spacing: 0;
@@ -111,6 +114,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 72px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
 	letter-spacing: 0;
@@ -118,6 +122,7 @@
 }
 
 .heroBillboard em {
+	font-synthesis: none;
 	font-style: italic;
 }
 
@@ -205,6 +210,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 92px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
 	letter-spacing: 0;
@@ -267,6 +273,7 @@
 .typeScaleCompact .heroRole {
 	font-family: var(--concrete-font-display);
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
 }

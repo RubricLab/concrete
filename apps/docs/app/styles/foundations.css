@@ -18,6 +18,9 @@
 	font-family: var(--concrete-font-display);
 	font-size: 32px;
 	font-style: italic;
+	font-optical-sizing: none;
+	font-synthesis: none;
+	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 500;
 	line-height: 1;
 }
@@ -39,6 +42,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 86px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
 	letter-spacing: 0;
@@ -47,6 +51,7 @@
 
 .typeIntro h1 em {
 	font-style: italic;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 550;
 }
@@ -103,6 +108,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 150px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
 	letter-spacing: 0;
@@ -111,6 +117,7 @@
 
 .displaySpecimen p em {
 	font-style: italic;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 650;
 }
@@ -153,6 +160,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 120px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
 	letter-spacing: 0;
@@ -163,6 +171,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 72px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
 	letter-spacing: 0;

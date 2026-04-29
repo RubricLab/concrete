@@ -1668,11 +1668,15 @@
 .emptyTitle {
 	color: var(--concrete-foreground-strong);
 	font: 500 18px / 1.25 var(--concrete-font-display);
+	font-optical-sizing: none;
+	font-synthesis: none;
+	font-variation-settings: var(--concrete-font-display-settings);
 	letter-spacing: 0;
 }
 
 .emptyTitle em {
 	color: var(--concrete-ink-7);
+	font-synthesis: none;
 	font-style: italic;
 	font-weight: 400;
 }
@@ -2099,6 +2103,7 @@
 .statDisplay {
 	font-family: var(--concrete-font-display);
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
 	line-height: 0.95;
@@ -2505,15 +2510,18 @@
 }
 
 .diagramNode {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
 	display: grid;
-	grid-template-columns: 24px minmax(0, 1fr);
+	grid-template-columns: 30px minmax(0, 1fr);
 	gap: 10px;
 	align-items: center;
 	width: 100%;
-	min-height: 52px;
-	padding: 8px 10px;
+	min-height: 56px;
+	padding: 9px 11px;
 	border: 1px solid var(--concrete-border);
-	border-radius: var(--concrete-radius-3);
+	border-radius: var(--concrete-radius-4);
 	background: var(--concrete-surface);
 	color: var(--concrete-foreground-body);
 	text-align: left;
@@ -2525,6 +2533,18 @@
 		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
 		color var(--concrete-duration-fast) var(--concrete-ease),
 		transform var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.diagramNode::before {
+	position: absolute;
+	top: 9px;
+	bottom: 9px;
+	left: 0;
+	width: 3px;
+	border-radius: 0 var(--concrete-radius-pill) var(--concrete-radius-pill) 0;
+	background: currentcolor;
+	opacity: 0;
+	content: "";
 }
 
 .diagramNode:hover {
@@ -2545,8 +2565,8 @@
 .diagramNodeIcon {
 	display: grid;
 	place-items: center;
-	width: 24px;
-	height: 24px;
+	width: 30px;
+	height: 30px;
 	border: 1px solid var(--concrete-border-soft);
 	border-radius: var(--concrete-radius-2);
 	background: var(--concrete-sunken);
@@ -2554,8 +2574,9 @@
 }
 
 .diagramNodeIcon svg {
-	width: 14px;
-	height: 14px;
+	width: 16px;
+	height: 16px;
+	stroke-width: 1.8;
 }
 
 .diagramNodeText {
@@ -2567,7 +2588,7 @@
 .diagramNodeText strong {
 	overflow: hidden;
 	color: var(--concrete-foreground-strong);
-	font: 800 13px / 1.2 var(--concrete-font-sans);
+	font: 800 14px / 1.16 var(--concrete-font-sans);
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
@@ -2586,8 +2607,90 @@
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--concrete-sky) 14%, transparent);
 }
 
+.diagramNodeSelected::before {
+	opacity: 0.78;
+}
+
 .diagramNodeMuted {
 	opacity: 0.54;
+}
+
+.diagramNode[data-diagram-role="external"],
+.diagramNode[data-diagram-role="compute"] {
+	border-color: var(--concrete-ink-7);
+	background: var(--concrete-ink-8);
+	color: var(--concrete-inverse-foreground);
+	box-shadow:
+		0 10px 24px rgb(10 11 15 / 14%),
+		0 2px 5px rgb(10 11 15 / 10%);
+}
+
+.diagramNode[data-diagram-role="external"]:hover,
+.diagramNode[data-diagram-role="compute"]:hover {
+	border-color: color-mix(in srgb, var(--concrete-ultra) 48%, var(--concrete-ink-6));
+	box-shadow:
+		0 14px 30px rgb(10 11 15 / 18%),
+		0 2px 6px rgb(10 11 15 / 12%);
+}
+
+.diagramNode[data-diagram-role="external"] .diagramNodeText strong,
+.diagramNode[data-diagram-role="compute"] .diagramNodeText strong {
+	color: var(--concrete-inverse-foreground);
+}
+
+.diagramNode[data-diagram-role="external"] .diagramNodeText span,
+.diagramNode[data-diagram-role="compute"] .diagramNodeText span {
+	color: var(--concrete-inverse-muted);
+}
+
+.diagramNode[data-diagram-role="external"] .diagramNodeIcon,
+.diagramNode[data-diagram-role="compute"] .diagramNodeIcon {
+	border-color: var(--concrete-inverse-border);
+	background: color-mix(in srgb, var(--concrete-surface) 9%, transparent);
+	color: var(--concrete-inverse-foreground);
+}
+
+.diagramNode[data-diagram-role="compute"] .diagramNodeIcon {
+	background: color-mix(in srgb, var(--concrete-ultra) 20%, transparent);
+	color: var(--concrete-ultra-wash);
+}
+
+.diagramNode[data-diagram-role="data"] {
+	border-color: color-mix(in srgb, var(--concrete-sky) 36%, var(--concrete-border));
+}
+
+.diagramNode[data-diagram-role="data"]::before {
+	color: var(--concrete-sky);
+	opacity: 0.72;
+}
+
+.diagramNode[data-diagram-role="decision"],
+.diagramNode[data-diagram-role="boundary"] {
+	border-color: color-mix(in srgb, var(--concrete-ultra) 34%, var(--concrete-border));
+}
+
+.diagramNode[data-diagram-role="decision"]::before,
+.diagramNode[data-diagram-role="boundary"]::before {
+	color: var(--concrete-ultra);
+	opacity: 0.62;
+}
+
+.diagramNode[data-diagram-role="process"] {
+	border-color: color-mix(in srgb, var(--concrete-terminal) 24%, var(--concrete-border));
+}
+
+.diagramNode[data-diagram-role="process"]::before {
+	color: var(--concrete-terminal);
+	opacity: 0.48;
+}
+
+.diagramNode[data-diagram-role="error"] {
+	border-color: color-mix(in srgb, var(--concrete-error) 42%, var(--concrete-border));
+}
+
+.diagramNode[data-diagram-role="error"]::before {
+	color: var(--concrete-error);
+	opacity: 0.72;
 }
 
 .diagramRoleCompute .diagramNodeIcon {
@@ -2618,7 +2721,7 @@
 	gap: 2px;
 	padding: 8px 10px;
 	border: 1px solid var(--concrete-border-soft);
-	border-radius: var(--concrete-radius-3);
+	border-radius: var(--concrete-radius-4);
 	background: var(--concrete-surface);
 	color: var(--concrete-foreground-body);
 	text-align: left;
@@ -2660,6 +2763,22 @@
 	border-color: currentcolor;
 	background: var(--concrete-sky-1);
 	box-shadow: 0 0 0 3px color-mix(in srgb, currentcolor 12%, transparent);
+}
+
+.diagramItem[data-diagram-tone="sky"] {
+	border-color: color-mix(in srgb, var(--concrete-sky) 28%, var(--concrete-border));
+}
+
+.diagramItem[data-diagram-tone="terminal"] {
+	border-color: color-mix(in srgb, var(--concrete-terminal) 28%, var(--concrete-border));
+}
+
+.diagramItem[data-diagram-tone="ultra"] {
+	border-color: color-mix(in srgb, var(--concrete-ultra) 28%, var(--concrete-border));
+}
+
+.diagramItem[data-diagram-tone="error"] {
+	border-color: color-mix(in srgb, var(--concrete-error) 28%, var(--concrete-border));
 }
 
 .diagramItemMuted {

@@ -156,6 +156,7 @@
 html {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	font-synthesis: none;
 	text-rendering: optimizelegibility;
 }
 
@@ -219,6 +220,7 @@ h3 {
 	color: var(--concrete-foreground-strong);
 	font-family: var(--concrete-font-display);
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
 	letter-spacing: var(--concrete-tracking-display);
@@ -228,6 +230,7 @@ h3 {
 .display em,
 .concrete-display em,
 .hero h1 em {
+	font-synthesis: none;
 	font-style: italic;
 	font-variation-settings: var(--concrete-font-display-settings);
 }

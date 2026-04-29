@@ -84,6 +84,7 @@ body {
 	font-family: var(--concrete-font-display);
 	font-size: 92px;
 	font-optical-sizing: none;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
 	letter-spacing: 0;
@@ -93,6 +94,7 @@ body {
 
 .hero h1 em {
 	font-style: italic;
+	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 650;
 }

@@ -154,16 +154,16 @@ const playgroundDiagramGraph = {
 			tone: 'sky',
 			value: '184ms',
 			width: 122,
-			x: 60,
+			x: 63,
 			y: 82
 		}
 	],
 	nodes: [
-		{ id: 'input', meta: 'HTTPS', role: 'external', title: 'User input', width: 182, x: 18, y: 50 },
-		{ id: 'router', meta: 'intent', role: 'decision', title: 'Router', width: 190, x: 42, y: 32 },
-		{ id: 'tools', meta: 'search', role: 'data', title: 'Tools', width: 190, x: 42, y: 68 },
-		{ id: 'model', meta: 'policy', role: 'compute', title: 'Model', width: 170, x: 70, y: 50 },
-		{ id: 'stream', meta: 'SSE', role: 'process', title: 'Stream', width: 116, x: 90, y: 50 }
+		{ id: 'input', meta: 'HTTPS', role: 'external', title: 'User input', width: 182, x: 24, y: 50 },
+		{ id: 'router', meta: 'intent', role: 'decision', title: 'Router', width: 190, x: 47, y: 32 },
+		{ id: 'tools', meta: 'search', role: 'data', title: 'Tools', width: 190, x: 47, y: 68 },
+		{ id: 'model', meta: 'policy', role: 'compute', title: 'Model', width: 170, x: 69, y: 50 },
+		{ id: 'stream', meta: 'SSE', role: 'process', title: 'Stream', width: 116, x: 83, y: 50 }
 	]
 } satisfies DiagramCanvasProps['graph']
 
@@ -1053,6 +1053,7 @@ function renderDiagramCanvasPlayground(searchParams: URLSearchParams, state: str
 					height={260}
 					minimap={getQueryBoolean(searchParams, 'minimap', false)}
 					title="Compact concept flow"
+					width={720}
 				/>
 			</DataWideStage>
 		)
@@ -1069,6 +1070,7 @@ function renderDiagramCanvasPlayground(searchParams: URLSearchParams, state: str
 					activeState === 'selected' ? 'model' : activeState === 'interactive' ? 'synthesize' : undefined
 				}
 				title="Request flow"
+				width={820}
 			/>
 		</DataWideStage>
 	)

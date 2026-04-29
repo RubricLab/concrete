@@ -123,6 +123,7 @@ export function DiagramNode({
 				selected && classes.diagramNodeSelected,
 				className
 			)}
+			data-diagram-role={role}
 			type={type}
 			{...props}
 		>
@@ -170,6 +171,8 @@ export function DiagramItem({
 				selected && classes.diagramItemSelected,
 				className
 			)}
+			data-diagram-kind={kind}
+			data-diagram-tone={tone}
 			{...props}
 		>
 			<span className={classes.diagramItemKind}>{kind}</span>

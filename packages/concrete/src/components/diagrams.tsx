@@ -2,6 +2,7 @@
 
 import type { CSSProperties, HTMLAttributes, PointerEvent, ReactNode, WheelEvent } from 'react'
 import { useId, useMemo, useState } from 'react'
+import { ConcreteIcon, type IconName } from '../icons'
 import { Button, Card, DiagramItem, DiagramNode } from '../primitives'
 import { cn } from '../primitives/utils'
 import {
@@ -159,41 +160,14 @@ export function DiagramCanvas({
 	return (
 		<Card className={cn(classes.diagramCanvasCard, className)} variant="raised">
 			<header className={classes.diagramCanvasHeader}>
-				<div>
+				<div className={classes.diagramCanvasTitleBlock}>
 					<h3>{parsedProps.title}</h3>
-					{parsedProps.description ? <p>{parsedProps.description}</p> : null}
 				</div>
-				{parsedProps.controls ? (
-					<div className={classes.diagramCanvasControls}>
-						<Button
-							aria-label="Zoom out"
-							disabled={!parsedProps.zoomable}
-							iconOnly
-							onClick={() => zoomFromCenter(1 / 1.14)}
-							size="tiny"
-							variant="secondary"
-						>
-							-
-						</Button>
-						<Button
-							aria-label="Fit diagram"
-							onClick={() => commitViewport({ x: 0, y: 0, zoom: 1 })}
-							size="tiny"
-							variant="secondary"
-						>
-							{Math.round(viewport.zoom * 100)}%
-						</Button>
-						<Button
-							aria-label="Zoom in"
-							disabled={!parsedProps.zoomable}
-							iconOnly
-							onClick={() => zoomFromCenter(1.14)}
-							size="tiny"
-							variant="secondary"
-						>
-							+
-						</Button>
-					</div>
+				{parsedProps.description ? (
+					<p className={classes.diagramCanvasStatus}>
+						<span />
+						{parsedProps.description}
+					</p>
 				) : null}
 			</header>
 			<div
@@ -204,6 +178,7 @@ export function DiagramCanvas({
 				onPointerUp={handlePointerEnd}
 				onWheel={handleWheel}
 			>
+				<DiagramCanvasRail />
 				<div
 					className={classes.diagramCanvasStage}
 					style={
@@ -321,7 +296,90 @@ export function DiagramCanvas({
 					<MiniMap graph={parsedProps.graph} selectedId={activeSelectedId} />
 				) : null}
 			</div>
+			<footer className={classes.diagramCanvasFooter}>
+				<DiagramCanvasLegend />
+				{parsedProps.controls ? (
+					<div className={classes.diagramCanvasControls}>
+						<Button
+							aria-label="Zoom out"
+							disabled={!parsedProps.zoomable}
+							iconOnly
+							onClick={() => zoomFromCenter(1 / 1.14)}
+							size="tiny"
+							variant="secondary"
+						>
+							-
+						</Button>
+						<Button
+							aria-label="Fit diagram"
+							onClick={() => commitViewport({ x: 0, y: 0, zoom: 1 })}
+							size="tiny"
+							variant="secondary"
+						>
+							{Math.round(viewport.zoom * 100)}%
+						</Button>
+						<Button
+							aria-label="Zoom in"
+							disabled={!parsedProps.zoomable}
+							iconOnly
+							onClick={() => zoomFromCenter(1.14)}
+							size="tiny"
+							variant="secondary"
+						>
+							+
+						</Button>
+					</div>
+				) : null}
+			</footer>
 		</Card>
+	)
+}
+
+function DiagramCanvasRail() {
+	const tools: readonly IconName[] = [
+		'arrow-right',
+		'square',
+		'circle',
+		'git-branch',
+		'activity',
+		'bar-chart-3'
+	]
+
+	return (
+		<div aria-hidden="true" className={classes.diagramCanvasRail}>
+			{tools.map((tool, index) => (
+				<span className={index === 0 ? classes.diagramCanvasRailActive : undefined} key={tool}>
+					<ConcreteIcon name={tool} />
+				</span>
+			))}
+		</div>
+	)
+}
+
+function DiagramCanvasLegend() {
+	return (
+		<div aria-hidden="true" className={classes.diagramCanvasLegend}>
+			<span>
+				<i className={classes.diagramCanvasLegendCompute} />
+				Compute node
+			</span>
+			<span>
+				<i className={classes.diagramCanvasLegendData} />
+				Data / service
+			</span>
+			<span>
+				<b className={classes.diagramCanvasLegendFlow} />
+				Flow
+			</span>
+			<span>
+				<b className={classes.diagramCanvasLegendEvent} />
+				Event
+			</span>
+			<span>
+				<b className={classes.diagramCanvasLegendReference} />
+				Context
+			</span>
+		</div>
 	)
 }
 
@@ -375,7 +433,12 @@ function renderContextFrameChrome(props: ContextFrameShape): ReactNode {
 		case 'application':
 			return (
 				<header className={classes.contextApplicationChrome}>
-					<strong>{props.title ?? 'Workspace'}</strong>
+					<div className={classes.contextFrameChromeTitle}>
+						<span className={classes.contextFrameChromeIcon}>
+							<ConcreteIcon name="panel-left" />
+						</span>
+						<strong>{props.title ?? 'Workspace'}</strong>
+					</div>
 					<span>{props.meta ?? 'App frame'}</span>
 				</header>
 			)
@@ -387,14 +450,27 @@ function renderContextFrameChrome(props: ContextFrameShape): ReactNode {
 						<b>{props.title ?? 'Research note'}</b>
 					</div>
 					<div className={classes.contextBrowserToolbar}>
+						<div className={classes.contextBrowserNav}>
+							<span />
+							<span />
+						</div>
 						<span>{props.url ?? 'rubric.local/concrete'}</span>
+						<div className={classes.contextBrowserActions}>
+							<span />
+							<span />
+						</div>
 					</div>
 				</header>
 			)
 		case 'ide':
 			return (
 				<header className={classes.contextIdeChrome}>
-					<strong>{props.title ?? 'agent.ts'}</strong>
+					<div className={classes.contextFrameChromeTitle}>
+						<span className={classes.contextFrameChromeIcon}>
+							<ConcreteIcon name="code" />
+						</span>
+						<strong>{props.title ?? 'agent.ts'}</strong>
+					</div>
 					<span>{props.meta ?? 'TypeScript'}</span>
 				</header>
 			)
@@ -405,7 +481,12 @@ function renderContextFrameChrome(props: ContextFrameShape): ReactNode {
 		case 'terminal':
 			return (
 				<header className={classes.contextTerminalChrome}>
-					<strong>{props.title ?? 'terminal'}</strong>
+					<div className={classes.contextFrameChromeTitle}>
+						<span className={classes.contextFrameChromeIcon}>
+							<ConcreteIcon name="terminal" />
+						</span>
+						<strong>{props.title ?? 'terminal'}</strong>
+					</div>
 					<span>{props.meta ?? 'zsh'}</span>
 				</header>
 			)
@@ -415,40 +496,134 @@ function renderContextFrameChrome(props: ContextFrameShape): ReactNode {
 function renderDefaultContextFrameBody(props: ContextFrameShape): ReactNode {
 	switch (props.kind) {
 		case 'application':
+			return (
+				<div className={classes.contextApplicationMock}>
+					<aside>
+						<strong>Projects</strong>
+						<span data-active="true">Roadmap</span>
+						<span>Agents</span>
+						<span>Files</span>
+						<span>Settings</span>
+					</aside>
+					<section>
+						<header>
+							<strong>Research queue</strong>
+							<button type="button">New frame</button>
+						</header>
+						<div className={classes.contextFrameTable}>
+							<span>Context architecture</span>
+							<span>In review</span>
+							<span>Memory audit</span>
+							<span>Running</span>
+							<span>Agent canvas</span>
+							<span>Ready</span>
+						</div>
+					</section>
+				</div>
+			)
 		case 'browser':
 			return (
-				<div className={classes.contextFrameMockGrid}>
-					<span />
-					<span />
-					<span className={classes.contextFrameWide} />
+				<div className={classes.contextBrowserMock}>
+					<aside>
+						<span data-active="true" />
+						<span />
+						<span />
+						<span />
+					</aside>
+					<section>
+						<header>
+							<strong>Analytics overview</strong>
+							<span>Last 30 days</span>
+						</header>
+						<div className={classes.contextBrowserMetrics}>
+							<span>
+								<b>Runs</b>
+								<strong>24.5k</strong>
+							</span>
+							<span>
+								<b>Success</b>
+								<strong>98.2%</strong>
+							</span>
+							<span>
+								<b>Latency</b>
+								<strong>184ms</strong>
+							</span>
+						</div>
+						<div className={classes.contextBrowserChart}>
+							<svg aria-hidden="true" viewBox="0 0 280 96">
+								<path d="M8 75 42 63 72 67 108 46 142 52 176 32 214 38 248 19 272 24" />
+								<path d="M8 75 42 63 72 67 108 46 142 52 176 32 214 38 248 19 272 24V92H8Z" />
+							</svg>
+						</div>
+					</section>
 				</div>
 			)
 		case 'ide':
 			return (
-				<pre className={classes.contextFrameCode}>
-					<code>{'const context = await loadFrame();\nreturn explain(context);'}</code>
-				</pre>
+				<div className={classes.contextIdeMock}>
+					<aside>
+						<strong>EXPLORER</strong>
+						<span>src</span>
+						<span data-active="true">agent.ts</span>
+						<span>memory.ts</span>
+						<span>tools.ts</span>
+					</aside>
+					<pre className={classes.contextFrameCode}>
+						<code>
+							{
+								'1  const context = await loadFrame();\n2  const plan = createPlan(context);\n3  return explain(plan);'
+							}
+						</code>
+					</pre>
+				</div>
 			)
 		case 'laptop':
 			return (
-				<div className={classes.contextFrameMockGrid}>
-					<span className={classes.contextFrameWide} />
-					<span />
-					<span />
+				<div className={classes.contextLaptopMock}>
+					<section>
+						<header>
+							<span />
+							<strong>Context pack</strong>
+						</header>
+						<div>
+							<span />
+							<span />
+							<span />
+						</div>
+					</section>
+					<aside>
+						<strong>Today</strong>
+						<span>Review frames</span>
+						<span>Ship diagram</span>
+						<span>Update notes</span>
+					</aside>
 				</div>
 			)
 		case 'mobile':
 			return (
 				<div className={classes.contextMobileStack}>
+					<header>
+						<strong>9:41</strong>
+						<span>Concrete</span>
+					</header>
+					<section>
+						<strong>Memory balance</strong>
+						<b>12,940</b>
+					</section>
 					<span />
 					<span />
-					<span />
+					<nav>
+						<i data-active="true" />
+						<i />
+						<i />
+						<i />
+					</nav>
 				</div>
 			)
 		case 'terminal':
 			return (
 				<pre className={classes.contextFrameTerminal}>
-					<code>{'> run explain\nloaded 4 frames\nstatus ready'}</code>
+					<code>{'$ concrete explain request-flow\nloaded 4 frames\nrouted 6 edges\nstatus ready'}</code>
 				</pre>
 			)
 	}
