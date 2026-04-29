@@ -10,7 +10,6 @@ import {
 	type ComponentSlug,
 	Composer,
 	type ComposerValue,
-	ContextFrame,
 	type DataPoint,
 	type DataSeries,
 	DatePicker,
@@ -365,20 +364,6 @@ function getComponentPlaygroundControls(
 				booleanControl('disabled', 'Disabled', 'false'),
 				textControl('submitLabel', 'Submit label', 'Send')
 			]
-		case 'context-frame':
-			return [
-				selectControl('kind', 'Kind', 'browser', [
-					'browser',
-					'application',
-					'ide',
-					'terminal',
-					'mobile',
-					'laptop'
-				]),
-				textControl('title', 'Title', 'Research frame'),
-				textControl('meta', 'Meta', 'Concrete'),
-				booleanControl('compact', 'Compact', 'false')
-			]
 		case 'diagram-canvas':
 			return [
 				selectControl('fixture', 'Fixture', 'default', [
@@ -613,8 +598,6 @@ function renderPlaygroundComponent(slug: ComponentSlug, searchParams: URLSearchP
 			return renderSearchBarPlayground(searchParams)
 		case 'composer':
 			return renderComposerPlayground(searchParams)
-		case 'context-frame':
-			return renderContextFramePlayground(searchParams, state)
 		case 'donut-chart':
 			return renderDonutChartPlayground(searchParams)
 		case 'data-table':
@@ -1012,26 +995,6 @@ function renderFlowDiagramPlayground(searchParams: URLSearchParams, state: strin
 	return (
 		<DataWideStage>
 			{renderComponentExample('flow-diagram', state === 'default' ? fixture : state)}
-		</DataWideStage>
-	)
-}
-
-function renderContextFramePlayground(searchParams: URLSearchParams, state: string): ReactNode {
-	const kind = getQueryValue(searchParams, 'kind', state === 'default' ? 'browser' : state)
-
-	return (
-		<DataWideStage>
-			<ContextFrame
-				compact={getQueryBoolean(searchParams, 'compact', false)}
-				kind={
-					['application', 'browser', 'ide', 'laptop', 'mobile', 'terminal'].includes(kind)
-						? (kind as 'application' | 'browser' | 'ide' | 'laptop' | 'mobile' | 'terminal')
-						: 'browser'
-				}
-				meta={getQueryValue(searchParams, 'meta', 'Concrete')}
-				title={getQueryValue(searchParams, 'title', 'Research frame')}
-				url="rubric.local/research/context"
-			/>
 		</DataWideStage>
 	)
 }

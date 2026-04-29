@@ -520,22 +520,6 @@ export function getFlowDiagramProps(): readonly PrimitiveProp[] {
 	]
 }
 
-export function getContextFrameProps(): readonly PrimitiveProp[] {
-	return [
-		prop(
-			'kind',
-			"'application' | 'browser' | 'ide' | 'laptop' | 'mobile' | 'terminal'",
-			'Recognizable container chrome.',
-			'browser'
-		),
-		prop('title', 'string', 'Frame title or tab label.'),
-		prop('meta', 'string', 'Small right-side environment metadata.'),
-		prop('url', 'string', 'Browser-style location label.'),
-		prop('compact', 'boolean', 'Constrained frame width for side-by-side explainers.', 'false'),
-		prop('children', 'ReactNode', 'Real content slot inside the frame body.')
-	]
-}
-
 export function getDiagramCanvasProps(): readonly PrimitiveProp[] {
 	return [
 		prop('graph', 'DiagramCanvasGraph', 'Validated nodes, items, and routed edges.', undefined, true),

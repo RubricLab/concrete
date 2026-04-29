@@ -6,7 +6,6 @@ import {
 	getChartProps,
 	getCommandMenuProps,
 	getComposerProps,
-	getContextFrameProps,
 	getDataTableProps,
 	getDatePickerProps,
 	getDateRangePickerProps,
@@ -743,23 +742,6 @@ export const componentRegistry = [
 			['selected', 'Selected node and edge states.'],
 			['interactive', 'Controls and draggable nodes enabled.'],
 			['empty', 'Empty graph state.']
-		])
-	),
-	componentEntry(
-		'context-frame',
-		'Context frame',
-		'Browser, app, laptop, mobile, IDE, and terminal shells for placing real content in explainers.',
-		'diagram',
-		['editorial', 'educational'],
-		'Context frame provides recognizable environment chrome while the inner slot stays product- or article-specific.',
-		getContextFrameProps(),
-		states([
-			['browser', 'Browser context with URL chrome.'],
-			['application', 'Application shell context.'],
-			['ide', 'Code editor context.'],
-			['terminal', 'Terminal context.'],
-			['mobile', 'Mobile device context.'],
-			['laptop', 'Laptop presentation frame.']
 		])
 	),
 	componentEntry(

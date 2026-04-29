@@ -7,7 +7,6 @@ import {
 	type CommandMenuItem,
 	Composer,
 	type ComposerValue,
-	ContextFrame,
 	createDataTableColumns,
 	DataTable,
 	DatePicker,
@@ -439,8 +438,6 @@ export function renderComponentExample(slug: string, state = 'default'): ReactNo
 			return renderCommandMenuState(state)
 		case 'composer':
 			return renderComposerState(state)
-		case 'context-frame':
-			return renderContextFrameState(state)
 		case 'data-table':
 			return renderDataTableState(state)
 		case 'date-picker':
@@ -1224,25 +1221,6 @@ function renderFlowDiagramState(state: string): ReactNode {
 				selectedNodeId={state === 'selected' ? 'plan' : undefined}
 				title="Agent execution flow"
 				width={1020}
-			/>
-		</DataWideStage>
-	)
-}
-
-function renderContextFrameState(state: string): ReactNode {
-	const kind = state === 'default' ? 'browser' : state
-
-	return (
-		<DataWideStage>
-			<ContextFrame
-				kind={
-					['application', 'browser', 'ide', 'laptop', 'mobile', 'terminal'].includes(kind)
-						? (kind as 'application' | 'browser' | 'ide' | 'laptop' | 'mobile' | 'terminal')
-						: 'browser'
-				}
-				meta={kind === 'terminal' ? 'zsh' : kind === 'ide' ? 'TypeScript' : 'Concrete'}
-				title={kind === 'terminal' ? 'run context' : kind === 'ide' ? 'agent.ts' : 'Research frame'}
-				url="rubric.local/research/context"
 			/>
 		</DataWideStage>
 	)

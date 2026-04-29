@@ -46,7 +46,6 @@ Pressure is recorded in registry examples and composition guidance. Do not map p
 ## Diagram Language
 
 - `ConceptFrame`, `ConceptConnector`, `DiagramNode`, and `DiagramItem` are the explainer primitives for editorial and educational compositions.
-- `ContextFrame` provides browser, app, laptop, mobile, IDE, and terminal shells for real content inside articles and diagrams.
 - `DiagramCanvas` is for explanatory node graphs with DOM nodes, supporting items, SVG edges, pan, zoom, fit, and minimap behavior.
 - Keep `FlowDiagram` for product/data flows. Use `DiagramCanvas` when the goal is explaining ideas, systems, context, or relationships.
 - Diagram tones stay Concrete-native: ink/muted/sky plus terminal, ultra, and error. Do not add warning, amber, or decorative gradients.

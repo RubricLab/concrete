@@ -4,10 +4,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import {
 	ConceptConnector,
 	ConceptFrame,
-	ContextFrame,
 	conceptConnectorKindSchema,
 	conceptFrameKindSchema,
-	contextFramePropsSchema,
 	DiagramCanvas,
 	type DiagramCanvasProps,
 	DiagramItem,
@@ -36,10 +34,6 @@ describe('Concrete diagram language', () => {
 		expect(diagramItemPropsSchema.parse({ title: 'Trace', value: '184ms' })).toMatchObject({
 			kind: 'note',
 			tone: 'ink'
-		})
-		expect(contextFramePropsSchema.parse({})).toMatchObject({
-			compact: false,
-			kind: 'browser'
 		})
 	})
 
@@ -137,7 +131,6 @@ describe('Concrete diagram language', () => {
 		)
 		expect(renderToStaticMarkup(createElement(DiagramNode, { title: 'Router' }))).toContain('Router')
 		expect(renderToStaticMarkup(createElement(DiagramItem, { title: 'Trace' }))).toContain('Trace')
-		expect(renderToStaticMarkup(createElement(ContextFrame, { title: 'Frame' }))).toContain('Frame')
 		expect(renderToStaticMarkup(createElement(DiagramCanvas, { graph, title: 'Flow' }))).toContain(
 			'Flow'
 		)

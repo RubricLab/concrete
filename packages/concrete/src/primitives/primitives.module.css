@@ -2535,18 +2535,6 @@
 		transform var(--concrete-duration-fast) var(--concrete-ease);
 }
 
-.diagramNode::before {
-	position: absolute;
-	top: 9px;
-	bottom: 9px;
-	left: 0;
-	width: 3px;
-	border-radius: 0 var(--concrete-radius-pill) var(--concrete-radius-pill) 0;
-	background: currentcolor;
-	opacity: 0;
-	content: "";
-}
-
 .diagramNode:hover {
 	border-color: var(--concrete-border-strong);
 	box-shadow: var(--concrete-shadow-2);
@@ -2607,10 +2595,6 @@
 	box-shadow: 0 0 0 3px color-mix(in srgb, var(--concrete-sky) 14%, transparent);
 }
 
-.diagramNodeSelected::before {
-	opacity: 0.78;
-}
-
 .diagramNodeMuted {
 	opacity: 0.54;
 }
@@ -2659,38 +2643,17 @@
 	border-color: color-mix(in srgb, var(--concrete-sky) 36%, var(--concrete-border));
 }
 
-.diagramNode[data-diagram-role="data"]::before {
-	color: var(--concrete-sky);
-	opacity: 0.72;
-}
-
 .diagramNode[data-diagram-role="decision"],
 .diagramNode[data-diagram-role="boundary"] {
 	border-color: color-mix(in srgb, var(--concrete-ultra) 34%, var(--concrete-border));
-}
-
-.diagramNode[data-diagram-role="decision"]::before,
-.diagramNode[data-diagram-role="boundary"]::before {
-	color: var(--concrete-ultra);
-	opacity: 0.62;
 }
 
 .diagramNode[data-diagram-role="process"] {
 	border-color: color-mix(in srgb, var(--concrete-terminal) 24%, var(--concrete-border));
 }
 
-.diagramNode[data-diagram-role="process"]::before {
-	color: var(--concrete-terminal);
-	opacity: 0.48;
-}
-
 .diagramNode[data-diagram-role="error"] {
 	border-color: color-mix(in srgb, var(--concrete-error) 42%, var(--concrete-border));
-}
-
-.diagramNode[data-diagram-role="error"]::before {
-	color: var(--concrete-error);
-	opacity: 0.72;
 }
 
 .diagramRoleCompute .diagramNodeIcon {

@@ -69,14 +69,6 @@ export const diagramItemKindSchema = z.enum([
 	'status',
 	'table'
 ])
-export const contextFrameKindSchema = z.enum([
-	'application',
-	'browser',
-	'ide',
-	'laptop',
-	'mobile',
-	'terminal'
-])
 export const diagramAnchorSchema = z.enum(['bottom', 'center', 'left', 'right', 'top'])
 
 const finiteNumberSchema = z.number().finite()
@@ -657,16 +649,6 @@ export const diagramItemPropsSchema = z
 	})
 	.strict()
 
-export const contextFramePropsSchema = z
-	.object({
-		compact: z.boolean().default(false),
-		kind: contextFrameKindSchema.default('browser'),
-		meta: z.string().min(1).optional(),
-		title: z.string().min(1).optional(),
-		url: z.string().min(1).optional()
-	})
-	.strict()
-
 export const diagramCanvasNodeSchema = diagramNodePropsSchema
 	.extend({
 		height: z.number().int().positive().default(56),
@@ -839,8 +821,6 @@ export type ConceptConnectorKind = z.infer<typeof conceptConnectorKindSchema>
 export type ConceptConnectorShape = z.output<typeof conceptConnectorPropsSchema>
 export type ConceptFrameKind = z.infer<typeof conceptFrameKindSchema>
 export type ConceptFrameShape = z.output<typeof conceptFramePropsSchema>
-export type ContextFrameKind = z.infer<typeof contextFrameKindSchema>
-export type ContextFrameShape = z.output<typeof contextFramePropsSchema>
 export type AreaChartProps = Omit<z.input<typeof areaChartSchema>, 'variant'>
 export type BarChartProps = Omit<z.input<typeof barChartSchema>, 'variant'>
 export type ChartProps = z.input<typeof chartSchema>

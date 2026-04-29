@@ -51,7 +51,6 @@ export type ComponentSlug =
 	| 'bar-chart'
 	| 'command-menu'
 	| 'composer'
-	| 'context-frame'
 	| 'chart'
 	| 'data-table'
 	| 'date-picker'

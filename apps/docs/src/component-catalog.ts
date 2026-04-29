@@ -20,7 +20,6 @@ const componentPreviewStates = {
 	chart: 'area',
 	'command-menu': 'default',
 	composer: 'default',
-	'context-frame': 'browser',
 	'data-table': 'selected',
 	'date-picker': 'open',
 	'date-range-picker': 'open',
@@ -98,7 +97,7 @@ export function getCategoryDescription(category: ComponentCategory): string {
 		case 'data':
 			return 'Typed KPI, chart, table, meter, and diagram components for dense product data and generated UI.'
 		case 'diagram':
-			return 'Concept frames, context frames, and graph canvases for editorial and educational explanation.'
+			return 'Concept frames and graph canvases for editorial and educational explanation.'
 		case 'feedback':
 			return 'Subdued, expandable artifacts for visible reasoning, validation, and tool execution.'
 		case 'form':
