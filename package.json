@@ -15,7 +15,8 @@
 		"build:package": "bun run --cwd packages/concrete build",
 		"check": "bun run typecheck && bun run lint && bun test",
 		"clean": "rm -rf node_modules apps/docs/.next packages/concrete/.tsbuildinfo",
-		"dev": "bun run --cwd apps/docs dev",
+		"dev": "bun run build:package && bun run --cwd apps/docs dev",
+		"dev:docs": "bun run --cwd apps/docs dev",
 		"format": "bun x biome check . --write",
 		"lint": "bun x biome check .",
 		"typecheck": "bun run --cwd packages/concrete typecheck && bun run --cwd apps/docs typecheck"

@@ -29,6 +29,16 @@ describe('Import boundaries', () => {
 
 		expect(violations).toEqual([])
 	})
+
+	test('package source no longer imports CSS modules', () => {
+		const moduleFiles = listSourceFiles(join(repoRoot, 'packages/concrete/src')).filter(filePath =>
+			filePath.endsWith('.module.css')
+		)
+		const moduleImports = scanSourceFiles(['packages/concrete/src'], [/module\.css/u])
+
+		expect(moduleFiles).toEqual([])
+		expect(moduleImports).toEqual([])
+	})
 })
 
 function scanSourceFiles(roots: readonly string[], patterns: readonly RegExp[]): readonly string[] {

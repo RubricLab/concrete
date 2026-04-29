@@ -1,6 +1,8 @@
 import {
 	Badge,
+	getComponentDefinition,
 	getComponentEntry,
+	getPrimitiveDefinition,
 	getPrimitiveEntry,
 	renderComponentExample,
 	renderPrimitiveExample
@@ -28,10 +30,12 @@ export default async function RenderPage({ params, searchParams }: RenderPagePro
 				notFound()
 			}
 
+			const definition = getPrimitiveDefinition(entry.slug)
+
 			return (
 				<main className="renderShell" data-pressure={query.pressure} data-state={query.state}>
 					<section className="renderStage">
-						{renderPrimitiveExample(entry.slug, query.state)}
+						{definition?.renderExample(query.state) ?? renderPrimitiveExample(entry.slug, query.state)}
 						<div className="metaRow" style={{ marginTop: 14 }}>
 							<Badge signal="terminal">{entry.name}</Badge>
 							<Badge signal="ultra">{query.pressure}</Badge>
@@ -47,10 +51,12 @@ export default async function RenderPage({ params, searchParams }: RenderPagePro
 				notFound()
 			}
 
+			const definition = getComponentDefinition(entry.slug)
+
 			return (
 				<main className="renderShell" data-pressure={query.pressure} data-state={query.state}>
 					<section className="renderStage">
-						{renderComponentExample(entry.slug, query.state)}
+						{definition?.renderExample(query.state) ?? renderComponentExample(entry.slug, query.state)}
 						<div className="metaRow" style={{ marginTop: 14 }}>
 							<Badge signal="terminal">{entry.name}</Badge>
 							<Badge signal="ultra">{query.pressure}</Badge>

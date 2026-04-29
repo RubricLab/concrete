@@ -56,6 +56,18 @@ body {
 	opacity: 1;
 }
 
+.navIconLink {
+	justify-content: center;
+	width: 28px;
+	padding: 0;
+}
+
+.navIconLink svg {
+	width: 15px;
+	height: 15px;
+	fill: currentColor;
+}
+
 .main {
 	width: min(var(--docs-max), calc(100vw - 40px));
 	margin: 0 auto;

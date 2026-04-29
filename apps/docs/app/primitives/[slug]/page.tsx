@@ -2,6 +2,7 @@ import {
 	Badge,
 	Button,
 	Chip,
+	getPrimitiveDefinition,
 	getPrimitiveEntry,
 	primitiveRegistry,
 	renderPrimitiveExample,
@@ -9,7 +10,7 @@ import {
 } from '@rubriclab/concrete'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import { PrimitivePlayground } from './primitive-playground'
+import { PrimitivePlayground } from '@/primitive-playground'
 
 type PrimitiveDetailPageProps = {
 	params: Promise<{
@@ -30,6 +31,8 @@ export default async function PrimitiveDetailPage({ params }: PrimitiveDetailPag
 	if (!entry) {
 		notFound()
 	}
+
+	const definition = getPrimitiveDefinition(entry.slug)
 
 	return (
 		<main className="main">
@@ -53,7 +56,9 @@ export default async function PrimitiveDetailPage({ params }: PrimitiveDetailPag
 							<TextLink href={`/render/primitive/${entry.slug}.jpg`}>JPEG render</TextLink>
 						</div>
 					</div>
-					<div className="detailPreview">{renderPrimitiveExample(entry.slug)}</div>
+					<div className="detailPreview">
+						{definition?.renderExample() ?? renderPrimitiveExample(entry.slug)}
+					</div>
 				</div>
 			</section>
 
@@ -84,7 +89,9 @@ export default async function PrimitiveDetailPage({ params }: PrimitiveDetailPag
 				<div className="stateGrid">
 					{entry.states.map(state => (
 						<article className="stateCard" key={state.query}>
-							<div className="stateStage">{renderPrimitiveExample(entry.slug, state.query)}</div>
+							<div className="stateStage">
+								{definition?.renderExample(state.query) ?? renderPrimitiveExample(entry.slug, state.query)}
+							</div>
 							<div className="stateMeta">
 								<b>{state.name}</b>
 								<p>{state.description}</p>

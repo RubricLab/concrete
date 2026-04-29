@@ -74,6 +74,47 @@
 	line-height: 1.6;
 }
 
+.heroInstall {
+	display: inline-grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	align-items: center;
+	max-width: 100%;
+	margin-top: 18px;
+	overflow: hidden;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.heroInstall span,
+.heroInstall code {
+	min-width: 0;
+	height: 34px;
+}
+
+.heroInstall span {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 11px;
+	border-right: 1px solid var(--concrete-border-soft);
+	color: var(--concrete-foreground-muted);
+	font: 800 11px / 1 var(--concrete-font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.heroInstall code {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 12px;
+	overflow: hidden;
+	color: var(--concrete-foreground-strong);
+	font: 700 13px / 1 var(--concrete-font-mono);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .heroBillboard {
 	display: grid;
 	align-content: space-between;

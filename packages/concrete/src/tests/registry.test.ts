@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import {
 	ConcreteIcon,
 	commandItemSchema,
+	componentDefinitions,
 	componentRegistry,
 	composerConfigSchema,
 	composerSuggestionSchema,
@@ -14,9 +15,11 @@ import {
 	fieldStatusSchema,
 	formShellConfigSchema,
 	formValidationItemSchema,
+	foundationDefinitions,
 	iconNames,
 	messageSchema,
 	multiSelectOptionSchema,
+	primitiveDefinitions,
 	primitiveRegistry,
 	reasoningStepSchema,
 	registryEntrySchema,
@@ -207,4 +210,168 @@ describe('Concrete registry', () => {
 			}
 		}
 	})
+
+	test('validates item definition metadata and examples', () => {
+		expect(foundationDefinitions.map(definition => definition.slug)).toEqual([
+			'colors',
+			'typography',
+			'spacing',
+			'radii',
+			'elevation',
+			'motion',
+			'textures'
+		])
+
+		for (const definition of foundationDefinitions) {
+			expect(definition.kind).toBe('foundation')
+			expect(definition.schema.safeParse({}).success).toBe(true)
+			expect(renderToStaticMarkup(createElement(Fragment, null, definition.renderExample()))).not.toBe(
+				''
+			)
+		}
+
+		for (const definition of primitiveDefinitions) {
+			expect(registryEntrySchema.safeParse(toRegistryShape(definition)).success).toBe(true)
+			expect(primitiveRegistry.some(entry => entry.slug === definition.slug)).toBe(true)
+			expect(hasUniqueNames(definition.controls)).toBe(true)
+			expect(hasUniqueQueries(definition.states)).toBe(true)
+
+			for (const state of definition.states) {
+				expect(
+					renderToStaticMarkup(createElement(Fragment, null, definition.renderExample(state.query)))
+				).not.toBe('')
+			}
+		}
+
+		for (const definition of componentDefinitions) {
+			expect(registryEntrySchema.safeParse(toRegistryShape(definition)).success).toBe(true)
+			expect(componentRegistry.some(entry => entry.slug === definition.slug)).toBe(true)
+			expect(hasUniqueNames(definition.controls)).toBe(true)
+			expect(hasUniqueQueries(definition.states)).toBe(true)
+
+			for (const state of definition.states) {
+				expect(
+					renderToStaticMarkup(createElement(Fragment, null, definition.renderExample(state.query)))
+				).not.toBe('')
+			}
+		}
+	})
+
+	test('preserves public export compatibility', () => {
+		expect(typeof renderPrimitiveExample).toBe('function')
+		expect(typeof renderComponentExample).toBe('function')
+		expect(primitiveDefinitions.map(definition => definition.slug)).toEqual([
+			'button',
+			'input',
+			'field',
+			'dropzone',
+			'upload-item',
+			'caret',
+			'textarea',
+			'select',
+			'checkbox',
+			'radio',
+			'switch',
+			'slider',
+			'card',
+			'pill',
+			'chip',
+			'badge',
+			'tag',
+			'avatar',
+			'row',
+			'bubble',
+			'code',
+			'concept-frame',
+			'concept-connector',
+			'diagram-node',
+			'diagram-item',
+			'kbd',
+			'spinner',
+			'link',
+			'divider',
+			'empty-state',
+			'tooltip',
+			'progress',
+			'stat',
+			'delta',
+			'sparkline',
+			'distribution',
+			'indicator',
+			'skeleton',
+			'frame',
+			'texture',
+			'brand-mark',
+			'wordmark',
+			'icon',
+			'focus-ring'
+		])
+		expect(componentDefinitions.map(definition => definition.slug)).toEqual([
+			'toolbar',
+			'command-menu',
+			'search-bar',
+			'form-shell',
+			'validation-summary',
+			'settings-panel',
+			'form-dialog',
+			'form-drawer',
+			'password-input',
+			'multi-select',
+			'date-picker',
+			'date-range-picker',
+			'time-picker',
+			'number-stepper',
+			'range-slider',
+			'file-upload',
+			'image-upload',
+			'metric-card',
+			'meter',
+			'line-chart',
+			'area-chart',
+			'bar-chart',
+			'stacked-bar-chart',
+			'donut-chart',
+			'heatmap',
+			'chart',
+			'data-table',
+			'flow-diagram',
+			'diagram-canvas',
+			'message',
+			'reasoning-message',
+			'tool-call-message',
+			'composer'
+		])
+	})
 })
+
+function toRegistryShape(definition: {
+	category: string
+	description: string
+	guidance: string
+	name: string
+	pressure: readonly string[]
+	props: readonly unknown[]
+	slug: string
+	states: readonly unknown[]
+}) {
+	return {
+		category: definition.category,
+		description: definition.description,
+		guidance: definition.guidance,
+		name: definition.name,
+		pressure: definition.pressure,
+		props: definition.props,
+		slug: definition.slug,
+		states: definition.states
+	}
+}
+
+function hasUniqueNames(items: readonly { name: string }[]): boolean {
+	const names = items.map(item => item.name)
+	return new Set(names).size === names.length
+}
+
+function hasUniqueQueries(items: readonly { query: string }[]): boolean {
+	const queries = items.map(item => item.query)
+	return new Set(queries).size === queries.length
+}

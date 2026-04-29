@@ -1,43 +1,91 @@
 {
+	"bugs": {
+		"url": "https://github.com/RubricLab/concrete/issues"
+	},
 	"dependencies": {
 		"zod": "latest"
 	},
+	"description": "Rubric Labs' React design system for AI-native product surfaces, editorial research, generative UI, and educational explainers.",
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.2",
+		"@biomejs/biome": "^2.3.8",
+		"@rubriclab/config": "*",
+		"@types/bun": "latest",
 		"@types/react": "latest",
 		"@types/react-dom": "latest",
+		"publint": "^0.3.18",
+		"react": "latest",
+		"react-dom": "latest",
+		"tsdown": "^0.21.10",
 		"typescript": "^5.9.3"
 	},
 	"exports": {
 		".": {
-			"default": "./src/index.ts",
-			"types": "./src/index.ts"
+			"types": "./dist/index.d.mts",
+			"import": "./dist/index.mjs",
+			"default": "./dist/index.mjs"
 		},
+		"./assets/*": "./assets/*",
 		"./components": {
-			"default": "./src/components/index.tsx",
-			"types": "./src/components/index.tsx"
+			"types": "./dist/components/index.d.mts",
+			"import": "./dist/components/index.mjs",
+			"default": "./dist/components/index.mjs"
+		},
+		"./foundations": {
+			"types": "./dist/foundations/index.d.mts",
+			"import": "./dist/foundations/index.mjs",
+			"default": "./dist/foundations/index.mjs"
 		},
 		"./icons": {
-			"default": "./src/icons/index.tsx",
-			"types": "./src/icons/index.tsx"
+			"types": "./dist/icons/index.d.mts",
+			"import": "./dist/icons/index.mjs",
+			"default": "./dist/icons/index.mjs"
 		},
+		"./package.json": "./package.json",
 		"./primitives": {
-			"default": "./src/primitives/index.tsx",
-			"types": "./src/primitives/index.tsx"
+			"types": "./dist/primitives/index.d.mts",
+			"import": "./dist/primitives/index.mjs",
+			"default": "./dist/primitives/index.mjs"
 		},
 		"./registry": {
-			"default": "./src/registry/index.tsx",
-			"types": "./src/registry/index.tsx"
+			"types": "./dist/registry/index.d.mts",
+			"import": "./dist/registry/index.mjs",
+			"default": "./dist/registry/index.mjs"
 		},
 		"./schemas": {
-			"default": "./src/schemas/index.ts",
-			"types": "./src/schemas/index.ts"
+			"types": "./dist/schemas/index.d.mts",
+			"import": "./dist/schemas/index.mjs",
+			"default": "./dist/schemas/index.mjs"
 		},
-		"./styles.css": "./src/styles.css"
+		"./styles.css": {
+			"types": "./dist/styles.css.d.ts",
+			"default": "./dist/styles.css"
+		},
+		"./styles/components.css": {
+			"types": "./dist/styles/components.css.d.ts",
+			"default": "./dist/styles/components.css"
+		},
+		"./styles/primitives.css": {
+			"types": "./dist/styles/primitives.css.d.ts",
+			"default": "./dist/styles/primitives.css"
+		}
 	},
 	"files": [
 		"assets",
-		"src"
+		"dist"
 	],
+	"homepage": "https://github.com/RubricLab/concrete#readme",
+	"keywords": [
+		"ai",
+		"design-system",
+		"generative-ui",
+		"react",
+		"rubric",
+		"typescript"
+	],
+	"license": "gonuts",
+	"main": "./dist/index.mjs",
+	"module": "./dist/index.mjs",
 	"name": "@rubriclab/concrete",
 	"peerDependencies": {
 		"react": "latest",
@@ -47,14 +95,30 @@
 	"publishConfig": {
 		"access": "public"
 	},
+	"repository": {
+		"directory": "packages/concrete",
+		"type": "git",
+		"url": "git+https://github.com/RubricLab/concrete.git"
+	},
 	"scripts": {
-		"build": "bun run typecheck",
-		"test": "bun test",
-		"typecheck": "tsc -p tsconfig.json --noEmit"
+		"build": "bun run clean && tsdown && bun run build:styles",
+		"build:styles": "bun run scripts/build-styles.ts",
+		"clean": "rm -rf dist",
+		"lint": "bun x biome check .",
+		"pack:dry-run": "npm pack --dry-run --json",
+		"package:check": "publint --strict && attw --pack . --profile esm-only",
+		"prepublishOnly": "bun run verify:publish",
+		"test": "bun test src/tests",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"verify:publish": "bun run build && bun run test && bun run lint && bun run package:check && bun run pack:dry-run",
+		"verify:source": "bun run typecheck"
 	},
 	"sideEffects": [
-		"src/styles.css",
-		"src/**/*.css"
+		"**/*.css",
+		"./dist/styles.css",
+		"./dist/**/*.css"
 	],
-	"version": "0.0.0"
+	"type": "module",
+	"types": "./dist/index.d.mts",
+	"version": "0.0.2"
 }

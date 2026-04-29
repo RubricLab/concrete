@@ -3,13 +3,14 @@ import {
 	Button,
 	Chip,
 	componentRegistry,
+	getComponentDefinition,
 	getComponentEntry,
 	renderComponentExample,
 	TextLink
 } from '@rubriclab/concrete'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import { ComponentPlayground } from './component-playground'
+import { ComponentPlayground } from '@/component-playground'
 
 type ComponentDetailPageProps = {
 	params: Promise<{
@@ -30,6 +31,8 @@ export default async function ComponentDetailPage({ params }: ComponentDetailPag
 	if (!entry) {
 		notFound()
 	}
+
+	const definition = getComponentDefinition(entry.slug)
 
 	return (
 		<main className="main">
@@ -54,7 +57,7 @@ export default async function ComponentDetailPage({ params }: ComponentDetailPag
 						</div>
 					</div>
 					<div className="detailPreview componentDetailPreview">
-						{renderComponentExample(entry.slug)}
+						{definition?.renderExample() ?? renderComponentExample(entry.slug)}
 					</div>
 				</div>
 			</section>
@@ -86,7 +89,9 @@ export default async function ComponentDetailPage({ params }: ComponentDetailPag
 				<div className="componentStateGrid">
 					{entry.states.map(state => (
 						<article className="stateCard componentStateCard" key={state.query}>
-							<div className="componentStateStage">{renderComponentExample(entry.slug, state.query)}</div>
+							<div className="componentStateStage">
+								{definition?.renderExample(state.query) ?? renderComponentExample(entry.slug, state.query)}
+							</div>
 							<div className="stateMeta">
 								<b>{state.name}</b>
 								<p>{state.description}</p>

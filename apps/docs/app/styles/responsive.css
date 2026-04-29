@@ -1,17 +1,20 @@
 @media (width <= 860px) {
 	.topbar {
 		align-items: flex-start;
+		flex-wrap: wrap;
+		gap: 10px 14px;
 		height: auto;
 		padding: 12px 16px;
 	}
 
 	.nav {
 		flex-wrap: wrap;
-		justify-content: flex-end;
+		justify-content: flex-start;
+		width: 100%;
 	}
 
 	.main {
-		width: min(100vw - 28px, var(--docs-max));
+		width: min(100vw - 40px, var(--docs-max));
 		padding-top: 34px;
 	}
 
@@ -194,6 +197,29 @@
 
 	.scaleH1 {
 		font-size: 42px;
+	}
+}
+
+@media (width <= 420px) {
+	.typeIntro h1 {
+		font-size: 48px;
+	}
+
+	.typeIntro p {
+		font-size: 19px;
+	}
+
+	.specSubhead span {
+		font-size: 11.5px;
+		line-height: 1.4;
+	}
+
+	.displaySpecimen p {
+		font-size: 62px;
+	}
+
+	.scaleDisplay {
+		font-size: 56px;
 	}
 }
 
