@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,144,300..800,100,1;1,144,300..800,100,1&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 :root {
 	--concrete-canvas: #f7f8fa;
@@ -71,7 +71,8 @@
 	--concrete-font-sans:
 		"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 	--concrete-font-display: "Fraunces", "Iowan Old Style", "Apple Garamond", Georgia, serif;
-	--concrete-font-display-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+	--concrete-font-display-optical-sizing: auto;
+	--concrete-font-display-settings: normal;
 	--concrete-font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
 
 	--concrete-type-11: 11px;
@@ -219,7 +220,7 @@ h3 {
 .hero h1 {
 	color: var(--concrete-foreground-strong);
 	font-family: var(--concrete-font-display);
-	font-optical-sizing: none;
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
 	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;

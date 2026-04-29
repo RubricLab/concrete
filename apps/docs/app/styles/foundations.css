@@ -18,7 +18,7 @@
 	font-family: var(--concrete-font-display);
 	font-size: 32px;
 	font-style: italic;
-	font-optical-sizing: none;
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
 	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 500;
@@ -41,7 +41,7 @@
 	max-width: 620px;
 	font-family: var(--concrete-font-display);
 	font-size: 86px;
-	font-optical-sizing: none;
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
 	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
@@ -107,7 +107,7 @@
 	color: var(--concrete-ink-9);
 	font-family: var(--concrete-font-display);
 	font-size: 150px;
-	font-optical-sizing: none;
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
 	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
@@ -159,7 +159,7 @@
 .scaleDisplay {
 	font-family: var(--concrete-font-display);
 	font-size: 120px;
-	font-optical-sizing: none;
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
 	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 300;
@@ -170,7 +170,7 @@
 .scaleHero {
 	font-family: var(--concrete-font-display);
 	font-size: 72px;
-	font-optical-sizing: none;
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
 	font-synthesis: none;
 	font-variation-settings: var(--concrete-font-display-settings);
 	font-weight: 400;
