@@ -3,6 +3,16 @@ import type {
 	FoundationRegistryEntry,
 	PrimitiveRegistryEntry
 } from '@rubriclab/concrete'
+import {
+	InlineCode,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeaderCell,
+	TableRow,
+	TableViewport
+} from '@rubriclab/concrete'
 
 type CatalogPropsTableProps = {
 	entry: ComponentRegistryEntry | FoundationRegistryEntry | PrimitiveRegistryEntry
@@ -10,32 +20,36 @@ type CatalogPropsTableProps = {
 
 export function CatalogPropsTable({ entry }: CatalogPropsTableProps) {
 	return (
-		<table className="propsTable">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Type</th>
-					<th>Default</th>
-					<th>Description</th>
-				</tr>
-			</thead>
-			<tbody>
-				{entry.props.map(prop => (
-					<tr key={`${entry.slug}-${prop.name}`}>
-						<td>
-							<code>
-								{prop.name}
-								{prop.required ? ' *' : ''}
-							</code>
-						</td>
-						<td>
-							<code>{prop.type}</code>
-						</td>
-						<td>{prop.defaultValue ? <code>{prop.defaultValue}</code> : '-'}</td>
-						<td>{prop.description}</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
+		<TableViewport>
+			<Table>
+				<TableHead>
+					<TableRow>
+						<TableHeaderCell>Name</TableHeaderCell>
+						<TableHeaderCell>Type</TableHeaderCell>
+						<TableHeaderCell>Default</TableHeaderCell>
+						<TableHeaderCell>Description</TableHeaderCell>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{entry.props.map(prop => (
+						<TableRow key={`${entry.slug}-${prop.name}`}>
+							<TableCell>
+								<InlineCode>
+									{prop.name}
+									{prop.required ? ' *' : ''}
+								</InlineCode>
+							</TableCell>
+							<TableCell>
+								<InlineCode>{prop.type}</InlineCode>
+							</TableCell>
+							<TableCell>
+								{prop.defaultValue ? <InlineCode>{prop.defaultValue}</InlineCode> : '-'}
+							</TableCell>
+							<TableCell>{prop.description}</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</TableViewport>
 	)
 }

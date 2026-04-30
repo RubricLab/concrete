@@ -570,6 +570,7 @@ describe('Concrete registry', () => {
 			'stack',
 			'inline',
 			'cluster',
+			'container',
 			'grid',
 			'split',
 			'scroll-area',
@@ -673,6 +674,8 @@ describe('Concrete registry', () => {
 			'icon'
 		])
 		expect(componentDefinitions.map(definition => definition.slug)).toEqual([
+			'nav',
+			'footer',
 			'toolbar',
 			'command-menu',
 			'search-bar',

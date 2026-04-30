@@ -5,10 +5,10 @@ import { codeExamples } from './examples'
 import { codeMeta } from './meta'
 import { type CodeValue, codeSchema } from './schema'
 
-export type { CodeBlockProps, CodeLanguage, InlineCodeProps } from './component'
+export type { CodeBlockMode, CodeBlockProps, CodeLanguage, InlineCodeProps } from './component'
 export { CodeBlock, InlineCode } from './component'
-export type { CodeInput, CodeValue } from './schema'
-export { codePropsSchema, codeSchema } from './schema'
+export type { CodeBlockModeValue, CodeInput, CodeLanguageValue, CodeValue } from './schema'
+export { codeBlockModeSchema, codeLanguageSchema, codePropsSchema, codeSchema } from './schema'
 
 export const codePrimitiveDefinition = createPrimitive({
 	...codeMeta,
@@ -18,9 +18,15 @@ export const codePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderCodeInput(codeSchema.parse(input)),
 	schema: codeSchema,
 	slug: 'code',
-	states: exampleStates(codeExamples, ['default', 'typescript', 'html', 'inline'])
+	states: exampleStates(codeExamples, ['default', 'typescript', 'html', 'command', 'inline'])
 })
 
-function renderCodeInput(input: CodeValue) {
-	return <CodeBlock {...input} />
+function renderCodeInput({ copyValue, showLineNumbers, ...input }: CodeValue) {
+	return (
+		<CodeBlock
+			{...input}
+			{...(copyValue ? { copyValue } : {})}
+			{...(typeof showLineNumbers === 'boolean' ? { showLineNumbers } : {})}
+		/>
+	)
 }

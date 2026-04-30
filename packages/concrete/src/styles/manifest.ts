@@ -53,6 +53,7 @@ export const primitiveStyleSources = [
 	{ kind: 'primitive', path: 'src/primitives/chip/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/cluster/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/code/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/container/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/token-rail/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/composer-surface/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/concept-connector/styles.css' },

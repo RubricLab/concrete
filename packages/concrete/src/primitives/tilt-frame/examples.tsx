@@ -6,7 +6,7 @@ import { Switch } from '../switch'
 import { TiltFrame } from './component'
 
 export const tiltFrameExamples = defineExamples({
-	controls: {
+	default: {
 		description: 'Stable container for live controls with subtle pointer depth.',
 		render: () => (
 			<TiltFrame>

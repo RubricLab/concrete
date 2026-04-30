@@ -10,7 +10,7 @@ chartBarTrack chartBaseline chartEndLabel chartEndpoint chartFrame chartGrid cha
 chartMessage chartPlotBackground chartPoint chartRowLabel chartStackSegment chartSvg chartTarget
 `,
 	`
-chartTickLabel chartValueLabel checkbox checkboxChecked checkRow chip chipSelected cluster code
+chartTickLabel chartValueLabel checkbox checkboxChecked checkRow chip chipSelected cluster code container
 codeBody codeCopy codeGutter codeHead codeLang codeLine codePre commandAside controlGroup
 commandBody commandCopy commandEmpty commandFooter commandGroup commandGroupTitle commandIcon commandItem
 commandMenu commandSearch composerSurface tokenRail composerToken composerMenuLayer composerToolbar conceptConnector conceptConnectorMuted

@@ -50,22 +50,28 @@ const workspaceRoot = resolve(scriptDirectory, '../../..')
 const docsDirectory = resolve(workspaceRoot, 'apps/docs')
 const defaultViewport = { height: 720, width: 1120 } satisfies ViewportSize
 const browserLaunchTimeout = 30_000
+const hydrationSettleDelay = 500
 const smokeTargetTimeout = 45_000
 const smokeTargets = [
 	{
 		checks: [
-			{ label: 'docs home', minimumHeight: 400, minimumWidth: 600, selector: '.docsHome' },
 			{
-				label: 'primitive catalog card',
-				minimumHeight: 80,
-				minimumWidth: 120,
-				selector: '.homePrimitiveCard'
+				label: 'docs home',
+				minimumHeight: 400,
+				minimumWidth: 600,
+				selector: 'main.concrete-container'
 			},
 			{
-				label: 'component catalog card',
+				label: 'registry panel',
 				minimumHeight: 80,
 				minimumWidth: 120,
-				selector: '.componentFeatureCard'
+				selector: '.concrete-panel'
+			},
+			{
+				label: 'preview stage',
+				minimumHeight: 80,
+				minimumWidth: 120,
+				selector: '.concrete-surface[data-depth="sunken"]'
 			}
 		],
 		name: 'docs home',
@@ -396,13 +402,15 @@ async function runSmokeTarget(browser: Browser, origin: string, target: SmokeTar
 			throw new Error(`${target.name} returned HTTP ${response?.status() ?? 'unknown'}`)
 		}
 
-		const scopeSelector = target.scopeSelector ?? '.renderStage'
+		const scopeSelector = target.scopeSelector ?? 'main[data-state]'
 
 		await page.locator(scopeSelector).waitFor({ state: 'visible', timeout: 15_000 })
 
 		for (const expectation of target.checks) {
 			await assertSelector(page, expectation, target.name, scopeSelector)
 		}
+
+		await page.waitForTimeout(hydrationSettleDelay)
 
 		const screenshot = await page.screenshot({ fullPage: false, type: 'png' })
 

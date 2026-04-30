@@ -34,6 +34,7 @@ export const surfacePrimitiveDefinition = createPrimitive({
 })
 
 function renderSurfaceInput({
+	as,
 	content,
 	density,
 	depth,
@@ -44,6 +45,7 @@ function renderSurfaceInput({
 }: SurfaceValue) {
 	return (
 		<Surface
+			as={as}
 			density={density}
 			depth={depth}
 			disabled={disabled}

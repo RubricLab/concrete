@@ -32,6 +32,8 @@ export const sizingTokens = [
 	{ kind: 'control', name: 'toolbar-control', value: 'var(--concrete-size-toolbar-control)' },
 	{ kind: 'measure', name: 'layout-grid-min', value: 'var(--concrete-size-layout-grid-min)' },
 	{ kind: 'measure', name: 'layout-sidebar', value: 'var(--concrete-measure-layout-sidebar)' },
+	{ kind: 'measure', name: 'container-content', value: 'var(--concrete-measure-container-content)' },
+	{ kind: 'measure', name: 'container-wide', value: 'var(--concrete-measure-container-wide)' },
 	{
 		kind: 'viewport',
 		name: 'scroll-area-medium',

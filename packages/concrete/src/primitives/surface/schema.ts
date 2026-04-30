@@ -2,7 +2,16 @@ import { z } from 'zod/v4'
 import { densitySchema } from '../../foundations/state'
 
 export const surfaceDepthSchema = z.enum(['flat', 'raised', 'sunken'])
-export const surfaceElementSchema = z.enum(['article', 'aside', 'div', 'section'])
+export const surfaceElementSchema = z.enum([
+	'article',
+	'aside',
+	'div',
+	'footer',
+	'header',
+	'main',
+	'nav',
+	'section'
+])
 export const surfaceToneSchema = z.enum([
 	'default',
 	'muted',
@@ -15,6 +24,7 @@ export const surfaceToneSchema = z.enum([
 
 export const surfaceSchema = z
 	.object({
+		as: surfaceElementSchema.default('div'),
 		content: z.string().default('Surface content'),
 		density: densitySchema.default('comfortable'),
 		depth: surfaceDepthSchema.default('flat'),

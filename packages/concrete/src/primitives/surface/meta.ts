@@ -18,6 +18,7 @@ export const surfaceMeta = {
 	name: 'Surface',
 	pressure: ['product', 'generative', 'educational'],
 	props: [
+		prop('as', 'SurfaceElement', 'Semantic surface element.', 'div'),
 		prop('depth', "'flat' | 'raised' | 'sunken'", 'Surface depth recipe.'),
 		prop('tone', "'default' | 'muted' | 'inverse' | signal", 'Semantic surface tone.'),
 		prop('density', "'compact' | 'comfortable' | 'editorial'", 'Surface padding density.'),

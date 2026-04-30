@@ -34,5 +34,13 @@ export const surfaceExamples = defineExamples({
 				<Text tone="strong">Interactive surface</Text>
 			</Surface>
 		)
+	},
+	semantic: {
+		description: 'Semantic landmark surface without changing treatment.',
+		render: () => (
+			<Surface as="nav" density="compact" tone="muted">
+				<Text tone="strong">Navigation surface</Text>
+			</Surface>
+		)
 	}
 })

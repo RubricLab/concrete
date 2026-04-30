@@ -4,10 +4,17 @@ import {
 	Chip,
 	type ComponentDefinition,
 	type ComponentRegistryEntry,
+	Container,
 	type FoundationDefinition,
 	type FoundationRegistryEntry,
+	Grid,
+	Panel,
 	type PrimitiveDefinition,
 	type PrimitiveRegistryEntry,
+	Section,
+	Stack,
+	Surface,
+	Text,
 	TextLink
 } from '@rubriclab/concrete'
 import { type ReactNode, Suspense } from 'react'
@@ -18,13 +25,8 @@ import { PrimitivePlayground } from './primitive-playground'
 
 type CatalogDetailConfiguration = {
 	actionLabel: string
-	detailHeroClassName?: string
-	detailPreviewClassName?: string
 	label: string
 	playgroundDescription: string
-	stateCardClassName?: string
-	stateGridClassName?: string
-	stateStageClassName?: string
 }
 
 type CatalogDetailPageProps =
@@ -50,19 +52,12 @@ const catalogDetailConfigurations: Record<
 > = {
 	component: {
 		actionLabel: 'Zod schemas',
-		detailHeroClassName: 'componentDetailHero',
-		detailPreviewClassName: 'componentDetailPreview',
 		label: 'Component',
 		playgroundDescription:
-			'Controls update query params directly. Complex slots use item-owned examples so component states stay deterministic, linkable, and screenshot-ready.',
-		stateCardClassName: 'componentStateCard',
-		stateGridClassName: 'componentStateGrid',
-		stateStageClassName: 'componentStateStage'
+			'Controls update query params directly. Complex slots use item-owned examples so component states stay deterministic, linkable, and screenshot-ready.'
 	},
 	foundation: {
 		actionLabel: 'Token schema',
-		detailHeroClassName: 'foundationDetailHero',
-		detailPreviewClassName: 'foundationDetailPreview',
 		label: 'Foundation',
 		playgroundDescription:
 			'Foundation examples are token specimens. The route stays registry-led so every foundation can be rendered, linked, and screenshotted through the same catalog surface.'
@@ -80,90 +75,82 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 	const configuration = catalogDetailConfigurations[kind]
 
 	return (
-		<main className="main">
-			<section className="section">
-				<div className={['detailHero', configuration.detailHeroClassName].filter(Boolean).join(' ')}>
-					<div className="detailIntro">
-						<div className="metaRow">
-							<Badge signal="terminal">{entry.category}</Badge>
+		<Container as="main" density="editorial" measure="wide">
+			<Stack density="editorial">
+				<Panel
+					actions={
+						<Stack density="compact">
+							<TextLink href={`/render/${kind}/${entry.slug}`} variant="nav">
+								DOM render
+							</TextLink>
+							<TextLink href={`/render/${kind}/${entry.slug}.jpg`} variant="nav">
+								JPEG render
+							</TextLink>
+						</Stack>
+					}
+					description={entry.description}
+					meta={
+						<Stack density="compact">
+							<Badge signal="terminal">{configuration.label}</Badge>
+							<Badge signal="ultra">{entry.category}</Badge>
 							{entry.pressure.map(pressure => (
 								<Chip key={pressure}>{pressure}</Chip>
 							))}
-						</div>
-						<div>
-							<span className="eyebrow">{configuration.label}</span>
-							<h1>{entry.name}</h1>
-						</div>
-						<p>{entry.description}</p>
-						<p>{entry.guidance}</p>
-						<div className="heroActions">
-							<TextLink href={`/render/${kind}/${entry.slug}`}>DOM render</TextLink>
-							<TextLink href={`/render/${kind}/${entry.slug}.jpg`}>JPEG render</TextLink>
-						</div>
-					</div>
-					<div
-						className={['detailPreview', configuration.detailPreviewClassName].filter(Boolean).join(' ')}
-					>
-						{definition.renderExample()}
-					</div>
-				</div>
-			</section>
+						</Stack>
+					}
+					title={entry.name}
+				>
+					<Stack density="editorial">
+						<Text tone="muted">{entry.guidance}</Text>
+						<Surface depth="sunken">
+							<Stack align="center">{definition.renderExample()}</Stack>
+						</Surface>
+					</Stack>
+				</Panel>
 
-			<section className="section">
-				<div className="sectionHead">
-					<div>
-						<span className="eyebrow">Playground</span>
-						<h1>Props in the URL.</h1>
-					</div>
-					<p>{configuration.playgroundDescription}</p>
-				</div>
-				<Suspense fallback={<div className="playgroundLoading">Loading playground.</div>}>
-					{renderDetailPlayground(props)}
-				</Suspense>
-			</section>
+				<Section description={configuration.playgroundDescription} title="Playground">
+					<Suspense fallback={<Panel title="Loading playground" />}>
+						{renderDetailPlayground(props)}
+					</Suspense>
+				</Section>
 
-			<section className="section">
-				<div className="sectionHead">
-					<div>
-						<span className="eyebrow">States</span>
-						<h1>Rendered matrix.</h1>
-					</div>
-					<p>Every state maps to the same {kind} render route through the `state` query param.</p>
-				</div>
-				<div className={configuration.stateGridClassName ?? 'stateGrid'}>
-					{entry.states.map(state => (
-						<article
-							className={['stateCard', configuration.stateCardClassName].filter(Boolean).join(' ')}
-							key={state.query}
-						>
-							<div className={configuration.stateStageClassName ?? 'stateStage'}>
-								{definition.renderExample(state.query)}
-							</div>
-							<div className="stateMeta">
-								<b>{state.name}</b>
-								<p>{state.description}</p>
-								<TextLink href={`/render/${kind}/${entry.slug}?state=${state.query}`}>
-									/render state
-								</TextLink>
-							</div>
-						</article>
-					))}
-				</div>
-			</section>
+				<Section
+					description={`Every state maps to the same ${kind} render route through the state query param.`}
+					title="Rendered matrix"
+				>
+					<Grid>
+						{entry.states.map(state => (
+							<Panel
+								description={state.description}
+								footer={
+									<TextLink href={`/render/${kind}/${entry.slug}?state=${state.query}`} variant="nav">
+										Render state
+									</TextLink>
+								}
+								key={state.query}
+								title={state.name}
+							>
+								<Surface depth="sunken">
+									<Stack align="center">{definition.renderExample(state.query)}</Stack>
+								</Surface>
+							</Panel>
+						))}
+					</Grid>
+				</Section>
 
-			<section className="section">
-				<div className="sectionHead">
-					<div>
-						<span className="eyebrow">Props</span>
-						<h1>Public contract.</h1>
-					</div>
-					<Button trailingIcon="arrow-right" variant="secondary">
-						{configuration.actionLabel}
-					</Button>
-				</div>
-				<CatalogPropsTable entry={entry} />
-			</section>
-		</main>
+				<Section
+					description="The public prop table is generated from item metadata and schema-backed controls."
+					title="Public contract"
+				>
+					<Stack density="compact">
+						<Button trailingIcon="arrow-right" variant="secondary">
+							{configuration.actionLabel}
+						</Button>
+						<CatalogPropsTable entry={entry} />
+					</Stack>
+				</Section>
+			</Stack>
+		</Container>
 	)
 }
 

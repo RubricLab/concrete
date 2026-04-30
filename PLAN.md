@@ -13,7 +13,7 @@ This is the only actionable internal plan document for Concrete DX work.
 ## Current Baseline
 
 - Audit date: 2026-04-30.
-- Current public package inventory: 12 foundations, 106 primitives, 33 components.
+- Current public package inventory: 12 foundations, 109 primitives, 36 components.
 - Current private primitive inventory: 2 internal primitive folders.
 - Folder-per-item architecture exists.
 - Public registry and docs are item-definition driven.
@@ -123,6 +123,7 @@ Primitives own reusable HTML/UI vocabulary: DOM anatomy, ARIA, data attributes, 
 | `primitives/chip` | `refine` | `chip` | Keep selectable inline filter; source selected/tone schemas from `state`. |
 | `primitives/cluster` | `keep` | `cluster` | Added in Phase 2A. Wrapping inline group for chips, tags, actions, tokens, and compact tool sets. |
 | `primitives/code` | `refine` | `code` | Keep inline/block code; audit syntax tokens against `colors` and `typography`. |
+| `primitives/container` | `keep` | `container` | Added during docs refactor. Page-width and inline-padding primitive for app/document landmarks. |
 | `primitives/composer-rail` | `split` | `token-rail`, `attachment-item` | Generalize rail tokens; keep composer-specific behavior in `Composer`. |
 | `primitives/composer-shell` | `rename` | `composer-surface` | Keep editor shell anatomy; move dock/footer patterns to `Dock` where generic. |
 | `primitives/concept-connector` | `keep` | `concept-connector` | Keep educational relation glyph; source stroke/texture from foundations. |
@@ -182,6 +183,7 @@ Primitives own reusable HTML/UI vocabulary: DOM anatomy, ARIA, data attributes, 
 | `primitives/rail` | `keep` | `rail` | Added in Phase 2A. Generic vertical or horizontal rail for scoped tools, navigation, and compact status. |
 | `primitives/reasoning-panel` | `split` | `trace-panel`, `trace-step` | Extract generic trace disclosure and step anatomy. |
 | `primitives/row` | `audit` | `field-row`, `option-row`, or `stack`/`inline` | Decide if generic row is real vocabulary; otherwise merge into more specific primitives. |
+| `primitives/scale-frame` | `tech-debt` | preview/composition primitive TBD | Low-quality local landing/docs integration. Keep temporarily, but replace raw scale and inline-style adapter with tokenized preview composition vocabulary. |
 | `primitives/search-input` | `keep` | `search-input` | Added in Phase 3A. Search input chrome with icon, token, shortcut, action, and trailing slots. |
 | `primitives/section` | `keep` | `section` | Added in Phase 2B. Titled grouping primitive inside panels, pages, and docs. |
 | `primitives/select` | `keep` | `select` | Keep native select control; align with input/field anatomy. |
@@ -201,6 +203,7 @@ Primitives own reusable HTML/UI vocabulary: DOM anatomy, ARIA, data attributes, 
 | `primitives/textarea` | `keep` | `textarea` | Share text-control policy with `Input`. |
 | `primitives/text` | `keep` | `text` | Added in Phase 2B. Body, meta, caption, mono, numeric, and prose text roles. |
 | `primitives/texture` | `demote` | `textures` foundation specimen | Keep rendered texture examples in docs/foundation examples unless product UI truly consumes `Texture`. |
+| `primitives/tilt-frame` | `tech-debt` | surface/motion primitive TBD | Low-quality local landing-page primitive. Cursor-driven visual depth is too aesthetic-specific for the core surface vocabulary and needs a stricter role contract or demotion. |
 | `primitives/time-list` | `refine` | `time-list` over `listbox` | Keep time-specific option formatting; align list behavior with `Listbox`. |
 | `primitives/token` | `keep` | `token` | Added in Phase 3A. Generic selected value, scope, mention, and attachment token. |
 | `primitives/tool-call-panel` | `refine` | `tool-call-panel` over `trace-panel` | Keep AI-native tool disclosure only if it builds on generic trace primitives. |
@@ -280,7 +283,9 @@ Components own orchestration, controlled state, schema-bound behavior, data mapp
 | `components/date-range-picker` | `refine` | `Field`, `PickerButton`, `PickerSurface`, `CalendarGrid`, `Button`. | Keep range selection behavior; share calendar primitives with date picker. |
 | `components/diagram-canvas` | `refine` | `DiagramViewport`, `DiagramNode`, `DiagramItem`, `DiagramEdge`, `Rail`, `DiagramControls`, `DiagramMinimap`, `Legend`. | Keep pan/zoom/fit/select behavior; remove remaining component nouns from foundation tokens. |
 | `components/donut-chart` | `refine` | `ChartFrame`, `DonutRing`, `Legend`, `Stat`. | Keep arc math in utilities; split donut anatomy out of `chart-surface`. |
+| `components/feature-card` | `tech-debt` | `Surface`, `Header`, `Icon`, `Text`, `Stack`. | Low-quality local landing-page integration. Either rebuild as a strict primitive assembly with no bespoke wrapper semantics or demote to docs/app composition. |
 | `components/file-upload` | `refine` | `Field`, `Dropzone`, `UploadItem`, `Progress`, `Button`, `ScrollArea`, `Thumbnail`. | Keep queue/validation behavior; add scroll/thumbnail primitives when needed. |
+| `components/footer` | `keep` | `Surface`, `Container`, `Stack`, `Grid`, `Header`, `Text`, `Label`, `TextLink`. | Added during docs refactor. Generic footer for brand copy, grouped links, actions, and aside slot. |
 | `components/flow-diagram` | `refine` | `DataSurface`, `Header`, `DiagramViewport`, `FlowNode`, `DiagramEdge`, `DiagramControls`, `Legend`. | Decide which diagram primitives stay domain-specific after generic surface/header/legend exist. |
 | `components/form-dialog` | `refine` | `Overlay`, `DialogSurface`, `Panel`, `Header`, `Dock`, `Button`. | Replace form-specific overlay primitives with generic overlay/surface primitives. |
 | `components/form-drawer` | `refine` | `Overlay`, `DrawerSurface`, `Panel`, `Header`, `Dock`, `Button`. | Replace form-specific drawer primitives with generic overlay/surface primitives. |
@@ -292,6 +297,7 @@ Components own orchestration, controlled state, schema-bound behavior, data mapp
 | `components/meter` | `refine` | `DataSurface`, `Progress`, `ProgressRing`, `Text`. | Now uses `DataSurface`; next pass should only tighten meter/ring visual semantics if visual QA is in scope. |
 | `components/metric-card` | `refine` | `DataSurface`, `Stat`, `Delta`, `Sparkline`, `Indicator`, `Text`. | Now uses `DataSurface`; keep trend/status derivation in component. |
 | `components/multi-select` | `refine` | `Field`, `PickerButton`, `PickerSurface`, `Token`, `Listbox`, `OptionRow`, `SearchInput`. | Keep selected/filter/max behavior; retire select-specific primitive names. |
+| `components/nav` | `keep` | `Surface`, `Container`, `Cluster`, `Inline`, `TextLink`, `BrandMark`, `Text`. | Added during docs refactor. Generic top-level navigation with current-link semantics. |
 | `components/number-stepper` | `refine` | `Field`, `Stepper`, `Input`, `ControlGroup`. | Keep controlled/uncontrolled value, clamping, min/max/step behavior. |
 | `components/password-input` | `refine` | `Field`, `Input`, `IconButton`, `Tooltip`. | Keep visibility state; ensure action anatomy comes from primitives. |
 | `components/range-slider` | `refine` | `Field`, `Range`, `Input`. | Keep tuple value ordering and clamping; rename range primitive. |

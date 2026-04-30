@@ -11,6 +11,7 @@ import { donutChartComponentDefinition } from '../components/donut-chart'
 import { featureCardComponentDefinition } from '../components/feature-card'
 import { fileUploadComponentDefinition } from '../components/file-upload'
 import { flowDiagramComponentDefinition } from '../components/flow-diagram'
+import { footerComponentDefinition } from '../components/footer'
 import { formDialogComponentDefinition } from '../components/form-dialog'
 import { formDrawerComponentDefinition } from '../components/form-drawer'
 import { formShellComponentDefinition } from '../components/form-shell'
@@ -21,6 +22,7 @@ import { messageComponentDefinition } from '../components/message'
 import { meterComponentDefinition } from '../components/meter'
 import { metricCardComponentDefinition } from '../components/metric-card'
 import { multiSelectComponentDefinition } from '../components/multi-select'
+import { navComponentDefinition } from '../components/nav'
 import { numberStepperComponentDefinition } from '../components/number-stepper'
 import { passwordInputComponentDefinition } from '../components/password-input'
 import { rangeSliderComponentDefinition } from '../components/range-slider'
@@ -51,6 +53,7 @@ import { codePrimitiveDefinition } from '../primitives/code'
 import { composerSurfacePrimitiveDefinition } from '../primitives/composer-surface'
 import { conceptConnectorPrimitiveDefinition } from '../primitives/concept-connector'
 import { conceptFramePrimitiveDefinition } from '../primitives/concept-frame'
+import { containerPrimitiveDefinition } from '../primitives/container'
 import { controlGroupPrimitiveDefinition } from '../primitives/control-group'
 import { dataSurfacePrimitiveDefinition } from '../primitives/data-surface'
 import { deltaPrimitiveDefinition } from '../primitives/delta'
@@ -128,8 +131,8 @@ import { tagPrimitiveDefinition } from '../primitives/tag'
 import { targetLinePrimitiveDefinition } from '../primitives/target-line'
 import { textPrimitiveDefinition } from '../primitives/text'
 import { textareaPrimitiveDefinition } from '../primitives/textarea'
-import { timeListPrimitiveDefinition } from '../primitives/time-list'
 import { tiltFramePrimitiveDefinition } from '../primitives/tilt-frame'
+import { timeListPrimitiveDefinition } from '../primitives/time-list'
 import { tokenPrimitiveDefinition } from '../primitives/token'
 import { tokenRailPrimitiveDefinition } from '../primitives/token-rail'
 import { toolCallPanelPrimitiveDefinition } from '../primitives/tool-call-panel'
@@ -152,6 +155,7 @@ export const primitiveDefinitions = [
 	stackPrimitiveDefinition,
 	inlinePrimitiveDefinition,
 	clusterPrimitiveDefinition,
+	containerPrimitiveDefinition,
 	gridPrimitiveDefinition,
 	splitPrimitiveDefinition,
 	scrollAreaPrimitiveDefinition,
@@ -256,6 +260,8 @@ export const primitiveDefinitions = [
 ] as const
 
 export const componentDefinitions = [
+	navComponentDefinition,
+	footerComponentDefinition,
 	toolbarComponentDefinition,
 	commandMenuComponentDefinition,
 	searchBarComponentDefinition,

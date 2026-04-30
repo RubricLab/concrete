@@ -18,7 +18,7 @@ export const scaleFramePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderScaleFrameInput(scaleFrameSchema.parse(input)),
 	schema: scaleFrameSchema,
 	slug: 'scale-frame',
-	states: exampleStates(scaleFrameExamples, ['controls', 'panel'])
+	states: exampleStates(scaleFrameExamples, ['default', 'panel'])
 })
 
 function renderScaleFrameInput({ align, body, scale, surface }: ScaleFrameValue) {

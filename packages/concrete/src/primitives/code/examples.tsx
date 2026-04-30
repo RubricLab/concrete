@@ -2,6 +2,14 @@ import { defineExamples } from '../../factories/createExamples'
 import { CodeBlock, InlineCode } from './component'
 
 export const codeExamples = defineExamples({
+	command: {
+		description: 'Compact command with internal clipboard copy.',
+		render: () => (
+			<>
+				<CodeBlock code="npm install @rubriclab/concrete" language="Shell" mode="command" />
+			</>
+		)
+	},
 	default: {
 		description: 'TypeScript code block with inline code.',
 		render: () => (
