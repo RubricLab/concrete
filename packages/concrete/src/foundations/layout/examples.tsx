@@ -2,8 +2,8 @@ import type { CSSProperties, ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
 import { layoutTokens } from './schema'
 
-const templateNames = ['form-row', 'picker-control', 'calendar-grid', 'distribution-row'] as const
-const layerNames = ['tooltip', 'form-overlay'] as const
+const templateNames = ['field-row', 'picker-button', 'calendar-grid', 'distribution-row'] as const
+const layerNames = ['tooltip', 'overlay'] as const
 
 export const layoutExamples = defineExamples({
 	default: {

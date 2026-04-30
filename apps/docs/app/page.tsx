@@ -18,8 +18,7 @@ import {
 	Spinner,
 	Stat,
 	Switch,
-	TextLink,
-	Texture
+	TextLink
 } from '@rubriclab/concrete'
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
@@ -170,9 +169,9 @@ export default function HomeRoute() {
 						<Switch checked label="Visible focus" readOnly />
 					</div>
 					<div className="textureFigure">
-						<Texture variant="lattice" />
-						<Texture variant="dots" />
-						<Texture variant="lines" />
+						<div className="concrete-lattice" />
+						<div className="concrete-dots" />
+						<div className="concrete-lines" />
 					</div>
 				</div>
 

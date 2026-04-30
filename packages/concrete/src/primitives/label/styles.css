@@ -1,0 +1,82 @@
+.concrete-label {
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-compact)
+		var(--concrete-font-sans);
+}
+
+.concrete-label[data-purpose="compact"],
+.concrete-label[data-purpose="status"] {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-25);
+	min-height: var(--concrete-size-label-medium);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-2-25);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-sunken);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-11-5) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	white-space: nowrap;
+}
+
+.concrete-label[data-purpose="meta"] {
+	color: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-control)
+		var(--concrete-font-sans);
+}
+
+.concrete-label[data-marker="true"] > span[aria-hidden] {
+	width: var(--concrete-size-label-dot);
+	height: var(--concrete-size-label-dot);
+	flex: none;
+	border-radius: var(--concrete-radius-pill);
+	background: currentcolor;
+}
+
+.concrete-label > svg {
+	width: var(--concrete-size-icon-small);
+	height: var(--concrete-size-icon-small);
+	flex: none;
+	color: currentcolor;
+	stroke-width: var(--concrete-stroke-1-8);
+}
+
+.concrete-label.concrete-label-sky {
+	border-color: transparent;
+	background: var(--concrete-sky-2);
+	color: var(--concrete-sky-strong);
+}
+
+.concrete-label.concrete-label-ink {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+}
+
+.concrete-label.concrete-label-sunken {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-label.concrete-label-terminal {
+	border-color: transparent;
+	background: var(--concrete-terminal-wash);
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-label.concrete-label-ultra {
+	border-color: transparent;
+	background: var(--concrete-ultra-wash);
+	color: var(--concrete-ultra-strong);
+}
+
+.concrete-label.concrete-label-error {
+	border-color: transparent;
+	background: var(--concrete-error-wash);
+	color: var(--concrete-error-strong);
+}

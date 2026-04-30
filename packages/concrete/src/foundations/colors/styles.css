@@ -106,15 +106,10 @@
 		var(--concrete-error-wash),
 		var(--concrete-error) 12%
 	);
-	--concrete-form-overlay-background: color-mix(
+	--concrete-overlay-scrim-background: color-mix(
 		in oklab,
 		var(--concrete-sunken) 84%,
 		var(--concrete-surface)
-	);
-	--concrete-form-shell-error-border: color-mix(
-		in oklab,
-		var(--concrete-error) 18%,
-		var(--concrete-border)
 	);
 	--concrete-validation-error-border: color-mix(
 		in oklab,
@@ -222,7 +217,7 @@
 		var(--concrete-sky) 34%,
 		var(--concrete-border)
 	);
-	--concrete-range-control-track-background: linear-gradient(
+	--concrete-range-track-background: linear-gradient(
 		to right,
 		var(--concrete-ink-1) var(--concrete-progress-start),
 		var(--concrete-ink-1) var(--concrete-range-start),

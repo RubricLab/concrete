@@ -8,7 +8,7 @@ export const codeExamples = defineExamples({
 			<>
 				<InlineCode>ConcretePressure</InlineCode>
 				<CodeBlock
-					code={'const state = concreteRegistry.find(item => item.slug === "message-shell")'}
+					code={'const state = concreteRegistry.find(item => item.slug === "transcript-item")'}
 				/>
 			</>
 		)

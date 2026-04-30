@@ -8,8 +8,7 @@ import {
 	Kbd,
 	Progress,
 	renderFoundationExample,
-	Sparkline,
-	Texture
+	Sparkline
 } from '@rubriclab/concrete'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
@@ -253,14 +252,14 @@ export default function FoundationsRoute() {
 							</div>
 						</div>
 						<div className="foundationTextureTile">
-							<Texture className="foundationTextureFill" variant="dots" />
+							<div className="foundationTextureFill concrete-dots" />
 							<div>
 								<b>Dots</b>
 								<span>16 - 1px</span>
 							</div>
 						</div>
 						<div className="foundationTextureTile">
-							<Texture className="foundationTextureFill" variant="lines" />
+							<div className="foundationTextureFill concrete-lines" />
 							<div>
 								<b>Lines</b>
 								<span>16 - hairline</span>

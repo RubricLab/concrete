@@ -101,6 +101,13 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - The public foundation set is now `colors`, `typography`, `spacing`, `sizing`, `layout`, `radii`, `elevation`, `motion`, `textures`, `iconography`, `state`, and `accessibility`.
 - Public registries are derived from item definitions.
 - Public foundation registry entries expose validated `tokens` so docs can explain foundation data without importing foundation-specific schema files.
+- Generic layout primitives now exist for `Stack`, `Inline`, `Cluster`, `Grid`, `Split`, `ScrollArea`, `Dock`, and `Rail`. Use them as the first answer for layout vocabulary before adding domain-specific wrappers.
+- Generic surface, typography, and command-group primitives now exist for `Surface`, `Panel`, `Section`, `Header`, `Text`, `Heading`, `Label`, `IconButton`, and `ControlGroup`. Use them before preserving migration-era shell/header/label/control names.
+- Phase 3A target primitives now exist for form, picker, menu, overlay, search, token, feedback, and disclosure vocabulary: `FieldRow`, `Token`, `SearchInput`, `PickerButton`, `PickerSurface`, `MenuSurface`, `MenuGroup`, `Listbox`, `Overlay`, `DialogSurface`, `DrawerSurface`, `Alert`, `ValidationList`, and `DisclosurePanel`.
+- `DataSurface` is the generic data/generative panel surface. Do not restore metric-specific or data-header wrapper primitives; use `DataSurface` plus `Header`, `Stat`, `Progress`, `Sparkline`, `Indicator`, and table/chart atoms.
+- Phase 3B primitive correction is complete. Data, table, chart, calendar, range, stepper, composer, message, trace, texture, preview, and suggestion migration primitives have been renamed, split, or demoted. Chart anatomy is now explicit: `ChartFrame`, `Plot`, `ChartGrid`, `Axis`, `TargetLine`, `SeriesLine`, `SeriesPoint`, `SeriesBar`, `DonutRing`, and `HeatmapGrid`.
+- Deferred public primitives are intentional, not missing work: `trace-step` stays inside `TracePanel` until reused outside it, and `attachment-item`/`thumbnail` wait for a file/upload slice that proves distinct vocabulary beyond `Token`, `TokenRail`, and `UploadItem`.
+- Breaking primitive cleanup is allowed when `PLAN.md` records the delete/demote decision. Deleted primitive names must leave registry, exports, styles, tests, docs smoke targets, class-name maps, and foundation token names in the same wave.
 - Docs detail, render, playground, and catalog flows consume registry definitions.
 - `factories/` owns item, control, and example creation.
 - `utilities/` owns shared pure algorithms, render helpers, schema input helpers, and temporary shared engines.
@@ -108,7 +115,7 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - Shared JSX used by components lives in private `primitives/internal/*` folders until it becomes a public primitive or collapses back into one owner.
 - Component `component.tsx` files must not import sibling component folders.
 - Remaining centralized CSS is explicit migration debt for deferred primitive slices. Item `styles.css` files either own active selectors or do not exist for that item.
-- The next checkpoint is primitive vocabulary correction: foundations emit tokens/utilities, primitives own scoped selectors, and components shed bespoke styling by composing generic primitives.
+- The next checkpoint is primitive prop tightening and component assembly hardening.
 - `PLAN.md` is the live scope ledger, autonomous queue, and target foundation/primitive/component inventory. Every structural chunk must update it before stopping.
 - Composer remains whole. Do not split one interactive component file only to satisfy a LOC budget.
 
@@ -587,7 +594,7 @@ Current standardization checkpoint:
 1. Component implementations are guarded against owned class names, styled raw DOM, and component stylesheets.
 2. The recursive Concrete node schema is validation-only and registry-checked.
 3. Public export compatibility, raw CSS value policy, media-query exceptions, and browser/screenshot smoke coverage are guarded by tests.
-4. The foundation concept split is structurally complete. The next active phase is generic layout/surface/text primitives, primitive prop discipline, and component assembly over the target inventory in `PLAN.md`.
+4. The foundation concept split, generic layout/surface/text/control vocabulary, first destructive primitive contraction, and data-surface cut are structurally complete. The next active phase is table/chart/diagram/agent primitive correction, primitive prop discipline, and component assembly over the target inventory in `PLAN.md`.
 
 When new structural debt appears, add it to `PLAN.md` first, then pull the first unblocked item into `## Active Work`.
 

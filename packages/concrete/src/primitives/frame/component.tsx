@@ -1,7 +1,15 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import { concreteClassNames } from '../../styles/class-names'
-import { getTextureClass, type TextureVariant } from '../texture/component'
+import { concreteClassNames, getConcreteClassName } from '../../styles/class-names'
 import { cn } from '../utils'
+
+export const frameTextureValues = ['lattice', 'dots', 'lines'] as const
+export type FrameTexture = (typeof frameTextureValues)[number]
+
+const frameTextureClassNames = {
+	dots: getConcreteClassName('dots'),
+	lattice: getConcreteClassName('lattice'),
+	lines: getConcreteClassName('lines')
+} satisfies Record<FrameTexture, string>
 
 export type FrameProps = HTMLAttributes<HTMLDivElement> & {
 	bodyClassName?: string
@@ -9,7 +17,7 @@ export type FrameProps = HTMLAttributes<HTMLDivElement> & {
 	footerMeta?: ReactNode
 	header?: ReactNode
 	headerMeta?: ReactNode
-	texture?: TextureVariant
+	texture?: FrameTexture
 }
 
 export function Frame({
@@ -32,7 +40,11 @@ export function Frame({
 				</div>
 			) : null}
 			<div
-				className={cn(concreteClassNames.frameBody, texture && getTextureClass(texture), bodyClassName)}
+				className={cn(
+					concreteClassNames.frameBody,
+					texture && frameTextureClassNames[texture],
+					bodyClassName
+				)}
 			>
 				{children}
 			</div>

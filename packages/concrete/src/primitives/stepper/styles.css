@@ -1,0 +1,85 @@
+.concrete-stepper {
+	display: grid;
+	grid-template-columns: var(--concrete-template-stepper);
+	width: min(var(--concrete-measure-stepper), var(--concrete-size-full));
+	height: var(--concrete-size-field-control);
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-stepper);
+}
+
+.concrete-stepper button,
+.concrete-stepper input {
+	border: var(--concrete-space-0);
+	background: transparent;
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-stepper button {
+	display: grid;
+	place-items: center;
+	background: var(--concrete-raised);
+	color: var(--concrete-foreground-muted);
+	cursor: pointer;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+	will-change: transform;
+}
+
+.concrete-stepper button:hover {
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-stepper button:active {
+	background: var(--concrete-ink-9);
+	color: var(--concrete-surface);
+	transform: translateY(var(--concrete-translate-press-strong));
+}
+
+.concrete-stepper button:disabled {
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-soft);
+	cursor: not-allowed;
+	transform: none;
+}
+
+.concrete-stepper button:focus-visible,
+.concrete-stepper input:focus {
+	outline: var(--concrete-space-0);
+	box-shadow: var(--concrete-shadow-control-focus-inset);
+}
+
+.concrete-stepper button svg {
+	width: var(--concrete-size-icon-medium);
+	height: var(--concrete-size-icon-medium);
+}
+
+.concrete-stepper input {
+	min-width: var(--concrete-space-0);
+	border-right: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-left: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	background: var(--concrete-surface);
+	cursor: text;
+	text-align: center;
+	appearance: textfield;
+}
+
+.concrete-stepper input:disabled {
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+	cursor: not-allowed;
+}
+
+.concrete-stepper input::-webkit-inner-spin-button,
+.concrete-stepper input::-webkit-outer-spin-button {
+	margin: var(--concrete-space-0);
+	appearance: none;
+}

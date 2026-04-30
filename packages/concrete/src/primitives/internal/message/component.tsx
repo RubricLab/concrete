@@ -2,7 +2,8 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import type { MessageRole, MessageStatus, MessageSurface } from '../../../schemas'
 import { Avatar } from '../../avatar'
 import { Badge } from '../../badge'
-import { MessageBubble, MessageMetaItem, MessagePlain, MessageShell } from '../../message-shell'
+import { MessageBubble } from '../../message-bubble'
+import { TranscriptItem, TranscriptMetaItem, TranscriptPlain } from '../../transcript-item'
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
 	actions?: ReactNode
@@ -44,8 +45,8 @@ export function Message({
 	const messageMeta =
 		author || meta || (showStatus && status !== 'complete') ? (
 			<>
-				<MessageMetaItem>{author ?? getMessageRoleLabel(messageRole)}</MessageMetaItem>
-				{meta ? <MessageMetaItem>{meta}</MessageMetaItem> : null}
+				<TranscriptMetaItem>{author ?? getMessageRoleLabel(messageRole)}</TranscriptMetaItem>
+				{meta ? <TranscriptMetaItem>{meta}</TranscriptMetaItem> : null}
 				{showStatus && status !== 'complete' ? (
 					<Badge signal={getMessageStatusSignal(status)}>{status}</Badge>
 				) : null}
@@ -53,7 +54,7 @@ export function Message({
 		) : undefined
 
 	return (
-		<MessageShell
+		<TranscriptItem
 			actions={actions}
 			avatar={shouldRenderAvatar ? (avatar ?? renderMessageAvatar()) : undefined}
 			className={className}
@@ -67,9 +68,9 @@ export function Message({
 			{surface === 'bubble' ? (
 				<MessageBubble direction={direction}>{children}</MessageBubble>
 			) : (
-				<MessagePlain>{children}</MessagePlain>
+				<TranscriptPlain>{children}</TranscriptPlain>
 			)}
-		</MessageShell>
+		</TranscriptItem>
 	)
 
 	function renderMessageAvatar() {

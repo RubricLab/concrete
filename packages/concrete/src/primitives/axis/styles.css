@@ -1,0 +1,33 @@
+.concrete-chart-axis,
+.concrete-chart-baseline {
+	stroke: var(--concrete-chart-axis-stroke);
+	stroke-width: var(--concrete-border-width-hairline);
+}
+
+.concrete-chart-tick-label,
+.concrete-chart-axis-label,
+.concrete-chart-row-label,
+.concrete-chart-value-label,
+.concrete-chart-end-label {
+	fill: var(--concrete-foreground-faint);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-9) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}
+
+.concrete-chart-row-label,
+.concrete-chart-value-label,
+.concrete-chart-end-label {
+	font-family: var(--concrete-font-sans);
+	font-size: var(--concrete-type-10);
+	font-weight: var(--concrete-weight-heavy);
+	letter-spacing: var(--concrete-tracking-normal);
+	text-transform: none;
+}
+
+.concrete-chart-value-label,
+.concrete-chart-end-label {
+	fill: var(--concrete-foreground-muted);
+}

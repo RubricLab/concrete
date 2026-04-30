@@ -1,0 +1,16 @@
+.concrete-chart-endpoint,
+.concrete-chart-point {
+	stroke: currentcolor;
+}
+
+.concrete-chart-point {
+	fill: var(--concrete-surface);
+	opacity: var(--concrete-opacity-chart-point);
+	stroke-width: var(--concrete-stroke-1-4);
+}
+
+.concrete-chart-endpoint {
+	fill: currentcolor;
+	stroke: var(--concrete-surface);
+	stroke-width: var(--concrete-stroke-2);
+}

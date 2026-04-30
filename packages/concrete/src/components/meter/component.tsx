@@ -1,10 +1,5 @@
-import {
-	MetricFooter,
-	MetricHeader,
-	MetricProgressRing,
-	MetricShell,
-	Progress
-} from '../../primitives'
+import { DataSurface, Progress, ProgressRing } from '../../primitives'
+import { Text } from '../../primitives/text'
 import { type MeterProps, meterSchema } from '../../schemas'
 import { normalizeRangeValue } from '../../utilities/data-geometry'
 import { toProgressTone } from '../../utilities/data-tone'
@@ -25,16 +20,34 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 	const percent = Math.round(normalizedValue * 100)
 	const formattedValue =
 		parsedProps.unit === '%' ? `${percent}%` : `${parsedProps.value.value}${parsedProps.unit}`
+	const footer =
+		parsedProps.description || parsedProps.target !== undefined ? (
+			<>
+				{parsedProps.target !== undefined ? (
+					<Text purpose="caption" tone="muted">
+						Target {parsedProps.target}
+					</Text>
+				) : null}
+				{parsedProps.description ? (
+					<Text purpose="caption" tone="muted">
+						{parsedProps.description}
+					</Text>
+				) : null}
+			</>
+		) : undefined
 
 	return (
-		<MetricShell className={className} kind="meter" ring={parsedProps.variant === 'ring'}>
-			<MetricHeader kind="meter" label={parsedProps.label} value={formattedValue} />
+		<DataSurface
+			className={className}
+			compact={parsedProps.compact}
+			footer={footer}
+			layout={parsedProps.variant === 'ring' ? 'media' : 'stack'}
+			meta={formattedValue}
+			purpose="meter"
+			title={parsedProps.label}
+		>
 			{parsedProps.variant === 'ring' ? (
-				<MetricProgressRing
-					compact={parsedProps.compact}
-					tone={toProgressTone(parsedProps.tone)}
-					value={percent}
-				/>
+				<ProgressRing tone={toProgressTone(parsedProps.tone)} value={percent} />
 			) : (
 				<Progress
 					size={parsedProps.compact ? 'thin' : 'medium'}
@@ -42,12 +55,6 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 					value={percent}
 				/>
 			)}
-			{parsedProps.description || parsedProps.target !== undefined ? (
-				<MetricFooter
-					end={parsedProps.description}
-					start={parsedProps.target !== undefined ? `Target ${parsedProps.target}` : undefined}
-				/>
-			) : null}
-		</MetricShell>
+		</DataSurface>
 	)
 }

@@ -1,12 +1,5 @@
-import {
-	Delta,
-	Indicator,
-	MetricDescription,
-	MetricHeader,
-	MetricShell,
-	MetricSparkline,
-	Stat
-} from '../../primitives'
+import { DataSurface, Delta, Indicator, Sparkline, Stat } from '../../primitives'
+import { Text } from '../../primitives/text'
 import { type MetricCardProps, metricCardSchema } from '../../schemas'
 import { getMetricTrendTone, toIndicatorTone, toSparklineTone } from '../../utilities/data-tone'
 
@@ -19,17 +12,19 @@ export function MetricCard({ className, ...props }: MetricCardProps & ComponentS
 	const trendTone = parsedProps.trendTone ?? getMetricTrendTone(parsedProps.delta?.intent)
 
 	return (
-		<MetricShell className={className} compact={parsedProps.compact}>
-			<MetricHeader
-				end={
-					parsedProps.status ? (
-						<Indicator tone={toIndicatorTone(parsedProps.status.tone)}>
-							{parsedProps.status.label}
-						</Indicator>
-					) : null
-				}
-				label={parsedProps.label}
-			/>
+		<DataSurface
+			actions={
+				parsedProps.status ? (
+					<Indicator tone={toIndicatorTone(parsedProps.status.tone)}>
+						{parsedProps.status.label}
+					</Indicator>
+				) : null
+			}
+			className={className}
+			compact={parsedProps.compact}
+			purpose="metric"
+			title={parsedProps.label}
+		>
 			<Stat
 				delta={
 					parsedProps.delta ? (
@@ -47,7 +42,7 @@ export function MetricCard({ className, ...props }: MetricCardProps & ComponentS
 				variant="lockup"
 			/>
 			{parsedProps.trend.length > 0 ? (
-				<MetricSparkline
+				<Sparkline
 					area
 					showEndpoint={false}
 					tone={toSparklineTone(trendTone)}
@@ -55,9 +50,11 @@ export function MetricCard({ className, ...props }: MetricCardProps & ComponentS
 				/>
 			) : null}
 			{parsedProps.description ? (
-				<MetricDescription>{parsedProps.description}</MetricDescription>
+				<Text as="p" purpose="caption" tone="muted">
+					{parsedProps.description}
+				</Text>
 			) : null}
-		</MetricShell>
+		</DataSurface>
 	)
 }
 

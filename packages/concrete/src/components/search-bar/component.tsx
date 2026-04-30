@@ -3,7 +3,7 @@
 import type { ChangeEvent, FormEvent, HTMLAttributes, ReactNode } from 'react'
 import { useState } from 'react'
 import type { IconName } from '../../icons'
-import { SearchField, SearchTokenPrimitive } from '../../primitives'
+import { PickerSurface, SearchInput, Token } from '../../primitives'
 import type { CommandItemTone } from '../../schemas'
 import { formatShortcutKey, stringifyReactNode } from '../../utilities/interaction-helpers'
 
@@ -66,37 +66,41 @@ export function SearchBar({
 	}
 
 	return (
-		<SearchField
-			actions={actions}
-			className={className}
-			formProps={{
-				onSubmit: handleSubmit,
-				...props
-			}}
-			inputProps={{
-				'aria-label': 'Search',
-				onChange: (event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value),
-				onInput: event => updateQuery(event.currentTarget.value),
-				placeholder,
-				value: currentQuery
-			}}
-			leading={leading}
-			menu={menu}
-			menuPlacement={menuPlacement}
-			shortcut={shortcut.map(formatShortcutKey)}
-			tokens={tokens.map(token => (
-				<SearchTokenPrimitive
-					key={token.id}
-					leadingIcon={token.leadingIcon}
-					onRemove={onTokenRemove ? () => onTokenRemove(token) : undefined}
-					removeLabel={`Remove ${stringifyReactNode(token.label)}`}
-					tone={token.tone ?? 'default'}
-				>
-					{token.label}
-				</SearchTokenPrimitive>
-			))}
-			trailing={trailing}
-			wrap={wrap}
-		/>
+		<form className={className} onSubmit={handleSubmit} {...props}>
+			<SearchInput
+				actions={actions}
+				inputProps={{
+					'aria-label': 'Search',
+					onChange: (event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value),
+					onInput: event => updateQuery(event.currentTarget.value),
+					placeholder,
+					value: currentQuery
+				}}
+				shortcut={shortcut.map(formatShortcutKey)}
+				tokens={tokens.map(token => (
+					<Token
+						key={token.id}
+						leadingIcon={token.leadingIcon}
+						onRemove={onTokenRemove ? () => onTokenRemove(token) : undefined}
+						removeLabel={`Remove ${stringifyReactNode(token.label)}`}
+						tone={token.tone ?? 'default'}
+					>
+						{token.label}
+					</Token>
+				))}
+				trailing={
+					<>
+						{leading}
+						{trailing}
+					</>
+				}
+				wrap={wrap}
+			/>
+			{menu ? (
+				<PickerSurface open placement={menuPlacement === 'popdown' ? 'floating' : 'inline'}>
+					{menu}
+				</PickerSurface>
+			) : null}
+		</form>
 	)
 }

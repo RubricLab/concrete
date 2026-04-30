@@ -1,0 +1,33 @@
+.concrete-listbox {
+	display: grid;
+	min-width: var(--concrete-space-0);
+	max-height: var(--concrete-size-listbox-options-max-block);
+	overflow: auto;
+	padding: var(--concrete-space-1);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+}
+
+.concrete-listbox[data-size="compact"] {
+	padding: var(--concrete-space-0-5);
+}
+
+.concrete-listbox[data-size="loose"] {
+	padding: var(--concrete-space-1-5);
+}
+
+.concrete-listbox-items {
+	display: grid;
+	gap: var(--concrete-space-0-5);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-listbox-empty {
+	padding-block: var(--concrete-space-3);
+	padding-inline: var(--concrete-space-2);
+	color: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}

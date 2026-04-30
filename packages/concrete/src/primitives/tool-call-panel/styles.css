@@ -2,7 +2,7 @@
 	display: grid;
 	gap: var(--concrete-space-2);
 	min-width: var(--concrete-space-0);
-	max-width: min(var(--concrete-measure-agent-panel), var(--concrete-size-full));
+	max-width: min(var(--concrete-measure-trace-panel), var(--concrete-size-full));
 	color: var(--concrete-foreground-body);
 	interpolate-size: allow-keywords;
 }

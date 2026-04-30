@@ -16,10 +16,9 @@
 		0 1px 2px rgb(10 11 15 / 12%);
 	--concrete-shadow-control-inset: inset 0 1px 0 rgb(10 11 15 / 1.5%);
 	--concrete-shadow-control-focus-inset: inset 0 0 0 2px var(--concrete-sky);
-	--concrete-shadow-stepper-control:
-		var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
-	--concrete-shadow-range-control-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
-	--concrete-shadow-range-control-thumb-hover:
+	--concrete-shadow-stepper: var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
+	--concrete-shadow-range-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
+	--concrete-shadow-range-thumb-hover:
 		0 0 0 1px rgb(24 102 220 / 38%), 0 0 0 4px var(--concrete-sky-ring);
 	--concrete-shadow-button-primary:
 		inset 0 1px 0 rgb(255 255 255 / 8%), 0 1px 0 rgb(0 0 0 / 20%), 0 1px 2px rgb(10 11 15 / 10%);

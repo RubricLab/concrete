@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { ReasoningPanel, ReasoningPanelStep, ReasoningSteps } from '../../primitives'
+import { TracePanel, TraceStep, TraceSteps } from '../../primitives'
 import { Message, type MessageProps } from '../../primitives/internal/message'
 import type { ReasoningStep as ReasoningStepData } from '../../schemas'
 
@@ -24,24 +24,13 @@ export function ReasoningMessage({
 }: ReasoningMessageProps) {
 	return (
 		<Message messageRole="assistant" showStatus={false} status={status} surface="plain" {...props}>
-			<ReasoningPanel
-				open={open}
-				status={status}
-				stepCount={steps.length}
-				summary={summary}
-				title={title}
-			>
-				<ReasoningSteps>
+			<TracePanel open={open} status={status} stepCount={steps.length} summary={summary} title={title}>
+				<TraceSteps>
 					{steps.map(step => (
-						<ReasoningPanelStep
-							detail={step.detail}
-							key={step.id}
-							label={step.label}
-							status={step.status}
-						/>
+						<TraceStep detail={step.detail} key={step.id} label={step.label} status={step.status} />
 					))}
-				</ReasoningSteps>
-			</ReasoningPanel>
+				</TraceSteps>
+			</TracePanel>
 		</Message>
 	)
 }

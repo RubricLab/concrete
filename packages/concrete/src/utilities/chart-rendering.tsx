@@ -1,13 +1,5 @@
 import type { ReactNode } from 'react'
-import {
-	ChartLegend,
-	ChartLegendItem,
-	ChartMessage,
-	ChartShell,
-	ChartSurface,
-	DataCardHeader,
-	Indicator
-} from '../primitives'
+import { ChartFrame, ChartMessage, DataSurface, Indicator, Legend, LegendItem } from '../primitives'
 import type { chartSchema } from '../schemas'
 import { renderBarChart } from './bar-chart-rendering'
 import {
@@ -31,34 +23,37 @@ export function renderParsedChart(
 	const legendItems = getChartLegendItems(parsedProps)
 
 	return (
-		<ChartShell className={className}>
-			{parsedProps.showHeader ? (
-				<DataCardHeader
-					description={parsedProps.description}
-					end={<Indicator tone={getChartStateTone(parsedProps.state)}>{parsedProps.state}</Indicator>}
-					title={parsedProps.title}
-				/>
-			) : null}
-			<ChartSurface
+		<DataSurface
+			actions={
+				parsedProps.showHeader ? (
+					<Indicator tone={getChartStateTone(parsedProps.state)}>{parsedProps.state}</Indicator>
+				) : undefined
+			}
+			className={className}
+			description={parsedProps.showHeader ? parsedProps.description : undefined}
+			purpose="chart"
+			title={parsedProps.showHeader ? parsedProps.title : undefined}
+		>
+			<ChartFrame
 				height={parsedProps.height}
 				surface={parsedProps.surface}
 				variant={parsedProps.variant}
 			>
 				{renderChartBody(parsedProps)}
-			</ChartSurface>
+			</ChartFrame>
 			{parsedProps.legend && legendItems.length > 0 ? (
-				<ChartLegend>
+				<Legend>
 					{legendItems.map(item => (
-						<ChartLegendItem
+						<LegendItem
 							key={item.label}
 							label={item.label}
 							tone={toIndicatorTone(item.tone)}
 							value={item.value}
 						/>
 					))}
-				</ChartLegend>
+				</Legend>
 			) : null}
-		</ChartShell>
+		</DataSurface>
 	)
 }
 

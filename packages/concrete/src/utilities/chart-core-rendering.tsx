@@ -37,7 +37,7 @@ export type ChartBarRectangle = { height: number; width: number; x: number; y: n
 
 type ChartState = 'empty' | 'error' | 'loading' | 'ready'
 type ChartStateTone = 'error' | 'muted' | 'sky' | 'terminal'
-type ChartLegendItem = { label: string; tone: DataTone; value?: string | undefined }
+type ChartLegendDatum = { label: string; tone: DataTone; value?: string | undefined }
 
 const chartStateMessages = {
 	empty: 'No data',
@@ -251,7 +251,7 @@ export function getChartStateTone(state: ChartState): ChartStateTone {
 
 export function getChartLegendItems(
 	parsedProps: ReturnType<typeof chartSchema.parse>
-): ChartLegendItem[] {
+): ChartLegendDatum[] {
 	switch (parsedProps.variant) {
 		case 'area':
 		case 'line':

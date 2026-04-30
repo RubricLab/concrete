@@ -94,14 +94,16 @@ const packageStyleExports = [
 ] as const
 const allowedMediaQueryConditions = new Set(['(width <= 420px)', '(width <= 640px)'])
 const dynamicPrimitiveInlineStyleFiles = [
-	'packages/concrete/src/primitives/chart-surface/component.tsx',
-	'packages/concrete/src/primitives/data-table-shell/component.tsx',
+	'packages/concrete/src/primitives/chart-frame/component.tsx',
 	'packages/concrete/src/primitives/diagram-minimap/component.tsx',
 	'packages/concrete/src/primitives/diagram-viewport/component.tsx',
+	'packages/concrete/src/primitives/donut-ring/component.tsx',
+	'packages/concrete/src/primitives/heatmap-grid/component.tsx',
 	'packages/concrete/src/primitives/progress/component.tsx',
-	'packages/concrete/src/primitives/range-control/component.tsx',
+	'packages/concrete/src/primitives/range/component.tsx',
 	'packages/concrete/src/primitives/skeleton/component.tsx',
 	'packages/concrete/src/primitives/slider/component.tsx',
+	'packages/concrete/src/primitives/table/component.tsx',
 	'packages/concrete/src/primitives/upload-item/component.tsx'
 ] as const
 const chartRenderingUtilityFiles = [
@@ -115,8 +117,7 @@ const chartRenderingUtilityFiles = [
 ] as const
 const selfDocumentingPreviewPrimitiveExampleFiles = new Set([
 	'packages/concrete/src/primitives/card/examples.tsx',
-	'packages/concrete/src/primitives/frame/examples.tsx',
-	'packages/concrete/src/primitives/preview-stage/examples.tsx'
+	'packages/concrete/src/primitives/frame/examples.tsx'
 ])
 
 describe('Import boundaries', () => {
@@ -353,9 +354,9 @@ describe('Import boundaries', () => {
 			...listExistingItemFiles('packages/concrete/src/primitives', ['examples.tsx'])
 		]
 		const forbiddenPreviewChromePatterns = [
-			/<\/?(?:Frame|Card|PreviewStage)\b/u,
-			/import\s*\{[^}]*\b(?:Frame|Card|PreviewStage)\b[^}]*\}\s*from ['"][^'"]*primitives['"]/u,
-			/from ['"][^'"]*(?:\/|^)(?:frame|card|preview-stage)(?:\/component)?['"]/u
+			/<\/?(?:Frame|Card)\b/u,
+			/import\s*\{[^}]*\b(?:Frame|Card)\b[^}]*\}\s*from ['"][^'"]*primitives['"]/u,
+			/from ['"][^'"]*(?:\/|^)(?:frame|card)(?:\/component)?['"]/u
 		]
 		const violations = exampleFiles.flatMap(filePath => {
 			const relativePath = relative(repoRoot, filePath)
@@ -498,10 +499,10 @@ describe('Import boundaries', () => {
 			([key, value]) => value !== toConcreteSelector(key)
 		)
 
-		expect(concreteClassNameEntries.length).toBe(514)
+		expect(concreteClassNameEntries.length).toBe(507)
 		expect(classNameRecord.button).toBe('concrete-button')
 		expect(classNameRecord.diagramCanvasEdgeSelected).toBe('concrete-diagram-canvas-edge-selected')
-		expect(classNameRecord.validationSummaryAction).toBe('concrete-validation-summary-action')
+		expect(classNameRecord.alertAction).toBe('concrete-alert-action')
 		expect(invalidEntries).toEqual([])
 	})
 
