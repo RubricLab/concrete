@@ -56,7 +56,7 @@ import { foundationRegistry } from '@rubriclab/concrete/registry'
 
 This section is generated from `foundationRegistry`, `primitiveRegistry`, and `componentRegistry`. Run `bun run build:skill` after registry changes.
 
-Concrete currently exposes 12 foundations, 82 primitives, and 33 components.
+Concrete currently exposes 12 foundations, 84 primitives, and 34 components.
 
 ### Foundations
 
@@ -148,7 +148,7 @@ Quiet texture grounds for diagrams, editorial frames, and educational examples.
 - Category: `foundation`
 - Pressure: `editorial`, `educational`
 - Guidance: Use texture as structure, never as decorative noise.
-- Tokens: Tokens (3: `lattice`, `dots`, `lines`)
+- Tokens: Tokens (4: `lattice`, `dots`, `lines`, `depth`)
 
 #### Iconography
 
@@ -189,7 +189,7 @@ Primitives are the Concrete HTML vocabulary. They own DOM, scoped classes, schem
 - **Feedback** (8): Message shell (`message-shell`), Feedback Panel (`feedback-panel`), Reasoning panel (`reasoning-panel`), Spinner (`spinner`), Empty state (`empty-state`), Tooltip (`tooltip`), Skeleton (`skeleton`), Tool-call panel (`tool-call-panel`)
 - **Data** (13): Metric Shell (`metric-shell`), Data Card Header (`data-card-header`), Chart Surface (`chart-surface`), Chart Legend (`chart-legend`), Data Table Shell (`data-table-shell`), Data Table Control (`data-table-control`), Data Table Pagination (`data-table-pagination`), Progress (`progress`), Stat (`stat`), Delta (`delta`), Sparkline (`sparkline`), Distribution (`distribution`), Indicator (`indicator`)
 - **Media** (2): Upload item (`upload-item`), Avatar (`avatar`)
-- **Surface** (2): Card (`card`), Bubble (`bubble`)
+- **Surface** (4): Card (`card`), Bubble (`bubble`), TiltFrame (`tilt-frame`), ScaleFrame (`scale-frame`)
 - **Status** (3): Pill (`pill`), Badge (`badge`), Tag (`tag`)
 - **Layout** (4): Row (`row`), Preview Stage (`preview-stage`), Divider (`divider`), Frame (`frame`)
 - **Typography** (2): Code (`code`), Kbd (`kbd`)
@@ -209,8 +209,8 @@ Components assemble primitives into reusable product behavior. They should not i
 - **Feedback** (3): Validation summary (`validation-summary`), Reasoning message (`reasoning-message`), Tool call message (`tool-call-message`)
 - **Media** (1): Image upload (`image-upload`)
 - **Data** (11): Metric card (`metric-card`), Meter (`meter`), Line chart (`line-chart`), Area chart (`area-chart`), Bar chart (`bar-chart`), Stacked bar chart (`stacked-bar-chart`), Donut chart (`donut-chart`), Heatmap (`heatmap`), Chart (`chart`), Data table (`data-table`), Flow diagram (`flow-diagram`)
+- **Surface** (2): FeatureCard (`feature-card`), Message (`message`)
 - **Diagram** (1): Diagram canvas (`diagram-canvas`)
-- **Surface** (1): Message (`message`)
 <!-- concrete-skill:generated:end -->
 
 ## Usage Guide

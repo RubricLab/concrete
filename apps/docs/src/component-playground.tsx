@@ -1,12 +1,9 @@
 'use client'
 
-import {
-	type ComponentRegistryEntry,
-	getComponentDefinition,
-	renderDefinitionInput
-} from '@rubriclab/concrete'
+import { type ComponentRegistryEntry, getComponentDefinition } from '@rubriclab/concrete'
 import { useSearchParams } from 'next/navigation'
 import { CatalogPlayground } from './catalog-playground'
+import { renderDefinitionFromSearchParams } from './rendering'
 
 type ComponentPlaygroundProps = {
 	entry: ComponentRegistryEntry
@@ -19,7 +16,15 @@ export function ComponentPlayground({ entry }: ComponentPlaygroundProps) {
 	return (
 		<CatalogPlayground
 			controls={definition?.controls ?? []}
-			preview={definition ? renderDefinitionInput(definition, searchParams) : undefined}
+			preview={
+				definition
+					? renderDefinitionFromSearchParams(
+							definition,
+							searchParams,
+							searchParams.get('state') ?? 'default'
+						)
+					: undefined
+			}
 			previewClassName="componentPlaygroundPreview"
 			shellClassName="componentPlaygroundShell"
 			states={entry.states}

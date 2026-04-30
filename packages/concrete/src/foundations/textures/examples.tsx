@@ -4,9 +4,9 @@ import { textureTokens } from './schema'
 
 export const texturesExamples = defineExamples({
 	default: {
-		description: 'Quiet lattice, dot, and line textures for structure without decoration.',
+		description: 'Quiet lattice, dot, line, and depth textures for structure without decoration.',
 		render: () => (
-			<TextureFrame meta="Lattice / dots / lines" title="Texture tokens">
+			<TextureFrame meta="Lattice / dots / lines / depth" title="Texture tokens">
 				<div style={textureGridStyle}>
 					{textureTokens.map(token => (
 						<div key={token} style={{ ...textureTileStyle, ...getTextureStyle(token) }}>
@@ -72,6 +72,13 @@ function getTextureStyle(token: string): CSSProperties {
 					'linear-gradient(var(--concrete-lattice) var(--concrete-border-width-hairline), transparent var(--concrete-border-width-hairline)), linear-gradient(90deg, var(--concrete-lattice) var(--concrete-border-width-hairline), transparent var(--concrete-border-width-hairline))',
 				backgroundSize: 'var(--concrete-grid-unit) var(--concrete-grid-unit)'
 			}
+		case 'depth':
+			return {
+				backgroundColor: 'var(--concrete-depth-background)',
+				backgroundImage: 'var(--concrete-depth-background-image)',
+				backgroundSize:
+					'var(--concrete-size-full) var(--concrete-size-full), var(--concrete-grid-unit) var(--concrete-grid-unit), var(--concrete-grid-unit) var(--concrete-grid-unit), var(--concrete-size-full) var(--concrete-size-full)'
+			}
 		default:
 			return {}
 	}
@@ -85,6 +92,8 @@ function getTextureDescription(token: string): string {
 			return 'reading and rows'
 		case 'lattice':
 			return 'diagram coordinates'
+		case 'depth':
+			return 'perspective grounds'
 		default:
 			return 'texture ground'
 	}

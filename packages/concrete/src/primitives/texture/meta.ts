@@ -12,13 +12,13 @@ type TextureMeta = {
 
 export const textureMeta = {
 	category: 'foundation',
-	description: 'Lattice, dot, and line grounds from the foundation tokens.',
+	description: 'Lattice, dot, line, and depth grounds from the foundation tokens.',
 	guidance:
-		'Textures are subtle instructional grounds. Keep them inside frames or small surfaces and avoid full-page decorative use.',
+		'Textures are subtle instructional grounds. Keep them inside frames, diagrams, and bounded system surfaces.',
 	name: 'Texture',
 	pressure: ['editorial', 'educational'],
 	props: [
-		prop('texture', "'lattice' | 'dots' | 'lines'", 'Optional tokenized ground pattern.'),
+		prop('texture', "'lattice' | 'dots' | 'lines' | 'depth'", 'Optional tokenized ground pattern.'),
 		prop('children', 'never', 'Texture renders only its background treatment.')
 	]
 } as const satisfies TextureMeta

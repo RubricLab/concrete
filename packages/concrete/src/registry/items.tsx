@@ -8,6 +8,7 @@ import { datePickerComponentDefinition } from '../components/date-picker'
 import { dateRangePickerComponentDefinition } from '../components/date-range-picker'
 import { diagramCanvasComponentDefinition } from '../components/diagram-canvas'
 import { donutChartComponentDefinition } from '../components/donut-chart'
+import { featureCardComponentDefinition } from '../components/feature-card'
 import { fileUploadComponentDefinition } from '../components/file-upload'
 import { flowDiagramComponentDefinition } from '../components/flow-diagram'
 import { formDialogComponentDefinition } from '../components/form-dialog'
@@ -91,6 +92,7 @@ import { radioPrimitiveDefinition } from '../primitives/radio'
 import { rangeControlPrimitiveDefinition } from '../primitives/range-control'
 import { reasoningPanelPrimitiveDefinition } from '../primitives/reasoning-panel'
 import { rowPrimitiveDefinition } from '../primitives/row'
+import { scaleFramePrimitiveDefinition } from '../primitives/scale-frame'
 import { searchFieldPrimitiveDefinition } from '../primitives/search-field'
 import { searchTokenPrimitiveDefinition } from '../primitives/search-token'
 import { selectPrimitiveDefinition } from '../primitives/select'
@@ -107,6 +109,7 @@ import { switchPrimitiveDefinition } from '../primitives/switch'
 import { tagPrimitiveDefinition } from '../primitives/tag'
 import { textareaPrimitiveDefinition } from '../primitives/textarea'
 import { texturePrimitiveDefinition } from '../primitives/texture'
+import { tiltFramePrimitiveDefinition } from '../primitives/tilt-frame'
 import { timeListPrimitiveDefinition } from '../primitives/time-list'
 import { toolCallPanelPrimitiveDefinition } from '../primitives/tool-call-panel'
 import { toolbarControlPrimitiveDefinition } from '../primitives/toolbar-control'
@@ -196,6 +199,8 @@ export const primitiveDefinitions = [
 	texturePrimitiveDefinition,
 	timeListPrimitiveDefinition,
 	toolCallPanelPrimitiveDefinition,
+	tiltFramePrimitiveDefinition,
+	scaleFramePrimitiveDefinition,
 	brandMarkPrimitiveDefinition,
 	wordmarkPrimitiveDefinition,
 	iconPrimitiveDefinition,
@@ -229,6 +234,7 @@ export const componentDefinitions = [
 	donutChartComponentDefinition,
 	heatmapComponentDefinition,
 	chartComponentDefinition,
+	featureCardComponentDefinition,
 	dataTableComponentDefinition,
 	flowDiagramComponentDefinition,
 	diagramCanvasComponentDefinition,

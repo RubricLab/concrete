@@ -59,6 +59,7 @@ progressRingUnit progressShuttle progressSky progressTerminal progressThick prog
 radio radioChecked radioDot railChip rangeSlider rangeSliderTrack rangeSliderValues reasoning
 reasoningStatus reasoningSteps reasoningSummaryMain reasoningSummaryText root row rowIcon rowInteractive
 rowLabel rowMeta searchBar searchInput searchLeading searchMenu searchShell searchShortcut
+scaleFrame scaleFrameContent scaleFrameSurface
 `,
 	`
 searchShortcutKey searchToken segmentedProgress select selectWrap sendButton skeleton slider
@@ -68,7 +69,8 @@ stat statDisplay statLabel statLarge statMeta statMuted statNumber statSky
 statSmall statUnit statValue statXlarge statXsmall submitDock switch switchChecked
 switchTrack syntaxAttribute syntaxComment syntaxFunction syntaxIdentifier syntaxKeyword syntaxNumber syntaxOperator
 syntaxPunctuation syntaxString syntaxType tag tagActive tagClose tagError tagLarge
-tagOutline tagSelected tagSky tagSmall tagTerminal tagUltra textarea texturePreview timeMenu
+tagOutline tagSelected tagSky tagSmall tagTerminal tagUltra textarea tiltFrame tiltFrameContent
+tiltFrameGlare tiltFrameSurface timeMenu
 `,
 	`
 timePicker toolButton toolbar toolbarCompact toolbarDivider toolbarGroup toolbarRoot toolbarRootButton
