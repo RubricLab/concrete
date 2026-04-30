@@ -2,6 +2,17 @@ import { z } from 'zod/v4'
 import { iconNames } from '../../icons'
 
 const buttonIconSchema = z.enum(iconNames)
+export const buttonSizeSchema = z.enum(['tiny', 'small', 'medium', 'large'])
+export const buttonVariantSchema = z.enum([
+	'danger',
+	'ghost',
+	'primary',
+	'secondary',
+	'sky',
+	'sky-soft',
+	'soft',
+	'ultra'
+])
 
 export const buttonSchema = z
 	.object({
@@ -11,11 +22,9 @@ export const buttonSchema = z
 		leadingIcon: buttonIconSchema.optional(),
 		loading: z.boolean().default(false),
 		pressed: z.boolean().default(false),
-		size: z.enum(['tiny', 'small', 'medium', 'large']).default('medium'),
+		size: buttonSizeSchema.default('medium'),
 		trailingIcon: buttonIconSchema.optional(),
-		variant: z
-			.enum(['danger', 'ghost', 'primary', 'secondary', 'sky', 'sky-soft', 'soft', 'ultra'])
-			.default('secondary')
+		variant: buttonVariantSchema.default('secondary')
 	})
 	.strict()
 

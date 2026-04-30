@@ -2,10 +2,10 @@
 
 import type { IconName } from '../icons'
 import {
-	SuggestionMenu,
-	SuggestionMenuItem,
-	SuggestionMenuList,
-	SuggestionMenuTitle,
+	Listbox,
+	MenuGroup,
+	MenuSurface,
+	OptionRow,
 	ToolbarControlButton,
 	ToolbarFormatGlyph
 } from '../primitives'
@@ -85,25 +85,33 @@ export function ComposerMenu({
 	options: readonly ComposerSuggestion[]
 }) {
 	return (
-		<SuggestionMenu>
-			<SuggestionMenuTitle trigger={getMenuTrigger(menu.kind)}>
-				{getMenuTitle(menu.kind)}
-			</SuggestionMenuTitle>
-			<SuggestionMenuList empty={options.length === 0 ? 'No matches' : undefined}>
-				{options.map((option, index) => (
-					<SuggestionMenuItem
-						active={index === menu.activeIndex}
-						description={option.description}
-						disabled={option.disabled}
-						itemKind={option.kind}
-						key={option.id}
-						label={option.label}
-						meta={option.meta}
-						onClick={() => onCommit(option)}
-						onMouseDown={event => event.preventDefault()}
-					/>
-				))}
-			</SuggestionMenuList>
-		</SuggestionMenu>
+		<MenuSurface density="compact" role="menu">
+			<MenuGroup
+				title={
+					<>
+						<span>{getMenuTitle(menu.kind)}</span>
+						<code>{getMenuTrigger(menu.kind)}</code>
+					</>
+				}
+			>
+				<Listbox emptyLabel="No matches" role="menu" size="compact">
+					{options.length > 0
+						? options.map((option, index) => (
+								<OptionRow
+									active={index === menu.activeIndex}
+									description={option.description}
+									disabled={option.disabled}
+									kind="command"
+									key={option.id}
+									label={option.label}
+									meta={option.meta}
+									onClick={() => onCommit(option)}
+									onMouseDown={event => event.preventDefault()}
+								/>
+							))
+						: null}
+				</Listbox>
+			</MenuGroup>
+		</MenuSurface>
 	)
 }

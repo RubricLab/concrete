@@ -1,0 +1,29 @@
+.concrete-chart-frame {
+	position: relative;
+	display: grid;
+	min-height: var(--concrete-chart-height, var(--concrete-size-chart-height));
+	place-items: stretch;
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-raised);
+	color: var(--concrete-sky);
+}
+
+.concrete-chart-frame[data-surface="sunken"] {
+	background: var(--concrete-sunken);
+}
+
+.concrete-chart-frame[data-surface="transparent"] {
+	border-color: transparent;
+	background: transparent;
+}
+
+.concrete-chart-message {
+	display: grid;
+	min-height: var(--concrete-chart-height, var(--concrete-size-chart-height));
+	place-items: center;
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-13);
+	font-weight: var(--concrete-weight-bold);
+}

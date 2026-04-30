@@ -56,7 +56,7 @@ import { foundationRegistry } from '@rubriclab/concrete/registry'
 
 This section is generated from `foundationRegistry`, `primitiveRegistry`, and `componentRegistry`. Run `bun run build:skill` after registry changes.
 
-Concrete currently exposes 12 foundations, 84 primitives, and 34 components.
+Concrete currently exposes 12 foundations, 109 primitives, and 36 components.
 
 ### Foundations
 
@@ -98,7 +98,7 @@ Dimension tokens for controls, icons, tracks, media, viewports, and measures.
 - Category: `foundation`
 - Pressure: `product`, `generative`, `educational`
 - Guidance: Use sizing tokens for intrinsic dimensions. Use spacing tokens for rhythm and layout tokens for composition.
-- Tokens: Control (3: `field-control`, `button-medium`, `toolbar-control`); Icon (1: `icon-medium`); Avatar (1: `avatar-medium`); Track (2: `progress-track`, `slider-hit`); Measure (2: `form-dialog`, `agent-panel`); Viewport (1: `diagram-canvas`); Data (1: `chart-height`); Media (1: `thumbnail`)
+- Tokens: Control (3: `field-control`, `button-medium`, `toolbar-control`); Measure (6: `layout-grid-min`, `layout-sidebar`, `container-content`, `container-wide`, `dialog-surface`, `trace-panel`); Viewport (2: `scroll-area-medium`, `diagram-canvas`); Icon (1: `icon-medium`); Avatar (1: `avatar-medium`); Track (2: `progress-track`, `slider-hit`); Data (1: `chart-height`); Media (1: `thumbnail`)
 
 #### Layout
 
@@ -108,7 +108,7 @@ Composition recipes for grids, layers, offsets, responsive behavior, and templat
 - Category: `layout`
 - Pressure: `product`, `generative`, `educational`
 - Guidance: Use layout tokens through layout primitives. Components should not invent grid templates or z-index values.
-- Tokens: Template (5: `form-row`, `picker-control`, `calendar-grid`, `distribution-row`, `heatmap-grid`); Grid (2: `track-fill`, `column-full`); Layer (2: `tooltip`, `form-overlay`); Offset (1: `tooltip-gap`); Responsive (1: `search-wrap`); Utility (1: `flex-fill`)
+- Tokens: Template (8: `field-row`, `layout-split`, `layout-split-even`, `layout-split-sidebar`, `picker-button`, `calendar-grid`, `distribution-row`, `heatmap-grid`); Grid (3: `track-fill`, `track-sidebar`, `column-full`); Layer (2: `tooltip`, `overlay`); Offset (1: `tooltip-gap`); Responsive (1: `search-input-wrap`); Utility (1: `flex-fill`)
 
 #### Radii
 
@@ -184,26 +184,26 @@ Reset-level accessibility utilities and interaction constraints.
 
 Primitives are the Concrete HTML vocabulary. They own DOM, scoped classes, schemas, examples, states, and the smallest meaningful styling surface.
 
-- **Control** (14): Button (`button`), Toolbar Control (`toolbar-control`), Search field (`search-field`), Search token (`search-token`), Menu shell (`menu-shell`), Option row (`option-row`), Caret (`caret`), Select control (`select-control`), Select menu (`select-menu`), Chip (`chip`), Composer Shell (`composer-shell`), Composer Rail (`composer-rail`), Diagram Controls (`diagram-controls`), Suggestion menu (`suggestion-menu`)
-- **Form** (18): Input (`input`), Field (`field`), Form Layout (`form-layout`), Form Overlay (`form-overlay`), Calendar panel (`calendar-panel`), Dropzone (`dropzone`), Upload field (`upload-field`), Textarea (`textarea`), Select (`select`), Checkbox (`checkbox`), Radio (`radio`), Stepper Control (`stepper-control`), Range Control (`range-control`), Switch (`switch`), Slider (`slider`), Picker control (`picker-control`), Picker shell (`picker-shell`), Time list (`time-list`)
-- **Feedback** (8): Message shell (`message-shell`), Feedback Panel (`feedback-panel`), Reasoning panel (`reasoning-panel`), Spinner (`spinner`), Empty state (`empty-state`), Tooltip (`tooltip`), Skeleton (`skeleton`), Tool-call panel (`tool-call-panel`)
-- **Data** (13): Metric Shell (`metric-shell`), Data Card Header (`data-card-header`), Chart Surface (`chart-surface`), Chart Legend (`chart-legend`), Data Table Shell (`data-table-shell`), Data Table Control (`data-table-control`), Data Table Pagination (`data-table-pagination`), Progress (`progress`), Stat (`stat`), Delta (`delta`), Sparkline (`sparkline`), Distribution (`distribution`), Indicator (`indicator`)
+- **Control** (14): Button (`button`), Toolbar Control (`toolbar-control`), IconButton (`icon-button`), ControlGroup (`control-group`), Token (`token`), SearchInput (`search-input`), PickerButton (`picker-button`), Listbox (`listbox`), Option row (`option-row`), Caret (`caret`), Chip (`chip`), Composer Surface (`composer-surface`), Token Rail (`token-rail`), Diagram Controls (`diagram-controls`)
+- **Form** (15): Input (`input`), Field (`field`), FieldRow (`field-row`), Calendar panel (`calendar-grid`), Dropzone (`dropzone`), Upload field (`upload-field`), Textarea (`textarea`), Select (`select`), Checkbox (`checkbox`), Radio (`radio`), Stepper (`stepper`), Range (`range`), Switch (`switch`), Slider (`slider`), Time list (`time-list`)
+- **Layout** (13): Stack (`stack`), Inline (`inline`), Cluster (`cluster`), Container (`container`), Grid (`grid`), Split (`split`), Scroll Area (`scroll-area`), Dock (`dock`), Rail (`rail`), Section (`section`), Row (`row`), Divider (`divider`), Frame (`frame`)
+- **Surface** (11): Surface (`surface`), Panel (`panel`), PickerSurface (`picker-surface`), Overlay (`overlay`), DialogSurface (`dialog-surface`), DrawerSurface (`drawer-surface`), DisclosurePanel (`disclosure-panel`), Message Bubble (`message-bubble`), Card (`card`), TiltFrame (`tilt-frame`), ScaleFrame (`scale-frame`)
+- **Typography** (6): Header (`header`), Text (`text`), Heading (`heading`), Label (`label`), Code (`code`), Kbd (`kbd`)
+- **Navigation** (3): MenuSurface (`menu-surface`), MenuGroup (`menu-group`), Link (`link`)
+- **Feedback** (9): Alert (`alert`), ValidationList (`validation-list`), Transcript item (`transcript-item`), Trace panel (`trace-panel`), Spinner (`spinner`), Empty state (`empty-state`), Tooltip (`tooltip`), Skeleton (`skeleton`), Tool-call panel (`tool-call-panel`)
+- **Data** (20): Data Surface (`data-surface`), Chart Frame (`chart-frame`), Plot (`plot`), Chart Grid (`chart-grid`), Axis (`axis`), Target Line (`target-line`), Series Line (`series-line`), Series Point (`series-point`), Series Bar (`series-bar`), Donut Ring (`donut-ring`), Heatmap Grid (`heatmap-grid`), Legend (`legend`), Table (`table`), Pagination (`pagination`), Progress (`progress`), Stat (`stat`), Delta (`delta`), Sparkline (`sparkline`), Distribution (`distribution`), Indicator (`indicator`)
 - **Media** (2): Upload item (`upload-item`), Avatar (`avatar`)
-- **Surface** (4): Card (`card`), Bubble (`bubble`), TiltFrame (`tilt-frame`), ScaleFrame (`scale-frame`)
 - **Status** (3): Pill (`pill`), Badge (`badge`), Tag (`tag`)
-- **Layout** (4): Row (`row`), Preview Stage (`preview-stage`), Divider (`divider`), Frame (`frame`)
-- **Typography** (2): Code (`code`), Kbd (`kbd`)
 - **Diagram** (10): Concept frame (`concept-frame`), Concept connector (`concept-connector`), Diagram Viewport (`diagram-viewport`), Diagram Rail (`diagram-rail`), Diagram Edge (`diagram-edge`), Diagram MiniMap (`diagram-minimap`), Diagram Legend (`diagram-legend`), Diagram node (`diagram-node`), Diagram item (`diagram-item`), Flow Node (`flow-node`)
-- **Navigation** (1): Link (`link`)
-- **Foundation** (3): Texture (`texture`), Icon (`icon`), Focus ring (`focus-ring`)
 - **Brand** (2): Brand mark (`brand-mark`), Wordmark (`wordmark`)
+- **Foundation** (1): Icon (`icon`)
 
 ### Components
 
 Components assemble primitives into reusable product behavior. They should not introduce bespoke styling when a primitive or foundation can own the concept.
 
+- **Navigation** (3): Nav (`nav`), Footer (`footer`), Command menu (`command-menu`)
 - **Control** (1): Toolbar (`toolbar`)
-- **Navigation** (1): Command menu (`command-menu`)
 - **Form** (9): Search bar (`search-bar`), Password input (`password-input`), Multi select (`multi-select`), Date picker (`date-picker`), Date range picker (`date-range-picker`), Time picker (`time-picker`), Number stepper (`number-stepper`), Range slider (`range-slider`), File upload (`file-upload`)
 - **Layout** (5): Form shell (`form-shell`), Settings panel (`settings-panel`), Form dialog (`form-dialog`), Form drawer (`form-drawer`), Composer (`composer`)
 - **Feedback** (3): Validation summary (`validation-summary`), Reasoning message (`reasoning-message`), Tool call message (`tool-call-message`)

@@ -16,6 +16,8 @@ export type FeatureCardProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
 	title: ReactNode
 }
 
+// TECH-DEBT: Low-quality landing-page integration. This should become a composition of
+// Surface, Header, Icon, and Text primitives instead of a bespoke component wrapper.
 export function FeatureCard({
 	accent = 'ink',
 	className,

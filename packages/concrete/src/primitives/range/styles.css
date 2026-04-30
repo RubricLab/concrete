@@ -1,0 +1,82 @@
+.concrete-range {
+	--concrete-range-start: var(--concrete-range-start-default);
+	--concrete-range-end: var(--concrete-range-end-default);
+	position: relative;
+	display: grid;
+	gap: var(--concrete-space-2);
+	width: min(var(--concrete-measure-range), var(--concrete-size-full));
+	min-width: var(--concrete-size-range-min-inline);
+	padding-top: var(--concrete-space-2-25);
+}
+
+.concrete-range-track {
+	position: absolute;
+	top: var(--concrete-size-range-track-offset);
+	right: var(--concrete-space-0);
+	left: var(--concrete-space-0);
+	height: var(--concrete-size-slider-track);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-range-track-background);
+	pointer-events: none;
+}
+
+.concrete-range input[type="range"] {
+	appearance: none;
+	position: absolute;
+	top: var(--concrete-size-range-input-offset);
+	left: var(--concrete-space-0);
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-range-hit);
+	margin: var(--concrete-space-0);
+	background: transparent;
+	pointer-events: none;
+}
+
+.concrete-range input[type="range"]::-webkit-slider-runnable-track {
+	height: var(--concrete-size-slider-track);
+	background: transparent;
+}
+
+.concrete-range input[type="range"]::-webkit-slider-thumb {
+	appearance: none;
+	width: var(--concrete-size-range-thumb);
+	height: var(--concrete-size-range-thumb);
+	margin-top: var(--concrete-translate-range-thumb);
+	border: var(--concrete-border-width-emphasis) solid var(--concrete-surface);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-sky);
+	box-shadow: var(--concrete-shadow-range-thumb);
+	cursor: grab;
+	pointer-events: auto;
+	transition:
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-range input[type="range"]::-webkit-slider-thumb:hover {
+	box-shadow: var(--concrete-shadow-range-thumb-hover);
+	transform: scale(var(--concrete-scale-range-thumb-hover));
+}
+
+.concrete-range input[type="range"]::-webkit-slider-thumb:active {
+	cursor: grabbing;
+	transform: scale(var(--concrete-scale-range-thumb-active));
+}
+
+.concrete-range input[type="range"]:focus-visible {
+	outline: var(--concrete-space-0);
+}
+
+.concrete-range input[type="range"]:focus-visible::-webkit-slider-thumb {
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-range-values {
+	display: flex;
+	justify-content: space-between;
+	padding-top: var(--concrete-space-5);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}

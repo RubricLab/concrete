@@ -1,0 +1,13 @@
+.concrete-dialog-surface {
+	width: var(--concrete-size-full);
+	min-width: var(--concrete-space-0);
+	max-width: var(--concrete-measure-dialog-surface);
+}
+
+.concrete-dialog-surface[data-size="compact"] {
+	max-width: var(--concrete-measure-dialog-surface-compact);
+}
+
+.concrete-dialog-surface[data-size="wide"] {
+	max-width: var(--concrete-measure-dialog-surface-wide);
+}

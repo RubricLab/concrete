@@ -3,15 +3,15 @@
 import type { PointerEvent } from 'react'
 import { useId, useState } from 'react'
 import {
-	ChartLegend,
-	ChartLegendItem,
-	DataCardHeader,
 	FlowDiagramControls,
 	FlowDiagramEdgePath,
 	FlowDiagramShell,
 	FlowDiagramSvg,
 	FlowDiagramViewport,
-	FlowNode
+	FlowNode,
+	Header,
+	Legend,
+	LegendItem
 } from '../../primitives'
 import { type FlowDiagramNode, type FlowDiagramProps, flowDiagramPropsSchema } from '../../schemas'
 import { clamp, routeDiagramEdge } from '../../utilities/data-geometry'
@@ -65,9 +65,8 @@ export function FlowDiagram({
 
 	return (
 		<FlowDiagramShell className={className}>
-			<DataCardHeader
-				description={parsedProps.description}
-				end={
+			<Header
+				actions={
 					parsedProps.controls ? (
 						<FlowDiagramControls
 							onReset={() => {
@@ -79,6 +78,7 @@ export function FlowDiagram({
 						/>
 					) : null
 				}
+				description={parsedProps.description}
 				title={parsedProps.title}
 			/>
 			<FlowDiagramViewport>
@@ -135,11 +135,11 @@ export function FlowDiagram({
 				</FlowDiagramSvg>
 			</FlowDiagramViewport>
 			{parsedProps.legend.length > 0 ? (
-				<ChartLegend>
+				<Legend>
 					{parsedProps.legend.map(item => (
-						<ChartLegendItem key={item.label} label={item.label} tone={toIndicatorTone(item.tone)} />
+						<LegendItem key={item.label} label={item.label} tone={toIndicatorTone(item.tone)} />
 					))}
-				</ChartLegend>
+				</Legend>
 			) : null}
 		</FlowDiagramShell>
 	)

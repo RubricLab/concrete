@@ -11,10 +11,10 @@ export const linkExamples = defineExamples({
 		)
 	},
 	nav: {
-		description: 'Compact nav link treatment.',
+		description: 'Compact nav link treatment with current page state.',
 		render: () => (
 			<>
-				<TextLink href="#" variant="nav">
+				<TextLink current href="#" variant="nav">
 					Overview
 				</TextLink>
 				<TextLink href="#" tone="sky" variant="nav">

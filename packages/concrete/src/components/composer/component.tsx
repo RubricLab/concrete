@@ -5,12 +5,13 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import {
 	ComposerEditor,
 	ComposerFooter,
-	ComposerRail,
+	ComposerMenuLayer,
 	ComposerSendButton,
-	ComposerShell,
 	ComposerSubmitDock,
+	ComposerSurface,
 	ComposerToolbar,
-	SuggestionMenuLayer,
+	TokenRail,
+	type TokenRailItemData,
 	ToolbarControlGroup,
 	ToolbarControlSeparator,
 	Tooltip
@@ -386,14 +387,40 @@ export function Composer({
 		},
 		[currentValue, publishExplicitValue, saveSelection]
 	)
+	const tokenRailItems = useMemo<readonly TokenRailItemData[]>(
+		() => [
+			...currentValue.mentions.map(token => ({
+				icon: 'at-sign' as const,
+				id: `mention-${token.id}`,
+				kind: 'mention' as const,
+				label: token.label,
+				onRemove: () => removeToken(token),
+				removeLabel: `Remove ${token.label}`
+			})),
+			...currentValue.commands.map(token => ({
+				icon: 'slash' as const,
+				id: `command-${token.id}`,
+				kind: 'command' as const,
+				label: token.label,
+				onRemove: () => removeToken(token),
+				removeLabel: `Remove ${token.label}`
+			})),
+			...currentValue.attachments.map(attachment => ({
+				icon: 'paperclip' as const,
+				id: `attachment-${attachment.id}`,
+				kind: 'attachment' as const,
+				label: attachment.name,
+				meta: attachment.meta,
+				onRemove: () => removeAttachment(attachment),
+				removeLabel: `Remove ${attachment.name}`
+			}))
+		],
+		[currentValue, removeAttachment, removeToken]
+	)
 
 	return (
-		<ComposerShell className={className} disabled={disabled} {...props}>
-			<ComposerRail
-				onAttachmentRemove={removeAttachment}
-				onTokenRemove={removeToken}
-				value={currentValue}
-			/>
+		<ComposerSurface className={className} disabled={disabled} {...props}>
+			<TokenRail items={tokenRailItems} />
 			<ComposerEditor
 				aria-label="Message composer"
 				aria-multiline="true"
@@ -489,7 +516,7 @@ export function Composer({
 				</ComposerSubmitDock>
 			</ComposerFooter>
 			{menu ? (
-				<SuggestionMenuLayer>
+				<ComposerMenuLayer>
 					<ComposerMenu
 						menu={menu}
 						onCommit={suggestion => {
@@ -498,8 +525,8 @@ export function Composer({
 						}}
 						options={options}
 					/>
-				</SuggestionMenuLayer>
+				</ComposerMenuLayer>
 			) : null}
-		</ComposerShell>
+		</ComposerSurface>
 	)
 }

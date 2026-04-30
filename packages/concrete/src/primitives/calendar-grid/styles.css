@@ -1,0 +1,106 @@
+.concrete-calendar-grid {
+	position: absolute;
+	z-index: var(--concrete-z-picker-menu);
+	top: calc(var(--concrete-size-full) + var(--concrete-space-1-5));
+	left: var(--concrete-space-0);
+	display: grid;
+	gap: var(--concrete-space-2);
+	width: var(--concrete-size-calendar-grid-inline);
+	padding: var(--concrete-space-2-25);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-3);
+}
+
+.concrete-calendar-grid[data-placement="inline"] {
+	position: relative;
+	z-index: auto;
+	top: auto;
+	left: auto;
+}
+
+.concrete-calendar-grid header {
+	display: grid;
+	grid-template-columns: var(--concrete-template-calendar-header);
+	align-items: center;
+	gap: var(--concrete-space-1-5);
+}
+
+.concrete-calendar-grid header b {
+	text-align: center;
+	font:
+		var(--concrete-weight-heading) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-calendar-weekdays,
+.concrete-calendar-days {
+	display: grid;
+	grid-template-columns: var(--concrete-template-calendar-days);
+	gap: var(--concrete-space-0-5);
+}
+
+.concrete-calendar-weekdays span {
+	display: grid;
+	place-items: center;
+	height: var(--concrete-size-calendar-weekday-block);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	text-transform: uppercase;
+}
+
+.concrete-calendar-days button {
+	display: grid;
+	place-items: center;
+	height: var(--concrete-size-calendar-day-block);
+	border: var(--concrete-space-0);
+	border-radius: var(--concrete-radius-2);
+	background: transparent;
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+}
+
+.concrete-calendar-days button:hover {
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-calendar-days button[data-muted="true"] {
+	color: var(--concrete-foreground-soft);
+}
+
+.concrete-calendar-days button[data-in-range="true"] {
+	background: var(--concrete-sky-1);
+	color: var(--concrete-sky-strong);
+}
+
+.concrete-calendar-days button[data-selected="true"] {
+	background: var(--concrete-sky);
+	color: var(--concrete-surface);
+}
+
+.concrete-calendar-days button:disabled {
+	background: transparent;
+	color: var(--concrete-foreground-soft);
+	cursor: not-allowed;
+	text-decoration: var(--concrete-text-decoration-disabled-date);
+}
+
+.concrete-calendar-days button:active:not(:disabled) {
+	transform: translateY(var(--concrete-translate-press-strong));
+}
+
+.concrete-calendar-days button:focus-visible {
+	outline: var(--concrete-space-0);
+	box-shadow: var(--concrete-ring-focus);
+}

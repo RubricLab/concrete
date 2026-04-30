@@ -1,0 +1,21 @@
+.concrete-message-bubble {
+	width: fit-content;
+	max-width: var(--concrete-measure-message-bubble);
+	padding-block: var(--concrete-space-2);
+	padding-inline: var(--concrete-space-2-75);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-5);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-13) / var(--concrete-line-prose-compact)
+		var(--concrete-font-sans);
+}
+
+.concrete-message-bubble-outbound {
+	margin-left: auto;
+	border-color: var(--concrete-ink-9);
+	border-radius: var(--concrete-radius-5) var(--concrete-radius-5) var(--concrete-radius-2);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+}

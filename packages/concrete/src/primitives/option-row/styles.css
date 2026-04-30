@@ -32,9 +32,9 @@
 }
 
 .concrete-option-row[data-kind="select"] {
-	grid-template-columns: var(--concrete-template-multi-select-option);
+	grid-template-columns: var(--concrete-template-option-row);
 	gap: var(--concrete-space-2);
-	min-height: var(--concrete-size-multi-select-option-min-block);
+	min-height: var(--concrete-size-option-row-min-block);
 	padding-block: var(--concrete-space-1-5);
 	padding-inline: var(--concrete-space-1-75);
 	border-radius: var(--concrete-radius-3);
@@ -149,6 +149,6 @@
 }
 
 .concrete-option-row[data-kind="select"] .concrete-option-row-aside svg {
-	width: var(--concrete-size-picker-toggle-glyph);
-	height: var(--concrete-size-picker-toggle-glyph);
+	width: var(--concrete-size-option-row-glyph);
+	height: var(--concrete-size-option-row-glyph);
 }

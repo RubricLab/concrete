@@ -2,13 +2,21 @@ import { defineExamples } from '../../factories/createExamples'
 import { CodeBlock, InlineCode } from './component'
 
 export const codeExamples = defineExamples({
+	command: {
+		description: 'Compact command with internal clipboard copy.',
+		render: () => (
+			<>
+				<CodeBlock code="npm install @rubriclab/concrete" language="Shell" mode="command" />
+			</>
+		)
+	},
 	default: {
 		description: 'TypeScript code block with inline code.',
 		render: () => (
 			<>
 				<InlineCode>ConcretePressure</InlineCode>
 				<CodeBlock
-					code={'const state = concreteRegistry.find(item => item.slug === "message-shell")'}
+					code={'const state = concreteRegistry.find(item => item.slug === "transcript-item")'}
 				/>
 			</>
 		)

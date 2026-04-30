@@ -28,6 +28,8 @@ type PendingTilt = {
 	target: HTMLDivElement
 }
 
+// TECH-DEBT: Low-quality landing-page primitive. Cursor-driven visual depth is too
+// aesthetic-specific for the core surface vocabulary and needs a stricter role contract.
 export function TiltFrame({
 	children,
 	className,

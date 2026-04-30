@@ -2,6 +2,7 @@ import { z } from 'zod/v4'
 
 export const linkSchema = z
 	.object({
+		current: z.boolean().default(false),
 		external: z.boolean().default(false),
 		href: z.string().default('#'),
 		label: z.string().default('Open research note'),

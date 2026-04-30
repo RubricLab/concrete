@@ -16,6 +16,8 @@ type ScaleFrameStyle = CSSProperties & {
 	'--concrete-scale-frame-scale'?: string
 }
 
+// TECH-DEBT: Low-quality docs-preview primitive. The raw numeric scale prop and inline
+// custom property adapter should be replaced by tokenized preview/composition primitives.
 export function ScaleFrame({
 	align = 'center',
 	children,

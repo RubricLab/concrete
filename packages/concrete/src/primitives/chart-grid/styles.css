@@ -1,0 +1,9 @@
+.concrete-chart-grid line {
+	stroke: var(--concrete-chart-grid-stroke);
+	stroke-width: var(--concrete-border-width-hairline);
+}
+
+.concrete-chart-plot-background {
+	fill: transparent;
+	stroke: none;
+}

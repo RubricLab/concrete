@@ -3,7 +3,7 @@ import { defineExamples } from '../../factories/createExamples'
 import { sizingTokens } from './schema'
 
 const controlNames = ['field-control', 'button-medium', 'toolbar-control', 'icon-medium'] as const
-const measureNames = ['form-dialog', 'agent-panel', 'diagram-canvas', 'chart-height'] as const
+const measureNames = ['dialog-surface', 'trace-panel', 'diagram-canvas', 'chart-height'] as const
 
 export const sizingExamples = defineExamples({
 	controls: {

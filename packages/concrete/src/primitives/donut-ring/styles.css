@@ -1,0 +1,50 @@
+.concrete-donut-chart {
+	position: relative;
+	display: grid;
+	min-height: var(--concrete-chart-height, var(--concrete-size-chart-height));
+	place-items: center;
+	color: var(--concrete-sky);
+}
+
+.concrete-donut-chart svg {
+	width: min(var(--concrete-size-donut-inline), var(--concrete-size-donut-inline-ratio));
+	transform: rotate(var(--concrete-rotate-negative-quarter));
+}
+
+.concrete-donut-segment,
+.concrete-donut-track {
+	fill: none;
+	stroke-width: var(--concrete-donut-stroke-width, var(--concrete-size-donut-stroke));
+}
+
+.concrete-donut-segment {
+	stroke: currentcolor;
+	stroke-linecap: butt;
+}
+
+.concrete-donut-track {
+	stroke: var(--concrete-surface);
+}
+
+.concrete-donut-center {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	display: grid;
+	place-content: center;
+	text-align: center;
+}
+
+.concrete-donut-center-value {
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-24);
+	line-height: var(--concrete-line-flat);
+}
+
+.concrete-donut-center-label {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}

@@ -2,7 +2,7 @@
 
 import type { HTMLAttributes } from 'react'
 import { useMemo, useState } from 'react'
-import { Field, PickerControl, PickerShell, TimeList } from '../../primitives'
+import { Field, PickerButton, PickerSurface, TimeList } from '../../primitives'
 import type { FieldChromeProps } from '../../utilities/form-field-helpers'
 
 export type TimePickerProps = Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> &
@@ -55,10 +55,10 @@ export function TimePicker({
 			required={required}
 			success={success}
 		>
-			<PickerShell kind="time" open={open} {...props}>
-				<PickerControl icon="clock" onClick={() => setOpen(current => !current)} open={open}>
+			<PickerSurface open={open} {...props}>
+				<PickerButton icon="clock" onClick={() => setOpen(current => !current)} open={open}>
 					{formatTimeLabel(currentValue)}
-				</PickerControl>
+				</PickerButton>
 				{open ? (
 					<TimeList
 						formatOption={formatTimeLabel}
@@ -67,7 +67,7 @@ export function TimePicker({
 						value={currentValue}
 					/>
 				) : null}
-			</PickerShell>
+			</PickerSurface>
 		</Field>
 	)
 }

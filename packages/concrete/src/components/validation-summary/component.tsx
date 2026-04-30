@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import { FeedbackPanel, type FeedbackPanelItem, type FeedbackPanelStatus } from '../../primitives'
+import { Alert, Stack, ValidationList, type ValidationListItem } from '../../primitives'
 import type { FieldStatus } from '../../schemas'
 
 export type ValidationSummaryItem = {
@@ -27,40 +27,42 @@ export function ValidationSummary({
 	title = status === 'success' ? 'Ready to save' : 'Review required',
 	...props
 }: ValidationSummaryProps) {
-	const feedbackStatus = toFeedbackStatus(status, 'error')
+	const validationStatus = toValidationStatus(status, 'error')
 
 	return (
-		<FeedbackPanel
-			action={action}
-			className={className}
-			description={description}
-			items={items.map(item => toFeedbackPanelItem(item, feedbackStatus))}
-			status={feedbackStatus}
-			title={title}
-			{...props}
-		/>
+		<Stack className={className} density="compact" {...props}>
+			<Alert action={action} status={validationStatus} title={title}>
+				{description}
+			</Alert>
+			{items.length ? (
+				<ValidationList
+					items={items.map(item => toValidationListItem(item, validationStatus))}
+					status={validationStatus}
+				/>
+			) : null}
+		</Stack>
 	)
 }
 
-function toFeedbackPanelItem(
+function toValidationListItem(
 	item: ValidationSummaryItem,
-	fallbackStatus: FeedbackPanelStatus
-): FeedbackPanelItem {
+	fallbackStatus: FieldStatus
+): ValidationListItem {
 	return {
 		...item,
-		status: toFeedbackStatus(item.status, fallbackStatus)
+		status: toValidationStatus(item.status, fallbackStatus)
 	}
 }
 
-function toFeedbackStatus(
+function toValidationStatus(
 	status: FieldStatus | undefined,
-	fallbackStatus: FeedbackPanelStatus
-): FeedbackPanelStatus {
+	fallbackStatus: FieldStatus
+): FieldStatus {
 	switch (status) {
 		case 'error':
 		case 'success':
-			return status
 		case 'default':
+			return status
 		case undefined:
 			return fallbackStatus
 	}

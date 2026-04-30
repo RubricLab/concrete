@@ -1,0 +1,56 @@
+.concrete-picker-button {
+	display: grid;
+	grid-template-columns: var(--concrete-template-picker-button);
+	align-items: center;
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-picker-button);
+	padding-block: var(--concrete-space-0);
+	padding-right: var(--concrete-space-2-25);
+	padding-left: var(--concrete-space-2-5);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-control-inset);
+	color: var(--concrete-foreground-strong);
+	cursor: pointer;
+	font:
+		var(--concrete-weight-accent) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	text-align: left;
+	transition:
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+}
+
+.concrete-picker-button:hover {
+	border-color: var(--concrete-border-strong);
+}
+
+.concrete-picker-button[data-open="true"] {
+	border-color: var(--concrete-sky);
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-picker-button:active {
+	transform: translateY(var(--concrete-translate-press-strong));
+}
+
+.concrete-picker-button svg {
+	width: var(--concrete-size-picker-icon);
+	height: var(--concrete-size-picker-icon);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-picker-button:focus-visible {
+	outline: var(--concrete-space-0);
+	border-color: var(--concrete-sky);
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-picker-button-label {
+	min-width: var(--concrete-space-0);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

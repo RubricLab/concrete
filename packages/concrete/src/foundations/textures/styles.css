@@ -51,3 +51,37 @@
 		inset 0 14px 24px -22px rgb(78 139 222 / 32%),
 		inset 0 -18px 28px -26px rgb(10 11 15 / 28%);
 }
+
+.concrete-lattice {
+	background-image:
+		linear-gradient(
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		),
+		linear-gradient(
+			90deg,
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		);
+	background-size: var(--concrete-space-4) var(--concrete-space-4);
+}
+
+.concrete-dots {
+	background-image: radial-gradient(
+		circle,
+		var(--concrete-dots) var(--concrete-border-width-hairline),
+		transparent var(--concrete-texture-dot-fade-size)
+	);
+	background-size: var(--concrete-space-3) var(--concrete-space-3);
+}
+
+.concrete-lines {
+	background-image: linear-gradient(
+		to bottom,
+		transparent,
+		transparent calc(var(--concrete-space-3) - var(--concrete-border-width-hairline)),
+		var(--concrete-lines) calc(var(--concrete-space-3) - var(--concrete-border-width-hairline)),
+		var(--concrete-lines) var(--concrete-space-3)
+	);
+	background-size: var(--concrete-space-3) var(--concrete-space-3);
+}

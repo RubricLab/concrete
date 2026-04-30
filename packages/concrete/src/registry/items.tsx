@@ -11,6 +11,7 @@ import { donutChartComponentDefinition } from '../components/donut-chart'
 import { featureCardComponentDefinition } from '../components/feature-card'
 import { fileUploadComponentDefinition } from '../components/file-upload'
 import { flowDiagramComponentDefinition } from '../components/flow-diagram'
+import { footerComponentDefinition } from '../components/footer'
 import { formDialogComponentDefinition } from '../components/form-dialog'
 import { formDrawerComponentDefinition } from '../components/form-drawer'
 import { formShellComponentDefinition } from '../components/form-shell'
@@ -21,6 +22,7 @@ import { messageComponentDefinition } from '../components/message'
 import { meterComponentDefinition } from '../components/meter'
 import { metricCardComponentDefinition } from '../components/metric-card'
 import { multiSelectComponentDefinition } from '../components/multi-select'
+import { navComponentDefinition } from '../components/nav'
 import { numberStepperComponentDefinition } from '../components/number-stepper'
 import { passwordInputComponentDefinition } from '../components/password-input'
 import { rangeSliderComponentDefinition } from '../components/range-slider'
@@ -33,27 +35,27 @@ import { toolCallMessageComponentDefinition } from '../components/tool-call-mess
 import { toolbarComponentDefinition } from '../components/toolbar'
 import { validationSummaryComponentDefinition } from '../components/validation-summary'
 import { foundationDefinitions } from '../foundations'
+import { alertPrimitiveDefinition } from '../primitives/alert'
 import { avatarPrimitiveDefinition } from '../primitives/avatar'
+import { axisPrimitiveDefinition } from '../primitives/axis'
 import { badgePrimitiveDefinition } from '../primitives/badge'
 import { brandMarkPrimitiveDefinition } from '../primitives/brand-mark'
-import { bubblePrimitiveDefinition } from '../primitives/bubble'
 import { buttonPrimitiveDefinition } from '../primitives/button'
-import { calendarPanelPrimitiveDefinition } from '../primitives/calendar-panel'
+import { calendarGridPrimitiveDefinition } from '../primitives/calendar-grid'
 import { cardPrimitiveDefinition } from '../primitives/card'
 import { caretPrimitiveDefinition } from '../primitives/caret'
-import { chartLegendPrimitiveDefinition } from '../primitives/chart-legend'
-import { chartSurfacePrimitiveDefinition } from '../primitives/chart-surface'
+import { chartFramePrimitiveDefinition } from '../primitives/chart-frame'
+import { chartGridPrimitiveDefinition } from '../primitives/chart-grid'
 import { checkboxPrimitiveDefinition } from '../primitives/checkbox'
 import { chipPrimitiveDefinition } from '../primitives/chip'
+import { clusterPrimitiveDefinition } from '../primitives/cluster'
 import { codePrimitiveDefinition } from '../primitives/code'
-import { composerRailPrimitiveDefinition } from '../primitives/composer-rail'
-import { composerShellPrimitiveDefinition } from '../primitives/composer-shell'
+import { composerSurfacePrimitiveDefinition } from '../primitives/composer-surface'
 import { conceptConnectorPrimitiveDefinition } from '../primitives/concept-connector'
 import { conceptFramePrimitiveDefinition } from '../primitives/concept-frame'
-import { dataCardHeaderPrimitiveDefinition } from '../primitives/data-card-header'
-import { dataTableControlPrimitiveDefinition } from '../primitives/data-table-control'
-import { dataTablePaginationPrimitiveDefinition } from '../primitives/data-table-pagination'
-import { dataTableShellPrimitiveDefinition } from '../primitives/data-table-shell'
+import { containerPrimitiveDefinition } from '../primitives/container'
+import { controlGroupPrimitiveDefinition } from '../primitives/control-group'
+import { dataSurfacePrimitiveDefinition } from '../primitives/data-surface'
 import { deltaPrimitiveDefinition } from '../primitives/delta'
 import { diagramControlsPrimitiveDefinition } from '../primitives/diagram-controls'
 import { diagramEdgePrimitiveDefinition } from '../primitives/diagram-edge'
@@ -63,59 +65,84 @@ import { diagramMiniMapPrimitiveDefinition } from '../primitives/diagram-minimap
 import { diagramNodePrimitiveDefinition } from '../primitives/diagram-node'
 import { diagramRailPrimitiveDefinition } from '../primitives/diagram-rail'
 import { diagramViewportPrimitiveDefinition } from '../primitives/diagram-viewport'
+import { dialogSurfacePrimitiveDefinition } from '../primitives/dialog-surface'
+import { disclosurePanelPrimitiveDefinition } from '../primitives/disclosure-panel'
 import { distributionPrimitiveDefinition } from '../primitives/distribution'
 import { dividerPrimitiveDefinition } from '../primitives/divider'
+import { dockPrimitiveDefinition } from '../primitives/dock'
+import { donutRingPrimitiveDefinition } from '../primitives/donut-ring'
+import { drawerSurfacePrimitiveDefinition } from '../primitives/drawer-surface'
 import { dropzonePrimitiveDefinition } from '../primitives/dropzone'
 import { emptyStatePrimitiveDefinition } from '../primitives/empty-state'
-import { feedbackPanelPrimitiveDefinition } from '../primitives/feedback-panel'
 import { fieldPrimitiveDefinition } from '../primitives/field'
+import { fieldRowPrimitiveDefinition } from '../primitives/field-row'
 import { flowNodePrimitiveDefinition } from '../primitives/flow-node'
-import { focusRingPrimitiveDefinition } from '../primitives/focus-ring'
-import { formLayoutPrimitiveDefinition } from '../primitives/form-layout'
-import { formOverlayPrimitiveDefinition } from '../primitives/form-overlay'
 import { framePrimitiveDefinition } from '../primitives/frame'
+import { gridPrimitiveDefinition } from '../primitives/grid'
+import { headerPrimitiveDefinition } from '../primitives/header'
+import { headingPrimitiveDefinition } from '../primitives/heading'
+import { heatmapGridPrimitiveDefinition } from '../primitives/heatmap-grid'
 import { iconPrimitiveDefinition } from '../primitives/icon'
+import { iconButtonPrimitiveDefinition } from '../primitives/icon-button'
 import { indicatorPrimitiveDefinition } from '../primitives/indicator'
+import { inlinePrimitiveDefinition } from '../primitives/inline'
 import { inputPrimitiveDefinition } from '../primitives/input'
 import { kbdPrimitiveDefinition } from '../primitives/kbd'
+import { labelPrimitiveDefinition } from '../primitives/label'
+import { legendPrimitiveDefinition } from '../primitives/legend'
 import { linkPrimitiveDefinition } from '../primitives/link'
-import { menuShellPrimitiveDefinition } from '../primitives/menu-shell'
-import { messageShellPrimitiveDefinition } from '../primitives/message-shell'
-import { metricShellPrimitiveDefinition } from '../primitives/metric-shell'
+import { listboxPrimitiveDefinition } from '../primitives/listbox'
+import { menuGroupPrimitiveDefinition } from '../primitives/menu-group'
+import { menuSurfacePrimitiveDefinition } from '../primitives/menu-surface'
+import { messageBubblePrimitiveDefinition } from '../primitives/message-bubble'
 import { optionRowPrimitiveDefinition } from '../primitives/option-row'
-import { pickerControlPrimitiveDefinition } from '../primitives/picker-control'
-import { pickerShellPrimitiveDefinition } from '../primitives/picker-shell'
+import { overlayPrimitiveDefinition } from '../primitives/overlay'
+import { paginationPrimitiveDefinition } from '../primitives/pagination'
+import { panelPrimitiveDefinition } from '../primitives/panel'
+import { pickerButtonPrimitiveDefinition } from '../primitives/picker-button'
+import { pickerSurfacePrimitiveDefinition } from '../primitives/picker-surface'
 import { pillPrimitiveDefinition } from '../primitives/pill'
-import { previewStagePrimitiveDefinition } from '../primitives/preview-stage'
+import { plotPrimitiveDefinition } from '../primitives/plot'
 import { progressPrimitiveDefinition } from '../primitives/progress'
 import { radioPrimitiveDefinition } from '../primitives/radio'
-import { rangeControlPrimitiveDefinition } from '../primitives/range-control'
-import { reasoningPanelPrimitiveDefinition } from '../primitives/reasoning-panel'
+import { railPrimitiveDefinition } from '../primitives/rail'
+import { rangePrimitiveDefinition } from '../primitives/range'
 import { rowPrimitiveDefinition } from '../primitives/row'
 import { scaleFramePrimitiveDefinition } from '../primitives/scale-frame'
-import { searchFieldPrimitiveDefinition } from '../primitives/search-field'
-import { searchTokenPrimitiveDefinition } from '../primitives/search-token'
+import { scrollAreaPrimitiveDefinition } from '../primitives/scroll-area'
+import { searchInputPrimitiveDefinition } from '../primitives/search-input'
+import { sectionPrimitiveDefinition } from '../primitives/section'
 import { selectPrimitiveDefinition } from '../primitives/select'
-import { selectControlPrimitiveDefinition } from '../primitives/select-control'
-import { selectMenuPrimitiveDefinition } from '../primitives/select-menu'
+import { seriesBarPrimitiveDefinition } from '../primitives/series-bar'
+import { seriesLinePrimitiveDefinition } from '../primitives/series-line'
+import { seriesPointPrimitiveDefinition } from '../primitives/series-point'
 import { skeletonPrimitiveDefinition } from '../primitives/skeleton'
 import { sliderPrimitiveDefinition } from '../primitives/slider'
 import { sparklinePrimitiveDefinition } from '../primitives/sparkline'
 import { spinnerPrimitiveDefinition } from '../primitives/spinner'
+import { splitPrimitiveDefinition } from '../primitives/split'
+import { stackPrimitiveDefinition } from '../primitives/stack'
 import { statPrimitiveDefinition } from '../primitives/stat'
-import { stepperControlPrimitiveDefinition } from '../primitives/stepper-control'
-import { suggestionMenuPrimitiveDefinition } from '../primitives/suggestion-menu'
+import { stepperPrimitiveDefinition } from '../primitives/stepper'
+import { surfacePrimitiveDefinition } from '../primitives/surface'
 import { switchPrimitiveDefinition } from '../primitives/switch'
+import { tablePrimitiveDefinition } from '../primitives/table'
 import { tagPrimitiveDefinition } from '../primitives/tag'
+import { targetLinePrimitiveDefinition } from '../primitives/target-line'
+import { textPrimitiveDefinition } from '../primitives/text'
 import { textareaPrimitiveDefinition } from '../primitives/textarea'
-import { texturePrimitiveDefinition } from '../primitives/texture'
 import { tiltFramePrimitiveDefinition } from '../primitives/tilt-frame'
 import { timeListPrimitiveDefinition } from '../primitives/time-list'
+import { tokenPrimitiveDefinition } from '../primitives/token'
+import { tokenRailPrimitiveDefinition } from '../primitives/token-rail'
 import { toolCallPanelPrimitiveDefinition } from '../primitives/tool-call-panel'
 import { toolbarControlPrimitiveDefinition } from '../primitives/toolbar-control'
 import { tooltipPrimitiveDefinition } from '../primitives/tooltip'
+import { tracePanelPrimitiveDefinition } from '../primitives/trace-panel'
+import { transcriptItemPrimitiveDefinition } from '../primitives/transcript-item'
 import { uploadFieldPrimitiveDefinition } from '../primitives/upload-field'
 import { uploadItemPrimitiveDefinition } from '../primitives/upload-item'
+import { validationListPrimitiveDefinition } from '../primitives/validation-list'
 import { wordmarkPrimitiveDefinition } from '../primitives/wordmark'
 
 export { foundationDefinitions }
@@ -125,16 +152,43 @@ export const primitiveDefinitions = [
 	toolbarControlPrimitiveDefinition,
 	inputPrimitiveDefinition,
 	fieldPrimitiveDefinition,
-	searchFieldPrimitiveDefinition,
-	searchTokenPrimitiveDefinition,
-	menuShellPrimitiveDefinition,
-	messageShellPrimitiveDefinition,
-	metricShellPrimitiveDefinition,
-	formLayoutPrimitiveDefinition,
-	formOverlayPrimitiveDefinition,
-	feedbackPanelPrimitiveDefinition,
+	stackPrimitiveDefinition,
+	inlinePrimitiveDefinition,
+	clusterPrimitiveDefinition,
+	containerPrimitiveDefinition,
+	gridPrimitiveDefinition,
+	splitPrimitiveDefinition,
+	scrollAreaPrimitiveDefinition,
+	dockPrimitiveDefinition,
+	railPrimitiveDefinition,
+	surfacePrimitiveDefinition,
+	panelPrimitiveDefinition,
+	sectionPrimitiveDefinition,
+	headerPrimitiveDefinition,
+	textPrimitiveDefinition,
+	headingPrimitiveDefinition,
+	labelPrimitiveDefinition,
+	iconButtonPrimitiveDefinition,
+	controlGroupPrimitiveDefinition,
+	fieldRowPrimitiveDefinition,
+	tokenPrimitiveDefinition,
+	searchInputPrimitiveDefinition,
+	pickerButtonPrimitiveDefinition,
+	pickerSurfacePrimitiveDefinition,
+	menuSurfacePrimitiveDefinition,
+	menuGroupPrimitiveDefinition,
+	listboxPrimitiveDefinition,
+	overlayPrimitiveDefinition,
+	dialogSurfacePrimitiveDefinition,
+	drawerSurfacePrimitiveDefinition,
+	alertPrimitiveDefinition,
+	validationListPrimitiveDefinition,
+	disclosurePanelPrimitiveDefinition,
+	dataSurfacePrimitiveDefinition,
+	transcriptItemPrimitiveDefinition,
+	messageBubblePrimitiveDefinition,
 	optionRowPrimitiveDefinition,
-	calendarPanelPrimitiveDefinition,
+	calendarGridPrimitiveDefinition,
 	dropzonePrimitiveDefinition,
 	uploadFieldPrimitiveDefinition,
 	uploadItemPrimitiveDefinition,
@@ -143,30 +197,34 @@ export const primitiveDefinitions = [
 	selectPrimitiveDefinition,
 	checkboxPrimitiveDefinition,
 	radioPrimitiveDefinition,
-	stepperControlPrimitiveDefinition,
-	rangeControlPrimitiveDefinition,
-	reasoningPanelPrimitiveDefinition,
+	stepperPrimitiveDefinition,
+	rangePrimitiveDefinition,
+	tracePanelPrimitiveDefinition,
 	switchPrimitiveDefinition,
 	sliderPrimitiveDefinition,
-	selectControlPrimitiveDefinition,
-	selectMenuPrimitiveDefinition,
 	cardPrimitiveDefinition,
-	dataCardHeaderPrimitiveDefinition,
-	chartSurfacePrimitiveDefinition,
-	chartLegendPrimitiveDefinition,
-	dataTableShellPrimitiveDefinition,
-	dataTableControlPrimitiveDefinition,
-	dataTablePaginationPrimitiveDefinition,
+	chartFramePrimitiveDefinition,
+	plotPrimitiveDefinition,
+	chartGridPrimitiveDefinition,
+	axisPrimitiveDefinition,
+	targetLinePrimitiveDefinition,
+	seriesLinePrimitiveDefinition,
+	seriesPointPrimitiveDefinition,
+	seriesBarPrimitiveDefinition,
+	donutRingPrimitiveDefinition,
+	heatmapGridPrimitiveDefinition,
+	legendPrimitiveDefinition,
+	tablePrimitiveDefinition,
+	paginationPrimitiveDefinition,
 	pillPrimitiveDefinition,
 	chipPrimitiveDefinition,
 	badgePrimitiveDefinition,
 	tagPrimitiveDefinition,
 	avatarPrimitiveDefinition,
 	rowPrimitiveDefinition,
-	bubblePrimitiveDefinition,
 	codePrimitiveDefinition,
-	composerShellPrimitiveDefinition,
-	composerRailPrimitiveDefinition,
+	composerSurfacePrimitiveDefinition,
+	tokenRailPrimitiveDefinition,
 	conceptFramePrimitiveDefinition,
 	conceptConnectorPrimitiveDefinition,
 	diagramViewportPrimitiveDefinition,
@@ -181,9 +239,6 @@ export const primitiveDefinitions = [
 	kbdPrimitiveDefinition,
 	spinnerPrimitiveDefinition,
 	linkPrimitiveDefinition,
-	pickerControlPrimitiveDefinition,
-	pickerShellPrimitiveDefinition,
-	previewStagePrimitiveDefinition,
 	dividerPrimitiveDefinition,
 	emptyStatePrimitiveDefinition,
 	tooltipPrimitiveDefinition,
@@ -195,19 +250,18 @@ export const primitiveDefinitions = [
 	indicatorPrimitiveDefinition,
 	skeletonPrimitiveDefinition,
 	framePrimitiveDefinition,
-	suggestionMenuPrimitiveDefinition,
-	texturePrimitiveDefinition,
 	timeListPrimitiveDefinition,
 	toolCallPanelPrimitiveDefinition,
 	tiltFramePrimitiveDefinition,
 	scaleFramePrimitiveDefinition,
 	brandMarkPrimitiveDefinition,
 	wordmarkPrimitiveDefinition,
-	iconPrimitiveDefinition,
-	focusRingPrimitiveDefinition
+	iconPrimitiveDefinition
 ] as const
 
 export const componentDefinitions = [
+	navComponentDefinition,
+	footerComponentDefinition,
 	toolbarComponentDefinition,
 	commandMenuComponentDefinition,
 	searchBarComponentDefinition,

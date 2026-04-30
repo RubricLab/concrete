@@ -1,38 +1,69 @@
-'use client'
+import {
+	Badge,
+	Chip,
+	Container,
+	Grid,
+	Panel,
+	primitiveRegistry,
+	renderPrimitiveExample,
+	Section,
+	Stack,
+	Surface,
+	Text,
+	TextLink
+} from '@rubriclab/concrete'
 
-import { primitiveRegistry, renderPrimitiveExample } from '@rubriclab/concrete'
-import Link from 'next/link'
-
-// DX-TODO(docs): This route still owns raw docs HTML/CSS classes. Future UX polish should rebuild the catalog from Concrete primitives only.
 export default function PrimitivesPage() {
 	return (
-		<main className="main">
-			<section className="section">
-				<div className="sectionHead">
-					<div>
-						<span className="eyebrow">Primitives</span>
-						<h1>Implemented atoms.</h1>
-					</div>
-					<p>
-						Each card renders the primitive's item-owned default example and links into the typed prop
-						page.
-					</p>
-				</div>
+		<Container as="main" density="editorial" measure="wide">
+			<Stack density="editorial">
+				<Panel
+					description="Primitives own reusable HTML/UI vocabulary: DOM anatomy, ARIA, data attributes, stable classes, schemas, examples, metadata, render input, and local token-backed styles."
+					meta={<Badge signal="terminal">{primitiveRegistry.length} primitives</Badge>}
+					title="Implemented atoms"
+				>
+					<Text tone="muted">
+						Every primitive preview below is rendered from the package registry, then linked into its
+						dedicated prop, state, playground, and render surface.
+					</Text>
+				</Panel>
 
-				<div className="primitiveCatalog">
-					{primitiveRegistry.map(entry => (
-						<article className="primitiveConceptCard" key={entry.slug}>
-							<div className="conceptEyebrowRow">
-								<span className="conceptEyebrow">{entry.name}</span>
-								<Link className="conceptCardLink" href={`/primitives/${entry.slug}`}>
-									props
-								</Link>
-							</div>
-							<div className="conceptStage">{renderPrimitiveExample(entry.slug)}</div>
-						</article>
-					))}
-				</div>
-			</section>
-		</main>
+				<Section title="Primitive catalog">
+					<Grid>
+						{primitiveRegistry.map(entry => (
+							<Panel
+								description={entry.description}
+								footer={
+									<TextLink href={`/primitives/${entry.slug}`} variant="nav">
+										Open
+									</TextLink>
+								}
+								key={entry.slug}
+								meta={
+									<Stack density="compact">
+										<Badge signal="terminal">{entry.category}</Badge>
+										<Text purpose="caption" tone="muted">
+											{entry.states.length} states
+										</Text>
+									</Stack>
+								}
+								title={entry.name}
+							>
+								<Stack density="compact">
+									<Surface depth="sunken">
+										<Stack align="center">{renderPrimitiveExample(entry.slug)}</Stack>
+									</Surface>
+									<Stack density="compact">
+										{entry.pressure.map(pressure => (
+											<Chip key={pressure}>{pressure}</Chip>
+										))}
+									</Stack>
+								</Stack>
+							</Panel>
+						))}
+					</Grid>
+				</Section>
+			</Stack>
+		</Container>
 	)
 }

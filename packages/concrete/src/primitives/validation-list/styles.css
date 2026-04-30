@@ -1,0 +1,55 @@
+.concrete-validation-list {
+	display: grid;
+	gap: var(--concrete-space-1-25);
+	margin: var(--concrete-space-0);
+	padding: var(--concrete-space-0);
+	list-style: none;
+}
+
+.concrete-validation-list-item {
+	display: grid;
+	grid-template-columns: var(--concrete-template-validation-list-item);
+	gap: var(--concrete-space-1-75);
+	align-items: start;
+	min-width: var(--concrete-space-0);
+	color: var(--concrete-foreground-body);
+}
+
+.concrete-validation-list-icon {
+	width: var(--concrete-size-validation-list-icon);
+	height: var(--concrete-size-validation-list-icon);
+	margin-top: var(--concrete-space-0-75);
+	color: var(--concrete-error);
+	stroke-width: var(--concrete-stroke-2-2);
+}
+
+.concrete-validation-list-item[data-status="success"] .concrete-validation-list-icon {
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-validation-list-copy {
+	display: grid;
+	gap: var(--concrete-space-0-5);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-validation-list-copy b,
+.concrete-validation-list-copy a {
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-field-row-label) var(--concrete-type-12) / var(--concrete-line-control)
+		var(--concrete-font-sans);
+}
+
+.concrete-validation-list-copy a {
+	text-decoration: underline;
+	text-decoration-thickness: var(--concrete-border-width-hairline);
+	text-underline-offset: var(--concrete-space-0-5);
+}
+
+.concrete-validation-list-copy small {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-normal)
+		var(--concrete-font-sans);
+}

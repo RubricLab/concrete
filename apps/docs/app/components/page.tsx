@@ -2,17 +2,23 @@ import {
 	Badge,
 	Chip,
 	type ComponentRegistryEntry,
+	Container,
 	componentRegistry,
-	renderComponentExample
+	Grid,
+	Panel,
+	renderComponentExample,
+	Section,
+	Stack,
+	Surface,
+	Text,
+	TextLink
 } from '@rubriclab/concrete'
-import Link from 'next/link'
 
-// DX-TODO(docs): This route still owns raw docs HTML/CSS classes. Future UX polish should rebuild the catalog from Concrete primitives only.
 type ComponentCategory = ComponentRegistryEntry['category']
 
 const componentCategoryOrder = [
-	'control',
 	'navigation',
+	'control',
 	'surface',
 	'diagram',
 	'data',
@@ -21,6 +27,75 @@ const componentCategoryOrder = [
 	'form',
 	'media'
 ] as const satisfies readonly ComponentCategory[]
+
+export default function ComponentsPage() {
+	const groupedComponents = getComponentCategories(componentRegistry)
+		.map(category => ({
+			category,
+			components: componentRegistry.filter(component => component.category === category)
+		}))
+		.filter(group => group.components.length > 0)
+
+	return (
+		<Container as="main" density="editorial" measure="wide">
+			<Stack density="editorial">
+				<Panel
+					description="Components assemble primitives and approved lower-tier components. They can own deterministic local behavior, but they do not own CSS or app-specific product policy."
+					meta={<Badge signal="terminal">{componentRegistry.length} components</Badge>}
+					title="Compositions with contracts"
+				>
+					<Stack density="compact">
+						<Chip selected>registry backed</Chip>
+						<Chip>typed props</Chip>
+						<Chip>render routes</Chip>
+					</Stack>
+				</Panel>
+
+				{groupedComponents.map(group => (
+					<Section
+						description={getCategoryDescription(group.category)}
+						key={group.category}
+						title={getCategoryTitle(group.category)}
+					>
+						<Grid>
+							{group.components.map(component => (
+								<Panel
+									description={component.description}
+									footer={
+										<TextLink href={`/components/${component.slug}`} variant="nav">
+											Open
+										</TextLink>
+									}
+									key={component.slug}
+									meta={
+										<Stack density="compact">
+											<Badge signal="terminal">{component.category}</Badge>
+											<Text purpose="caption" tone="muted">
+												{component.states.length} states / {component.props.length} props
+											</Text>
+										</Stack>
+									}
+									title={component.name}
+								>
+									<Stack density="compact">
+										<Surface depth="sunken">
+											<Stack align="center">{renderComponentExample(component.slug)}</Stack>
+										</Surface>
+										<Stack density="compact">
+											{component.pressure.map(pressure => (
+												<Chip key={pressure}>{pressure}</Chip>
+											))}
+										</Stack>
+									</Stack>
+								</Panel>
+							))}
+						</Grid>
+					</Section>
+				))}
+			</Stack>
+		</Container>
+	)
+}
 
 function getComponentCategories(
 	registry: readonly ComponentRegistryEntry[]
@@ -36,25 +111,25 @@ function getComponentCategories(
 function getCategoryTitle(category: ComponentCategory): string {
 	switch (category) {
 		case 'control':
-			return 'Interaction controls.'
+			return 'Interaction controls'
 		case 'data':
-			return 'Data surfaces.'
+			return 'Data surfaces'
 		case 'diagram':
-			return 'Explainer diagrams.'
+			return 'Explainer diagrams'
 		case 'feedback':
-			return 'Agent process artifacts.'
+			return 'Agent process artifacts'
 		case 'form':
-			return 'Input systems.'
+			return 'Input systems'
 		case 'layout':
-			return 'Form and editor shells.'
+			return 'Form and editor shells'
 		case 'media':
-			return 'Upload compositions.'
+			return 'Upload compositions'
 		case 'navigation':
-			return 'Command surfaces.'
+			return 'Navigation and command surfaces'
 		case 'surface':
-			return 'Transcript surfaces.'
+			return 'Transcript surfaces'
 		default:
-			return 'Component group.'
+			return 'Component group'
 	}
 }
 
@@ -75,80 +150,10 @@ function getCategoryDescription(category: ComponentCategory): string {
 		case 'media':
 			return 'Upload surfaces specialized around local previews and queue state.'
 		case 'navigation':
-			return 'Search and command entry points for agentic interfaces.'
+			return 'Top-level navigation, footer, search, and command entry points for agentic interfaces.'
 		case 'surface':
 			return 'Role-aware message surfaces for multiplayer and multi-agent transcripts.'
 		default:
 			return 'Registry-backed components ready for render routes and screenshots.'
 	}
-}
-
-export default function ComponentsPage() {
-	const categories = getComponentCategories(componentRegistry)
-	const groupedComponents = categories
-		.map(category => ({
-			category,
-			components: componentRegistry.filter(component => component.category === category)
-		}))
-		.filter(group => group.components.length > 0)
-
-	return (
-		<main className="main">
-			<section className="section">
-				<div className="sectionHead">
-					<div>
-						<span className="eyebrow">Components</span>
-						<h1>Compositions with contracts.</h1>
-					</div>
-					<p>
-						Each component now has a dedicated page with a live playground, URL-backed props, rendered
-						states, and screenshot routes. The overview stays a catalog for fast scanning.
-					</p>
-				</div>
-				<div className="componentCatalogHero">
-					<Badge signal="terminal">{componentRegistry.length} components</Badge>
-					<Chip selected>registry backed</Chip>
-					<Chip>typed props</Chip>
-					<Chip>dedicated pages</Chip>
-				</div>
-			</section>
-
-			{groupedComponents.map(group => (
-				<section className="section" key={group.category}>
-					<div className="sectionHead">
-						<div>
-							<span className="eyebrow">{group.category}</span>
-							<h1>{getCategoryTitle(group.category)}</h1>
-						</div>
-						<p>{getCategoryDescription(group.category)}</p>
-					</div>
-					<div className="componentCatalogGrid">
-						{group.components.map(component => (
-							<article className="componentCatalogCard" key={component.slug}>
-								<Link
-									aria-label={`Open ${component.name} component details`}
-									className="homeCardOverlay"
-									href={`/components/${component.slug}`}
-								/>
-								<header>
-									<strong>{component.name}</strong>
-									<span>{component.pressure.join(' / ')}</span>
-								</header>
-								<div className="componentCatalogStage" data-component={component.slug}>
-									{renderComponentExample(component.slug)}
-								</div>
-								<footer>
-									<p>{component.description}</p>
-									<div className="componentCatalogMeta">
-										<span className="componentCatalogMetric">{component.states.length} states</span>
-										<span className="componentCatalogMetric">{component.props.length} props</span>
-									</div>
-								</footer>
-							</article>
-						))}
-					</div>
-				</section>
-			))}
-		</main>
-	)
 }

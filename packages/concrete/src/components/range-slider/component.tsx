@@ -2,7 +2,7 @@
 
 import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { Field, RangeControl, RangeInput, RangeTrack, RangeValues } from '../../primitives'
+import { Field, Range, RangeInput, RangeTrack, RangeValues } from '../../primitives'
 import { type FieldChromeProps, getNumber, getPercent } from '../../utilities/form-field-helpers'
 
 export type RangeSliderValue = readonly [number, number]
@@ -63,7 +63,7 @@ export function RangeSlider({
 			required={required}
 			success={success}
 		>
-			<RangeControl end={upperPercent} start={lowerPercent} {...props}>
+			<Range end={upperPercent} start={lowerPercent} {...props}>
 				<RangeTrack />
 				<RangeInput
 					label="Minimum"
@@ -82,7 +82,7 @@ export function RangeSlider({
 					value={currentValue[1]}
 				/>
 				<RangeValues end={currentValue[1]} start={currentValue[0]} />
-			</RangeControl>
+			</Range>
 		</Field>
 	)
 }

@@ -8,7 +8,7 @@ import { type ButtonValue, buttonSchema } from './schema'
 export type { ButtonProps, ButtonSize, ButtonVariant } from './component'
 export { Button } from './component'
 export type { ButtonInput, ButtonValue } from './schema'
-export { buttonPropsSchema, buttonSchema } from './schema'
+export { buttonPropsSchema, buttonSchema, buttonSizeSchema, buttonVariantSchema } from './schema'
 
 export const buttonPrimitiveDefinition = createPrimitive({
 	...buttonMeta,

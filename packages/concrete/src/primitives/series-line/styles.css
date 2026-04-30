@@ -1,0 +1,17 @@
+.concrete-chart-line,
+.concrete-chart-area {
+	stroke: currentcolor;
+}
+
+.concrete-chart-line {
+	fill: none;
+	stroke-width: var(--concrete-stroke-1-75);
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.concrete-chart-area {
+	fill: currentcolor;
+	opacity: var(--concrete-opacity-chart-area);
+	stroke: none;
+}

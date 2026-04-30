@@ -190,7 +190,7 @@ async function assertCatalogRoute(
 		throw new Error(`${route.label} returned HTTP ${response?.status() ?? 'unknown'}`)
 	}
 
-	const stage = page.locator('.renderStage').first()
+	const stage = page.locator('main[data-state] .concrete-surface[data-depth="sunken"]').first()
 	await stage.waitFor({ state: 'visible', timeout: 10_000 })
 
 	const box = await stage.boundingBox()
@@ -205,7 +205,7 @@ async function assertCatalogRoute(
 		throw new Error(`${route.label} rendered an empty stage`)
 	}
 
-	const pageText = await page.locator('.renderShell').textContent()
+	const pageText = await page.locator('main[data-state]').textContent()
 
 	if (!pageText?.includes(route.target.entry.name)) {
 		throw new Error(`${route.label} did not render catalog metadata`)

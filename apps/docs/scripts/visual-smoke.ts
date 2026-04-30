@@ -50,22 +50,28 @@ const workspaceRoot = resolve(scriptDirectory, '../../..')
 const docsDirectory = resolve(workspaceRoot, 'apps/docs')
 const defaultViewport = { height: 720, width: 1120 } satisfies ViewportSize
 const browserLaunchTimeout = 30_000
+const hydrationSettleDelay = 500
 const smokeTargetTimeout = 45_000
 const smokeTargets = [
 	{
 		checks: [
-			{ label: 'docs home', minimumHeight: 400, minimumWidth: 600, selector: '.docsHome' },
 			{
-				label: 'primitive catalog card',
-				minimumHeight: 80,
-				minimumWidth: 120,
-				selector: '.homePrimitiveCard'
+				label: 'docs home',
+				minimumHeight: 400,
+				minimumWidth: 600,
+				selector: 'main.concrete-container'
 			},
 			{
-				label: 'component catalog card',
+				label: 'registry panel',
 				minimumHeight: 80,
 				minimumWidth: 120,
-				selector: '.componentFeatureCard'
+				selector: '.concrete-panel'
+			},
+			{
+				label: 'preview stage',
+				minimumHeight: 80,
+				minimumWidth: 120,
+				selector: '.concrete-surface[data-depth="sunken"]'
 			}
 		],
 		name: 'docs home',
@@ -160,40 +166,14 @@ const smokeTargets = [
 	{
 		checks: [
 			{
-				label: 'focus ring preview',
-				minimumHeight: 20,
-				minimumWidth: 40,
-				requireBoxShadow: true,
-				selector: '.concrete-focus-ring-preview'
-			}
-		],
-		name: 'focus ring',
-		path: '/render/primitive/focus-ring'
-	},
-	{
-		checks: [
-			{
-				label: 'preview stage',
-				minimumHeight: 28,
-				minimumWidth: 240,
-				selector: '.concrete-preview-stage'
-			},
-			{ label: 'staged button', minimumHeight: 20, minimumWidth: 48, selector: '.concrete-button' }
-		],
-		name: 'preview stage',
-		path: '/render/primitive/preview-stage?state=stack'
-	},
-	{
-		checks: [
-			{
 				label: 'stepper control',
 				minimumHeight: 28,
 				minimumWidth: 120,
-				selector: '.concrete-number-stepper'
+				selector: '.concrete-stepper'
 			}
 		],
 		name: 'stepper control',
-		path: '/render/primitive/stepper-control'
+		path: '/render/primitive/stepper'
 	},
 	{
 		checks: [
@@ -201,85 +181,67 @@ const smokeTargets = [
 				label: 'range control',
 				minimumHeight: 24,
 				minimumWidth: 160,
-				selector: '.concrete-range-slider'
+				selector: '.concrete-range'
 			},
 			{
 				label: 'range track',
 				minimumHeight: 1,
 				minimumWidth: 160,
-				selector: '.concrete-range-slider-track'
+				selector: '.concrete-range-track'
 			}
 		],
 		name: 'range control',
-		path: '/render/primitive/range-control?state=narrow'
+		path: '/render/primitive/range?state=narrow'
 	},
 	{
 		checks: [
 			{
-				label: 'form shell',
+				label: 'settings panel',
 				minimumHeight: 160,
 				minimumWidth: 360,
-				selector: '.concrete-form-shell'
+				selector: '.concrete-panel'
 			},
 			{
-				label: 'form row',
+				label: 'field row',
 				minimumHeight: 24,
 				minimumWidth: 240,
-				selector: '.concrete-form-row'
+				selector: '.concrete-field-row'
 			}
 		],
-		name: 'form layout rows',
-		path: '/render/primitive/form-layout?state=rows'
+		name: 'settings field rows',
+		path: '/render/component/settings-panel'
 	},
 	{
 		checks: [
 			{
-				label: 'form overlay',
+				label: 'overlay',
 				minimumHeight: 160,
 				minimumWidth: 360,
-				selector: '.concrete-form-overlay'
+				selector: '.concrete-overlay'
 			},
 			{
-				label: 'form drawer',
+				label: 'drawer surface',
 				minimumHeight: 120,
 				minimumWidth: 260,
-				selector: '.concrete-form-drawer'
+				selector: '.concrete-drawer-surface'
 			}
 		],
-		name: 'form overlay drawer',
-		path: '/render/primitive/form-overlay?state=drawer'
+		name: 'form drawer composition',
+		path: '/render/component/form-drawer?state=review'
 	},
 	{
 		checks: [
 			{
-				label: 'feedback panel',
-				minimumHeight: 80,
+				label: 'validation alert',
+				minimumHeight: 48,
 				minimumWidth: 320,
-				selector: '.concrete-validation-summary'
+				selector: '.concrete-alert'
 			},
 			{
-				label: 'feedback list',
-				minimumHeight: 24,
+				label: 'validation list',
+				minimumHeight: 20,
 				minimumWidth: 240,
 				selector: '.concrete-validation-list'
-			}
-		],
-		name: 'feedback panel',
-		path: '/render/primitive/feedback-panel'
-	},
-	{
-		checks: [
-			{
-				label: 'validation summary',
-				minimumHeight: 80,
-				minimumWidth: 320,
-				selector: '.concrete-validation-summary'
-			},
-			{
-				label: 'validation status icon',
-				minimumHeight: 20,
-				minimumWidth: 20,
-				selector: '.concrete-validation-summary-icon'
 			}
 		],
 		name: 'validation summary composition',
@@ -288,12 +250,12 @@ const smokeTargets = [
 	{
 		checks: [
 			{
-				label: 'data table card',
+				label: 'data surface',
 				minimumHeight: 160,
 				minimumWidth: 520,
-				selector: '.concrete-data-table-card'
+				selector: '.concrete-data-surface'
 			},
-			{ label: 'data table', minimumHeight: 120, minimumWidth: 520, selector: '.concrete-data-table' }
+			{ label: 'table', minimumHeight: 120, minimumWidth: 520, selector: '.concrete-table' }
 		],
 		name: 'data table composition',
 		path: '/render/component/data-table?state=selected'
@@ -301,10 +263,10 @@ const smokeTargets = [
 	{
 		checks: [
 			{
-				label: 'chart surface',
+				label: 'chart frame',
 				minimumHeight: 160,
 				minimumWidth: 420,
-				selector: '.concrete-chart-surface'
+				selector: '.concrete-chart-frame'
 			},
 			{ label: 'chart svg', minimumHeight: 120, minimumWidth: 320, selector: '.concrete-chart-svg' }
 		],
@@ -440,13 +402,15 @@ async function runSmokeTarget(browser: Browser, origin: string, target: SmokeTar
 			throw new Error(`${target.name} returned HTTP ${response?.status() ?? 'unknown'}`)
 		}
 
-		const scopeSelector = target.scopeSelector ?? '.renderStage'
+		const scopeSelector = target.scopeSelector ?? 'main[data-state]'
 
 		await page.locator(scopeSelector).waitFor({ state: 'visible', timeout: 15_000 })
 
 		for (const expectation of target.checks) {
 			await assertSelector(page, expectation, target.name, scopeSelector)
 		}
+
+		await page.waitForTimeout(hydrationSettleDelay)
 
 		const screenshot = await page.screenshot({ fullPage: false, type: 'png' })
 

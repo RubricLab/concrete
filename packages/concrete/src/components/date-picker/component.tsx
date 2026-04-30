@@ -2,7 +2,7 @@
 
 import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { CalendarPanel, Field, PickerControl, PickerShell } from '../../primitives'
+import { CalendarGrid, Field, PickerButton, PickerSurface } from '../../primitives'
 import {
 	formatDateLabel,
 	getMonthStart,
@@ -79,12 +79,12 @@ export function DatePicker({
 			required={required}
 			success={success}
 		>
-			<PickerShell kind="date" open={open} {...props}>
-				<PickerControl onClick={toggleOpen} open={open}>
+			<PickerSurface open={open} {...props}>
+				<PickerButton onClick={toggleOpen} open={open}>
 					{formatDateLabel(currentValue)}
-				</PickerControl>
+				</PickerButton>
 				{open ? (
-					<CalendarPanel
+					<CalendarGrid
 						max={max}
 						min={min}
 						month={visibleMonth}
@@ -94,7 +94,7 @@ export function DatePicker({
 						selectedStart={currentValue}
 					/>
 				) : null}
-			</PickerShell>
+			</PickerSurface>
 		</Field>
 	)
 }

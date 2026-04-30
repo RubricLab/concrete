@@ -1,0 +1,9 @@
+.concrete-picker-surface {
+	position: relative;
+	width: min(var(--concrete-measure-picker), var(--concrete-size-full));
+}
+
+.concrete-picker-surface[data-placement="floating"] {
+	z-index: var(--concrete-z-picker-menu);
+	width: var(--concrete-size-full);
+}

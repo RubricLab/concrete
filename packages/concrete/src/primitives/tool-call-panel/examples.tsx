@@ -7,7 +7,7 @@ export const toolCallPanelExamples = defineExamples({
 		render: () => (
 			<ToolCallPanel duration="1.2s" name="searchFiles" open status="running">
 				<ToolCodeBlock
-					code="await searchFiles({ query: 'message-shell' })"
+					code="await searchFiles({ query: 'trace-panel' })"
 					language="ts"
 					showLineNumbers={false}
 				/>
@@ -20,7 +20,7 @@ export const toolCallPanelExamples = defineExamples({
 		render: () => (
 			<ToolCallPanel duration="210ms" name="catalogAudit" open status="error" toolIcon="circle-alert">
 				<ToolCodeBlock
-					code="await renderRoute('/render/primitive/message-shell')"
+					code="await renderRoute('/render/primitive/trace-panel')"
 					language="ts"
 					showLineNumbers={false}
 				/>

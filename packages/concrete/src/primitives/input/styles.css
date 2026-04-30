@@ -5,13 +5,6 @@
 	width: var(--concrete-size-full);
 }
 
-.concrete-label {
-	color: var(--concrete-foreground-body);
-	font:
-		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-compact)
-		var(--concrete-font-sans);
-}
-
 .concrete-help {
 	color: var(--concrete-foreground-muted);
 	font:

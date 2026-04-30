@@ -1,0 +1,13 @@
+.concrete-chart-target line {
+	stroke: var(--concrete-foreground-faint);
+	stroke-dasharray: var(--concrete-chart-target-dasharray);
+}
+
+.concrete-chart-target text {
+	fill: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-9) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-caps);
+	text-transform: uppercase;
+}

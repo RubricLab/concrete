@@ -1,0 +1,72 @@
+.concrete-search-input-root {
+	display: flex;
+	align-items: center;
+	flex-wrap: var(--concrete-search-input-flex-wrap);
+	gap: var(--concrete-space-1-75);
+	min-width: var(--concrete-space-0);
+	max-width: var(--concrete-size-full);
+	min-height: var(--concrete-size-search-input-min-block);
+	padding-block: var(--concrete-space-1-25);
+	padding-inline: var(--concrete-space-1-75);
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-5);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+	color: var(--concrete-foreground-body);
+}
+
+.concrete-search-input-root:focus-within {
+	outline: var(--concrete-space-0);
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-search-input-root[data-wrap="true"] {
+	flex-wrap: wrap;
+	overflow: visible;
+}
+
+.concrete-search-input-icon {
+	display: inline-grid;
+	width: var(--concrete-size-search-leading);
+	height: var(--concrete-size-search-leading);
+	flex: none;
+	place-items: center;
+	color: var(--concrete-foreground-soft);
+}
+
+.concrete-search-input-icon svg {
+	width: var(--concrete-size-search-leading-glyph);
+	height: var(--concrete-size-search-leading-glyph);
+}
+
+.concrete-search-input-control {
+	min-width: var(--concrete-size-search-input-min);
+	flex: var(--concrete-flex-fill) var(--concrete-flex-fill) var(--concrete-size-search-input-basis);
+	border: var(--concrete-space-0);
+	outline: var(--concrete-space-0);
+	background: transparent;
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-14) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-search-input-control::placeholder {
+	color: var(--concrete-foreground-soft);
+}
+
+.concrete-search-input-shortcut {
+	display: inline-flex;
+	flex: none;
+	gap: var(--concrete-space-0-5);
+	align-items: center;
+	margin-left: var(--concrete-space-0-5);
+}
+
+.concrete-search-input-shortcut-key {
+	min-width: var(--concrete-size-search-shortcut-key-min);
+	height: var(--concrete-size-search-shortcut-key-block);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-1-25);
+}
