@@ -1,26 +1,10 @@
 # Concrete
 
-Concrete is the Rubric Labs design system for AI-native product surfaces, editorial research, generative UI, and educational mockups.
+Concrete is Rubric Labs' React design system for AI-native product surfaces, editorial research, generative UI, and educational explainers.
 
-This repo is a Bun monorepo:
+The public package is `@rubriclab/concrete`. This repository also contains the docs app that inventories foundations, primitives, components, examples, playgrounds, and render routes.
 
-- `packages/concrete` - public React package `@rubriclab/concrete`
-- `apps/docs` - Next app for foundations, primitives, components, and render routes
-
-## Commands
-
-```sh
-bun install
-bun run dev
-bun run check
-bun run build
-```
-
-## Codebase Policies
-
-Concrete's architecture rules live in [`CODEBASE_POLICIES.md`](./CODEBASE_POLICIES.md). Read that file before structural work. Long-running refactors should use [`REFACTOR_RUNBOOK.md`](./REFACTOR_RUNBOOK.md) to track the active chunk, gates, and next actions across context compaction.
-
-## Public Package
+## Install
 
 ```sh
 npm install @rubriclab/concrete
@@ -28,18 +12,59 @@ npm install @rubriclab/concrete
 
 ```tsx
 import '@rubriclab/concrete/styles.css'
-import { Button, Card, Badge } from '@rubriclab/concrete'
+import { Badge, Button, Card } from '@rubriclab/concrete'
 import { Composer } from '@rubriclab/concrete/components'
 import { Button as PrimitiveButton } from '@rubriclab/concrete/primitives'
 ```
 
 The root export is the ergonomic default. Subpath exports are available when an app wants explicit primitive, component, registry, icon, or schema boundaries.
 
+## Public Inventory
+
+- `@rubriclab/concrete` exposes the common package surface.
+- `@rubriclab/concrete/components` exposes higher-order product, data, form, AI, and interaction components.
+- `@rubriclab/concrete/primitives` exposes atomic UI primitives.
+- `@rubriclab/concrete/foundations` exposes foundation definitions.
+- `@rubriclab/concrete/registry` exposes item metadata, examples, schemas, and render definitions.
+- `@rubriclab/concrete/icons` exposes the icon registry.
+- `@rubriclab/concrete/schemas` exposes shared public schemas.
+- `@rubriclab/concrete/styles.css` is the required public stylesheet.
+
 Concrete ships built ESM, declaration files, CSS, and SVG assets. It is intentionally ESM-only and keeps package subpaths small so application bundlers can tree-shake unused surfaces.
 
 Pressure modes are creative direction and registry metadata. They are not universal primitive props.
 
-## CI And Release Flow
+## Docs App
+
+The docs app lives in `apps/docs` and is a Next app backed by the local workspace package.
+
+```sh
+bun install
+bun run dev
+```
+
+Open `http://localhost:3000` to view the docs. The app includes the catalog, foundation pages, item detail pages, playgrounds, and render routes used for screenshots and validation.
+
+## Monorepo Setup
+
+This repo uses Bun workspaces:
+
+- `packages/concrete` is the public package.
+- `apps/docs` is the docs site.
+
+Common commands:
+
+```sh
+bun install
+bun run dev
+bun run check
+bun run build
+bun run --cwd packages/concrete verify:publish
+```
+
+`bun run check` runs typecheck, lint, and tests. `bun run build` builds the package and docs app. `verify:publish` performs the package release gate: build, package tests, lint, publint, are-the-types-wrong, and npm pack dry run.
+
+## Deployment And Release
 
 CI runs on pull requests and pushes to `main`:
 
@@ -50,12 +75,18 @@ bun run build
 bun run --cwd packages/concrete verify:publish
 ```
 
-Pushing to `main` also runs the release workflow. The workflow compares `packages/concrete/package.json` with the published npm version, bumps to the next patch version when needed, updates `packages/concrete/CHANGELOG.md` and `bun.lock`, commits the release bump back to `main`, then dispatches the publish job.
+The docs app deploys as a standard Next app from `apps/docs`; the repository-level build command is `bun run build:docs`.
 
-The publish job verifies the package again and publishes `packages/concrete` with npm provenance:
+Pushing to `main` also runs the release workflow. The workflow compares `packages/concrete/package.json` with the published npm version, bumps to the next patch version when needed, updates `packages/concrete/CHANGELOG.md` and `bun.lock`, commits the release bump back to `main`, then publishes `packages/concrete` with npm provenance:
 
 ```sh
 npm publish --provenance --access public
 ```
 
 Publishing expects npm trusted publishing to be configured for `RubricLab/concrete` and the `Release Package` GitHub Actions workflow.
+
+## Code Guide
+
+Concrete's codebase guide lives in [`CODE.md`](./CODE.md). It is the senior-engineer manifesto for item ownership, schemas, examples, controls, CSS, docs structure, tests, and long-running refactors.
+
+Read `CODE.md` before structural work. Long-running refactors should use [`REFACTOR_RUNBOOK.md`](./REFACTOR_RUNBOOK.md) to track the active chunk, gates, and next actions across context compaction.

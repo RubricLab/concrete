@@ -66,8 +66,9 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
-	test('temporary architecture doc has been replaced by durable policies', () => {
-		expect(existsSync(join(repoRoot, 'CODEBASE_POLICIES.md'))).toBe(true)
+	test('temporary architecture docs have been replaced by CODE.md', () => {
+		expect(existsSync(join(repoRoot, 'CODE.md'))).toBe(true)
+		expect(existsSync(join(repoRoot, 'CODEBASE_POLICIES.md'))).toBe(false)
 		expect(existsSync(join(repoRoot, 'DX_ARCHITECTURE.md'))).toBe(false)
 	})
 
