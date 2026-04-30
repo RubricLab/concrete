@@ -1,5 +1,6 @@
 - [2026-04-29] [Refactor Concrete and prepare npm release](https://github.com/RubricLab/concrete/commit/c699a5f9244945edb95c7b9cc53b2d68211c9538)
 
+- [2026-04-30] Release @rubriclab/concrete v0.0.11 from [44e104c](https://github.com/RubricLab/concrete/commit/44e104c8169514386f8fa7f6070db285f6a80e65).
 - [2026-04-30] Release @rubriclab/concrete v0.0.10 from [381f1d9](https://github.com/RubricLab/concrete/commit/381f1d922ca3dd21e092ce78ccd6df4ab0786f0e).
 - [2026-04-30] Release @rubriclab/concrete v0.0.9 from [de005ff](https://github.com/RubricLab/concrete/commit/de005ff550341b1eb9ee6a9ca8ae59fe5ef4bcef).
 - [2026-04-30] Release @rubriclab/concrete v0.0.8 from [689cec5](https://github.com/RubricLab/concrete/commit/689cec5ba16205498133ba396a7afbd43c286ced).
