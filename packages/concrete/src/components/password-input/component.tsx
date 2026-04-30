@@ -3,8 +3,7 @@
 import type { InputHTMLAttributes } from 'react'
 import { useState } from 'react'
 import { ConcreteIcon } from '../../icons'
-import { Field } from '../../primitives'
-import { concreteClassNames } from '../../styles/class-names'
+import { Field, InputControl } from '../../primitives'
 import type { FieldChromeProps } from '../../utilities/form-field-helpers'
 
 export type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size' | 'type'> &
@@ -41,23 +40,16 @@ export function PasswordInput({
 			required={required}
 			success={success}
 		>
-			<span className={concreteClassNames.formControlWrap}>
-				<input
-					aria-invalid={Boolean(error)}
-					className={concreteClassNames.formControl}
-					id={id}
-					type={visible ? 'text' : 'password'}
-					{...props}
-				/>
-				<button
-					aria-label={visible ? hiddenLabel : visibleLabel}
-					className={concreteClassNames.formControlIconButton}
-					onClick={() => setVisible(current => !current)}
-					type="button"
-				>
-					<ConcreteIcon name={visible ? 'eye-off' : 'eye'} />
-				</button>
-			</span>
+			<InputControl
+				action={<ConcreteIcon name={visible ? 'eye-off' : 'eye'} />}
+				actionLabel={visible ? hiddenLabel : visibleLabel}
+				actionPressed={visible}
+				id={id}
+				invalid={Boolean(error)}
+				onActionClick={() => setVisible(current => !current)}
+				type={visible ? 'text' : 'password'}
+				{...props}
+			/>
 		</Field>
 	)
 }

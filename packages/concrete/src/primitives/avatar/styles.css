@@ -1,1 +1,32 @@
-/* DX-TODO(avatar): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-avatar {
+	display: inline-grid;
+	width: var(--concrete-size-avatar-medium);
+	height: var(--concrete-size-avatar-medium);
+	place-items: center;
+	overflow: hidden;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	letter-spacing: var(--concrete-tracking-label);
+}
+
+.concrete-avatar img {
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-full);
+	object-fit: cover;
+}
+
+.concrete-avatar-small {
+	width: var(--concrete-size-avatar-small);
+	height: var(--concrete-size-avatar-small);
+	font-size: var(--concrete-type-9-5);
+}
+
+.concrete-avatar-large {
+	width: var(--concrete-size-avatar-large);
+	height: var(--concrete-size-avatar-large);
+	font-size: var(--concrete-type-13);
+}

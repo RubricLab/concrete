@@ -18,7 +18,7 @@ export const rangeSliderComponentDefinition = createComponent({
 	renderInput: input => renderRangeSliderInput(rangeSliderComponentSchema.parse(input)),
 	schema: rangeSliderComponentSchema,
 	slug: 'range-slider',
-	states: exampleStates(rangeSliderExamples, ['default', 'narrow', 'wide'])
+	states: exampleStates(rangeSliderExamples, ['default', 'narrow', 'wide', 'error'])
 })
 
 function renderRangeSliderInput(input: RangeSliderValueInput) {

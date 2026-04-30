@@ -1,10 +1,15 @@
 export type {
-	FormGridColumns,
-	FormGridProps,
-	FormRowAlign,
-	FormRowProps,
-	FormSectionProps,
-	FormShellProps,
-	FormShellVariant
-} from '../../primitives/internal/form-shell'
-export { FormGrid, FormRow, FormSection, FormShell } from '../../primitives/internal/form-shell'
+	FormLayoutGridColumns as FormGridColumns,
+	FormLayoutGridProps as FormGridProps,
+	FormLayoutRowAlign as FormRowAlign,
+	FormLayoutRowProps as FormRowProps,
+	FormLayoutSectionProps as FormSectionProps,
+	FormLayoutShellProps as FormShellProps,
+	FormLayoutShellVariant as FormShellVariant
+} from '../../primitives/form-layout'
+export {
+	FormLayoutGrid as FormGrid,
+	FormLayoutRow as FormRow,
+	FormLayoutSection as FormSection,
+	FormLayoutShell as FormShell
+} from '../../primitives/form-layout'

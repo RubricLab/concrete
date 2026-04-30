@@ -18,7 +18,7 @@ export const buttonPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderButtonInput(buttonSchema.parse(input)),
 	schema: buttonSchema,
 	slug: 'button',
-	states: exampleStates(buttonExamples, ['default', 'signal', 'pressed', 'loading'])
+	states: exampleStates(buttonExamples, ['default', 'sizes', 'signal', 'pressed', 'loading'])
 })
 
 function renderButtonInput({ label, leadingIcon, trailingIcon, ...props }: ButtonValue) {

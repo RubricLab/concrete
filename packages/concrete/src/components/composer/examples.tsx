@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
-import type { ComposerValue } from '../../schemas'
+import type { ComposerSuggestion, ComposerValue } from '../../schemas'
 import { Composer } from './component'
 
 const composerExampleValue: ComposerValue = {
@@ -10,6 +10,33 @@ const composerExampleValue: ComposerValue = {
 	mentions: [{ id: 'arihan', kind: 'mention', label: 'arihan' }],
 	text: "Hey @arihan - can we run /eval triage-v2 against the new contract? I'll pair on the diff."
 }
+
+const customCommandOptions = [
+	{
+		description: 'Create a migration handoff from current queue state',
+		disabled: false,
+		id: 'handoff',
+		kind: 'command',
+		label: '/handoff',
+		meta: 'thread'
+	},
+	{
+		description: 'Deploy is locked while package gates are running',
+		disabled: true,
+		id: 'deploy',
+		kind: 'command',
+		label: '/deploy',
+		meta: 'blocked'
+	},
+	{
+		description: 'Open the generated docs audit report',
+		disabled: false,
+		id: 'docs-audit',
+		kind: 'command',
+		label: '/docs-audit',
+		meta: 'docs'
+	}
+] as const satisfies readonly ComposerSuggestion[]
 
 export const composerExamples = defineExamples({
 	command: {
@@ -35,6 +62,10 @@ export const composerExamples = defineExamples({
 	mention: {
 		description: 'Mention popdown opened from the @ trigger.',
 		render: () => renderComposerExample('mention')
+	},
+	suggestions: {
+		description: 'Custom command suggestions with a disabled workflow row.',
+		render: () => renderComposerExample('suggestions')
 	}
 })
 
@@ -42,58 +73,42 @@ function renderComposerExample(state = 'default'): ReactNode {
 	switch (state) {
 		case 'command':
 			return (
-				<ComposerStage>
-					<Composer
-						defaultMenuKind="command"
-						defaultValue={createComposerValue({ text: 'Can you /' })}
-					/>
-				</ComposerStage>
+				<Composer defaultMenuKind="command" defaultValue={createComposerValue({ text: 'Can you /' })} />
 			)
 		case 'disabled':
-			return (
-				<ComposerStage>
-					<Composer defaultValue={composerExampleValue} disabled />
-				</ComposerStage>
-			)
+			return <Composer defaultValue={composerExampleValue} disabled />
 		case 'empty':
-			return (
-				<ComposerStage>
-					<Composer placeholder="Ask the agent to inspect, summarize, or ship..." />
-				</ComposerStage>
-			)
+			return <Composer placeholder="Ask the agent to inspect, summarize, or ship..." />
 		case 'formatting':
 			return (
-				<ComposerStage>
-					<Composer
-						defaultValue={createComposerValue({
-							html:
-								'Drafting <strong>agent handoff</strong> with <em>formatted</em> notes, <u>clear owners</u>, and <s>stale context</s> removed.',
-							text: 'Drafting agent handoff with formatted notes, clear owners, and stale context removed.'
-						})}
-					/>
-				</ComposerStage>
+				<Composer
+					defaultValue={createComposerValue({
+						html:
+							'Drafting <strong>agent handoff</strong> with <em>formatted</em> notes, <u>clear owners</u>, and <s>stale context</s> removed.',
+						text: 'Drafting agent handoff with formatted notes, clear owners, and stale context removed.'
+					})}
+				/>
 			)
 		case 'mention':
 			return (
-				<ComposerStage>
-					<Composer
-						defaultMenuKind="mention"
-						defaultMenuQuery="a"
-						defaultValue={createComposerValue({ text: 'Loop in @a' })}
-					/>
-				</ComposerStage>
+				<Composer
+					defaultMenuKind="mention"
+					defaultMenuQuery="a"
+					defaultValue={createComposerValue({ text: 'Loop in @a' })}
+				/>
+			)
+		case 'suggestions':
+			return (
+				<Composer
+					commandOptions={customCommandOptions}
+					defaultMenuKind="command"
+					defaultMenuQuery="d"
+					defaultValue={createComposerValue({ text: 'Can you /d' })}
+				/>
 			)
 		default:
-			return (
-				<ComposerStage>
-					<Composer defaultValue={composerExampleValue} />
-				</ComposerStage>
-			)
+			return <Composer defaultValue={composerExampleValue} />
 	}
-}
-
-function ComposerStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 860, width: '100%' }}>{children}</div>
 }
 
 function createComposerValue(value: Partial<ComposerValue>): ComposerValue {

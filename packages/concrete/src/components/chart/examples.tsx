@@ -4,7 +4,6 @@ import {
 	chartComparisonPoints,
 	chartPoints,
 	chartSeries,
-	DataWideStage,
 	heatmapCells,
 	stackedChartGroups
 } from '../../utilities/data-fixtures'
@@ -18,6 +17,10 @@ export const chartExamples = defineExamples({
 	bar: {
 		description: 'Grouped bar comparison.',
 		render: () => renderChartExample('bar')
+	},
+	default: {
+		description: 'Multi-series line chart with a target marker.',
+		render: () => renderChartExample('line')
 	},
 	donut: {
 		description: 'Part-to-whole ring summary.',
@@ -52,78 +55,60 @@ export const chartExamples = defineExamples({
 function renderChartExample(state = 'line'): ReactNode {
 	if (state === 'loading' || state === 'empty' || state === 'error') {
 		return (
-			<DataWideStage>
-				<Chart
-					height={220}
-					message={state === 'error' ? 'Could not load the run summary.' : undefined}
-					series={[]}
-					state={state}
-					title="Agent runs"
-					variant="line"
-				/>
-			</DataWideStage>
+			<Chart
+				height={220}
+				message={state === 'error' ? 'Could not load the run summary.' : undefined}
+				series={[]}
+				state={state}
+				title="Agent runs"
+				variant="line"
+			/>
 		)
 	}
 
 	switch (state) {
 		case 'area':
 			return (
-				<DataWideStage>
-					<Chart
-						description="Accepted runs and total executions."
-						height={230}
-						series={chartSeries}
-						target={58}
-						title="Execution trend"
-						variant="area"
-					/>
-				</DataWideStage>
+				<Chart
+					description="Accepted runs and total executions."
+					height={230}
+					series={chartSeries}
+					target={58}
+					title="Execution trend"
+					variant="area"
+				/>
 			)
 		case 'bar':
 			return (
-				<DataWideStage>
-					<Chart
-						comparisonPoints={chartComparisonPoints}
-						points={chartPoints}
-						title="Capability score"
-						variant="bar"
-					/>
-				</DataWideStage>
+				<Chart
+					comparisonPoints={chartComparisonPoints}
+					points={chartPoints}
+					title="Capability score"
+					variant="bar"
+				/>
 			)
 		case 'stacked':
-			return (
-				<DataWideStage>
-					<Chart groups={stackedChartGroups} title="Run composition" variant="stacked-bar" />
-				</DataWideStage>
-			)
+			return <Chart groups={stackedChartGroups} title="Run composition" variant="stacked-bar" />
 		case 'donut':
 			return (
-				<DataWideStage>
-					<Chart
-						centerLabel="64%"
-						segments={chartPoints.slice(0, 4)}
-						title="Workload split"
-						variant="donut"
-					/>
-				</DataWideStage>
+				<Chart
+					centerLabel="64%"
+					segments={chartPoints.slice(0, 4)}
+					title="Workload split"
+					variant="donut"
+				/>
 			)
 		case 'heatmap':
-			return (
-				<DataWideStage>
-					<Chart cells={heatmapCells} title="Run intensity" variant="heatmap" />
-				</DataWideStage>
-			)
+			return <Chart cells={heatmapCells} title="Run intensity" variant="heatmap" />
 		default:
 			return (
-				<DataWideStage>
-					<Chart
-						description="Agent run volume with accepted output overlay."
-						series={chartSeries}
-						target={58}
-						title="Agent runs"
-						variant="line"
-					/>
-				</DataWideStage>
+				<Chart
+					description="Agent run volume with accepted output overlay."
+					series={chartSeries}
+					target={58}
+					title="Agent runs"
+					variant="line"
+				/>
 			)
 	}
 }

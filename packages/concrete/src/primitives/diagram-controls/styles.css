@@ -1,0 +1,33 @@
+.concrete-diagram-canvas-controls {
+	display: flex;
+	align-items: center;
+	gap: var(--concrete-space-1);
+}
+
+.concrete-flow-diagram-controls {
+	display: flex;
+	gap: var(--concrete-space-1);
+}
+
+.concrete-flow-diagram-controls button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--concrete-space-1-25);
+	width: var(--concrete-size-flow-diagram-control);
+	height: var(--concrete-size-flow-diagram-control);
+	padding: var(--concrete-space-0);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+}
+
+.concrete-flow-diagram-controls button:hover {
+	border-color: var(--concrete-border-strong);
+	color: var(--concrete-foreground-strong);
+}

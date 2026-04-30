@@ -27,6 +27,7 @@ export const chartComponentDefinition = createComponent({
 	}),
 	slug: 'chart',
 	states: exampleStates(chartExamples, [
+		'default',
 		'line',
 		'area',
 		'bar',

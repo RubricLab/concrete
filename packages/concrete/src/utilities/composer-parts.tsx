@@ -1,16 +1,15 @@
 'use client'
 
-import { ConcreteIcon, type IconName } from '../icons'
-import { ToolbarButton } from '../primitives/internal/toolbar'
-import { cn } from '../primitives/utils'
-import type {
-	ComposerAttachment,
-	ComposerFormat,
-	ComposerSuggestion,
-	ComposerToken,
-	ComposerValue
-} from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
+import type { IconName } from '../icons'
+import {
+	SuggestionMenu,
+	SuggestionMenuItem,
+	SuggestionMenuList,
+	SuggestionMenuTitle,
+	ToolbarControlButton,
+	ToolbarFormatGlyph
+} from '../primitives'
+import type { ComposerFormat, ComposerSuggestion } from '../schemas'
 import {
 	getFormatGlyph,
 	getFormatShortcut,
@@ -23,71 +22,6 @@ import {
 // DX-TODO(composer): Composer subparts are intentionally kept together instead of
 // splitting for LOC. If they become reusable outside Composer, promote them into
 // explicit primitives instead of adding more local helper files.
-export function ComposerRail({
-	onAttachmentRemove,
-	onTokenRemove,
-	value
-}: {
-	onAttachmentRemove: (attachment: ComposerAttachment) => void
-	onTokenRemove: (token: ComposerToken) => void
-	value: ComposerValue
-}) {
-	if (value.mentions.length === 0 && value.commands.length === 0 && value.attachments.length === 0) {
-		return null
-	}
-
-	return (
-		<div className={concreteClassNames.composerRail}>
-			{value.mentions.map(token => (
-				<span className={concreteClassNames.railChip} data-kind="mention" key={`mention-${token.id}`}>
-					<ConcreteIcon name="at-sign" />
-					<span>{token.label}</span>
-					<button
-						aria-label={`Remove ${token.label}`}
-						onClick={() => onTokenRemove(token)}
-						type="button"
-					>
-						<ConcreteIcon name="x" />
-					</button>
-				</span>
-			))}
-			{value.commands.map(token => (
-				<span className={concreteClassNames.railChip} data-kind="command" key={`command-${token.id}`}>
-					<ConcreteIcon name="slash" />
-					<span>{token.label}</span>
-					<button
-						aria-label={`Remove ${token.label}`}
-						onClick={() => onTokenRemove(token)}
-						type="button"
-					>
-						<ConcreteIcon name="x" />
-					</button>
-				</span>
-			))}
-			{value.attachments.map(attachment => (
-				<span
-					className={concreteClassNames.railChip}
-					data-kind="attachment"
-					key={`attachment-${attachment.id}`}
-				>
-					<ConcreteIcon name="paperclip" />
-					<span>
-						{attachment.name}
-						{attachment.meta ? ` · ${attachment.meta}` : ''}
-					</span>
-					<button
-						aria-label={`Remove ${attachment.name}`}
-						onClick={() => onAttachmentRemove(attachment)}
-						type="button"
-					>
-						<ConcreteIcon name="x" />
-					</button>
-				</span>
-			))}
-		</div>
-	)
-}
-
 export function ComposerTool({
 	icon,
 	label,
@@ -100,7 +34,7 @@ export function ComposerTool({
 	shortcut?: readonly string[]
 }) {
 	return (
-		<ToolbarButton
+		<ToolbarControlButton
 			icon={icon}
 			label={label}
 			onClick={onClick}
@@ -125,13 +59,8 @@ export function FormatTool({
 	pressed: boolean
 }) {
 	return (
-		<ToolbarButton
+		<ToolbarControlButton
 			aria-keyshortcuts={getFormatShortcut(format)}
-			className={cn(
-				format === 'italic' && concreteClassNames.toolItalic,
-				format === 'underline' && concreteClassNames.toolUnderline,
-				format === 'strikethrough' && concreteClassNames.toolStrike
-			)}
 			label={label}
 			onClick={onApply}
 			onMouseDown={event => event.preventDefault()}
@@ -141,8 +70,8 @@ export function FormatTool({
 			showShortcut="tooltip"
 			shortcut={getFormatShortcutKeys(format)}
 		>
-			{getFormatGlyph(format)}
-		</ToolbarButton>
+			<ToolbarFormatGlyph format={format}>{getFormatGlyph(format)}</ToolbarFormatGlyph>
+		</ToolbarControlButton>
 	)
 }
 
@@ -156,32 +85,25 @@ export function ComposerMenu({
 	options: readonly ComposerSuggestion[]
 }) {
 	return (
-		<div className={concreteClassNames.menu}>
-			<div className={concreteClassNames.menuTitle}>
-				<span>{getMenuTitle(menu.kind)}</span>
-				<code>{getMenuTrigger(menu.kind)}</code>
-			</div>
-			<div className={concreteClassNames.menuList}>
-				{options.length === 0 ? <div className={concreteClassNames.emptyMenu}>No matches</div> : null}
+		<SuggestionMenu>
+			<SuggestionMenuTitle trigger={getMenuTrigger(menu.kind)}>
+				{getMenuTitle(menu.kind)}
+			</SuggestionMenuTitle>
+			<SuggestionMenuList empty={options.length === 0 ? 'No matches' : undefined}>
 				{options.map((option, index) => (
-					<button
-						className={concreteClassNames.menuItem}
-						data-active={index === menu.activeIndex ? true : undefined}
-						data-kind={option.kind}
+					<SuggestionMenuItem
+						active={index === menu.activeIndex}
+						description={option.description}
 						disabled={option.disabled}
+						itemKind={option.kind}
 						key={option.id}
-						onMouseDown={event => event.preventDefault()}
+						label={option.label}
+						meta={option.meta}
 						onClick={() => onCommit(option)}
-						type="button"
-					>
-						<span className={concreteClassNames.menuCopy}>
-							<b>{option.label}</b>
-							{option.description ? <small>{option.description}</small> : null}
-						</span>
-						{option.meta ? <span className={concreteClassNames.menuMeta}>{option.meta}</span> : null}
-					</button>
+						onMouseDown={event => event.preventDefault()}
+					/>
 				))}
-			</div>
-		</div>
+			</SuggestionMenuList>
+		</SuggestionMenu>
 	)
 }

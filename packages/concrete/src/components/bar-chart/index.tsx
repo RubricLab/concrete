@@ -23,7 +23,15 @@ export const barChartComponentDefinition = createComponent({
 		title: 'Capability score'
 	}),
 	slug: 'bar-chart',
-	states: exampleStates(barChartExamples, ['default', 'comparison', 'horizontal', 'quiet'])
+	states: exampleStates(barChartExamples, [
+		'default',
+		'comparison',
+		'horizontal',
+		'quiet',
+		'loading',
+		'empty',
+		'error'
+	])
 })
 
 function renderBarChartInput(input: BarChartValue) {

@@ -1,2 +1,187 @@
-/* DX-TODO(progress): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and progress screenshots. */
+.concrete-progress-track {
+	position: relative;
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-progress-track);
+	overflow: hidden;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-1);
+}
 
+.concrete-progress-thin {
+	height: var(--concrete-size-progress-track-thin);
+}
+
+.concrete-progress-thick {
+	height: var(--concrete-size-progress-track-thick);
+}
+
+.concrete-progress-fill {
+	position: absolute;
+	inset: var(--concrete-space-0) auto var(--concrete-space-0) var(--concrete-space-0);
+	width: var(--concrete-progress-value, var(--concrete-progress-start));
+	border-radius: inherit;
+	background: var(--concrete-ink-9);
+}
+
+.concrete-progress-shuttle {
+	width: var(--concrete-progress-shuttle-inline);
+	animation: concreteProgressShuttle var(--concrete-duration-progress-shuttle)
+		var(--concrete-ease-progress-shuttle) infinite;
+}
+
+.concrete-progress-lined {
+	--concrete-progress-lined-color: var(--concrete-ink-9);
+
+	background-color: var(--concrete-ink-1);
+	background-image: repeating-linear-gradient(
+		var(--concrete-progress-lined-angle),
+		var(--concrete-progress-lined-color) var(--concrete-progress-start)
+			var(--concrete-progress-lined-stripe-stop),
+		transparent var(--concrete-progress-lined-stripe-stop) var(--concrete-progress-lined-stripe-size)
+	);
+	background-size: var(--concrete-progress-lined-background-size);
+	animation: concreteProgressLined var(--concrete-duration-progress-lined)
+		var(--concrete-ease-linear) infinite;
+}
+
+.concrete-progress-lined[data-tone="sky"] {
+	--concrete-progress-lined-color: var(--concrete-sky);
+}
+
+.concrete-progress-lined[data-tone="terminal"] {
+	--concrete-progress-lined-color: var(--concrete-terminal);
+}
+
+.concrete-progress-lined[data-tone="ultra"] {
+	--concrete-progress-lined-color: var(--concrete-ultra);
+}
+
+.concrete-progress-lined[data-tone="error"] {
+	--concrete-progress-lined-color: var(--concrete-error);
+}
+
+@keyframes concreteProgressShuttle {
+	from {
+		transform: translateX(var(--concrete-progress-shuttle-translate-start));
+	}
+
+	to {
+		transform: translateX(var(--concrete-progress-shuttle-translate-end));
+	}
+}
+
+@keyframes concreteProgressLined {
+	to {
+		background-position: var(--concrete-progress-lined-background-position);
+	}
+}
+
+.concrete-progress-sky {
+	background: var(--concrete-sky);
+}
+
+.concrete-progress-terminal {
+	background: var(--concrete-terminal);
+}
+
+.concrete-progress-ultra {
+	background: var(--concrete-ultra);
+}
+
+.concrete-progress-error {
+	background: var(--concrete-error);
+}
+
+.concrete-segmented-progress {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(var(--concrete-space-0), var(--concrete-grid-track-fill));
+	gap: var(--concrete-space-0-75);
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-segmented-progress);
+}
+
+.concrete-segmented-progress i {
+	display: block;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-1);
+}
+
+.concrete-segmented-progress i[data-active="true"] {
+	background: var(--concrete-ink-9);
+}
+
+.concrete-progress-ring {
+	position: relative;
+	display: inline-grid;
+	place-items: center;
+	width: var(--concrete-ring-size, var(--concrete-size-progress-ring));
+	height: var(--concrete-ring-size, var(--concrete-size-progress-ring));
+	color: var(--concrete-ink-9);
+}
+
+.concrete-progress-ring svg {
+	display: block;
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-full);
+	transform: rotate(var(--concrete-rotate-negative-quarter));
+}
+
+.concrete-progress-ring-track,
+.concrete-progress-ring-fill {
+	fill: none;
+	stroke-width: var(--concrete-ring-stroke, var(--concrete-size-progress-ring-stroke));
+}
+
+.concrete-progress-ring-track {
+	stroke: var(--concrete-ink-1);
+}
+
+.concrete-progress-ring-fill {
+	stroke: currentcolor;
+	stroke-linecap: round;
+}
+
+.concrete-progress-ring-center {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-22) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-progress-ring-unit {
+	margin-left: var(--concrete-border-width-hairline);
+	color: var(--concrete-foreground-soft);
+	font-size: var(--concrete-type-12);
+	font-weight: var(--concrete-weight-medium);
+}
+
+.concrete-progress-ring.concrete-progress-sky,
+.concrete-progress-ring.concrete-progress-terminal,
+.concrete-progress-ring.concrete-progress-ultra,
+.concrete-progress-ring.concrete-progress-error {
+	background: transparent;
+}
+
+.concrete-progress-ring.concrete-progress-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-progress-ring.concrete-progress-terminal {
+	color: var(--concrete-terminal);
+}
+
+.concrete-progress-ring.concrete-progress-ultra {
+	color: var(--concrete-ultra);
+}
+
+.concrete-progress-ring.concrete-progress-error {
+	color: var(--concrete-error);
+}

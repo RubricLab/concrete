@@ -6,6 +6,7 @@ import {
 	componentRegistry,
 	Delta,
 	Frame,
+	foundationRegistry,
 	InlineCode,
 	Kbd,
 	Progress,
@@ -23,13 +24,16 @@ import {
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
 import {
+	homeTypeRows,
 	homeIconNames as iconNames,
+	iconRuleRows,
 	homeInkStops as inkStops,
 	pressureRows,
 	homeRadiusRows as radiusRows,
 	homeSignalStops as signalStops,
 	homeSkyStops as skyStops,
-	homeSpaceRows as spaceRows
+	homeSpaceRows as spaceRows,
+	typographySummary
 } from '@/foundation-data'
 
 // DX-TODO(docs): This route still owns raw docs HTML/CSS classes. Future UX polish should rebuild the page from Concrete primitives only.
@@ -65,14 +69,18 @@ export default function HomeRoute() {
 			</section>
 
 			<section className="docsChapter" id="foundations">
-				<ChapterMeta label="Foundations" meta="Type / color / space / motion / icon" number="01" />
+				<ChapterMeta
+					label="Foundations"
+					meta={`${foundationRegistry.length} foundations / registry-backed tokens`}
+					number="01"
+				/>
 				<h2>One language, many pressures.</h2>
 				<p className="docsLead">
 					Foundations are strict enough for product density and expressive enough for published research.
 					Pressure is creative direction, not a universal primitive prop.
 				</p>
 
-				<Subhead detail="3 families / 12 sizes / 5 weights" index="01.01" title="Typography" />
+				<Subhead detail={typographySummary} index="01.01" title="Typography" />
 				<div className="foundationSplit">
 					<div className="typeSpecimen">
 						<p>
@@ -82,26 +90,13 @@ export default function HomeRoute() {
 						</p>
 					</div>
 					<div className="typeScaleCompact">
-						<div>
-							<span>120 / .92</span>
-							<strong className="displayRole">Concrete</strong>
-							<em>Display / Fraunces 300</em>
-						</div>
-						<div>
-							<span>72 / .95</span>
-							<strong className="heroRole">Hero headline</strong>
-							<em>Display / Fraunces 400</em>
-						</div>
-						<div>
-							<span>48 / 1.05</span>
-							<strong>Section title</strong>
-							<em>H1 / Jakarta 800</em>
-						</div>
-						<div>
-							<span>15 / 1.45</span>
-							<p>UI body. The default for most running copy.</p>
-							<em>Body / Jakarta 400</em>
-						</div>
+						{homeTypeRows.map(([metric, sample, role, className]) => (
+							<div key={role}>
+								<span>{metric}</span>
+								{renderHomeTypeSample(sample, className)}
+								<em>{role}</em>
+							</div>
+						))}
 					</div>
 				</div>
 
@@ -184,22 +179,12 @@ export default function HomeRoute() {
 				<Subhead detail="currentColor / typed registry" index="01.06" title="Iconography" />
 				<div className="iconSystem">
 					<div className="iconRules">
-						<span>
-							<b>Stroke</b>
-							<i>1.75px</i>
-						</span>
-						<span>
-							<b>ViewBox</b>
-							<i>24 x 24</i>
-						</span>
-						<span>
-							<b>Sizes</b>
-							<i>12 / 14 / 16 / 20</i>
-						</span>
-						<span>
-							<b>Color</b>
-							<i>currentColor</i>
-						</span>
+						{iconRuleRows.map(([label, value]) => (
+							<span key={label}>
+								<b>{label}</b>
+								<i>{value}</i>
+							</span>
+						))}
 					</div>
 					<div className="iconLibrary">
 						{iconNames.map(name => (
@@ -297,6 +282,7 @@ export default function HomeRoute() {
 					</Card>
 					<Card title="Render routes">
 						<div className="apiCodeRows">
+							<TextLink href="/render/foundation/colors">/render/foundation/colors</TextLink>
 							<TextLink href="/render/primitive/button">/render/primitive/button</TextLink>
 							<TextLink href="/render/primitive/button.jpg">/render/primitive/button.jpg</TextLink>
 							<TextLink href="/render/component/composer">/render/component/composer</TextLink>
@@ -323,6 +309,7 @@ export default function HomeRoute() {
 				<div className="apiFooter">
 					<Frame header="Registry" headerMeta="shared source">
 						<div className="apiMetrics">
+							<Stat label="Foundations" value={foundationRegistry.length} />
 							<Stat label="Primitives" value={primitiveRegistry.length} />
 							<Stat label="Components" value={componentRegistry.length} />
 							<SegmentedProgress segments={8} value={8} />
@@ -389,4 +376,25 @@ function SwatchGrid({ stops }: SwatchGridProps) {
 			))}
 		</div>
 	)
+}
+
+function renderHomeTypeSample(sample: string, className: string) {
+	const homeClassName = getHomeTypeClassName(className)
+
+	return className === 'scaleBody' ? (
+		<p className={homeClassName}>{sample}</p>
+	) : (
+		<strong className={homeClassName}>{sample}</strong>
+	)
+}
+
+function getHomeTypeClassName(className: string): string {
+	switch (className) {
+		case 'scaleDisplay':
+			return 'displayRole'
+		case 'scaleHero':
+			return 'heroRole'
+		default:
+			return className
+	}
 }

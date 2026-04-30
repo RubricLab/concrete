@@ -1,2 +1,186 @@
-/* DX-TODO(tooltip): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and tooltip screenshots. */
+.concrete-tooltip-wrap {
+	position: relative;
+	display: inline-flex;
+	width: fit-content;
+}
 
+.concrete-tooltip-bubble {
+	display: inline-flex;
+	max-width: var(--concrete-measure-tooltip);
+	padding: var(--concrete-space-1-25) var(--concrete-space-2);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-ink-9);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	box-shadow: var(--concrete-shadow-tooltip);
+	font-family: var(--concrete-font-sans);
+	font-size: var(--concrete-type-11-5);
+	font-weight: var(--concrete-weight-medium);
+	line-height: var(--concrete-line-help);
+	letter-spacing: 0;
+}
+
+.concrete-tooltip-anchor {
+	display: inline-flex;
+}
+
+.concrete-tooltip {
+	position: absolute;
+	z-index: var(--concrete-z-tooltip);
+	display: inline-flex;
+	align-items: center;
+	max-width: var(--concrete-measure-tooltip);
+	padding: var(--concrete-space-1-25) var(--concrete-space-2);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-ink-9);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	box-shadow: var(--concrete-shadow-tooltip);
+	font-family: var(--concrete-font-sans);
+	font-size: var(--concrete-type-11-5);
+	font-weight: var(--concrete-weight-medium);
+	line-height: var(--concrete-line-help);
+	letter-spacing: 0;
+	opacity: var(--concrete-opacity-hidden);
+	pointer-events: none;
+	transition:
+		opacity var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-fast) var(--concrete-ease);
+	white-space: nowrap;
+}
+
+.concrete-tooltip::after {
+	position: absolute;
+	width: var(--concrete-size-tooltip-arrow);
+	height: var(--concrete-size-tooltip-arrow);
+	background: var(--concrete-ink-9);
+	content: "";
+	transform: rotate(var(--concrete-rotate-eighth));
+}
+
+.concrete-tooltip-wrap:hover .concrete-tooltip,
+.concrete-tooltip-wrap:focus-within .concrete-tooltip,
+.concrete-tooltip-force-open {
+	opacity: var(--concrete-opacity-visible);
+}
+
+.concrete-tooltip-top {
+	bottom: calc(var(--concrete-size-full) + var(--concrete-offset-tooltip-gap));
+	left: var(--concrete-size-half);
+	transform: translate(
+		var(--concrete-translate-half-negative),
+		var(--concrete-translate-tooltip-offset)
+	);
+}
+
+.concrete-tooltip-wrap:hover .concrete-tooltip-top,
+.concrete-tooltip-wrap:focus-within .concrete-tooltip-top,
+.concrete-tooltip-force-open.concrete-tooltip-top {
+	transform: translate(var(--concrete-translate-half-negative), var(--concrete-space-0));
+}
+
+.concrete-tooltip-top::after {
+	bottom: var(--concrete-offset-tooltip-arrow);
+	left: var(--concrete-size-half);
+	margin-left: var(--concrete-offset-tooltip-arrow-center);
+}
+
+.concrete-tooltip-bottom {
+	top: calc(var(--concrete-size-full) + var(--concrete-offset-tooltip-gap));
+	left: var(--concrete-size-half);
+	transform: translate(
+		var(--concrete-translate-half-negative),
+		var(--concrete-translate-tooltip-offset-negative)
+	);
+}
+
+.concrete-tooltip-wrap:hover .concrete-tooltip-bottom,
+.concrete-tooltip-wrap:focus-within .concrete-tooltip-bottom,
+.concrete-tooltip-force-open.concrete-tooltip-bottom {
+	transform: translate(var(--concrete-translate-half-negative), var(--concrete-space-0));
+}
+
+.concrete-tooltip-bottom::after {
+	top: var(--concrete-offset-tooltip-arrow);
+	left: var(--concrete-size-half);
+	margin-left: var(--concrete-offset-tooltip-arrow-center);
+}
+
+.concrete-tooltip-right {
+	top: var(--concrete-size-half);
+	left: calc(var(--concrete-size-full) + var(--concrete-offset-tooltip-gap));
+	transform: translate(
+		var(--concrete-translate-tooltip-offset-negative),
+		var(--concrete-translate-half-negative)
+	);
+}
+
+.concrete-tooltip-wrap:hover .concrete-tooltip-right,
+.concrete-tooltip-wrap:focus-within .concrete-tooltip-right,
+.concrete-tooltip-force-open.concrete-tooltip-right {
+	transform: translate(var(--concrete-space-0), var(--concrete-translate-half-negative));
+}
+
+.concrete-tooltip-right::after {
+	top: var(--concrete-size-half);
+	left: var(--concrete-offset-tooltip-arrow);
+	margin-top: var(--concrete-offset-tooltip-arrow-center);
+}
+
+.concrete-tooltip-left {
+	top: var(--concrete-size-half);
+	right: calc(var(--concrete-size-full) + var(--concrete-offset-tooltip-gap));
+	transform: translate(
+		var(--concrete-translate-tooltip-offset),
+		var(--concrete-translate-half-negative)
+	);
+}
+
+.concrete-tooltip-wrap:hover .concrete-tooltip-left,
+.concrete-tooltip-wrap:focus-within .concrete-tooltip-left,
+.concrete-tooltip-force-open.concrete-tooltip-left {
+	transform: translate(var(--concrete-space-0), var(--concrete-translate-half-negative));
+}
+
+.concrete-tooltip-left::after {
+	top: var(--concrete-size-half);
+	right: var(--concrete-offset-tooltip-arrow);
+	margin-top: var(--concrete-offset-tooltip-arrow-center);
+}
+
+.concrete-tooltip-rich {
+	display: grid;
+	max-width: var(--concrete-measure-tooltip-rich);
+	gap: var(--concrete-border-width-hairline);
+	padding: var(--concrete-space-1-75) var(--concrete-space-2-5);
+	line-height: var(--concrete-line-normal);
+	white-space: normal;
+}
+
+.concrete-tooltip-rich b {
+	color: var(--concrete-inverse-foreground-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-tooltip-rich span {
+	color: var(--concrete-inverse-foreground-muted-alpha);
+	font-size: var(--concrete-type-11);
+}
+
+.concrete-tooltip-kbd {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: var(--concrete-size-icon-large);
+	height: var(--concrete-size-icon-large);
+	margin-left: var(--concrete-space-1-25);
+	padding: 0 var(--concrete-space-0-75);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-inverse-border-subtle);
+	border-radius: var(--concrete-radius-0-5);
+	background: var(--concrete-inverse-surface-subtle);
+	color: var(--concrete-inverse-foreground-bright);
+	font-family: var(--concrete-font-mono);
+	font-size: var(--concrete-type-9-5);
+	font-weight: var(--concrete-weight-semibold);
+	line-height: var(--concrete-line-flat);
+}

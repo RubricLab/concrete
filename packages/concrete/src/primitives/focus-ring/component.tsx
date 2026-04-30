@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { concreteClassNames } from '../../styles/class-names'
 import { Button } from '../button'
 
 export type FocusRingPreviewProps = {
@@ -7,7 +8,7 @@ export type FocusRingPreviewProps = {
 
 export function FocusRingPreview({ label = 'Focused' }: FocusRingPreviewProps) {
 	return (
-		<Button style={{ boxShadow: 'var(--concrete-ring-focus)' }} variant="secondary">
+		<Button className={concreteClassNames.focusRingPreview} variant="secondary">
 			{label}
 		</Button>
 	)

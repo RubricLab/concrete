@@ -2,9 +2,7 @@
 
 import type { HTMLAttributes } from 'react'
 import { useMemo, useState } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Field } from '../../primitives'
-import { concreteClassNames } from '../../styles/class-names'
+import { Field, PickerControl, PickerShell, TimeList } from '../../primitives'
 import type { FieldChromeProps } from '../../utilities/form-field-helpers'
 
 export type TimePickerProps = Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> &
@@ -57,32 +55,19 @@ export function TimePicker({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.timePicker} data-open={open ? true : undefined} {...props}>
-				<button
-					className={concreteClassNames.pickerControl}
-					onClick={() => setOpen(current => !current)}
-					type="button"
-				>
-					<span>{formatTimeLabel(currentValue)}</span>
-					<ConcreteIcon name="clock" />
-				</button>
+			<PickerShell kind="time" open={open} {...props}>
+				<PickerControl icon="clock" onClick={() => setOpen(current => !current)} open={open}>
+					{formatTimeLabel(currentValue)}
+				</PickerControl>
 				{open ? (
-					<div className={concreteClassNames.timeMenu} role="listbox">
-						{timeOptions.map(option => (
-							<button
-								aria-selected={option === currentValue}
-								data-selected={option === currentValue ? true : undefined}
-								key={option}
-								onClick={() => commitValue(option)}
-								role="option"
-								type="button"
-							>
-								{formatTimeLabel(option)}
-							</button>
-						))}
-					</div>
+					<TimeList
+						formatOption={formatTimeLabel}
+						onSelect={commitValue}
+						options={timeOptions}
+						value={currentValue}
+					/>
 				) : null}
-			</div>
+			</PickerShell>
 		</Field>
 	)
 }

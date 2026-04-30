@@ -24,7 +24,7 @@ export const meterComponentDefinition = createComponent({
 		value: { max: 100, min: 0, value: 72 }
 	}),
 	slug: 'meter',
-	states: exampleStates(meterExamples, ['bar', 'ring', 'signal'])
+	states: exampleStates(meterExamples, ['default', 'bar', 'ring', 'compact', 'signal'])
 })
 
 function renderMeterInput(input: MeterValue) {

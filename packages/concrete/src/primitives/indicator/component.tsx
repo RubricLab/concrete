@@ -21,15 +21,15 @@ export function Indicator({ children, className, tone = 'default', ...props }: I
 function getIndicatorToneClass(tone: IndicatorTone | undefined): string | undefined {
 	switch (tone) {
 		case 'error':
-			return concreteClassNames.progressError
+			return concreteClassNames.indicatorError
 		case 'muted':
 			return concreteClassNames.indicatorMuted
 		case 'sky':
-			return concreteClassNames.progressSky
+			return concreteClassNames.indicatorSky
 		case 'terminal':
-			return concreteClassNames.progressTerminal
+			return concreteClassNames.indicatorTerminal
 		case 'ultra':
-			return concreteClassNames.progressUltra
+			return concreteClassNames.indicatorUltra
 		case 'default':
 		case undefined:
 			return undefined

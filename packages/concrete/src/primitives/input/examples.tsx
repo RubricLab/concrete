@@ -1,43 +1,42 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame'
 import { Input } from './component'
 
 export const inputExamples = defineExamples({
 	default: {
 		description: 'Empty field state.',
 		render: () => (
-			<Frame>
-				<Input label="Email" leadingIcon="at-sign" placeholder="you@rubric.bot" />
-			</Frame>
+			<>
+				<Input label="Reviewer email" leadingIcon="at-sign" placeholder="you@rubric.bot" />
+			</>
 		)
 	},
 	disabled: {
 		description: 'Locked field.',
 		render: () => (
-			<Frame>
-				<Input disabled label="Email" leadingIcon="at-sign" placeholder="you@rubric.bot" />
-			</Frame>
+			<>
+				<Input disabled label="Reviewer email" leadingIcon="at-sign" placeholder="you@rubric.bot" />
+			</>
 		)
 	},
 	error: {
 		description: 'Validation failure.',
 		render: () => (
-			<Frame>
+			<>
 				<Input
 					error="Enter a valid email address."
-					label="Email"
+					label="Reviewer email"
 					leadingIcon="at-sign"
 					placeholder="you@rubric.bot"
 				/>
-			</Frame>
+			</>
 		)
 	},
 	filled: {
 		description: 'Value present.',
 		render: () => (
-			<Frame>
-				<Input defaultValue="arihan@rubric.bot" label="Email" leadingIcon="at-sign" />
-			</Frame>
+			<>
+				<Input defaultValue="arihan@rubric.bot" label="Reviewer email" leadingIcon="at-sign" />
+			</>
 		)
 	}
 })

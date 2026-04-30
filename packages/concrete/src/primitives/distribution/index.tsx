@@ -23,7 +23,7 @@ export const distributionPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderDistributionInput(distributionSchema.parse(input)),
 	schema: distributionSchema,
 	slug: 'distribution',
-	states: exampleStates(distributionExamples, ['default'])
+	states: exampleStates(distributionExamples, ['default', 'signals'])
 })
 
 function renderDistributionInput({ data }: DistributionValue) {

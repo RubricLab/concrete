@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
 import { Button, Input } from '../../primitives'
 import { DateRangePicker } from '../date-range-picker'
@@ -37,51 +36,45 @@ export const formDialogExamples = defineExamples({
 
 function renderFormDialogExample(state: 'default' | 'error' | 'wide') {
 	return (
-		<FormWideStage>
-			<FormDialog
-				description="Create a bounded experiment without leaving the current workspace."
-				footer={
-					<>
-						<Button size="small" variant="secondary">
-							Cancel
-						</Button>
-						<Button size="small">Create run</Button>
-					</>
-				}
-				size={state === 'wide' ? 'wide' : 'default'}
-				status={state === 'error' ? 'error' : 'default'}
-				title="New experiment"
-			>
-				{state === 'error' ? (
-					<ValidationSummary
-						description="A run name and date window are required."
-						items={[
-							{ id: 'run-name', label: 'Run name', message: 'Add a short descriptive name.' },
-							{ id: 'window', label: 'Date window', message: 'Choose a start and end date.' }
-						]}
-					/>
-				) : null}
-				<FormGrid columns={state === 'wide' ? 2 : 1}>
-					<Input
-						error={state === 'error' ? 'Add a short descriptive name.' : undefined}
-						id="run-name"
-						label="Run name"
-						placeholder="Router contract check"
-					/>
-					<DateRangePicker
-						defaultOpen={state === 'wide'}
-						defaultValue={{ end: '2026-05-07', start: '2026-04-28' }}
-						id="window"
-						label="Window"
-					/>
-					<MultiSelect defaultValue={['design']} label="Tags" options={multiSelectOptions} />
-					<FileUpload defaultValue={[]} label="Artifacts" title="Attach packet" />
-				</FormGrid>
-			</FormDialog>
-		</FormWideStage>
+		<FormDialog
+			description="Create a bounded experiment without leaving the current workspace."
+			footer={
+				<>
+					<Button size="small" variant="secondary">
+						Cancel
+					</Button>
+					<Button size="small">Create run</Button>
+				</>
+			}
+			size={state === 'wide' ? 'wide' : 'default'}
+			status={state === 'error' ? 'error' : 'default'}
+			title="New experiment"
+		>
+			{state === 'error' ? (
+				<ValidationSummary
+					description="A run name and date window are required."
+					items={[
+						{ id: 'run-name', label: 'Run name', message: 'Add a short descriptive name.' },
+						{ id: 'window', label: 'Date window', message: 'Choose a start and end date.' }
+					]}
+				/>
+			) : null}
+			<FormGrid columns={state === 'wide' ? 2 : 1}>
+				<Input
+					error={state === 'error' ? 'Add a short descriptive name.' : undefined}
+					id="run-name"
+					label="Run name"
+					placeholder="Router contract check"
+				/>
+				<DateRangePicker
+					defaultOpen={state === 'wide'}
+					defaultValue={{ end: '2026-05-07', start: '2026-04-28' }}
+					id="window"
+					label="Window"
+				/>
+				<MultiSelect defaultValue={['design']} label="Tags" options={multiSelectOptions} />
+				<FileUpload defaultValue={[]} label="Artifacts" title="Attach packet" />
+			</FormGrid>
+		</FormDialog>
 	)
-}
-
-function FormWideStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 760, width: '100%' }}>{children}</div>
 }

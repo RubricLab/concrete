@@ -41,6 +41,7 @@ export const composerComponentDefinition = createComponent({
 		'empty',
 		'mention',
 		'command',
+		'suggestions',
 		'formatting',
 		'disabled'
 	])

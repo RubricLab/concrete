@@ -2,13 +2,10 @@
 
 import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Field } from '../../primitives'
+import { CalendarPanel, Field, PickerControl, PickerShell } from '../../primitives'
 import type { DateRangeValue } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import {
 	addDays,
-	CalendarPanel,
 	formatRangeLabel,
 	getMonthStart,
 	getNextRangeValue,
@@ -95,11 +92,10 @@ export function DateRangePicker({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.datePicker} data-open={open ? true : undefined} {...props}>
-				<button className={concreteClassNames.pickerControl} onClick={toggleOpen} type="button">
-					<span>{formatRangeLabel(currentValue)}</span>
-					<ConcreteIcon name="calendar" />
-				</button>
+			<PickerShell kind="date" open={open} {...props}>
+				<PickerControl onClick={toggleOpen} open={open}>
+					{formatRangeLabel(currentValue)}
+				</PickerControl>
 				{open ? (
 					<CalendarPanel
 						max={max}
@@ -111,7 +107,7 @@ export function DateRangePicker({
 						selectedStart={currentValue.start}
 					/>
 				) : null}
-			</div>
+			</PickerShell>
 		</Field>
 	)
 }

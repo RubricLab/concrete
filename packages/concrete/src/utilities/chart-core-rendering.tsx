@@ -1,6 +1,13 @@
 import type { ReactNode } from 'react'
+import {
+	ChartAxis,
+	ChartAxisLabel as ChartAxisLabelPrimitive,
+	ChartGrid,
+	ChartPlotBackground,
+	ChartTarget,
+	ChartTickLabel
+} from '../primitives'
 import type { chartSchema, DataPoint, DataTone } from '../schemas'
-import { getConcreteClassName } from '../styles/class-names'
 import { createChartTicks, createLinearScale, getNumericExtent } from './data-geometry'
 
 export type ChartPlotBox = {
@@ -19,7 +26,7 @@ export type ChartPlotPadding = {
 	top: number
 }
 
-export type ChartAxisLabel = { label: string; x: number }
+export type ChartAxisLabelDatum = { label: string; x: number }
 
 export type ScaledChartPoint = DataPoint & {
 	x: number
@@ -45,12 +52,6 @@ const chartStateTones = {
 	loading: 'sky',
 	ready: 'terminal'
 } satisfies Record<ChartState, ChartStateTone>
-
-const donutStrokeWidths = {
-	medium: 10,
-	thick: 14,
-	thin: 7
-} satisfies Record<'medium' | 'thick' | 'thin', number>
 
 export function createChartPlotBox(
 	width: number,
@@ -104,7 +105,7 @@ export function createScaledChartPoints(
 export function createSparseXAxisLabels(
 	points: readonly DataPoint[],
 	plotBox: ChartPlotBox
-): readonly ChartAxisLabel[] {
+): readonly ChartAxisLabelDatum[] {
 	if (points.length === 0) {
 		return []
 	}
@@ -153,7 +154,7 @@ export function getStackedTotal(group: { segments: readonly DataPoint[] }): numb
 export function renderCartesianGrid(
 	plotBox: ChartPlotBox,
 	extent: readonly [number, number],
-	xLabels: readonly ChartAxisLabel[] = [],
+	xLabels: readonly ChartAxisLabelDatum[] = [],
 	options: {
 		showGrid?: boolean
 		showXAxis?: boolean
@@ -167,9 +168,8 @@ export function renderCartesianGrid(
 	const showYAxis = options.showYAxis ?? true
 
 	return (
-		<g className={getConcreteClassName('chartGrid')}>
-			<rect
-				className={getConcreteClassName('chartPlotBackground')}
+		<ChartGrid>
+			<ChartPlotBackground
 				height={plotBox.height}
 				rx="8"
 				width={plotBox.width}
@@ -183,41 +183,29 @@ export function renderCartesianGrid(
 					<g key={tick}>
 						{showGrid ? <line x1={plotBox.left} x2={plotBox.right} y1={y} y2={y} /> : null}
 						{showYAxis ? (
-							<text
-								className={getConcreteClassName('chartTickLabel')}
-								textAnchor="end"
-								x={plotBox.left - 9}
-								y={y + 3}
-							>
+							<ChartTickLabel textAnchor="end" x={plotBox.left - 9} y={y + 3}>
 								{formatChartValue(tick)}
-							</text>
+							</ChartTickLabel>
 						) : null}
 					</g>
 				)
 			})}
 			{showXAxis ? (
-				<line
-					className={getConcreteClassName('chartAxis')}
-					x1={plotBox.left}
-					x2={plotBox.right}
-					y1={plotBox.bottom}
-					y2={plotBox.bottom}
-				/>
+				<ChartAxis x1={plotBox.left} x2={plotBox.right} y1={plotBox.bottom} y2={plotBox.bottom} />
 			) : null}
 			{showXAxis
 				? xLabels.map(label => (
-						<text
-							className={getConcreteClassName('chartAxisLabel')}
+						<ChartAxisLabelPrimitive
 							key={`${label.label}-${label.x}`}
 							textAnchor="middle"
 							x={label.x}
 							y={plotBox.bottom + 18}
 						>
 							{label.label}
-						</text>
+						</ChartAxisLabelPrimitive>
 					))
 				: null}
-		</g>
+		</ChartGrid>
 	)
 }
 
@@ -230,12 +218,12 @@ export function renderTarget(
 	const y = scaleY(target)
 
 	return (
-		<g className={getConcreteClassName('chartTarget')}>
+		<ChartTarget>
 			<line x1={plotBox.left} x2={plotBox.right} y1={y} y2={y} />
 			<text textAnchor="end" x={plotBox.right - 4} y={y - 7}>
 				target {formatChartValue(target)}
 			</text>
-		</g>
+		</ChartTarget>
 	)
 }
 
@@ -251,10 +239,6 @@ export function formatChartValue(value: number): string {
 	}
 
 	return value.toFixed(1)
-}
-
-export function getDonutStrokeWidth(thickness: 'medium' | 'thick' | 'thin'): number {
-	return donutStrokeWidths[thickness]
 }
 
 export function getChartStateMessage(state: ChartState): string {

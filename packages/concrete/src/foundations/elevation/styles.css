@@ -1,3 +1,79 @@
-/* DX-TODO(elevation): Foundation shadow tokens still live in the root stylesheet.
-   Keep them centralized until item CSS concatenation can preserve cascade order
-   and public `@rubriclab/concrete/styles.css` compatibility. */
+:root {
+	--concrete-border-width-hairline: 1px;
+	--concrete-shadow-1: 0 1px 2px rgb(10 11 15 / 4%);
+	--concrete-shadow-2: 0 2px 8px rgb(10 11 15 / 6%), 0 1px 2px rgb(10 11 15 / 4%);
+	--concrete-shadow-3: 0 12px 32px rgb(10 11 15 / 10%), 0 2px 6px rgb(10 11 15 / 5%);
+	--concrete-shadow-4: 0 24px 64px rgb(10 11 15 / 14%), 0 4px 12px rgb(10 11 15 / 6%);
+	--concrete-shadow-border: 0 1px 0 var(--concrete-border);
+	--concrete-shadow-label:
+		inset 0 1px 0 var(--concrete-inverse-highlight), 0 1px 0 var(--concrete-border);
+	--concrete-shadow-label-hover:
+		inset 0 1px 0 var(--concrete-inverse-highlight), 0 1px 0 var(--concrete-border-strong);
+	--concrete-shadow-label-active:
+		inset 0 1px 0 var(--concrete-inverse-highlight), 0 0 0 var(--concrete-border);
+	--concrete-shadow-label-selected:
+		inset 0 1px 0 var(--concrete-inverse-border), 0 1px 0 rgb(0 0 0 / 22%),
+		0 1px 2px rgb(10 11 15 / 12%);
+	--concrete-shadow-control-inset: inset 0 1px 0 rgb(10 11 15 / 1.5%);
+	--concrete-shadow-control-focus-inset: inset 0 0 0 2px var(--concrete-sky);
+	--concrete-shadow-stepper-control:
+		var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
+	--concrete-shadow-range-control-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
+	--concrete-shadow-range-control-thumb-hover:
+		0 0 0 1px rgb(24 102 220 / 38%), 0 0 0 4px var(--concrete-sky-ring);
+	--concrete-shadow-button-primary:
+		inset 0 1px 0 rgb(255 255 255 / 8%), 0 1px 0 rgb(0 0 0 / 20%), 0 1px 2px rgb(10 11 15 / 10%);
+	--concrete-shadow-button-sky:
+		inset 0 1px 0 rgb(255 255 255 / 14%), 0 1px 0 rgb(0 0 0 / 18%), 0 1px 2px rgb(15 78 158 / 18%);
+	--concrete-shadow-button-sky-soft: inset 0 1px 0 rgb(255 255 255 / 42%);
+	--concrete-shadow-button-soft: inset 0 1px 0 rgb(255 255 255 / 40%);
+	--concrete-shadow-button-danger:
+		inset 0 1px 0 rgb(255 255 255 / 12%), 0 1px 0 rgb(0 0 0 / 18%), 0 1px 2px rgb(240 58 58 / 20%);
+	--concrete-shadow-button-ultra:
+		inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 0 rgb(40 24 120 / 22%),
+		0 1px 4px rgb(107 91 255 / 28%);
+	--concrete-shadow-tooltip: 0 4px 14px rgb(10 11 15 / 18%), 0 1px 0 rgb(0 0 0 / 25%);
+	--concrete-shadow-validation-icon: inset 0 0 0 1px var(--concrete-border-soft);
+	--concrete-shadow-switch-thumb: 0 1px 1.5px rgb(10 11 15 / 25%);
+	--concrete-shadow-tool-code: 0 1px 0 rgb(10 11 15 / 3%), 0 1px 2px rgb(10 11 15 / 4%);
+	--concrete-shadow-tool-output: 0 1px 1px rgb(10 11 15 / 3%);
+	--concrete-shadow-diagram-node-selected: 0 0 0 3px
+		color-mix(in srgb, var(--concrete-sky) 14%, transparent);
+	--concrete-shadow-diagram-node-inverse:
+		0 10px 24px rgb(10 11 15 / 14%), 0 2px 5px rgb(10 11 15 / 10%);
+	--concrete-shadow-diagram-node-inverse-hover:
+		0 14px 30px rgb(10 11 15 / 18%), 0 2px 6px rgb(10 11 15 / 12%);
+	--concrete-shadow-diagram-item-selected: 0 0 0 3px
+		color-mix(in srgb, currentcolor 12%, transparent);
+	--concrete-shadow-diagram-canvas-status: 0 0 0 3px var(--concrete-ultra-wash);
+	--concrete-shadow-diagram-canvas-rail-active: 0 0 0 3px
+		color-mix(in srgb, var(--concrete-ultra) 8%, transparent);
+	--concrete-shadow-diagram-canvas-minimap-selected: 0 0 0 3px var(--concrete-sky-1);
+	--concrete-shadow-none: none;
+	--concrete-ring-focus: 0 0 0 3px var(--concrete-sky-ring);
+	--concrete-ring-error: 0 0 0 3px var(--concrete-error-ring);
+	--concrete-border-width-control: 1.5px;
+	--concrete-border-width-emphasis: 2px;
+	--concrete-border-width-spinner: 1.75px;
+	--concrete-stroke-1-15: 1.15;
+	--concrete-stroke-1-25: 1.25;
+	--concrete-stroke-1-35: 1.35;
+	--concrete-stroke-1-4: 1.4;
+	--concrete-stroke-1-5: 1.5;
+	--concrete-stroke-1-55: 1.55;
+	--concrete-stroke-1-6: 1.6;
+	--concrete-stroke-1-75: 1.75;
+	--concrete-stroke-1-8: 1.8;
+	--concrete-stroke-2-15: 2.15;
+	--concrete-stroke-2: 2;
+	--concrete-stroke-2-2: 2.2;
+	--concrete-stroke-2-4: 2.4;
+	--concrete-filter-control-pressed: saturate(1.04);
+	--concrete-filter-concept-frame-selected: drop-shadow(0 0 0 var(--concrete-sky));
+	--concrete-filter-chart-bar: drop-shadow(0 1px 0 rgb(13 18 28 / 6%));
+}
+
+.concrete-focus-target:focus-visible {
+	outline: 0;
+	box-shadow: var(--concrete-ring-focus);
+}

@@ -1,8 +1,12 @@
 import {
 	type ComponentDefinition,
 	type ComponentRegistryEntry,
+	type FoundationDefinition,
+	type FoundationRegistryEntry,
 	getComponentDefinition,
 	getComponentEntry,
+	getFoundationDefinition,
+	getFoundationEntry,
 	getPrimitiveDefinition,
 	getPrimitiveEntry,
 	type PrimitiveDefinition,
@@ -10,8 +14,8 @@ import {
 } from '@rubriclab/concrete'
 
 export type CatalogRenderItem = {
-	definition: ComponentDefinition | PrimitiveDefinition
-	entry: ComponentRegistryEntry | PrimitiveRegistryEntry
+	definition: ComponentDefinition | FoundationDefinition | PrimitiveDefinition
+	entry: ComponentRegistryEntry | FoundationRegistryEntry | PrimitiveRegistryEntry
 }
 
 export function getCatalogRenderItem(kind: string, slug: string): CatalogRenderItem | undefined {
@@ -19,6 +23,12 @@ export function getCatalogRenderItem(kind: string, slug: string): CatalogRenderI
 		case 'component': {
 			const entry = getComponentEntry(slug)
 			const definition = entry ? getComponentDefinition(entry.slug) : undefined
+
+			return entry && definition ? { definition, entry } : undefined
+		}
+		case 'foundation': {
+			const entry = getFoundationEntry(slug)
+			const definition = entry ? getFoundationDefinition(entry.slug) : undefined
 
 			return entry && definition ? { definition, entry } : undefined
 		}

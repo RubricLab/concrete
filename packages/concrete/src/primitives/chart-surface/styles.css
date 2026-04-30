@@ -1,0 +1,262 @@
+.concrete-chart-card {
+	display: grid;
+	gap: var(--concrete-space-3);
+	min-width: var(--concrete-space-0);
+	padding: var(--concrete-space-3-5);
+	overflow: hidden;
+}
+
+.concrete-chart-surface {
+	position: relative;
+	display: grid;
+	min-height: var(--chart-height, var(--concrete-size-chart-height));
+	place-items: stretch;
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-raised);
+	color: var(--concrete-sky);
+}
+
+.concrete-chart-surface[data-surface="sunken"] {
+	background: var(--concrete-sunken);
+}
+
+.concrete-chart-surface[data-surface="transparent"] {
+	border-color: transparent;
+	background: transparent;
+}
+
+.concrete-chart-svg {
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-full);
+	min-height: var(--chart-height, var(--concrete-size-chart-height));
+	overflow: visible;
+}
+
+.concrete-chart-grid line {
+	stroke: var(--concrete-chart-grid-stroke);
+	stroke-width: var(--concrete-border-width-hairline);
+}
+
+.concrete-chart-plot-background {
+	fill: transparent;
+	stroke: none;
+}
+
+.concrete-chart-axis,
+.concrete-chart-baseline {
+	stroke: var(--concrete-chart-axis-stroke);
+	stroke-width: var(--concrete-border-width-hairline);
+}
+
+.concrete-chart-tick-label,
+.concrete-chart-axis-label,
+.concrete-chart-row-label,
+.concrete-chart-value-label,
+.concrete-chart-end-label {
+	fill: var(--concrete-foreground-faint);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-9) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}
+
+.concrete-chart-row-label,
+.concrete-chart-value-label,
+.concrete-chart-end-label {
+	font-family: var(--concrete-font-sans);
+	font-size: var(--concrete-type-10);
+	font-weight: var(--concrete-weight-heavy);
+	letter-spacing: var(--concrete-tracking-normal);
+	text-transform: none;
+}
+
+.concrete-chart-value-label,
+.concrete-chart-end-label {
+	fill: var(--concrete-foreground-muted);
+}
+
+.concrete-chart-line,
+.concrete-chart-area,
+.concrete-chart-endpoint,
+.concrete-chart-point,
+.concrete-chart-bar,
+.concrete-chart-bar-comparison,
+.concrete-chart-stack-segment,
+.concrete-chart-target line {
+	stroke: currentcolor;
+}
+
+.concrete-chart-line {
+	fill: none;
+	stroke-width: var(--concrete-stroke-1-75);
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.concrete-chart-area {
+	fill: currentcolor;
+	opacity: var(--concrete-opacity-chart-area);
+	stroke: none;
+}
+
+.concrete-chart-point {
+	fill: var(--concrete-surface);
+	opacity: var(--concrete-opacity-chart-point);
+	stroke-width: var(--concrete-stroke-1-4);
+}
+
+.concrete-chart-endpoint {
+	fill: currentcolor;
+	stroke: var(--concrete-surface);
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-chart-bar,
+.concrete-chart-bar-comparison,
+.concrete-chart-stack-segment {
+	fill: currentcolor;
+	stroke: none;
+}
+
+.concrete-chart-bar {
+	filter: var(--concrete-filter-chart-bar);
+}
+
+.concrete-chart-bar-track {
+	fill: var(--concrete-surface);
+	stroke: none;
+}
+
+.concrete-chart-bar-comparison {
+	color: var(--concrete-foreground-muted);
+	opacity: var(--concrete-opacity-chart-comparison);
+}
+
+.concrete-chart-target line {
+	stroke: var(--concrete-foreground-faint);
+	stroke-dasharray: var(--concrete-chart-target-dasharray);
+}
+
+.concrete-chart-target text {
+	fill: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-9) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-caps);
+	text-transform: uppercase;
+}
+
+.concrete-chart-message {
+	display: grid;
+	min-height: var(--chart-height, var(--concrete-size-chart-height));
+	place-items: center;
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-13);
+	font-weight: var(--concrete-weight-bold);
+}
+
+.concrete-donut-chart {
+	position: relative;
+	display: grid;
+	min-height: var(--chart-height, var(--concrete-size-chart-height));
+	place-items: center;
+	color: var(--concrete-sky);
+}
+
+.concrete-donut-chart svg {
+	width: min(var(--concrete-size-donut-inline), var(--concrete-size-donut-inline-ratio));
+	transform: rotate(var(--concrete-rotate-negative-quarter));
+}
+
+.concrete-donut-segment,
+.concrete-donut-track {
+	fill: none;
+	stroke-width: var(--donut-stroke-width, var(--concrete-size-donut-stroke));
+}
+
+.concrete-donut-segment {
+	stroke: currentcolor;
+	stroke-linecap: butt;
+}
+
+.concrete-donut-track {
+	stroke: var(--concrete-surface);
+}
+
+.concrete-donut-center {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	display: grid;
+	place-content: center;
+	text-align: center;
+}
+
+.concrete-donut-center-value {
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-24);
+	line-height: var(--concrete-line-flat);
+}
+
+.concrete-donut-center-label {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}
+
+.concrete-heatmap-chart {
+	display: grid;
+	grid-template-columns: var(--concrete-template-heatmap-grid);
+	align-content: center;
+	gap: var(--concrete-space-1);
+	min-height: var(--chart-height, var(--concrete-size-chart-height));
+	padding: var(--concrete-space-4);
+	color: var(--concrete-sky);
+}
+
+.concrete-heatmap-column-label,
+.concrete-heatmap-row-label {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}
+
+.concrete-heatmap-column-label {
+	text-align: center;
+}
+
+.concrete-heatmap-cell {
+	position: relative;
+	display: grid;
+	min-height: var(--concrete-size-heatmap-cell-min);
+	place-items: center;
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+.concrete-heatmap-cell::before {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	background: var(--concrete-sky);
+	content: "";
+	opacity: var(--heatmap-intensity, var(--concrete-opacity-heatmap-cell-default));
+}
+
+.concrete-heatmap-cell-value {
+	position: relative;
+}

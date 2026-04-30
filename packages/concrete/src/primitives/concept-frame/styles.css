@@ -1,2 +1,30 @@
-/* DX-TODO(concept-frame): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and concept-frame screenshots. */
+.concrete-concept-frame {
+	display: block;
+	width: var(--concrete-size-concept-frame-inline);
+	height: var(--concrete-size-concept-frame-block);
+	color: var(--concrete-foreground-muted);
+	transition:
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		opacity var(--concrete-duration-fast) var(--concrete-ease),
+		filter var(--concrete-duration-fast) var(--concrete-ease);
+}
 
+.concrete-concept-frame-small {
+	width: var(--concrete-size-concept-frame-small-inline);
+	height: var(--concrete-size-concept-frame-small-block);
+}
+
+.concrete-concept-frame-large {
+	width: var(--concrete-size-concept-frame-large-inline);
+	height: var(--concrete-size-concept-frame-large-block);
+}
+
+.concrete-concept-frame-selected {
+	color: var(--concrete-foreground-strong);
+	filter: var(--concrete-filter-concept-frame-selected);
+}
+
+.concrete-concept-frame-muted {
+	color: var(--concrete-ink-4);
+	opacity: var(--concrete-opacity-concept-frame-muted);
+}

@@ -35,7 +35,7 @@ export const validationSummaryComponentDefinition = createComponent({
 		]
 	}),
 	slug: 'validation-summary',
-	states: exampleStates(validationSummaryExamples, ['error', 'success', 'mixed'])
+	states: exampleStates(validationSummaryExamples, ['default', 'error', 'success', 'mixed'])
 })
 
 function renderValidationSummaryInput(input: ValidationSummaryValue) {

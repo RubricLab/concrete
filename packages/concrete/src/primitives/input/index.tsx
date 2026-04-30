@@ -5,8 +5,8 @@ import { inputExamples } from './examples'
 import { inputMeta } from './meta'
 import { type InputValue, inputSchema } from './schema'
 
-export type { InputProps } from './component'
-export { Input } from './component'
+export type { InputControlProps, InputProps } from './component'
+export { Input, InputControl } from './component'
 export type { InputInput, InputValue } from './schema'
 export { inputPropsSchema, inputSchema } from './schema'
 

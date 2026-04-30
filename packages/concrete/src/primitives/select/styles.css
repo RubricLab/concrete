@@ -1,1 +1,18 @@
-/* DX-TODO(select): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-select {
+	appearance: none;
+	padding-right: var(--concrete-size-select-padding-inline-end);
+	cursor: pointer;
+}
+
+.concrete-select-wrap::after {
+	position: absolute;
+	top: var(--concrete-size-half);
+	right: var(--concrete-space-2-5);
+	width: var(--concrete-size-indicator-dot);
+	height: var(--concrete-size-indicator-dot);
+	border-right: var(--concrete-border-width-control) solid var(--concrete-foreground-muted);
+	border-bottom: var(--concrete-border-width-control) solid var(--concrete-foreground-muted);
+	content: "";
+	transform: translateY(var(--concrete-translate-select-arrow)) rotate(var(--concrete-rotate-eighth));
+	pointer-events: none;
+}

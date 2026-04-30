@@ -1,5 +1,4 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame'
 import { Input } from '../input'
 import { Field } from './component'
 
@@ -7,7 +6,7 @@ export const fieldExamples = defineExamples({
 	count: {
 		description: 'Count and limit metadata.',
 		render: () => (
-			<Frame>
+			<>
 				<Field
 					count={42}
 					description="Canonical field hierarchy for dense product forms."
@@ -16,13 +15,13 @@ export const fieldExamples = defineExamples({
 				>
 					<Input placeholder="rubric-labs" />
 				</Field>
-			</Frame>
+			</>
 		)
 	},
 	default: {
 		description: 'Label, description, helper, and composed control.',
 		render: () => (
-			<Frame>
+			<>
 				<Field
 					description="Canonical field hierarchy for dense product forms."
 					help="Use lowercase letters and hyphens."
@@ -30,13 +29,13 @@ export const fieldExamples = defineExamples({
 				>
 					<Input placeholder="rubric-labs" />
 				</Field>
-			</Frame>
+			</>
 		)
 	},
 	error: {
 		description: 'Error message and status treatment.',
 		render: () => (
-			<Frame>
+			<>
 				<Field
 					description="Canonical field hierarchy for dense product forms."
 					error="The workspace handle is already taken."
@@ -44,13 +43,30 @@ export const fieldExamples = defineExamples({
 				>
 					<Input placeholder="rubric-labs" />
 				</Field>
-			</Frame>
+			</>
+		)
+	},
+	requirements: {
+		description: 'Required and optional metadata placement.',
+		render: () => (
+			<>
+				<Field
+					description="Required configuration for production agents."
+					label="Primary model"
+					required
+				>
+					<Input defaultValue="gpt-workflow" />
+				</Field>
+				<Field description="Optional routing hint for generated drafts." label="Fallback tag" optional>
+					<Input placeholder="nightly" />
+				</Field>
+			</>
 		)
 	},
 	success: {
 		description: 'Positive validation message.',
 		render: () => (
-			<Frame>
+			<>
 				<Field
 					description="Canonical field hierarchy for dense product forms."
 					label="Workspace handle"
@@ -58,7 +74,7 @@ export const fieldExamples = defineExamples({
 				>
 					<Input placeholder="rubric-labs" />
 				</Field>
-			</Frame>
+			</>
 		)
 	}
 })

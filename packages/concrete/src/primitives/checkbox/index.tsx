@@ -5,8 +5,8 @@ import { checkboxExamples } from './examples'
 import { checkboxMeta } from './meta'
 import { type CheckboxValue, checkboxSchema } from './schema'
 
-export type { CheckboxProps } from './component'
-export { Checkbox } from './component'
+export type { CheckboxProps, ChoiceRowProps } from './component'
+export { Checkbox, ChoiceRow } from './component'
 export type { CheckboxInput, CheckboxValue } from './schema'
 export { checkboxPropsSchema, checkboxSchema } from './schema'
 

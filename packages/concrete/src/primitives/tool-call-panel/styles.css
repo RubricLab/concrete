@@ -1,0 +1,124 @@
+.concrete-tool-call {
+	display: grid;
+	gap: var(--concrete-space-2);
+	min-width: var(--concrete-space-0);
+	max-width: min(var(--concrete-measure-agent-panel), var(--concrete-size-full));
+	color: var(--concrete-foreground-body);
+	interpolate-size: allow-keywords;
+}
+
+.concrete-tool-call::details-content {
+	block-size: var(--concrete-space-0);
+	overflow: clip;
+	opacity: var(--concrete-opacity-hidden);
+	transition:
+		block-size var(--concrete-duration-disclosure) var(--concrete-ease-disclosure),
+		opacity var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-tool-call[open]::details-content {
+	block-size: auto;
+	opacity: var(--concrete-opacity-visible);
+}
+
+.concrete-tool-call summary {
+	display: grid;
+	grid-template-columns: var(--concrete-template-tool-summary);
+	align-items: center;
+	gap: var(--concrete-space-3);
+	cursor: pointer;
+	list-style: none;
+}
+
+.concrete-tool-call summary::-webkit-details-marker {
+	display: none;
+}
+
+.concrete-tool-call summary > span {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-75);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-tool-call summary > span:last-child {
+	justify-content: flex-end;
+}
+
+.concrete-tool-call summary svg {
+	width: var(--concrete-size-tool-summary-icon);
+	height: var(--concrete-size-tool-summary-icon);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-tool-call summary > span:last-child svg {
+	width: var(--concrete-size-tool-disclosure-icon);
+	height: var(--concrete-size-tool-disclosure-icon);
+	transition: transform var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-tool-call[open] summary > span:last-child svg {
+	transform: rotate(var(--concrete-angle-half));
+}
+
+.concrete-tool-call b {
+	overflow: hidden;
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-13);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.concrete-tool-call small {
+	color: var(--concrete-foreground-soft);
+	font-size: var(--concrete-type-11);
+}
+
+.concrete-tool-call-status {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-tool-call .concrete-tool-call-status svg {
+	width: var(--concrete-size-tool-status-icon);
+	height: var(--concrete-size-tool-status-icon);
+	color: var(--concrete-foreground-soft);
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-tool-call-status[data-status="error"] {
+	color: var(--concrete-error);
+}
+
+.concrete-tool-call-body {
+	display: grid;
+	gap: var(--concrete-space-1-75);
+	padding-top: var(--concrete-space-0-75);
+}
+
+.concrete-tool-code-block {
+	--concrete-code-background: var(--concrete-surface);
+	--concrete-code-copy-hover-background: var(--concrete-sunken);
+	--concrete-code-head-background: var(--concrete-raised);
+
+	box-shadow: var(--concrete-shadow-tool-code);
+}
+
+.concrete-tool-output {
+	padding-block: var(--concrete-space-1-75);
+	padding-inline: var(--concrete-space-2-25);
+	overflow-wrap: anywhere;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-tool-output);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-12) / var(--concrete-line-normal)
+		var(--concrete-font-sans);
+}

@@ -1,2 +1,96 @@
-/* DX-TODO(empty-state): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and empty-state screenshots. */
+.concrete-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--concrete-space-3-5);
+	max-width: var(--concrete-measure-empty-state);
+	padding-block: var(--concrete-space-8);
+	padding-inline: var(--concrete-space-7);
+	text-align: center;
+}
 
+.concrete-empty-state-small {
+	gap: var(--concrete-space-3);
+	padding-block: var(--concrete-space-6);
+	padding-inline: var(--concrete-space-5-5);
+}
+
+.concrete-empty-state-large {
+	gap: var(--concrete-space-4);
+	padding-block: var(--concrete-space-9);
+	padding-inline: var(--concrete-space-8);
+}
+
+.concrete-mark {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--concrete-size-empty-state-mark-medium);
+	height: var(--concrete-size-empty-state-mark-medium);
+	border: var(--concrete-border-width-hairline) dashed var(--concrete-ink-3);
+	border-radius: var(--concrete-radius-4);
+	background: transparent;
+	color: var(--concrete-ink-5);
+}
+
+.concrete-empty-state-small .concrete-mark {
+	width: var(--concrete-size-empty-state-mark-small);
+	height: var(--concrete-size-empty-state-mark-small);
+	border-radius: var(--concrete-radius-3-5);
+}
+
+.concrete-empty-state-large .concrete-mark {
+	width: var(--concrete-size-empty-state-mark-large);
+	height: var(--concrete-size-empty-state-mark-large);
+	border-radius: var(--concrete-radius-4-5);
+}
+
+.concrete-empty-state-sky .concrete-mark {
+	border-color: var(--concrete-sky-border-muted);
+	color: var(--concrete-sky);
+}
+
+.concrete-mark svg {
+	width: var(--concrete-size-empty-state-icon-medium);
+	height: var(--concrete-size-empty-state-icon-medium);
+	stroke-width: var(--concrete-stroke-1-25);
+}
+
+.concrete-empty-state-small .concrete-mark svg {
+	width: var(--concrete-size-empty-state-icon-small);
+	height: var(--concrete-size-empty-state-icon-small);
+	stroke-width: var(--concrete-stroke-1-35);
+}
+
+.concrete-empty-state-large .concrete-mark svg {
+	width: var(--concrete-size-empty-state-icon-large);
+	height: var(--concrete-size-empty-state-icon-large);
+	stroke-width: var(--concrete-stroke-1-15);
+}
+
+.concrete-empty-title {
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-18) / var(--concrete-line-compact)
+		var(--concrete-font-display);
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
+	font-synthesis: none;
+	font-variation-settings: var(--concrete-font-display-settings);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-empty-title em {
+	color: var(--concrete-ink-7);
+	font-synthesis: none;
+	font-style: italic;
+	font-weight: var(--concrete-weight-regular);
+}
+
+.concrete-empty-body {
+	max-width: var(--concrete-measure-empty-body);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-12-5) / var(--concrete-line-prose-compact)
+		var(--concrete-font-sans);
+	text-wrap: pretty;
+}

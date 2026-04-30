@@ -1,2 +1,106 @@
-/* DX-TODO(stat): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and stat screenshots. */
+.concrete-stat {
+	display: flex;
+	flex-direction: column;
+	gap: var(--concrete-space-1-5);
+	min-width: var(--concrete-measure-stat-min);
+}
 
+.concrete-stat-label {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-value {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--concrete-space-0);
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-24) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-meta {
+	display: flex;
+	align-items: baseline;
+	gap: var(--concrete-space-1-5);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-number {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--concrete-space-0);
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-24) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-display {
+	font-family: var(--concrete-font-display);
+	font-optical-sizing: var(--concrete-font-display-optical-sizing);
+	font-synthesis: none;
+	font-variation-settings: var(--concrete-font-display-settings);
+	font-weight: var(--concrete-weight-light);
+	line-height: var(--concrete-line-stat-display);
+}
+
+.concrete-stat-unit {
+	margin-left: var(--concrete-space-0-5);
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-stat-unit);
+	font-weight: var(--concrete-weight-medium);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-xsmall {
+	font-size: var(--concrete-type-14);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-small {
+	font-size: var(--concrete-type-18);
+}
+
+.concrete-stat-large {
+	font-size: var(--concrete-type-32);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-xlarge {
+	font-size: var(--concrete-type-44);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-display.concrete-stat-large {
+	font-size: var(--concrete-type-60);
+}
+
+.concrete-stat-display.concrete-stat-xlarge {
+	font-size: var(--concrete-type-88);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-stat-muted,
+.concrete-stat-muted .concrete-stat-value,
+.concrete-stat-muted.concrete-stat-number {
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-stat-sky,
+.concrete-stat-sky .concrete-stat-value,
+.concrete-stat-sky.concrete-stat-number {
+	color: var(--concrete-sky);
+}

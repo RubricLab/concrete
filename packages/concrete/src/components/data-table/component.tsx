@@ -2,34 +2,45 @@
 
 import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Card } from '../../primitives'
-import { cn } from '../../primitives/utils'
 import {
+	DataCardHeader,
+	DataTableBody,
+	DataTableCell,
+	DataTableElement,
+	DataTableEmpty,
+	DataTableFilterControl,
+	DataTableHead,
+	DataTableHeaderCell,
+	DataTablePager,
+	DataTableScroll,
+	DataTableSearch,
+	DataTableSelectionCell,
+	DataTableSelectionHeaderCell,
+	DataTableSelectionInput,
+	DataTableShell,
+	DataTableSortButton,
+	DataTableTableRow,
+	DataTableToolbar
+} from '../../primitives'
+import {
+	type DataTableRow as DataTableDataRow,
 	type DataTableProps,
-	type DataTableRow,
 	type DataTableSort,
 	dataTableSchema
 } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import { sortDataTableRows } from '../../utilities/data-geometry'
 import {
 	filterDataTableRows,
 	getNextSort,
-	getResolvedRowId,
-	getTableScrollStyle
+	getResolvedRowId
 } from '../../utilities/data-table-logic'
-import {
-	renderTableCell,
-	renderTableToolbarAction,
-	SortGlyph
-} from '../../utilities/data-table-rendering'
+import { renderTableCell, renderTableToolbarAction } from '../../utilities/data-table-rendering'
 
 type ComponentShellProps = {
 	className?: string
 }
 
-export function DataTable<Row extends DataTableRow>({
+export function DataTable<Row extends DataTableDataRow>({
 	className,
 	getRowId,
 	onFilterChange,
@@ -139,31 +150,31 @@ export function DataTable<Row extends DataTableRow>({
 	}
 
 	return (
-		<Card className={cn(concreteClassNames.dataTableCard, className)} variant="raised">
-			<header className={concreteClassNames.dataTableHeader}>
-				<div>
-					{parsedProps.title ? <h3>{parsedProps.title}</h3> : null}
-					{parsedProps.caption ? <p>{parsedProps.caption}</p> : null}
-				</div>
-				<div className={concreteClassNames.dataTableToolbar}>
-					{parsedProps.searchPlaceholder ? (
-						<label className={concreteClassNames.dataTableSearch}>
-							<ConcreteIcon name="search" />
-							<input
-								onChange={(event: ChangeEvent<HTMLInputElement>) => updateSearch(event.currentTarget.value)}
-								placeholder={parsedProps.searchPlaceholder}
-								value={parsedProps.searchValue}
+		<DataTableShell className={className}>
+			<DataCardHeader
+				align="center"
+				description={parsedProps.caption}
+				end={
+					<DataTableToolbar>
+						{parsedProps.searchPlaceholder ? (
+							<DataTableSearch
+								inputProps={{
+									onChange: (event: ChangeEvent<HTMLInputElement>) =>
+										updateSearch(event.currentTarget.value),
+									placeholder: parsedProps.searchPlaceholder,
+									value: parsedProps.searchValue
+								}}
 							/>
-						</label>
-					) : null}
-					{parsedProps.filters.map(filter => (
-						<label className={concreteClassNames.dataTableFilter} key={filter.id}>
-							<span>{filter.label}</span>
-							<select
-								onChange={(event: ChangeEvent<HTMLSelectElement>) =>
-									updateFilter(filter.id, event.currentTarget.value)
-								}
-								value={filter.value ?? ''}
+						) : null}
+						{parsedProps.filters.map(filter => (
+							<DataTableFilterControl
+								key={filter.id}
+								label={filter.label}
+								selectProps={{
+									onChange: (event: ChangeEvent<HTMLSelectElement>) =>
+										updateFilter(filter.id, event.currentTarget.value),
+									value: filter.value ?? ''
+								}}
 							>
 								<option value="">All</option>
 								{filter.options.map(option => (
@@ -172,55 +183,46 @@ export function DataTable<Row extends DataTableRow>({
 										{option.count === undefined ? '' : ` (${option.count})`}
 									</option>
 								))}
-							</select>
-						</label>
-					))}
-					{parsedProps.toolbarActions.map(action =>
-						renderTableToolbarAction(action, selectedRowIds, onToolbarAction)
-					)}
-				</div>
-			</header>
-			<div
-				className={concreteClassNames.dataTableScroll}
-				style={getTableScrollStyle(parsedProps.maxHeight)}
-			>
-				<table className={concreteClassNames.dataTable}>
-					<thead>
-						<tr>
-							{parsedProps.selectable ? (
-								<th className={concreteClassNames.dataTableSelectionCell} />
-							) : null}
+							</DataTableFilterControl>
+						))}
+						{parsedProps.toolbarActions.map(action =>
+							renderTableToolbarAction(action, selectedRowIds, onToolbarAction)
+						)}
+					</DataTableToolbar>
+				}
+				title={parsedProps.title}
+			/>
+			<DataTableScroll maxHeight={parsedProps.maxHeight}>
+				<DataTableElement>
+					<DataTableHead>
+						<DataTableTableRow>
+							{parsedProps.selectable ? <DataTableSelectionHeaderCell /> : null}
 							{parsedProps.columns.map(column => (
-								<th
+								<DataTableHeaderCell
 									aria-sort={activeSort?.key === column.key ? activeSort.direction : undefined}
-									className={cn(
-										column.align === 'right' && concreteClassNames.dataTableAlignRight,
-										column.align === 'center' && concreteClassNames.dataTableAlignCenter,
-										column.frozen && concreteClassNames.dataTableFrozen
-									)}
+									align={column.align}
+									frozen={column.frozen}
 									key={column.key}
-									style={{ width: column.width }}
+									width={column.width}
 								>
-									<button
-										className={concreteClassNames.dataTableSort}
-										disabled={!column.sortable}
+									<DataTableSortButton
 										onClick={() => updateSort(column)}
-										type="button"
+										sortable={column.sortable}
+										sortDirection={activeSort?.key === column.key ? activeSort.direction : undefined}
 									>
 										{column.header}
-										{column.sortable ? <SortGlyph activeSort={activeSort} columnKey={column.key} /> : null}
-									</button>
-								</th>
+									</DataTableSortButton>
+								</DataTableHeaderCell>
 							))}
-						</tr>
-					</thead>
-					<tbody>
+						</DataTableTableRow>
+					</DataTableHead>
+					<DataTableBody>
 						{visibleRows.length === 0 ? (
-							<tr>
-								<td colSpan={parsedProps.columns.length + (parsedProps.selectable ? 1 : 0)}>
-									<div className={concreteClassNames.dataTableEmpty}>{parsedProps.emptyLabel}</div>
-								</td>
-							</tr>
+							<DataTableTableRow>
+								<DataTableCell colSpan={parsedProps.columns.length + (parsedProps.selectable ? 1 : 0)}>
+									<DataTableEmpty>{parsedProps.emptyLabel}</DataTableEmpty>
+								</DataTableCell>
+							</DataTableTableRow>
 						) : (
 							visibleRows.map(row => {
 								const rowIndex = Math.max(rows.indexOf(row), 0)
@@ -228,59 +230,44 @@ export function DataTable<Row extends DataTableRow>({
 								const selected = selectedRowIds.includes(rowId)
 
 								return (
-									<tr data-selected={selected ? true : undefined} key={rowId}>
+									<DataTableTableRow key={rowId} selected={selected}>
 										{parsedProps.selectable ? (
-											<td className={concreteClassNames.dataTableSelectionCell}>
-												<input
+											<DataTableSelectionCell>
+												<DataTableSelectionInput
 													aria-label={`Select row ${rowId}`}
 													checked={selected}
 													onChange={() => toggleRow(row, rowIndex)}
-													type="checkbox"
 												/>
-											</td>
+											</DataTableSelectionCell>
 										) : null}
 										{parsedProps.columns.map(column => (
-											<td
-												className={cn(
-													column.align === 'right' && concreteClassNames.dataTableAlignRight,
-													column.align === 'center' && concreteClassNames.dataTableAlignCenter,
-													column.frozen && concreteClassNames.dataTableFrozen
-												)}
+											<DataTableCell
+												align={column.align}
+												frozen={column.frozen}
 												key={column.key}
-												style={{ width: column.width }}
+												width={column.width}
 											>
 												{renderTableCell(row[column.key])}
-											</td>
+											</DataTableCell>
 										))}
-									</tr>
+									</DataTableTableRow>
 								)
 							})
 						)}
-					</tbody>
-				</table>
-			</div>
+					</DataTableBody>
+				</DataTableElement>
+			</DataTableScroll>
 			{pagination ? (
-				<footer className={concreteClassNames.dataTablePagination}>
-					<button
-						disabled={pagination.page <= 1}
-						onClick={() => updatePage(pagination.page - 1, pagination.pageSize)}
-						type="button"
-					>
-						<ConcreteIcon name="chevron-left" />
-					</button>
-					<span>
-						Page {pagination.page} / {pageCount}
-					</span>
-					<span>{selectedRowIds.length} selected</span>
-					<button
-						disabled={pagination.page >= pageCount}
-						onClick={() => updatePage(pagination.page + 1, pagination.pageSize)}
-						type="button"
-					>
-						<ConcreteIcon name="chevron-right" />
-					</button>
-				</footer>
+				<DataTablePager
+					nextDisabled={pagination.page >= pageCount}
+					onNext={() => updatePage(pagination.page + 1, pagination.pageSize)}
+					onPrevious={() => updatePage(pagination.page - 1, pagination.pageSize)}
+					page={pagination.page}
+					pageCount={pageCount}
+					previousDisabled={pagination.page <= 1}
+					selectedCount={selectedRowIds.length}
+				/>
 			) : null}
-		</Card>
+		</DataTableShell>
 	)
 }

@@ -48,7 +48,14 @@ export const imageUploadComponentDefinition = createComponent({
 	schema: imageUploadComponentSchema,
 	seed: imageUploadComponentSchema.parse({ defaultValue: imageUploadItemsByQueue.success }),
 	slug: 'image-upload',
-	states: exampleStates(imageUploadExamples, ['single', 'avatar', 'grid'])
+	states: exampleStates(imageUploadExamples, [
+		'default',
+		'single',
+		'avatar',
+		'grid',
+		'empty',
+		'error'
+	])
 })
 
 function renderImageUploadInput(input: ImageUploadValue) {

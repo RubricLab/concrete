@@ -1,5 +1,9 @@
 :root {
 	--docs-max: 1180px;
+	--docs-stage-background: var(--concrete-sunken);
+	--docs-stage-border: var(--concrete-border-soft);
+	--docs-stage-shadow: var(--concrete-shadow-control-inset), var(--concrete-shadow-1);
+	--docs-stage-shadow-inset: var(--concrete-shadow-control-inset);
 }
 
 body {
@@ -239,10 +243,13 @@ body {
 .primitivePreview {
 	display: grid;
 	min-height: 138px;
+	margin: 10px 10px 0;
 	padding: 18px;
 	place-items: center;
-	border-bottom: 1px solid var(--concrete-border-soft);
-	background: var(--concrete-canvas);
+	border: var(--concrete-border-width-hairline) solid var(--docs-stage-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--docs-stage-background);
+	box-shadow: var(--docs-stage-shadow-inset);
 }
 
 .primitivePreview:hover {
@@ -304,17 +311,14 @@ body {
 
 .detailPreview {
 	display: grid;
+	gap: 14px;
 	min-height: 360px;
 	place-items: center;
 	padding: 24px;
-	border: 1px solid var(--concrete-border);
-	border-radius: var(--concrete-radius-5);
-	background-color: var(--concrete-surface);
-	background-image:
-		linear-gradient(var(--concrete-lattice) 1px, transparent 1px),
-		linear-gradient(90deg, var(--concrete-lattice) 1px, transparent 1px);
-	background-size: 24px 24px;
-	box-shadow: var(--concrete-shadow-1);
+	border: var(--concrete-border-width-hairline) solid var(--docs-stage-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--docs-stage-background);
+	box-shadow: var(--docs-stage-shadow);
 }
 
 .stateGrid {
@@ -332,17 +336,14 @@ body {
 
 .playgroundPreview {
 	display: grid;
+	gap: 14px;
 	min-height: 360px;
 	place-items: center;
 	padding: 28px;
-	border: 1px solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--docs-stage-border);
 	border-radius: var(--concrete-radius-4);
-	background-color: var(--concrete-surface);
-	background-image:
-		linear-gradient(var(--concrete-lattice) 1px, transparent 1px),
-		linear-gradient(90deg, var(--concrete-lattice) 1px, transparent 1px);
-	background-size: 24px 24px;
-	box-shadow: var(--concrete-shadow-1);
+	background: var(--docs-stage-background);
+	box-shadow: var(--docs-stage-shadow);
 }
 
 .playgroundControls {
@@ -429,12 +430,17 @@ body {
 
 .stateStage {
 	display: grid;
+	align-self: stretch;
+	flex: 1;
+	gap: 10px;
+	height: 100%;
 	min-height: 128px;
 	place-items: center;
 	padding: 12px;
-	border: 1px solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--docs-stage-border);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-sunken);
+	background: var(--docs-stage-background);
+	box-shadow: var(--docs-stage-shadow-inset);
 }
 
 .stateMeta {

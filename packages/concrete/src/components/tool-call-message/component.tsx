@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
-import { ConcreteIcon, type IconName } from '../../icons'
-import { CodeBlock, Spinner } from '../../primitives'
+import type { IconName } from '../../icons'
+import { ToolCallPanel, ToolCodeBlock, ToolOutput } from '../../primitives'
 import { Message, type MessageProps } from '../../primitives/internal/message'
 import type { MessageStatus, ToolCallStatus } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 
 export type ToolCallMessageProps = Omit<
 	MessageProps,
@@ -38,52 +37,18 @@ export function ToolCallMessage({
 			surface="plain"
 			{...props}
 		>
-			<details
-				className={concreteClassNames.toolCall}
-				data-status={status}
+			<ToolCallPanel
+				duration={duration}
+				name={name}
 				open={open ?? status === 'running'}
+				status={status}
+				toolIcon={toolIcon}
 			>
-				<summary>
-					<span>
-						<ConcreteIcon name={toolIcon} />
-						<b>{name}</b>
-					</span>
-					<span>
-						<span className={concreteClassNames.toolCallStatus} data-status={status}>
-							<ToolStatusIcon status={status} />
-							{status}
-						</span>
-						{duration ? <small>{duration}</small> : null}
-						<ConcreteIcon name="chevron-down" />
-					</span>
-				</summary>
-				<div className={concreteClassNames.toolCallBody}>
-					{input ? (
-						<CodeBlock
-							className={concreteClassNames.toolCodeBlock}
-							code={input}
-							language={language}
-							showLineNumbers={false}
-						/>
-					) : null}
-					{output ? <div className={concreteClassNames.toolOutput}>{output}</div> : null}
-				</div>
-			</details>
+				{input ? <ToolCodeBlock code={input} language={language} showLineNumbers={false} /> : null}
+				{output ? <ToolOutput>{output}</ToolOutput> : null}
+			</ToolCallPanel>
 		</Message>
 	)
-}
-
-function ToolStatusIcon({ status }: { status: ToolCallStatus }) {
-	switch (status) {
-		case 'error':
-			return <ConcreteIcon name="circle-alert" />
-		case 'queued':
-			return <ConcreteIcon name="clock" />
-		case 'running':
-			return <Spinner size={11} tone="default" />
-		case 'success':
-			return <ConcreteIcon name="check" />
-	}
 }
 
 function getMessageStatusFromToolStatus(status: ToolCallStatus): MessageStatus {

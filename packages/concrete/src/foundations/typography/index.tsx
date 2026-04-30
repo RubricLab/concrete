@@ -19,5 +19,5 @@ export const typographyFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(typographyExamples, state),
 	schema: typographyFoundationSchema,
 	slug: 'typography',
-	states: exampleStates(typographyExamples, ['default'])
+	states: exampleStates(typographyExamples, ['default', 'scale', 'mono'])
 })

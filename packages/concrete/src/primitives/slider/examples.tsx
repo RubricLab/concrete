@@ -1,22 +1,36 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame'
+import { Field } from '../field'
 import { Slider } from './component'
 
 export const sliderExamples = defineExamples({
 	default: {
 		description: 'Default range input.',
 		render: () => (
-			<Frame>
-				<Slider defaultValue={62} />
-			</Frame>
+			<>
+				<Field label="Confidence">
+					<Slider defaultValue={62} />
+				</Field>
+			</>
+		)
+	},
+	disabled: {
+		description: 'Locked range input.',
+		render: () => (
+			<>
+				<Field label="Confidence">
+					<Slider defaultValue={62} disabled />
+				</Field>
+			</>
 		)
 	},
 	sky: {
 		description: 'Accent range input.',
 		render: () => (
-			<Frame>
-				<Slider defaultValue={62} tone="sky" />
-			</Frame>
+			<>
+				<Field label="Recall threshold">
+					<Slider defaultValue={62} tone="sky" />
+				</Field>
+			</>
 		)
 	}
 })

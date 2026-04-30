@@ -1,5 +1,5 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../../primitives'
+import { ToolbarFormatGlyph } from '../../primitives'
 import { Toolbar, ToolbarButton, ToolbarGroup, ToolbarSeparator } from './component'
 
 export const toolbarExamples = defineExamples({
@@ -21,55 +21,45 @@ function renderToolbarExample(state: 'compact' | 'default' | 'selected') {
 	const compact = state === 'compact'
 
 	return (
-		<Frame>
-			<Toolbar compact={compact} label="Editor toolbar">
-				<ToolbarGroup>
-					<ToolbarButton icon="paperclip" label="Attach" showLabel={false} />
-					<ToolbarButton icon="at-sign" label="Mention" shortcut={['@']} showLabel={false} />
-					<ToolbarButton icon="slash" label="Command" shortcut={['/']} showLabel={false} />
-				</ToolbarGroup>
-				<ToolbarSeparator />
-				<ToolbarGroup>
-					<ToolbarButton
-						appearance="subtle"
-						label="Bold"
-						pressed={state === 'selected'}
-						shortcut={['cmd', 'B']}
-						showShortcut={compact ? 'tooltip' : 'inline'}
-					>
-						B
-					</ToolbarButton>
-					<ToolbarButton
-						appearance="subtle"
-						label="Italic"
-						shortcut={['cmd', 'I']}
-						showShortcut={compact ? 'tooltip' : 'inline'}
-					>
-						<IText />
-					</ToolbarButton>
-					<ToolbarButton
-						appearance="subtle"
-						label="Underline"
-						selected={state === 'selected'}
-						shortcut={['cmd', 'U']}
-						showShortcut={compact ? 'tooltip' : 'inline'}
-					>
-						<UText />
-					</ToolbarButton>
-				</ToolbarGroup>
-				<ToolbarSeparator />
-				<ToolbarGroup>
-					<ToolbarButton icon="settings" label="Settings" showLabel={false} />
-				</ToolbarGroup>
-			</Toolbar>
-		</Frame>
+		<Toolbar compact={compact} label="Editor toolbar">
+			<ToolbarGroup>
+				<ToolbarButton icon="paperclip" label="Attach" showLabel={false} />
+				<ToolbarButton icon="at-sign" label="Mention" shortcut={['@']} showLabel={false} />
+				<ToolbarButton icon="slash" label="Command" shortcut={['/']} showLabel={false} />
+			</ToolbarGroup>
+			<ToolbarSeparator />
+			<ToolbarGroup>
+				<ToolbarButton
+					appearance="subtle"
+					label="Bold"
+					pressed={state === 'selected'}
+					shortcut={['cmd', 'B']}
+					showShortcut={compact ? 'tooltip' : 'inline'}
+				>
+					B
+				</ToolbarButton>
+				<ToolbarButton
+					appearance="subtle"
+					label="Italic"
+					shortcut={['cmd', 'I']}
+					showShortcut={compact ? 'tooltip' : 'inline'}
+				>
+					<ToolbarFormatGlyph format="italic">I</ToolbarFormatGlyph>
+				</ToolbarButton>
+				<ToolbarButton
+					appearance="subtle"
+					label="Underline"
+					selected={state === 'selected'}
+					shortcut={['cmd', 'U']}
+					showShortcut={compact ? 'tooltip' : 'inline'}
+				>
+					<ToolbarFormatGlyph format="underline">U</ToolbarFormatGlyph>
+				</ToolbarButton>
+			</ToolbarGroup>
+			<ToolbarSeparator />
+			<ToolbarGroup>
+				<ToolbarButton icon="settings" label="Settings" showLabel={false} />
+			</ToolbarGroup>
+		</Toolbar>
 	)
-}
-
-function IText() {
-	return <span style={{ fontStyle: 'italic' }}>I</span>
-}
-
-function UText() {
-	return <span style={{ textDecoration: 'underline' }}>U</span>
 }

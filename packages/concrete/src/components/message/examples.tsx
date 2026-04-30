@@ -1,51 +1,60 @@
-import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
-import { Toolbar, ToolbarButton } from '../../primitives/internal/toolbar'
+import { ToolbarControl as Toolbar, ToolbarControlButton as ToolbarButton } from '../../primitives'
 import { Message } from './component'
 
 export const messageExamples = defineExamples({
 	assistant: {
 		description: 'Assistant response with metadata and actions.',
+		render: () => renderAssistantMessage()
+	},
+	default: {
+		description: 'Assistant response with metadata and actions.',
+		render: () => renderAssistantMessage()
+	},
+	grouped: {
+		description: 'Stacked assistant replies with grouped follow-up treatment.',
 		render: () => (
-			<MessageStage>
-				<Message
-					actions={
-						<Toolbar compact label="Assistant message actions">
-							<ToolbarButton icon="copy" label="Copy" showLabel={false} tooltipPlacement="bottom" />
-							<ToolbarButton
-								icon="refresh-ccw"
-								label="Retry"
-								showLabel={false}
-								tooltipPlacement="bottom"
-							/>
-						</Toolbar>
-					}
-					author="Rubric"
-					avatarInitials="RL"
-					meta="now"
-					messageRole="assistant"
-					showAvatar
-				>
-					The eval runner is failing during schema hydration. I found one stale fixture and a missing
-					tool permission edge.
+			<>
+				<Message author="Rubric" avatarInitials="RL" meta="now" messageRole="assistant" showAvatar>
+					The failing catalog route is narrowed to the generated toolbar example.
 				</Message>
-			</MessageStage>
+				<Message author="Rubric" grouped meta="now" messageRole="assistant">
+					I am checking the serialized input next so the fix lands in the example instead of the
+					renderer.
+				</Message>
+			</>
+		)
+	},
+	statuses: {
+		description: 'Pending, streaming, and error status metadata.',
+		render: () => (
+			<>
+				<Message author="Rubric" messageRole="assistant" status="pending" surface="plain">
+					Queued behind the current package build.
+				</Message>
+				<Message author="Rubric" messageRole="assistant" status="streaming" surface="plain">
+					Reading render traces and updating the catalog fixture.
+				</Message>
+				<Message author="Rubric" messageRole="assistant" status="error" surface="plain">
+					Catalog route failed because a server example included a callback prop.
+				</Message>
+			</>
 		)
 	},
 	system: {
 		description: 'System note for constraints, memory, or run context.',
 		render: () => (
-			<MessageStage>
+			<>
 				<Message author="System" messageRole="system" surface="plain">
 					Context window compacted. Latest workspace state and render routes are available.
 				</Message>
-			</MessageStage>
+			</>
 		)
 	},
 	user: {
 		description: 'Outbound user message treatment.',
 		render: () => (
-			<MessageStage>
+			<>
 				<Message
 					actions={
 						<Toolbar compact label="User message actions">
@@ -60,11 +69,28 @@ export const messageExamples = defineExamples({
 				>
 					Can you inspect the failing run and summarize the blocker?
 				</Message>
-			</MessageStage>
+			</>
 		)
 	}
 })
 
-function MessageStage({ children }: { children: ReactNode }) {
-	return <div style={{ display: 'grid', gap: 12, maxWidth: 680, width: '100%' }}>{children}</div>
+function renderAssistantMessage() {
+	return (
+		<Message
+			actions={
+				<Toolbar compact label="Assistant message actions">
+					<ToolbarButton icon="copy" label="Copy" showLabel={false} tooltipPlacement="bottom" />
+					<ToolbarButton icon="refresh-ccw" label="Retry" showLabel={false} tooltipPlacement="bottom" />
+				</Toolbar>
+			}
+			author="Rubric"
+			avatarInitials="RL"
+			meta="now"
+			messageRole="assistant"
+			showAvatar
+		>
+			The eval runner is failing during schema hydration. I found one stale fixture and a missing tool
+			permission edge.
+		</Message>
+	)
 }

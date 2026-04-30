@@ -1,2 +1,21 @@
-/* DX-TODO(distribution): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and distribution screenshots. */
+.concrete-distribution {
+	display: grid;
+	gap: var(--concrete-space-2);
+}
 
+.concrete-distribution-row {
+	display: grid;
+	grid-template-columns: var(--concrete-template-distribution-row);
+	align-items: center;
+	gap: var(--concrete-space-2-5);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-12) / var(--concrete-line-control)
+		var(--concrete-font-sans);
+}
+
+.concrete-distribution-value {
+	color: var(--concrete-foreground-strong);
+	font-weight: var(--concrete-weight-bold);
+	text-align: right;
+}

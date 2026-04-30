@@ -7,6 +7,7 @@ import { concreteClassNames } from '../../../styles/class-names'
 import type { FieldChromeProps } from '../../../utilities/form-field-helpers'
 import { Dropzone } from '../../dropzone'
 import { Field } from '../../field'
+import { UploadField, type UploadFieldVariant } from '../../upload-field'
 import { UploadItem, type UploadItemProps } from '../../upload-item'
 
 export type FileUploadProps = Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> &
@@ -20,7 +21,9 @@ export type FileUploadProps = Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue
 		onValueChange?: ((value: readonly UploadItemValue[]) => void) | undefined
 		previewImages?: boolean | undefined
 		title?: ReactNode | undefined
+		uploadListLayout?: 'grid' | undefined
 		value?: readonly UploadItemValue[] | undefined
+		variant?: UploadFieldVariant | undefined
 	}
 
 export function FileUpload({
@@ -41,7 +44,9 @@ export function FileUpload({
 	required,
 	success,
 	title = 'Upload files',
+	uploadListLayout,
 	value,
+	variant = 'file',
 	...props
 }: FileUploadProps) {
 	const [internalValue, setInternalValue] = useState<readonly UploadItemValue[]>(defaultValue)
@@ -99,7 +104,7 @@ export function FileUpload({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.fileUpload} {...props}>
+			<UploadField variant={variant} {...props}>
 				<Dropzone
 					active={dragActive}
 					description={descriptionText}
@@ -115,7 +120,7 @@ export function FileUpload({
 				>
 					<input
 						accept={accept}
-						className={concreteClassNames.fileInput}
+						className={concreteClassNames.visuallyHidden}
 						id={inputId}
 						multiple={multiple}
 						onChange={event => {
@@ -124,12 +129,12 @@ export function FileUpload({
 						}}
 						type="file"
 					/>
-					<label className={concreteClassNames.fileUploadAction} htmlFor={inputId}>
+					<label className={concreteClassNames.dropzoneAction} htmlFor={inputId}>
 						Choose files
 					</label>
 				</Dropzone>
 				{currentValue.length > 0 ? (
-					<div className={concreteClassNames.uploadList}>
+					<div className={concreteClassNames.uploadList} data-layout={uploadListLayout}>
 						{currentValue.map(item => (
 							<UploadItem
 								error={item.error}
@@ -144,7 +149,7 @@ export function FileUpload({
 						))}
 					</div>
 				) : null}
-			</div>
+			</UploadField>
 		</Field>
 	)
 }

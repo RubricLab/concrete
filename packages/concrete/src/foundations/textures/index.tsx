@@ -18,5 +18,5 @@ export const texturesFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(texturesExamples, state),
 	schema: textureFoundationSchema,
 	slug: 'textures',
-	states: exampleStates(texturesExamples, ['default'])
+	states: exampleStates(texturesExamples, ['default', 'diagram'])
 })

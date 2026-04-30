@@ -1,1 +1,36 @@
-/* DX-TODO(indicator): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-indicator {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-5);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-indicator-dot {
+	width: var(--concrete-size-indicator-dot);
+	height: var(--concrete-size-indicator-dot);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-9);
+}
+
+.concrete-indicator-dot.concrete-indicator-sky {
+	background: var(--concrete-sky);
+}
+
+.concrete-indicator-dot.concrete-indicator-terminal {
+	background: var(--concrete-terminal);
+}
+
+.concrete-indicator-dot.concrete-indicator-ultra {
+	background: var(--concrete-ultra);
+}
+
+.concrete-indicator-dot.concrete-indicator-error {
+	background: var(--concrete-error);
+}
+
+.concrete-indicator-dot.concrete-indicator-muted {
+	background: var(--concrete-ink-3);
+}

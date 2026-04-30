@@ -23,7 +23,14 @@ export const stackedBarChartComponentDefinition = createComponent({
 		title: 'Run composition'
 	}),
 	slug: 'stacked-bar-chart',
-	states: exampleStates(stackedBarChartExamples, ['default', 'normalized', 'horizontal'])
+	states: exampleStates(stackedBarChartExamples, [
+		'default',
+		'normalized',
+		'horizontal',
+		'loading',
+		'empty',
+		'error'
+	])
 })
 
 function renderStackedBarChartInput(input: StackedBarChartValue) {

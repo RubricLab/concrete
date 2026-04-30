@@ -28,7 +28,7 @@ export const dataTableComponentDefinition = createComponent({
 		toolbarActions: [{ icon: 'inspect', id: 'inspect', label: 'Inspect' }]
 	}),
 	slug: 'data-table',
-	states: exampleStates(dataTableExamples, ['default', 'selected', 'filtered', 'empty'])
+	states: exampleStates(dataTableExamples, ['default', 'selected', 'filtered', 'paginated', 'empty'])
 })
 
 function renderDataTableInput(input: DataTableValue) {

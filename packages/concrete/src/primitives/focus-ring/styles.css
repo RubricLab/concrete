@@ -1,2 +1,3 @@
-/* DX-TODO(focus-ring): no dedicated selector yet; the preview uses --concrete-ring-focus until focus-token ownership and screenshot coverage are formalized. */
-
+.concrete-focus-ring-preview {
+	box-shadow: var(--concrete-ring-focus);
+}

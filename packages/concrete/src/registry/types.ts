@@ -1,48 +1,95 @@
 import type { ConcretePressure, PrimitiveCategory } from '../schemas'
 
+export type FoundationSlug =
+	| 'colors'
+	| 'elevation'
+	| 'motion'
+	| 'radii'
+	| 'spacing'
+	| 'textures'
+	| 'typography'
+
 export type PrimitiveSlug =
 	| 'avatar'
 	| 'badge'
 	| 'brand-mark'
 	| 'bubble'
 	| 'button'
+	| 'calendar-panel'
 	| 'card'
 	| 'caret'
+	| 'chart-legend'
+	| 'chart-surface'
 	| 'checkbox'
 	| 'chip'
 	| 'code'
+	| 'composer-rail'
+	| 'composer-shell'
 	| 'concept-connector'
 	| 'concept-frame'
+	| 'data-card-header'
+	| 'data-table-control'
+	| 'data-table-pagination'
+	| 'data-table-shell'
 	| 'delta'
+	| 'diagram-controls'
+	| 'diagram-edge'
 	| 'diagram-item'
+	| 'diagram-legend'
+	| 'diagram-minimap'
 	| 'diagram-node'
+	| 'diagram-rail'
+	| 'diagram-viewport'
 	| 'distribution'
 	| 'divider'
 	| 'dropzone'
 	| 'empty-state'
+	| 'feedback-panel'
 	| 'field'
 	| 'focus-ring'
+	| 'flow-node'
+	| 'form-layout'
+	| 'form-overlay'
 	| 'frame'
 	| 'icon'
 	| 'indicator'
 	| 'input'
 	| 'kbd'
 	| 'link'
+	| 'menu-shell'
+	| 'message-shell'
+	| 'metric-shell'
+	| 'option-row'
+	| 'picker-control'
+	| 'picker-shell'
 	| 'pill'
+	| 'preview-stage'
 	| 'progress'
 	| 'radio'
+	| 'range-control'
+	| 'reasoning-panel'
 	| 'row'
+	| 'search-field'
+	| 'search-token'
 	| 'select'
+	| 'select-control'
+	| 'select-menu'
 	| 'skeleton'
 	| 'slider'
 	| 'sparkline'
 	| 'spinner'
 	| 'stat'
+	| 'stepper-control'
+	| 'suggestion-menu'
 	| 'switch'
 	| 'tag'
 	| 'textarea'
 	| 'texture'
+	| 'time-list'
 	| 'tooltip'
+	| 'tool-call-panel'
+	| 'toolbar-control'
+	| 'upload-field'
 	| 'upload-item'
 	| 'wordmark'
 
@@ -100,6 +147,17 @@ export type ComponentRegistryEntry = {
 	pressure: readonly ConcretePressure[]
 	props: readonly PrimitiveProp[]
 	slug: ComponentSlug
+	states: readonly PrimitiveState[]
+}
+
+export type FoundationRegistryEntry = {
+	category: PrimitiveCategory
+	description: string
+	guidance: string
+	name: string
+	pressure: readonly ConcretePressure[]
+	props: readonly PrimitiveProp[]
+	slug: FoundationSlug
 	states: readonly PrimitiveState[]
 }
 

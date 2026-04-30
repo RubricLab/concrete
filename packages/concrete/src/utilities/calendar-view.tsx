@@ -1,86 +1,4 @@
-import type { KeyboardEvent } from 'react'
-import { Button } from '../primitives'
 import type { DateRangeValue } from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
-
-// DX-TODO(calendar): Calendar chrome is shared by date components for structural
-// continuity. Promote it to a primitive when visual QA can cover picker regressions.
-export type CalendarPanelProps = {
-	max?: string | undefined
-	min?: string | undefined
-	month: string
-	onMonthChange: (month: string) => void
-	onSelect: (value: string) => void
-	selectedEnd?: string | undefined
-	selectedStart?: string | undefined
-}
-
-export function CalendarPanel({
-	max,
-	min,
-	month,
-	onMonthChange,
-	onSelect,
-	selectedEnd,
-	selectedStart
-}: CalendarPanelProps) {
-	const days = getCalendarDays(month)
-
-	function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>, date: string) {
-		switch (event.key) {
-			case 'Enter':
-			case ' ':
-				event.preventDefault()
-				onSelect(date)
-				return
-			default:
-				return
-		}
-	}
-
-	return (
-		<div className={concreteClassNames.calendarPanel}>
-			<header>
-				<Button
-					iconOnly
-					leadingIcon="chevron-left"
-					onClick={() => onMonthChange(addMonths(month, -1))}
-					size="tiny"
-					variant="ghost"
-				/>
-				<b>{formatMonthLabel(month)}</b>
-				<Button
-					iconOnly
-					leadingIcon="chevron-right"
-					onClick={() => onMonthChange(addMonths(month, 1))}
-					size="tiny"
-					variant="ghost"
-				/>
-			</header>
-			<div className={concreteClassNames.calendarWeekdays}>
-				{['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-					<span key={day}>{day}</span>
-				))}
-			</div>
-			<div className={concreteClassNames.calendarGrid}>
-				{days.map(day => (
-					<button
-						data-in-range={isInRange(day.date, selectedStart, selectedEnd) ? true : undefined}
-						data-muted={day.inMonth ? undefined : true}
-						data-selected={isSelectedDate(day.date, selectedStart, selectedEnd) ? true : undefined}
-						disabled={!isDateSelectable(day.date, min, max)}
-						key={day.date}
-						onClick={() => onSelect(day.date)}
-						onKeyDown={event => handleKeyDown(event, day.date)}
-						type="button"
-					>
-						{getDayNumber(day.date)}
-					</button>
-				))}
-			</div>
-		</div>
-	)
-}
 
 export function getTodayIsoDate(): string {
 	return new Date().toISOString().slice(0, 10)
@@ -96,7 +14,7 @@ export function addDays(value: string, days: number): string {
 	return date.toISOString().slice(0, 10)
 }
 
-function addMonths(value: string, months: number): string {
+export function addMonths(value: string, months: number): string {
 	const date = parseIsoDate(value)
 	date.setUTCMonth(date.getUTCMonth() + months)
 	date.setUTCDate(1)
@@ -107,7 +25,7 @@ function parseIsoDate(value: string): Date {
 	return new Date(`${value}T00:00:00.000Z`)
 }
 
-function getCalendarDays(month: string): readonly { date: string; inMonth: boolean }[] {
+export function getCalendarDays(month: string): readonly { date: string; inMonth: boolean }[] {
 	const start = parseIsoDate(month)
 	const monthIndex = start.getUTCMonth()
 	const weekday = (start.getUTCDay() + 6) % 7
@@ -126,7 +44,7 @@ function getCalendarDays(month: string): readonly { date: string; inMonth: boole
 	})
 }
 
-function getDayNumber(value: string): number {
+export function getDayNumber(value: string): number {
 	return parseIsoDate(value).getUTCDate()
 }
 
@@ -146,7 +64,7 @@ export function isDateSelectable(
 	return true
 }
 
-function isSelectedDate(
+export function isSelectedDate(
 	value: string,
 	start: string | undefined,
 	end: string | undefined
@@ -154,7 +72,11 @@ function isSelectedDate(
 	return value === start || value === end
 }
 
-function isInRange(value: string, start: string | undefined, end: string | undefined): boolean {
+export function isInRange(
+	value: string,
+	start: string | undefined,
+	end: string | undefined
+): boolean {
 	if (!start || !end) {
 		return false
 	}
@@ -184,7 +106,7 @@ export function formatDateLabel(value: string): string {
 	}).format(date)
 }
 
-function formatMonthLabel(value: string): string {
+export function formatMonthLabel(value: string): string {
 	const date = parseIsoDate(value)
 	return new Intl.DateTimeFormat('en-US', {
 		month: 'long',

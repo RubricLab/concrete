@@ -19,5 +19,5 @@ export const spacingFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(spacingExamples, state),
 	schema: spacingFoundationSchema,
 	slug: 'spacing',
-	states: exampleStates(spacingExamples, ['default'])
+	states: exampleStates(spacingExamples, ['default', 'density'])
 })

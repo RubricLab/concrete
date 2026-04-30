@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
+import { ChoiceRow } from '../checkbox'
 import { cn } from '../utils'
 
 export type RadioProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
@@ -8,7 +9,7 @@ export type RadioProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
 
 export function Radio({ checked, className, label, ...props }: RadioProps) {
 	return (
-		<label className={cn(concreteClassNames.checkRow, className)}>
+		<ChoiceRow className={className}>
 			<input checked={checked} className={concreteClassNames.visuallyHidden} type="radio" {...props} />
 			<span
 				aria-hidden
@@ -17,6 +18,6 @@ export function Radio({ checked, className, label, ...props }: RadioProps) {
 				{checked ? <span className={concreteClassNames.radioDot} /> : null}
 			</span>
 			{label}
-		</label>
+		</ChoiceRow>
 	)
 }

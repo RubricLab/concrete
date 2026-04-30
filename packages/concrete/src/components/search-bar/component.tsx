@@ -2,11 +2,9 @@
 
 import type { ChangeEvent, FormEvent, HTMLAttributes, ReactNode } from 'react'
 import { useState } from 'react'
-import { ConcreteIcon, type IconName } from '../../icons'
-import { Kbd } from '../../primitives'
-import { cn } from '../../primitives/utils'
+import type { IconName } from '../../icons'
+import { SearchField, SearchTokenPrimitive } from '../../primitives'
 import type { CommandItemTone } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import { formatShortcutKey, stringifyReactNode } from '../../utilities/interaction-helpers'
 
 export type SearchToken = {
@@ -68,60 +66,37 @@ export function SearchBar({
 	}
 
 	return (
-		<div className={cn(concreteClassNames.searchShell, className)}>
-			<form
-				className={concreteClassNames.searchBar}
-				data-wrap={wrap ? true : undefined}
-				onSubmit={handleSubmit}
-				{...props}
-			>
-				<span className={concreteClassNames.searchLeading}>
-					{leading ?? <ConcreteIcon name="search" />}
-				</span>
-				{tokens.map(token => (
-					<span
-						className={concreteClassNames.searchToken}
-						data-tone={token.tone ?? 'default'}
-						key={token.id}
-					>
-						{token.leadingIcon ? <ConcreteIcon name={token.leadingIcon} /> : null}
-						<span>{token.label}</span>
-						{onTokenRemove ? (
-							<button
-								aria-label={`Remove ${stringifyReactNode(token.label)}`}
-								onClick={() => onTokenRemove(token)}
-								type="button"
-							>
-								<ConcreteIcon name="x" />
-							</button>
-						) : null}
-					</span>
-				))}
-				<input
-					aria-label="Search"
-					className={concreteClassNames.searchInput}
-					onChange={(event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value)}
-					onInput={event => updateQuery(event.currentTarget.value)}
-					placeholder={placeholder}
-					value={currentQuery}
-				/>
-				{shortcut.length ? (
-					<span className={concreteClassNames.searchShortcut}>
-						{shortcut.map(shortcutKey => (
-							<Kbd className={concreteClassNames.searchShortcutKey} key={shortcutKey}>
-								{formatShortcutKey(shortcutKey)}
-							</Kbd>
-						))}
-					</span>
-				) : null}
-				{actions}
-				{trailing}
-			</form>
-			{menu ? (
-				<div className={concreteClassNames.searchMenu} data-placement={menuPlacement}>
-					{menu}
-				</div>
-			) : null}
-		</div>
+		<SearchField
+			actions={actions}
+			className={className}
+			formProps={{
+				onSubmit: handleSubmit,
+				...props
+			}}
+			inputProps={{
+				'aria-label': 'Search',
+				onChange: (event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value),
+				onInput: event => updateQuery(event.currentTarget.value),
+				placeholder,
+				value: currentQuery
+			}}
+			leading={leading}
+			menu={menu}
+			menuPlacement={menuPlacement}
+			shortcut={shortcut.map(formatShortcutKey)}
+			tokens={tokens.map(token => (
+				<SearchTokenPrimitive
+					key={token.id}
+					leadingIcon={token.leadingIcon}
+					onRemove={onTokenRemove ? () => onTokenRemove(token) : undefined}
+					removeLabel={`Remove ${stringifyReactNode(token.label)}`}
+					tone={token.tone ?? 'default'}
+				>
+					{token.label}
+				</SearchTokenPrimitive>
+			))}
+			trailing={trailing}
+			wrap={wrap}
+		/>
 	)
 }

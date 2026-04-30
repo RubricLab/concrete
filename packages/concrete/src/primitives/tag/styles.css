@@ -1,1 +1,214 @@
-/* DX-TODO(tag): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1);
+	height: var(--concrete-size-label-medium);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-1-75);
+	border-color: transparent;
+	border-style: solid;
+	border-width: var(--concrete-border-width-hairline);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11-5) / var(--concrete-size-label-medium)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+	white-space: nowrap;
+}
+
+.concrete-tag:has(.concrete-tag-close) {
+	padding-right: var(--concrete-space-0-75);
+}
+
+.concrete-tag > svg {
+	width: var(--concrete-type-11);
+	height: var(--concrete-type-11);
+	flex: none;
+	margin-left: calc(var(--concrete-space-0) - var(--concrete-space-0-5));
+	opacity: var(--concrete-opacity-label-icon);
+	stroke-width: var(--concrete-stroke-1-8);
+}
+
+.concrete-tag-close {
+	display: inline-grid;
+	width: var(--concrete-size-tag-close-medium);
+	height: var(--concrete-size-tag-close-medium);
+	margin-left: var(--concrete-border-width-hairline);
+	padding: var(--concrete-space-0);
+	place-items: center;
+	border: var(--concrete-space-0);
+	border-radius: var(--concrete-radius-1);
+	background: transparent;
+	color: var(--concrete-foreground-soft);
+	cursor: pointer;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-tag-close:hover {
+	background: var(--concrete-ink-2);
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-tag-close svg {
+	width: var(--concrete-space-2);
+	height: var(--concrete-space-2);
+	stroke-width: var(--concrete-stroke-2-4);
+}
+
+.concrete-tag-small {
+	gap: var(--concrete-space-0-75);
+	height: var(--concrete-size-label-small);
+	padding-inline: var(--concrete-space-1-5);
+	border-radius: var(--concrete-radius-1);
+	font-size: var(--concrete-type-10-5);
+	line-height: var(--concrete-size-label-small);
+}
+
+.concrete-tag-small:has(.concrete-tag-close) {
+	padding-right: var(--concrete-space-0-5);
+}
+
+.concrete-tag-small > svg {
+	width: var(--concrete-space-2-25);
+	height: var(--concrete-space-2-25);
+}
+
+.concrete-tag-small .concrete-tag-close {
+	width: var(--concrete-size-tag-close-small);
+	height: var(--concrete-size-tag-close-small);
+}
+
+.concrete-tag-small .concrete-tag-close svg {
+	width: var(--concrete-size-indicator-dot);
+	height: var(--concrete-size-indicator-dot);
+}
+
+.concrete-tag-large {
+	gap: var(--concrete-space-1-25);
+	height: var(--concrete-size-label-large);
+	padding-inline: var(--concrete-space-2-25);
+	border-radius: var(--concrete-radius-2-5);
+	font-size: var(--concrete-type-12-5);
+	line-height: var(--concrete-size-label-large);
+}
+
+.concrete-tag-large:has(.concrete-tag-close) {
+	padding-right: var(--concrete-space-1);
+}
+
+.concrete-tag-large > svg {
+	width: var(--concrete-space-3);
+	height: var(--concrete-space-3);
+}
+
+.concrete-tag-large .concrete-tag-close {
+	width: var(--concrete-size-tag-close-large);
+	height: var(--concrete-size-tag-close-large);
+}
+
+.concrete-tag-large .concrete-tag-close svg {
+	width: var(--concrete-space-2-25);
+	height: var(--concrete-space-2-25);
+}
+
+.concrete-tag-outline {
+	border-color: var(--concrete-border);
+	background: var(--concrete-surface);
+}
+
+.concrete-tag-active,
+.concrete-tag-selected {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+}
+
+.concrete-tag.concrete-label-ink {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-tag.concrete-label-sunken {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-tag-terminal {
+	border-color: transparent;
+	background: var(--concrete-terminal-wash);
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-tag-ultra {
+	border-color: transparent;
+	background: var(--concrete-ultra-wash);
+	color: var(--concrete-ultra-strong);
+}
+
+.concrete-tag-error {
+	border-color: transparent;
+	background: var(--concrete-error-wash);
+	color: var(--concrete-error-strong);
+}
+
+.concrete-tag-sky {
+	border-color: transparent;
+	background: var(--concrete-sky-2);
+	color: var(--concrete-sky-strong);
+}
+
+.concrete-tag-active .concrete-tag-close,
+.concrete-tag-selected .concrete-tag-close {
+	background: var(--concrete-inverse-overlay-soft);
+	color: var(--concrete-inverse-control-muted);
+}
+
+.concrete-tag-active .concrete-tag-close:hover,
+.concrete-tag-selected .concrete-tag-close:hover {
+	background: var(--concrete-inverse-overlay);
+	color: var(--concrete-inverse-foreground-strong);
+}
+
+.concrete-tag-terminal .concrete-tag-close {
+	color: var(--concrete-terminal-strong-muted);
+}
+
+.concrete-tag-terminal .concrete-tag-close:hover {
+	background: var(--concrete-terminal-control-hover);
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-tag-ultra .concrete-tag-close {
+	color: var(--concrete-ultra-strong-muted);
+}
+
+.concrete-tag-ultra .concrete-tag-close:hover {
+	background: var(--concrete-ultra-control-hover);
+	color: var(--concrete-ultra-strong);
+}
+
+.concrete-tag-error .concrete-tag-close {
+	color: var(--concrete-error-strong-muted);
+}
+
+.concrete-tag-error .concrete-tag-close:hover {
+	background: var(--concrete-error-control-hover);
+	color: var(--concrete-error-strong);
+}
+
+.concrete-tag-sky .concrete-tag-close {
+	color: var(--concrete-sky-strong-muted);
+}
+
+.concrete-tag-sky .concrete-tag-close:hover {
+	background: var(--concrete-sky-3);
+	color: var(--concrete-sky-strong);
+}

@@ -1,7 +1,13 @@
-import { Card, Delta, Indicator, Sparkline, Stat } from '../../primitives'
-import { cn } from '../../primitives/utils'
+import {
+	Delta,
+	Indicator,
+	MetricDescription,
+	MetricHeader,
+	MetricShell,
+	MetricSparkline,
+	Stat
+} from '../../primitives'
 import { type MetricCardProps, metricCardSchema } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import { getMetricTrendTone, toIndicatorTone, toSparklineTone } from '../../utilities/data-tone'
 
 type ComponentShellProps = {
@@ -13,22 +19,17 @@ export function MetricCard({ className, ...props }: MetricCardProps & ComponentS
 	const trendTone = parsedProps.trendTone ?? getMetricTrendTone(parsedProps.delta?.intent)
 
 	return (
-		<Card
-			className={cn(
-				concreteClassNames.metricCard,
-				parsedProps.compact && concreteClassNames.metricCardCompact,
-				className
-			)}
-			variant="raised"
-		>
-			<div className={concreteClassNames.metricHeader}>
-				<span className={concreteClassNames.metricLabel}>{parsedProps.label}</span>
-				{parsedProps.status ? (
-					<Indicator tone={toIndicatorTone(parsedProps.status.tone)}>
-						{parsedProps.status.label}
-					</Indicator>
-				) : null}
-			</div>
+		<MetricShell className={className} compact={parsedProps.compact}>
+			<MetricHeader
+				end={
+					parsedProps.status ? (
+						<Indicator tone={toIndicatorTone(parsedProps.status.tone)}>
+							{parsedProps.status.label}
+						</Indicator>
+					) : null
+				}
+				label={parsedProps.label}
+			/>
 			<Stat
 				delta={
 					parsedProps.delta ? (
@@ -46,18 +47,17 @@ export function MetricCard({ className, ...props }: MetricCardProps & ComponentS
 				variant="lockup"
 			/>
 			{parsedProps.trend.length > 0 ? (
-				<Sparkline
+				<MetricSparkline
 					area
-					className={concreteClassNames.metricSparkline}
 					showEndpoint={false}
 					tone={toSparklineTone(trendTone)}
 					values={parsedProps.trend}
 				/>
 			) : null}
 			{parsedProps.description ? (
-				<p className={concreteClassNames.metricDescription}>{parsedProps.description}</p>
+				<MetricDescription>{parsedProps.description}</MetricDescription>
 			) : null}
-		</Card>
+		</MetricShell>
 	)
 }
 

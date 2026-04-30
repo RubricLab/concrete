@@ -19,5 +19,5 @@ export const motionFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(motionExamples, state),
 	schema: motionFoundationSchema,
 	slug: 'motion',
-	states: exampleStates(motionExamples, ['default'])
+	states: exampleStates(motionExamples, ['default', 'states'])
 })

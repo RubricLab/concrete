@@ -1,0 +1,32 @@
+.concrete-data-card-header {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: var(--concrete-space-3-5);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-data-card-header[data-align="center"] {
+	align-items: center;
+}
+
+.concrete-data-card-header-body {
+	display: grid;
+	gap: var(--concrete-space-0);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-data-card-header-title {
+	margin: var(--concrete-space-0);
+	color: var(--concrete-foreground-strong);
+	font-size: var(--concrete-type-13);
+	font-weight: var(--concrete-weight-heavy);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-data-card-header-description {
+	margin: var(--concrete-space-0);
+	color: var(--concrete-foreground-muted);
+	font-size: var(--concrete-type-12);
+	line-height: var(--concrete-line-normal);
+}

@@ -1,1 +1,111 @@
-/* DX-TODO(badge): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-5);
+	height: var(--concrete-size-label-medium);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-2-5);
+	padding-left: var(--concrete-space-2-25);
+	border: var(--concrete-border-width-hairline) solid transparent;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-1);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-11-5) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+	white-space: nowrap;
+}
+
+.concrete-badge::before {
+	width: var(--concrete-size-label-dot);
+	height: var(--concrete-size-label-dot);
+	flex: none;
+	border-radius: var(--concrete-radius-pill);
+	background: currentcolor;
+	content: "";
+}
+
+.concrete-badge-terminal {
+	border-color: var(--concrete-terminal-wash);
+	background: var(--concrete-terminal-1);
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-badge-terminal::before {
+	background: var(--concrete-terminal);
+}
+
+.concrete-badge-ultra {
+	border-color: var(--concrete-ultra-wash);
+	background: var(--concrete-ultra-1);
+	color: var(--concrete-ultra-strong);
+}
+
+.concrete-badge-ultra::before {
+	background: var(--concrete-ultra);
+}
+
+.concrete-badge-error {
+	border-color: var(--concrete-error-wash);
+	background: var(--concrete-error-1);
+	color: var(--concrete-error-strong);
+}
+
+.concrete-badge-error::before {
+	background: var(--concrete-error);
+}
+
+.concrete-badge-solid {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+}
+
+.concrete-badge-solid::before {
+	background: var(--concrete-inverse-foreground-strong);
+	opacity: var(--concrete-opacity-label-dot);
+}
+
+.concrete-badge-solid.concrete-badge-terminal {
+	border-color: var(--concrete-terminal);
+	background: var(--concrete-terminal);
+}
+
+.concrete-badge-solid.concrete-badge-ultra {
+	border-color: var(--concrete-ultra);
+	background: var(--concrete-ultra);
+}
+
+.concrete-badge-solid.concrete-badge-error {
+	border-color: var(--concrete-error);
+	background: var(--concrete-error);
+}
+
+.concrete-badge-ghost {
+	padding-inline: var(--concrete-space-2-5);
+	border-color: var(--concrete-border);
+	background: transparent;
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-badge-ghost::before {
+	display: none;
+}
+
+.concrete-badge-count {
+	min-width: var(--concrete-size-label-small);
+	justify-content: center;
+	padding-inline: var(--concrete-space-1-5);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	font-size: var(--concrete-type-11);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-badge-count::before {
+	display: none;
+}

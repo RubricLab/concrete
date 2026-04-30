@@ -1,6 +1,14 @@
 import type { ReactNode } from 'react'
+import {
+	ChartArea,
+	ChartEndLabel,
+	ChartEndpoint,
+	ChartLine,
+	ChartMessage,
+	ChartPoint,
+	ChartSvg
+} from '../primitives'
 import type { chartSchema } from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
 import {
 	createChartPlotBox,
 	createScaledChartPoints,
@@ -33,12 +41,11 @@ export function renderLineChart(
 	const xLabels = createSparseXAxisLabels(parsedProps.series[0]?.points ?? [], plotBox)
 
 	if (allValues.length === 0) {
-		return <div className={concreteClassNames.chartMessage}>No data</div>
+		return <ChartMessage>No data</ChartMessage>
 	}
 
 	return (
-		<svg aria-hidden className={concreteClassNames.chartSvg} viewBox={`0 0 ${width} ${height}`}>
-			<title>Line chart</title>
+		<ChartSvg title="Line chart" viewBox={`0 0 ${width} ${height}`}>
 			{renderCartesianGrid(plotBox, extent, xLabels, parsedProps)}
 			{parsedProps.target === undefined ? null : renderTarget(parsedProps.target, extent, plotBox)}
 			{parsedProps.series.map(series => {
@@ -48,16 +55,12 @@ export function renderLineChart(
 				return (
 					<g className={getDataToneClass(series.tone)} key={series.id}>
 						{parsedProps.variant === 'area' ? (
-							<path
-								className={concreteClassNames.chartArea}
-								d={createSmoothAreaPath(points, plotBox.bottom)}
-							/>
+							<ChartArea d={createSmoothAreaPath(points, plotBox.bottom)} />
 						) : null}
-						<path className={concreteClassNames.chartLine} d={createSmoothPath(points)} />
+						<ChartLine d={createSmoothPath(points)} />
 						{parsedProps.showDots
 							? points.map((point, pointIndex) => (
-									<circle
-										className={concreteClassNames.chartPoint}
+									<ChartPoint
 										cx={point.x}
 										cy={point.y}
 										key={`${series.id}-${point.label}-${pointIndex}`}
@@ -65,22 +68,19 @@ export function renderLineChart(
 									/>
 								))
 							: null}
-						{endpoint ? (
-							<circle className={concreteClassNames.chartEndpoint} cx={endpoint.x} cy={endpoint.y} r="3" />
-						) : null}
+						{endpoint ? <ChartEndpoint cx={endpoint.x} cy={endpoint.y} r="3" /> : null}
 						{endpoint && parsedProps.showEndLabels ? (
-							<text
-								className={concreteClassNames.chartEndLabel}
+							<ChartEndLabel
 								textAnchor="end"
 								x={plotBox.right}
 								y={clamp(endpoint.y - 8, plotBox.top + 4, plotBox.bottom - 4)}
 							>
 								{formatChartValue(endpoint.value)}
-							</text>
+							</ChartEndLabel>
 						) : null}
 					</g>
 				)
 			})}
-		</svg>
+		</ChartSvg>
 	)
 }

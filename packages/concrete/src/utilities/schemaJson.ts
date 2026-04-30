@@ -14,6 +14,11 @@ export type ConcreteJsonSchema = {
 	type?: string | readonly string[]
 }
 
+export type ConcreteJsonSchemaDiscriminator = {
+	name: string
+	values: readonly string[]
+}
+
 export function jsonSchemaFromZod(schema: z.ZodType): ConcreteJsonSchema {
 	return z.toJSONSchema(schema) as ConcreteJsonSchema
 }
@@ -38,8 +43,74 @@ export function firstStringEnumValue(schema: ConcreteJsonSchema): string | undef
 	return schema.enum?.find(value => typeof value === 'string')
 }
 
+export function stringConstValue(schema: ConcreteJsonSchema | undefined): string | undefined {
+	return typeof schema?.const === 'string' ? schema.const : undefined
+}
+
 export function stringEnumValues(schema: ConcreteJsonSchema): readonly string[] {
 	return schema.enum?.filter(value => typeof value === 'string') ?? []
+}
+
+export function schemaUnionOptions(schema: ConcreteJsonSchema): readonly ConcreteJsonSchema[] {
+	return [...(schema.oneOf ?? []), ...(schema.anyOf ?? [])]
+}
+
+export function stringConstDiscriminator(
+	options: readonly ConcreteJsonSchema[]
+): ConcreteJsonSchemaDiscriminator | undefined {
+	const firstOption = options[0]
+
+	if (!firstOption || schemaType(firstOption) !== 'object') {
+		return undefined
+	}
+
+	for (const [name, propertySchema] of Object.entries(schemaProperties(firstOption))) {
+		const firstValue = stringConstValue(propertySchema)
+
+		if (firstValue === undefined) {
+			continue
+		}
+
+		const values = options.map(option => stringConstValue(schemaProperties(option)[name]))
+
+		if (
+			values.every((value): value is string => value !== undefined) &&
+			new Set(values).size === values.length
+		) {
+			return { name, values }
+		}
+	}
+
+	return undefined
+}
+
+export function selectUnionOptionForValue(
+	options: readonly ConcreteJsonSchema[],
+	value: unknown
+): ConcreteJsonSchema | undefined {
+	const discriminator = stringConstDiscriminator(options)
+
+	if (!discriminator || !isRecord(value)) {
+		return options[0]
+	}
+
+	const discriminatorValue = value[discriminator.name]
+
+	return (
+		options.find(
+			option => stringConstValue(schemaProperties(option)[discriminator.name]) === discriminatorValue
+		) ?? options[0]
+	)
+}
+
+export function selectUnionOptionForDiscriminatorValue(
+	options: readonly ConcreteJsonSchema[],
+	discriminatorName: string,
+	discriminatorValue: string
+): ConcreteJsonSchema | undefined {
+	return options.find(
+		option => stringConstValue(schemaProperties(option)[discriminatorName]) === discriminatorValue
+	)
 }
 
 export function isRecord(value: unknown): value is Record<string, unknown> {

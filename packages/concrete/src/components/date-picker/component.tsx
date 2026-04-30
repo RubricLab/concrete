@@ -2,11 +2,8 @@
 
 import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Field } from '../../primitives'
-import { concreteClassNames } from '../../styles/class-names'
+import { CalendarPanel, Field, PickerControl, PickerShell } from '../../primitives'
 import {
-	CalendarPanel,
 	formatDateLabel,
 	getMonthStart,
 	getTodayIsoDate,
@@ -82,11 +79,10 @@ export function DatePicker({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.datePicker} data-open={open ? true : undefined} {...props}>
-				<button className={concreteClassNames.pickerControl} onClick={toggleOpen} type="button">
-					<span>{formatDateLabel(currentValue)}</span>
-					<ConcreteIcon name="calendar" />
-				</button>
+			<PickerShell kind="date" open={open} {...props}>
+				<PickerControl onClick={toggleOpen} open={open}>
+					{formatDateLabel(currentValue)}
+				</PickerControl>
 				{open ? (
 					<CalendarPanel
 						max={max}
@@ -98,7 +94,7 @@ export function DatePicker({
 						selectedStart={currentValue}
 					/>
 				) : null}
-			</div>
+			</PickerShell>
 		</Field>
 	)
 }

@@ -7,5 +7,12 @@
 }
 
 .renderStage {
+	display: grid;
+	gap: 14px;
 	width: min(720px, 100%);
+	justify-items: center;
+}
+
+.renderStage > * {
+	max-width: 100%;
 }

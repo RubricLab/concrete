@@ -1,18 +1,21 @@
 'use client'
 
-import type { CSSProperties, PointerEvent } from 'react'
+import type { PointerEvent } from 'react'
 import { useId, useState } from 'react'
-import { Card, Indicator } from '../../primitives'
-import { cn } from '../../primitives/utils'
 import {
-	type FlowDiagramEdge,
-	type FlowDiagramNode,
-	type FlowDiagramProps,
-	flowDiagramPropsSchema
-} from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
+	ChartLegend,
+	ChartLegendItem,
+	DataCardHeader,
+	FlowDiagramControls,
+	FlowDiagramEdgePath,
+	FlowDiagramShell,
+	FlowDiagramSvg,
+	FlowDiagramViewport,
+	FlowNode
+} from '../../primitives'
+import { type FlowDiagramNode, type FlowDiagramProps, flowDiagramPropsSchema } from '../../schemas'
 import { clamp, routeDiagramEdge } from '../../utilities/data-geometry'
-import { getDataToneClass, toIndicatorTone } from '../../utilities/data-tone'
+import { toIndicatorTone } from '../../utilities/data-tone'
 
 type ComponentShellProps = {
 	className?: string
@@ -61,53 +64,32 @@ export function FlowDiagram({
 	}
 
 	return (
-		<Card className={cn(concreteClassNames.flowDiagramCard, className)} variant="raised">
-			<header className={concreteClassNames.dataCardHeader}>
-				<div>
-					<h3>{parsedProps.title}</h3>
-					{parsedProps.description ? <p>{parsedProps.description}</p> : null}
-				</div>
-				{parsedProps.controls ? (
-					<div className={concreteClassNames.flowDiagramControls}>
-						<button onClick={() => updateZoom(zoom - 0.1)} type="button">
-							-
-						</button>
-						<button
-							onClick={() => {
+		<FlowDiagramShell className={className}>
+			<DataCardHeader
+				description={parsedProps.description}
+				end={
+					parsedProps.controls ? (
+						<FlowDiagramControls
+							onReset={() => {
 								setPan({ x: 0, y: 0 })
 								updateZoom(1)
 							}}
-							type="button"
-						>
-							1x
-						</button>
-						<button onClick={() => updateZoom(zoom + 0.1)} type="button">
-							+
-						</button>
-					</div>
-				) : null}
-			</header>
-			<div className={concreteClassNames.flowDiagramViewport}>
-				<svg
-					aria-label={parsedProps.title}
-					className={concreteClassNames.flowDiagramCanvas}
-					role="img"
-					style={{ '--diagram-height': `${parsedProps.height}px` } as CSSProperties}
+							onZoomIn={() => updateZoom(zoom + 0.1)}
+							onZoomOut={() => updateZoom(zoom - 0.1)}
+						/>
+					) : null
+				}
+				title={parsedProps.title}
+			/>
+			<FlowDiagramViewport>
+				<FlowDiagramSvg
+					gridId={gridId}
+					height={parsedProps.height}
+					panX={pan.x}
+					panY={pan.y}
+					title={parsedProps.title}
 					viewBox={viewBox}
 				>
-					<defs>
-						<pattern height="18" id={gridId} patternUnits="userSpaceOnUse" width="18">
-							<path d="M 18 0 L 0 0 0 18" fill="none" />
-						</pattern>
-					</defs>
-					<rect
-						className={concreteClassNames.flowDiagramGrid}
-						height="100%"
-						style={{ fill: `url(#${gridId})` }}
-						width="100%"
-						x={pan.x}
-						y={pan.y}
-					/>
 					{parsedProps.flow.edges.map(edge => {
 						const fromNode = nodeMap.get(edge.from)
 						const toNode = nodeMap.get(edge.to)
@@ -120,81 +102,45 @@ export function FlowDiagram({
 						const selected = edge.selected || parsedProps.selectedEdgeId === edge.id
 
 						return (
-							<g
-								className={cn(
-									concreteClassNames.flowDiagramEdge,
-									selected && concreteClassNames.flowDiagramEdgeSelected,
-									getFlowEdgeVariantClass(edge.variant),
-									getDataToneClass(edge.tone)
-								)}
+							<FlowDiagramEdgePath
 								key={edge.id}
-							>
-								<path d={route.path} />
-								{edge.label ? (
-									<text x={route.label.x} y={route.label.y - 6}>
-										{edge.label}
-									</text>
-								) : null}
-							</g>
+								label={edge.label}
+								labelPoint={route.label}
+								path={route.path}
+								selected={selected}
+								tone={edge.tone}
+								variant={edge.variant}
+							/>
 						)
 					})}
 					{nodes.map(node => {
 						const selected = node.selected || parsedProps.selectedNodeId === node.id
 
 						return (
-							// biome-ignore lint/a11y/noStaticElementInteractions: SVG nodes expose canvas hit areas.
-							<g
-								className={cn(
-									concreteClassNames.flowDiagramNode,
-									selected && concreteClassNames.flowDiagramNodeSelected,
-									node.tone === 'accent' && concreteClassNames.flowDiagramNodeAccent,
-									node.tone === 'inverse' && concreteClassNames.flowDiagramNodeInverse
-								)}
+							<FlowNode
+								height={node.height}
 								key={node.id}
 								onClick={() => onNodeSelect?.(node.id)}
 								onPointerMove={event => moveNode(node, event)}
-							>
-								<rect height={node.height} rx="8" width={node.width} x={node.x} y={node.y} />
-								<text className={concreteClassNames.flowDiagramNodeTitle} x={node.x + 14} y={node.y + 27}>
-									{node.title}
-								</text>
-								{node.subtitle ? (
-									<text
-										className={concreteClassNames.flowDiagramNodeSubtitle}
-										x={node.x + 14}
-										y={node.y + 47}
-									>
-										{node.subtitle}
-									</text>
-								) : null}
-							</g>
+								selected={selected}
+								subtitle={node.subtitle}
+								title={node.title}
+								tone={node.tone}
+								width={node.width}
+								x={node.x}
+								y={node.y}
+							/>
 						)
 					})}
-				</svg>
-			</div>
+				</FlowDiagramSvg>
+			</FlowDiagramViewport>
 			{parsedProps.legend.length > 0 ? (
-				<footer className={concreteClassNames.chartLegend}>
+				<ChartLegend>
 					{parsedProps.legend.map(item => (
-						<Indicator key={item.label} tone={toIndicatorTone(item.tone)}>
-							{item.label}
-						</Indicator>
+						<ChartLegendItem key={item.label} label={item.label} tone={toIndicatorTone(item.tone)} />
 					))}
-				</footer>
+				</ChartLegend>
 			) : null}
-		</Card>
+		</FlowDiagramShell>
 	)
-}
-
-function getFlowEdgeVariantClass(variant: FlowDiagramEdge['variant']): string | undefined {
-	switch (variant) {
-		case 'dashed':
-			return concreteClassNames.flowDiagramEdgeDashed
-		case 'dotted':
-			return concreteClassNames.flowDiagramEdgeDotted
-		case 'pulse':
-			return concreteClassNames.flowDiagramEdgePulse
-		case 'solid':
-		case 'step':
-			return undefined
-	}
 }

@@ -1,3 +1,32 @@
-/* DX-TODO(textures): Foundation texture variables still live in the root stylesheet.
-   Keep them centralized until item CSS concatenation can preserve cascade order
-   and public `@rubriclab/concrete/styles.css` compatibility. */
+:root {
+	--concrete-texture-dot-fade-size: 1.2px;
+	--concrete-chart-target-dasharray: 4 4;
+	--concrete-flow-diagram-edge-dashed: 6 5;
+	--concrete-flow-diagram-edge-dotted: 2 5;
+	--concrete-diagram-canvas-edge-dashed: 7 5;
+	--concrete-diagram-canvas-edge-dotted: 2 6;
+	--concrete-diagram-canvas-edge-reference: 3 5;
+	--concrete-diagram-canvas-background:
+		radial-gradient(circle, var(--concrete-border) 1px, transparent 1.35px) 0 0 / 18px 18px,
+		var(--concrete-sunken);
+	--concrete-diagram-canvas-legend-event-background: repeating-linear-gradient(
+		to right,
+		currentcolor 0,
+		currentcolor 5px,
+		transparent 5px,
+		transparent 9px
+	);
+	--concrete-diagram-canvas-legend-reference-background: repeating-linear-gradient(
+		to right,
+		currentcolor 0,
+		currentcolor 2px,
+		transparent 2px,
+		transparent 6px
+	);
+	--concrete-grid-unit: 48px;
+	--concrete-grid-line: rgb(10 11 15 / 4.5%);
+	--concrete-grid-line-strong: rgb(10 11 15 / 11%);
+	--concrete-lattice: rgb(10 11 15 / 3.5%);
+	--concrete-dots: rgb(10 11 15 / 14%);
+	--concrete-lines: rgb(10 11 15 / 6%);
+}

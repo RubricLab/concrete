@@ -1,0 +1,64 @@
+.concrete-form-overlay {
+	display: grid;
+	min-width: var(--concrete-size-form-overlay-min-inline);
+	padding: var(--concrete-space-4-5);
+	background: var(--concrete-form-overlay-background);
+}
+
+.concrete-form-overlay[data-presentation="fixed"] {
+	position: fixed;
+	z-index: var(--concrete-z-form-overlay);
+	inset: var(--concrete-space-0);
+	min-height: var(--concrete-size-viewport-block);
+}
+
+.concrete-form-overlay[data-type="dialog"] {
+	min-height: var(--concrete-size-form-dialog-min-block);
+	place-items: center;
+}
+
+.concrete-form-overlay[data-type="drawer"] {
+	min-height: var(--concrete-size-form-drawer-min-block);
+	align-items: stretch;
+}
+
+.concrete-form-overlay[data-side="left"] {
+	justify-items: start;
+}
+
+.concrete-form-overlay[data-side="right"] {
+	justify-items: end;
+}
+
+.concrete-form-dialog,
+.concrete-form-drawer {
+	width: var(--concrete-size-full);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-form-dialog {
+	max-width: var(--concrete-measure-form-dialog);
+}
+
+.concrete-form-overlay[data-size="compact"] .concrete-form-dialog {
+	max-width: var(--concrete-measure-form-dialog-compact);
+}
+
+.concrete-form-overlay[data-size="wide"] .concrete-form-dialog {
+	max-width: var(--concrete-measure-form-dialog-wide);
+}
+
+.concrete-form-drawer {
+	display: grid;
+	max-width: var(--concrete-measure-form-drawer);
+}
+
+.concrete-form-drawer > .concrete-form-shell {
+	min-height: var(--concrete-size-full);
+}
+
+@media (width <= 640px) {
+	.concrete-form-overlay {
+		padding: var(--concrete-space-2-5);
+	}
+}

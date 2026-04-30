@@ -89,4 +89,4 @@ Publishing expects npm trusted publishing to be configured for `RubricLab/concre
 
 Concrete's codebase guide lives in [`CODE.md`](./CODE.md). It is the senior-engineer manifesto for item ownership, schemas, examples, controls, CSS, docs structure, tests, and long-running refactors.
 
-Read `CODE.md` before structural work. Long-running refactors should use [`REFACTOR_RUNBOOK.md`](./REFACTOR_RUNBOOK.md) to track the active chunk, gates, and next actions across context compaction.
+Read `CODE.md` before structural work. Long-running CSS and component standardization work should also read [`ITEM_SCOPE.md`](./ITEM_SCOPE.md) for item boundaries, [`MIGRATION_QUEUE.md`](./MIGRATION_QUEUE.md) for the autonomous chunk queue, and [`REFACTOR_RUNBOOK.md`](./REFACTOR_RUNBOOK.md) to track gates and context-compaction history.

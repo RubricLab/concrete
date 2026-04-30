@@ -18,7 +18,7 @@ export const statPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderStatInput(statSchema.parse(input)),
 	schema: statSchema,
 	slug: 'stat',
-	states: exampleStates(statExamples, ['default', 'numeric', 'display'])
+	states: exampleStates(statExamples, ['default', 'numeric', 'display', 'tones'])
 })
 
 function renderStatInput({ label, meta, unit, ...props }: StatValue) {

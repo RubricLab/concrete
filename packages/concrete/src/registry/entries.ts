@@ -1,6 +1,14 @@
 import type { ComposerValue } from '../components'
-import { componentDefinitions, primitiveDefinitions } from './items'
-import type { ComponentRegistryEntry, PrimitiveRegistryEntry } from './types'
+import { componentDefinitions, foundationDefinitions, primitiveDefinitions } from './items'
+import type {
+	ComponentRegistryEntry,
+	FoundationRegistryEntry,
+	PrimitiveRegistryEntry
+} from './types'
+
+type FoundationRegistryEntries<Definitions extends readonly FoundationRegistryEntry[]> = {
+	readonly [Index in keyof Definitions]: FoundationRegistryEntry
+}
 
 type PrimitiveRegistryEntries<Definitions extends readonly PrimitiveRegistryEntry[]> = {
 	readonly [Index in keyof Definitions]: PrimitiveRegistryEntry
@@ -9,6 +17,8 @@ type PrimitiveRegistryEntries<Definitions extends readonly PrimitiveRegistryEntr
 type ComponentRegistryEntries<Definitions extends readonly ComponentRegistryEntry[]> = {
 	readonly [Index in keyof Definitions]: ComponentRegistryEntry
 }
+
+export const foundationRegistry = entriesFromFoundationDefinitions(foundationDefinitions)
 
 export const primitiveRegistry = entriesFromPrimitiveDefinitions(primitiveDefinitions)
 
@@ -21,6 +31,10 @@ export const composerExampleValue: ComposerValue = {
 }
 
 export const componentRegistry = entriesFromComponentDefinitions(componentDefinitions)
+
+export function getFoundationEntry(slug: string): FoundationRegistryEntry | undefined {
+	return foundationRegistry.find(entryValue => entryValue.slug === slug)
+}
 
 export function getPrimitiveEntry(slug: string): PrimitiveRegistryEntry | undefined {
 	return primitiveRegistry.find(entryValue => entryValue.slug === slug)
@@ -54,6 +68,27 @@ function componentEntryFromDefinition(definition: ComponentRegistryEntry): Compo
 		slug: definition.slug,
 		states: definition.states
 	}
+}
+
+function foundationEntryFromDefinition(
+	definition: FoundationRegistryEntry
+): FoundationRegistryEntry {
+	return {
+		category: definition.category,
+		description: definition.description,
+		guidance: definition.guidance,
+		name: definition.name,
+		pressure: definition.pressure,
+		props: definition.props,
+		slug: definition.slug,
+		states: definition.states
+	}
+}
+
+function entriesFromFoundationDefinitions<
+	const Definitions extends readonly FoundationRegistryEntry[]
+>(definitions: Definitions): FoundationRegistryEntries<Definitions> {
+	return definitions.map(foundationEntryFromDefinition) as FoundationRegistryEntries<Definitions>
 }
 
 function entriesFromPrimitiveDefinitions<

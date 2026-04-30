@@ -1,8 +1,14 @@
-import type { CSSProperties, ReactNode } from 'react'
-import { Card, Indicator } from '../primitives'
-import { cn } from '../primitives/utils'
+import type { ReactNode } from 'react'
+import {
+	ChartLegend,
+	ChartLegendItem,
+	ChartMessage,
+	ChartShell,
+	ChartSurface,
+	DataCardHeader,
+	Indicator
+} from '../primitives'
 import type { chartSchema } from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
 import { renderBarChart } from './bar-chart-rendering'
 import {
 	getChartLegendItems,
@@ -15,9 +21,9 @@ import { renderHeatmapChart } from './heatmap-rendering'
 import { renderLineChart } from './line-chart-rendering'
 import { renderStackedBarChart } from './stacked-bar-rendering'
 
-// DX-TODO(chart): This shared JSX render engine is a transition location. Promote it to
-// a chart primitive or collapse it into the owning chart components during the next
-// visual QA pass; keep this pass structural and avoid pixel churn.
+// DX-TODO(chart): This shared render engine still owns chart body routing and geometry
+// delegation. Keep styling primitive-owned; revisit only if chart components need
+// variant-specific controller logic that cannot stay in this utility.
 export function renderParsedChart(
 	parsedProps: ReturnType<typeof chartSchema.parse>,
 	className: string | undefined
@@ -25,44 +31,41 @@ export function renderParsedChart(
 	const legendItems = getChartLegendItems(parsedProps)
 
 	return (
-		<Card className={cn(concreteClassNames.chartCard, className)} variant="raised">
+		<ChartShell className={className}>
 			{parsedProps.showHeader ? (
-				<header className={concreteClassNames.dataCardHeader}>
-					<div>
-						<h3>{parsedProps.title}</h3>
-						{parsedProps.description ? <p>{parsedProps.description}</p> : null}
-					</div>
-					<Indicator tone={getChartStateTone(parsedProps.state)}>{parsedProps.state}</Indicator>
-				</header>
+				<DataCardHeader
+					description={parsedProps.description}
+					end={<Indicator tone={getChartStateTone(parsedProps.state)}>{parsedProps.state}</Indicator>}
+					title={parsedProps.title}
+				/>
 			) : null}
-			<div
-				className={concreteClassNames.chartSurface}
-				data-surface={parsedProps.surface}
-				data-variant={parsedProps.variant}
-				style={{ '--chart-height': `${parsedProps.height}px` } as CSSProperties}
+			<ChartSurface
+				height={parsedProps.height}
+				surface={parsedProps.surface}
+				variant={parsedProps.variant}
 			>
 				{renderChartBody(parsedProps)}
-			</div>
+			</ChartSurface>
 			{parsedProps.legend && legendItems.length > 0 ? (
-				<div className={concreteClassNames.chartLegend}>
+				<ChartLegend>
 					{legendItems.map(item => (
-						<Indicator key={item.label} tone={toIndicatorTone(item.tone)}>
-							{item.label}
-							{item.value === undefined ? null : <span>{item.value}</span>}
-						</Indicator>
+						<ChartLegendItem
+							key={item.label}
+							label={item.label}
+							tone={toIndicatorTone(item.tone)}
+							value={item.value}
+						/>
 					))}
-				</div>
+				</ChartLegend>
 			) : null}
-		</Card>
+		</ChartShell>
 	)
 }
 
 function renderChartBody(parsedProps: ReturnType<typeof chartSchema.parse>): ReactNode {
 	if (parsedProps.state !== 'ready') {
 		return (
-			<div className={concreteClassNames.chartMessage}>
-				{parsedProps.message ?? getChartStateMessage(parsedProps.state)}
-			</div>
+			<ChartMessage>{parsedProps.message ?? getChartStateMessage(parsedProps.state)}</ChartMessage>
 		)
 	}
 

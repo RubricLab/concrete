@@ -1,6 +1,16 @@
 import type { ReactNode } from 'react'
+import {
+	ChartBar,
+	ChartBarComparison,
+	ChartBarTrack,
+	ChartBaseline,
+	ChartMessage,
+	ChartPlotBackground,
+	ChartRowLabel,
+	ChartSvg,
+	ChartValueLabel
+} from '../primitives'
 import type { barChartSchema, DataPoint } from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
 import {
 	createChartBarRectangle,
 	createChartPlotBox,
@@ -24,7 +34,7 @@ export function renderBarChart(
 	const width = 640
 
 	if (points.length === 0) {
-		return <div className={concreteClassNames.chartMessage}>No data</div>
+		return <ChartMessage>No data</ChartMessage>
 	}
 
 	if (orientation === 'horizontal') {
@@ -52,23 +62,15 @@ export function renderBarChart(
 	}))
 
 	return (
-		<svg aria-hidden className={concreteClassNames.chartSvg} viewBox={`0 0 ${width} ${height}`}>
-			<title>Bar chart</title>
+		<ChartSvg title="Bar chart" viewBox={`0 0 ${width} ${height}`}>
 			{renderCartesianGrid(plotBox, extent, xLabels, options)}
-			<line
-				className={concreteClassNames.chartBaseline}
-				x1={plotBox.left}
-				x2={plotBox.right}
-				y1={zero}
-				y2={zero}
-			/>
+			<ChartBaseline x1={plotBox.left} x2={plotBox.right} y1={zero} y2={zero} />
 			{comparisonPoints.map((point, pointIndex) => {
 				const x = plotBox.left + pointIndex * slotWidth + (slotWidth - comparisonWidth) / 2
 				const rect = createChartBarRectangle(point.value, x, comparisonWidth, scaleY, zero)
 
 				return (
-					<rect
-						className={concreteClassNames.chartBarComparison}
+					<ChartBarComparison
 						height={rect.height}
 						key={`comparison-${point.label}`}
 						rx="3"
@@ -84,28 +86,16 @@ export function renderBarChart(
 
 				return (
 					<g className={getDataToneClass(point.tone)} key={point.label}>
-						<rect
-							className={concreteClassNames.chartBar}
-							height={rect.height}
-							rx="3"
-							width={rect.width}
-							x={rect.x}
-							y={rect.y}
-						/>
+						<ChartBar height={rect.height} rx="3" width={rect.width} x={rect.x} y={rect.y} />
 						{options.showValues ? (
-							<text
-								className={concreteClassNames.chartValueLabel}
-								textAnchor="middle"
-								x={x + barWidth / 2}
-								y={rect.y - 7}
-							>
+							<ChartValueLabel textAnchor="middle" x={x + barWidth / 2} y={rect.y - 7}>
 								{formatChartValue(point.value)}
-							</text>
+							</ChartValueLabel>
 						) : null}
 					</g>
 				)
 			})}
-		</svg>
+		</ChartSvg>
 	)
 }
 
@@ -130,10 +120,8 @@ function renderHorizontalBarChart(
 	const barHeight = Math.min(12, Math.max(rowStep * 0.36, 7))
 
 	return (
-		<svg aria-hidden className={concreteClassNames.chartSvg} viewBox={`0 0 ${width} ${height}`}>
-			<title>Horizontal bar chart</title>
-			<rect
-				className={concreteClassNames.chartPlotBackground}
+		<ChartSvg title="Horizontal bar chart" viewBox={`0 0 ${width} ${height}`}>
+			<ChartPlotBackground
 				height={plotBox.height}
 				rx="8"
 				width={plotBox.width}
@@ -146,38 +134,25 @@ function renderHorizontalBarChart(
 
 				return (
 					<g className={getDataToneClass(point.tone)} key={point.label}>
-						<text
-							className={concreteClassNames.chartRowLabel}
-							textAnchor="end"
-							x={plotBox.left - 10}
-							y={y + barHeight}
-						>
+						<ChartRowLabel textAnchor="end" x={plotBox.left - 10} y={y + barHeight}>
 							{point.label}
-						</text>
-						<rect
-							className={concreteClassNames.chartBarTrack}
+						</ChartRowLabel>
+						<ChartBarTrack
 							height={barHeight}
 							rx={barHeight / 2}
 							width={plotBox.width}
 							x={plotBox.left}
 							y={y}
 						/>
-						<rect
-							className={concreteClassNames.chartBar}
-							height={barHeight}
-							rx={barHeight / 2}
-							width={barWidth}
-							x={plotBox.left}
-							y={y}
-						/>
+						<ChartBar height={barHeight} rx={barHeight / 2} width={barWidth} x={plotBox.left} y={y} />
 						{options.showValues ? (
-							<text className={concreteClassNames.chartValueLabel} x={plotBox.right + 9} y={y + barHeight}>
+							<ChartValueLabel x={plotBox.right + 9} y={y + barHeight}>
 								{formatChartValue(point.value)}
-							</text>
+							</ChartValueLabel>
 						) : null}
 					</g>
 				)
 			})}
-		</svg>
+		</ChartSvg>
 	)
 }

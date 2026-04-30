@@ -19,5 +19,5 @@ export const radiiFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(radiiExamples, state),
 	schema: radiiFoundationSchema,
 	slug: 'radii',
-	states: exampleStates(radiiExamples, ['default'])
+	states: exampleStates(radiiExamples, ['default', 'controls'])
 })

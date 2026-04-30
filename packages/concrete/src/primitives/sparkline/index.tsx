@@ -18,7 +18,15 @@ export const sparklinePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderSparklineInput(sparklineSchema.parse(input)),
 	schema: sparklineSchema,
 	slug: 'sparkline',
-	states: exampleStates(sparklineExamples, ['line', 'area', 'bar', 'dot', 'volatile'])
+	states: exampleStates(sparklineExamples, [
+		'default',
+		'line',
+		'area',
+		'bar',
+		'dot',
+		'signals',
+		'volatile'
+	])
 })
 
 function renderSparklineInput(input: SparklineValue) {

@@ -1,1 +1,7 @@
-/* DX-TODO(textarea): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-textarea {
+	min-height: var(--concrete-size-textarea-min);
+	padding-block: var(--concrete-space-2);
+	padding-inline: var(--concrete-space-2-5);
+	resize: vertical;
+	line-height: var(--concrete-line-prose-compact);
+}

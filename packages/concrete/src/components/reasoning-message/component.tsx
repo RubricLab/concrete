@@ -1,11 +1,9 @@
 import type { ReactNode } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Spinner } from '../../primitives'
+import { ReasoningPanel, ReasoningPanelStep, ReasoningSteps } from '../../primitives'
 import { Message, type MessageProps } from '../../primitives/internal/message'
-import type { MessageStatus, ReasoningStep } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
+import type { ReasoningStep as ReasoningStepData } from '../../schemas'
 
-export type ReasoningMessageStep = ReasoningStep & {
+export type ReasoningMessageStep = ReasoningStepData & {
 	detail?: ReactNode
 }
 
@@ -26,46 +24,24 @@ export function ReasoningMessage({
 }: ReasoningMessageProps) {
 	return (
 		<Message messageRole="assistant" showStatus={false} status={status} surface="plain" {...props}>
-			<details className={concreteClassNames.reasoning} data-status={status} open={open}>
-				<summary>
-					<span className={concreteClassNames.reasoningStatus}>
-						{status === 'streaming' || status === 'pending' ? (
-							<Spinner size={12} tone="default" />
-						) : (
-							<ConcreteIcon name={status === 'error' ? 'circle-alert' : 'check'} />
-						)}
-					</span>
-					<span className={concreteClassNames.reasoningSummaryMain}>
-						<span>{title}</span>
-						<small>
-							{steps.length} {steps.length === 1 ? 'step' : 'steps'}
-						</small>
-					</span>
-					<span className={concreteClassNames.reasoningSummaryText}>{summary}</span>
-					<ConcreteIcon name="chevron-down" />
-				</summary>
-				<ol className={concreteClassNames.reasoningSteps}>
+			<ReasoningPanel
+				open={open}
+				status={status}
+				stepCount={steps.length}
+				summary={summary}
+				title={title}
+			>
+				<ReasoningSteps>
 					{steps.map(step => (
-						<li data-status={step.status} key={step.id}>
-							{step.detail ? (
-								<details open={step.status === 'streaming'}>
-									<summary>
-										<ReasoningStepMark status={step.status} />
-										<span>{step.label}</span>
-										<ConcreteIcon name="chevron-down" />
-									</summary>
-									<p>{step.detail}</p>
-								</details>
-							) : (
-								<span>
-									<ReasoningStepMark status={step.status} />
-									<span>{step.label}</span>
-								</span>
-							)}
-						</li>
+						<ReasoningPanelStep
+							detail={step.detail}
+							key={step.id}
+							label={step.label}
+							status={step.status}
+						/>
 					))}
-				</ol>
-			</details>
+				</ReasoningSteps>
+			</ReasoningPanel>
 		</Message>
 	)
 }
@@ -91,15 +67,3 @@ const defaultReasoningSteps = [
 		status: 'streaming'
 	}
 ] as const satisfies readonly ReasoningMessageStep[]
-
-function ReasoningStepMark({ status }: { status: MessageStatus }) {
-	switch (status) {
-		case 'complete':
-			return <ConcreteIcon name="check" />
-		case 'error':
-			return <ConcreteIcon name="circle-alert" />
-		case 'pending':
-		case 'streaming':
-			return <Spinner size={11} tone="default" />
-	}
-}

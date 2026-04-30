@@ -1,2 +1,63 @@
-/* DX-TODO(link): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and link screenshots. */
+.concrete-link {
+	color: var(--concrete-foreground-strong);
+	font-weight: inherit;
+	text-decoration: underline;
+	text-decoration-color: currentcolor;
+	text-decoration-thickness: var(--concrete-border-width-hairline);
+	text-underline-offset: var(--concrete-offset-link-underline);
+	cursor: pointer;
+	transition:
+		color var(--concrete-duration-control) var(--concrete-ease),
+		opacity var(--concrete-duration-control) var(--concrete-ease),
+		text-decoration-color var(--concrete-duration-control) var(--concrete-ease);
+}
 
+.concrete-link:hover {
+	opacity: var(--concrete-opacity-link-hover);
+}
+
+.concrete-link-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-link-sky:hover {
+	color: var(--concrete-sky-strong);
+	opacity: var(--concrete-opacity-visible);
+}
+
+.concrete-link-muted {
+	color: var(--concrete-foreground-muted);
+	text-decoration-color: var(--concrete-ink-2);
+	text-decoration-style: dotted;
+}
+
+.concrete-link-muted:hover {
+	color: var(--concrete-foreground-strong);
+	text-decoration-color: currentcolor;
+	text-decoration-style: solid;
+	opacity: var(--concrete-opacity-visible);
+}
+
+.concrete-link-external {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-0-75);
+}
+
+.concrete-link-external svg {
+	width: var(--concrete-size-icon-small);
+	height: var(--concrete-size-icon-small);
+	margin-top: var(--concrete-offset-link-external-icon);
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-link-nav {
+	color: var(--concrete-foreground-body);
+	font-weight: var(--concrete-weight-medium);
+	text-decoration: none;
+}
+
+.concrete-link-nav:hover {
+	color: var(--concrete-foreground-strong);
+	opacity: var(--concrete-opacity-visible);
+}

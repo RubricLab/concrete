@@ -19,5 +19,5 @@ export const elevationFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(elevationExamples, state),
 	schema: elevationFoundationSchema,
 	slug: 'elevation',
-	states: exampleStates(elevationExamples, ['default'])
+	states: exampleStates(elevationExamples, ['default', 'stack'])
 })

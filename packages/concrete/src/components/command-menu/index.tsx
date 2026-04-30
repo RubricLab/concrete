@@ -33,6 +33,15 @@ const commandMenuSeedItems = [
 		id: 'runtime',
 		label: 'Runtime settings',
 		leadingIcon: 'settings'
+	},
+	{
+		description: 'Requires a selected run.',
+		disabled: true,
+		group: 'Actions',
+		id: 'rerun',
+		label: 'Rerun selected',
+		leadingIcon: 'refresh-ccw',
+		meta: 'disabled'
 	}
 ] as const satisfies readonly CommandMenuItem[]
 

@@ -1,1 +1,117 @@
-/* DX-TODO(chip): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-5);
+	height: var(--concrete-size-label-large);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-3);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-label);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+	transition:
+		background var(--concrete-duration-control) var(--concrete-ease),
+		border-color var(--concrete-duration-control) var(--concrete-ease),
+		box-shadow var(--concrete-duration-control) var(--concrete-ease),
+		color var(--concrete-duration-control) var(--concrete-ease),
+		transform var(--concrete-duration-press) var(--concrete-ease);
+}
+
+.concrete-chip:hover {
+	border-color: var(--concrete-border-strong);
+	background: var(--concrete-raised);
+	box-shadow: var(--concrete-shadow-label-hover);
+}
+
+.concrete-chip:active {
+	transform: translateY(var(--concrete-translate-press));
+	box-shadow: var(--concrete-shadow-label-active);
+}
+
+.concrete-chip svg {
+	width: var(--concrete-space-3);
+	height: var(--concrete-space-3);
+	flex: none;
+	margin-left: calc(var(--concrete-space-0) - var(--concrete-space-1));
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-chip-selected {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	box-shadow: var(--concrete-shadow-label-selected);
+	color: var(--concrete-inverse-foreground-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-chip-selected:hover {
+	border-color: var(--concrete-ink-8);
+	background: var(--concrete-ink-8);
+}
+
+.concrete-chip.concrete-label-sky {
+	border-color: transparent;
+	background: var(--concrete-sky-2);
+	color: var(--concrete-sky-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-chip.concrete-label-sky svg {
+	color: var(--concrete-sky);
+}
+
+.concrete-chip.concrete-label-ink {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-chip.concrete-label-ink svg {
+	color: var(--concrete-inverse-icon-muted);
+}
+
+.concrete-chip.concrete-label-sunken {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-chip.concrete-label-terminal {
+	border-color: transparent;
+	background: var(--concrete-terminal-wash);
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-chip.concrete-label-terminal svg {
+	color: var(--concrete-terminal);
+}
+
+.concrete-chip.concrete-label-ultra {
+	border-color: transparent;
+	background: var(--concrete-ultra-wash);
+	color: var(--concrete-ultra-strong);
+}
+
+.concrete-chip.concrete-label-ultra svg {
+	color: var(--concrete-ultra);
+}
+
+.concrete-chip.concrete-label-error {
+	border-color: transparent;
+	background: var(--concrete-error-wash);
+	color: var(--concrete-error-strong);
+}
+
+.concrete-chip.concrete-label-error svg {
+	color: var(--concrete-error);
+}

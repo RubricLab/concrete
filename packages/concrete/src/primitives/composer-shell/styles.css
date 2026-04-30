@@ -1,0 +1,78 @@
+.concrete-composer {
+	position: relative;
+	display: grid;
+	overflow: visible;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-5);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+	color: var(--concrete-foreground-body);
+}
+
+.concrete-composer:focus-within {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-composer[data-disabled="true"] {
+	opacity: var(--concrete-opacity-composer-disabled);
+	pointer-events: none;
+}
+
+.concrete-editor {
+	min-height: var(--concrete-size-composer-editor-min-block);
+	padding-block: var(--concrete-composer-editor-padding-block);
+	padding-inline: var(--concrete-composer-editor-padding-inline);
+	outline: var(--concrete-space-0);
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-15) / var(--concrete-line-normal)
+		var(--concrete-font-sans);
+	letter-spacing: var(--concrete-tracking-normal);
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.concrete-editor:first-child {
+	border-radius: calc(var(--concrete-radius-5) - var(--concrete-border-width-hairline))
+		calc(var(--concrete-radius-5) - var(--concrete-border-width-hairline)) var(--concrete-space-0)
+		var(--concrete-space-0);
+}
+
+.concrete-editor:empty::before {
+	color: var(--concrete-foreground-soft);
+	content: attr(data-placeholder);
+	pointer-events: none;
+}
+
+.concrete-footer {
+	display: grid;
+	grid-template-columns: var(--concrete-template-composer-footer);
+	align-items: center;
+	gap: var(--concrete-composer-footer-gap);
+	min-height: var(--concrete-size-composer-footer-min-block);
+	padding-block: var(--concrete-composer-footer-padding-block);
+	padding-inline: var(--concrete-composer-footer-padding-inline);
+	border-top: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-space-0) var(--concrete-space-0)
+		calc(var(--concrete-radius-5) - var(--concrete-border-width-hairline))
+		calc(var(--concrete-radius-5) - var(--concrete-border-width-hairline));
+	background: var(--concrete-raised);
+}
+
+.concrete-submit-dock {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-75);
+	justify-self: end;
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-send-button {
+	flex: none;
+}
+
+.concrete-composer-toolbar {
+	min-width: var(--concrete-space-0);
+	max-width: var(--concrete-size-full);
+}

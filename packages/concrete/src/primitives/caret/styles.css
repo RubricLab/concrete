@@ -1,2 +1,52 @@
-/* DX-TODO(caret): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and disclosure screenshots. */
+.concrete-caret {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: var(--concrete-size-caret-medium);
+	height: var(--concrete-size-caret-medium);
+	flex: none;
+	color: var(--concrete-foreground-soft);
+	transition:
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-disclosure) var(--concrete-ease);
+}
 
+.concrete-caret svg {
+	width: var(--concrete-size-icon-small);
+	height: var(--concrete-size-icon-small);
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-caret-open {
+	color: var(--concrete-foreground-body);
+	transform: rotate(var(--concrete-rotate-quarter));
+}
+
+.concrete-caret-up {
+	transform: rotate(var(--concrete-rotate-negative-quarter));
+}
+
+.concrete-caret-down {
+	transform: rotate(var(--concrete-rotate-quarter));
+}
+
+.concrete-caret-small {
+	width: var(--concrete-size-caret-small);
+	height: var(--concrete-size-caret-small);
+}
+
+.concrete-caret-small svg {
+	width: var(--concrete-size-icon-xsmall);
+	height: var(--concrete-size-icon-xsmall);
+}
+
+.concrete-caret-large {
+	width: var(--concrete-size-caret-large);
+	height: var(--concrete-size-caret-large);
+}
+
+.concrete-caret-large svg {
+	width: var(--concrete-size-icon-medium);
+	height: var(--concrete-size-icon-medium);
+	stroke-width: var(--concrete-stroke-1-75);
+}

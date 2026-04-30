@@ -2,9 +2,19 @@
 
 import type { ClipboardEvent, HTMLAttributes, KeyboardEvent, ReactNode } from 'react'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { Button, Tooltip } from '../../primitives'
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from '../../primitives/internal/toolbar'
-import { cn } from '../../primitives/utils'
+import {
+	ComposerEditor,
+	ComposerFooter,
+	ComposerRail,
+	ComposerSendButton,
+	ComposerShell,
+	ComposerSubmitDock,
+	ComposerToolbar,
+	SuggestionMenuLayer,
+	ToolbarControlGroup,
+	ToolbarControlSeparator,
+	Tooltip
+} from '../../primitives'
 import type {
 	ComposerAttachment,
 	ComposerFormat,
@@ -13,7 +23,6 @@ import type {
 	ComposerToken,
 	ComposerValue
 } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import {
 	applyFormat,
 	type ComposerShortcutId,
@@ -38,12 +47,7 @@ import {
 	shortcutPressDuration,
 	submitComposer
 } from '../../utilities/composer-engine'
-import {
-	ComposerMenu,
-	ComposerRail,
-	ComposerTool,
-	FormatTool
-} from '../../utilities/composer-parts'
+import { ComposerMenu, ComposerTool, FormatTool } from '../../utilities/composer-parts'
 
 export type {
 	ComposerAttachment,
@@ -384,23 +388,17 @@ export function Composer({
 	)
 
 	return (
-		<div
-			className={cn(concreteClassNames.composer, className)}
-			data-disabled={disabled ? true : undefined}
-			{...props}
-		>
+		<ComposerShell className={className} disabled={disabled} {...props}>
 			<ComposerRail
 				onAttachmentRemove={removeAttachment}
 				onTokenRemove={removeToken}
 				value={currentValue}
 			/>
-			{/* biome-ignore lint/a11y/useSemanticElements: Rich text composer needs contenteditable for inline tokens and formatting. */}
-			<div
+			<ComposerEditor
 				aria-label="Message composer"
 				aria-multiline="true"
-				className={concreteClassNames.editor}
-				contentEditable={!disabled}
-				data-placeholder={placeholder}
+				disabled={disabled}
+				placeholder={placeholder}
 				onInput={handleInput}
 				onKeyDown={handleEditorKeyDown}
 				onKeyUp={event => {
@@ -414,12 +412,10 @@ export function Composer({
 				onPaste={handlePaste}
 				ref={editorRef}
 				role="textbox"
-				suppressContentEditableWarning
-				tabIndex={disabled ? -1 : 0}
 			/>
-			<div className={concreteClassNames.footer}>
-				<Toolbar className={concreteClassNames.composerToolbar} compact label="Composer tools">
-					<ToolbarGroup>
+			<ComposerFooter>
+				<ComposerToolbar>
+					<ToolbarControlGroup>
 						<ComposerTool
 							icon="paperclip"
 							label="Attach"
@@ -440,9 +436,9 @@ export function Composer({
 							onClick={() => openMenu('command')}
 							shortcut={['/']}
 						/>
-					</ToolbarGroup>
-					<ToolbarSeparator />
-					<ToolbarGroup>
+					</ToolbarControlGroup>
+					<ToolbarControlSeparator />
+					<ToolbarControlGroup>
 						<FormatTool
 							active={activeFormats.includes('bold')}
 							format="bold"
@@ -471,13 +467,12 @@ export function Composer({
 							onApply={() => applyFormat('strikethrough', editorRef, saveSelection, publishValue)}
 							pressed={pressedShortcut === 'strikethrough'}
 						/>
-					</ToolbarGroup>
-				</Toolbar>
-				<div className={concreteClassNames.submitDock}>
+					</ToolbarControlGroup>
+				</ComposerToolbar>
+				<ComposerSubmitDock>
 					<Tooltip content="Send message" placement="top" shortcut={['cmd', 'enter']}>
-						<Button
+						<ComposerSendButton
 							aria-label="Send"
-							className={concreteClassNames.sendButton}
 							disabled={disabled}
 							leadingIcon="send-horizontal"
 							onClick={() => {
@@ -489,12 +484,12 @@ export function Composer({
 							variant="primary"
 						>
 							{submitLabel}
-						</Button>
+						</ComposerSendButton>
 					</Tooltip>
-				</div>
-			</div>
+				</ComposerSubmitDock>
+			</ComposerFooter>
 			{menu ? (
-				<div className={concreteClassNames.menuLayer}>
+				<SuggestionMenuLayer>
 					<ComposerMenu
 						menu={menu}
 						onCommit={suggestion => {
@@ -503,8 +498,8 @@ export function Composer({
 						}}
 						options={options}
 					/>
-				</div>
+				</SuggestionMenuLayer>
 			) : null}
-		</div>
+		</ComposerShell>
 	)
 }

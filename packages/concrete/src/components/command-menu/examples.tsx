@@ -25,6 +25,15 @@ const commandMenuItems = [
 		id: 'runtime',
 		label: 'Runtime settings',
 		leadingIcon: 'settings'
+	},
+	{
+		description: 'Requires a selected run.',
+		disabled: true,
+		group: 'Actions',
+		id: 'rerun',
+		label: 'Rerun selected',
+		leadingIcon: 'refresh-ccw',
+		meta: 'disabled'
 	}
 ] as const satisfies readonly CommandMenuItem[]
 
@@ -45,16 +54,10 @@ export const commandMenuExamples = defineExamples({
 
 function renderCommandMenuExample(state: 'default' | 'empty' | 'loading'): ReactNode {
 	return (
-		<CommandStage>
-			<CommandMenu
-				items={state === 'empty' ? [] : commandMenuItems}
-				loading={state === 'loading'}
-				query={state === 'empty' ? 'missing' : 'sligo'}
-			/>
-		</CommandStage>
+		<CommandMenu
+			items={state === 'empty' ? [] : commandMenuItems}
+			loading={state === 'loading'}
+			query={state === 'empty' ? 'missing' : 'sligo'}
+		/>
 	)
-}
-
-function CommandStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 420, width: '100%' }}>{children}</div>
 }

@@ -54,7 +54,7 @@ export const fileUploadComponentDefinition = createComponent({
 	schema: fileUploadComponentSchema,
 	seed: fileUploadComponentSchema.parse({ defaultValue: fileUploadItemsByQueue.uploading }),
 	slug: 'file-upload',
-	states: exampleStates(fileUploadExamples, ['default', 'empty', 'error'])
+	states: exampleStates(fileUploadExamples, ['default', 'success', 'empty', 'error'])
 })
 
 function renderFileUploadInput(input: FileUploadValue) {

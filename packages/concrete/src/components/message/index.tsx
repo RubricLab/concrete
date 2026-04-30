@@ -24,7 +24,14 @@ export const messageComponentDefinition = createComponent({
 		showAvatar: true
 	}),
 	slug: 'message',
-	states: exampleStates(messageExamples, ['assistant', 'user', 'system'])
+	states: exampleStates(messageExamples, [
+		'default',
+		'assistant',
+		'user',
+		'system',
+		'grouped',
+		'statuses'
+	])
 })
 
 function renderMessageInput(input: MessageValue) {

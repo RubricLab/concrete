@@ -23,7 +23,7 @@ export const heatmapComponentDefinition = createComponent({
 		title: 'Run intensity'
 	}),
 	slug: 'heatmap',
-	states: exampleStates(heatmapExamples, ['default', 'quiet', 'sunken'])
+	states: exampleStates(heatmapExamples, ['default', 'quiet', 'sunken', 'loading', 'empty', 'error'])
 })
 
 function renderHeatmapInput(input: HeatmapValue) {

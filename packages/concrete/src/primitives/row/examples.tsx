@@ -1,12 +1,11 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame/component'
 import { Row } from './component'
 
 export const rowExamples = defineExamples({
 	default: {
 		description: 'Interactive dense rows.',
 		render: () => (
-			<Frame>
+			<>
 				<Row interactive leadingIcon="file-text" meta="12m">
 					Agent memory architecture
 				</Row>
@@ -16,13 +15,13 @@ export const rowExamples = defineExamples({
 				<Row leadingIcon="lock" meta="private">
 					Evaluation dataset
 				</Row>
-			</Frame>
+			</>
 		)
 	},
 	static: {
 		description: 'Passive row treatment.',
 		render: () => (
-			<Frame>
+			<>
 				<Row leadingIcon="file-text" meta="12m">
 					Agent memory architecture
 				</Row>
@@ -32,7 +31,7 @@ export const rowExamples = defineExamples({
 				<Row leadingIcon="lock" meta="private">
 					Evaluation dataset
 				</Row>
-			</Frame>
+			</>
 		)
 	}
 })

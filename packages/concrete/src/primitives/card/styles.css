@@ -1,1 +1,46 @@
-/* DX-TODO(card): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-card {
+	display: flex;
+	flex-direction: column;
+	gap: var(--concrete-space-1-5);
+	padding: var(--concrete-space-3-5);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-body);
+}
+
+.concrete-card-raised {
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.concrete-card-sunken {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+}
+
+.concrete-card-interactive {
+	cursor: pointer;
+	transition:
+		border-color var(--concrete-duration) var(--concrete-ease),
+		box-shadow var(--concrete-duration) var(--concrete-ease);
+}
+
+.concrete-card-interactive:hover {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-shadow-2);
+}
+
+.concrete-card-title {
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-13) / var(--concrete-line-compact)
+		var(--concrete-font-sans);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-card-body {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11-5) / var(--concrete-line-normal)
+		var(--concrete-font-sans);
+}

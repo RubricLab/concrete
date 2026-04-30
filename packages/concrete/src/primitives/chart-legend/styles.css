@@ -1,0 +1,12 @@
+.concrete-chart-legend {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--concrete-space-2) var(--concrete-space-3);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-chart-legend-value {
+	color: var(--concrete-foreground-muted);
+	font-variant-numeric: tabular-nums;
+}

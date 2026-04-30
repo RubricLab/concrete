@@ -1,8 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { cn } from '../../primitives/utils'
+import { FeedbackPanel, type FeedbackPanelItem, type FeedbackPanelStatus } from '../../primitives'
 import type { FieldStatus } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 
 export type ValidationSummaryItem = {
 	href?: string | undefined
@@ -29,37 +27,41 @@ export function ValidationSummary({
 	title = status === 'success' ? 'Ready to save' : 'Review required',
 	...props
 }: ValidationSummaryProps) {
+	const feedbackStatus = toFeedbackStatus(status, 'error')
+
 	return (
-		<div
-			className={cn(concreteClassNames.validationSummary, className)}
-			data-status={status}
+		<FeedbackPanel
+			action={action}
+			className={className}
+			description={description}
+			items={items.map(item => toFeedbackPanelItem(item, feedbackStatus))}
+			status={feedbackStatus}
+			title={title}
 			{...props}
-		>
-			<div className={concreteClassNames.validationSummaryIcon}>
-				<ConcreteIcon name={status === 'success' ? 'check' : 'x'} />
-			</div>
-			<div className={concreteClassNames.validationSummaryBody}>
-				<div className={concreteClassNames.validationSummaryHead}>
-					<div>
-						<b>{title}</b>
-						{description ? <p>{description}</p> : null}
-					</div>
-					{action ? <div className={concreteClassNames.validationSummaryAction}>{action}</div> : null}
-				</div>
-				{items.length > 0 ? (
-					<ul className={concreteClassNames.validationList}>
-						{items.map(item => (
-							<li data-status={item.status ?? status} key={item.id}>
-								<ConcreteIcon name={item.status === 'success' ? 'check' : 'x'} />
-								<span>
-									{item.href ? <a href={item.href}>{item.label}</a> : <b>{item.label}</b>}
-									<small>{item.message}</small>
-								</span>
-							</li>
-						))}
-					</ul>
-				) : null}
-			</div>
-		</div>
+		/>
 	)
+}
+
+function toFeedbackPanelItem(
+	item: ValidationSummaryItem,
+	fallbackStatus: FeedbackPanelStatus
+): FeedbackPanelItem {
+	return {
+		...item,
+		status: toFeedbackStatus(item.status, fallbackStatus)
+	}
+}
+
+function toFeedbackStatus(
+	status: FieldStatus | undefined,
+	fallbackStatus: FeedbackPanelStatus
+): FeedbackPanelStatus {
+	switch (status) {
+		case 'error':
+		case 'success':
+			return status
+		case 'default':
+		case undefined:
+			return fallbackStatus
+	}
 }

@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react'
 import type { DataTableRow, DataTableSort } from '../schemas'
 
 export function getNextSort(activeSort: DataTableSort | null, key: string): DataTableSort | null {
@@ -63,12 +62,4 @@ export function getDataTableCellText(value: DataTableRow[string] | undefined): s
 		case 'status':
 			return value.label.toLowerCase()
 	}
-}
-
-export function getTableScrollStyle(maxHeight: string | undefined): CSSProperties | undefined {
-	if (!maxHeight) {
-		return undefined
-	}
-
-	return { maxHeight }
 }

@@ -39,7 +39,7 @@ const fileUploadExamplesByQueue = {
 
 export const fileUploadExamples = defineExamples({
 	default: {
-		description: 'Dropzone with a completed file row.',
+		description: 'Dropzone with an in-progress file row.',
 		render: () => renderFileUploadExample('uploading')
 	},
 	empty: {
@@ -49,21 +49,19 @@ export const fileUploadExamples = defineExamples({
 	error: {
 		description: 'Rejected file row with validation copy.',
 		render: () => renderFileUploadExample('error')
+	},
+	success: {
+		description: 'Completed file row with metadata.',
+		render: () => renderFileUploadExample('success')
 	}
 })
 
 function renderFileUploadExample(queue: keyof typeof fileUploadExamplesByQueue): ReactNode {
 	return (
-		<FormStage>
-			<FileUpload
-				defaultValue={fileUploadExamplesByQueue[queue]}
-				descriptionText="Drop PDFs, images, or source packets."
-				label="Artifacts"
-			/>
-		</FormStage>
+		<FileUpload
+			defaultValue={fileUploadExamplesByQueue[queue]}
+			descriptionText="Drop PDFs, images, or source packets."
+			label="Artifacts"
+		/>
 	)
-}
-
-function FormStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 480, width: '100%' }}>{children}</div>
 }

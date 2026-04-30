@@ -22,7 +22,13 @@ export const toolCallMessageComponentDefinition = createComponent({
 		name: 'search workspace'
 	}),
 	slug: 'tool-call-message',
-	states: exampleStates(toolCallMessageExamples, ['running', 'success', 'error'])
+	states: exampleStates(toolCallMessageExamples, [
+		'default',
+		'queued',
+		'running',
+		'success',
+		'error'
+	])
 })
 
 function renderToolCallMessageInput(input: ToolCallMessageValue) {

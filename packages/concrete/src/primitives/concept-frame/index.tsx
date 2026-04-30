@@ -18,7 +18,7 @@ export const conceptFramePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderConceptFrameInput(conceptFramePrimitiveSchema.parse(input)),
 	schema: conceptFramePrimitiveSchema,
 	slug: 'concept-frame',
-	states: exampleStates(conceptFrameExamples, ['default', 'selected', 'muted'])
+	states: exampleStates(conceptFrameExamples, ['default', 'selected', 'muted', 'sizes'])
 })
 
 function renderConceptFrameInput(input: ConceptFrameValue) {

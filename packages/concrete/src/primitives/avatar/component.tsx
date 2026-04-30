@@ -21,7 +21,7 @@ export function Avatar({
 }: AvatarProps) {
 	return (
 		<span className={cn(concreteClassNames.avatar, getAvatarSizeClass(size), className)} {...props}>
-			{src ? <img alt={alt} height="100%" src={src} width="100%" /> : initials}
+			{src ? <img alt={alt} src={src} /> : initials}
 		</span>
 	)
 }

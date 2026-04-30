@@ -1,12 +1,12 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createPrimitive } from '../../factories/createItems'
-import { Texture } from './component'
+import { Texture, TexturePreview } from './component'
 import { textureExamples } from './examples'
 import { textureMeta } from './meta'
 import { type TextureValue, textureSchema } from './schema'
 
 export type { TextureProps, TextureVariant } from './component'
-export { getTextureClass, Texture } from './component'
+export { getTextureClass, Texture, TexturePreview } from './component'
 export type { TextureInput, TextureValue } from './schema'
 export { texturePropsSchema, textureSchema } from './schema'
 
@@ -22,5 +22,5 @@ export const texturePrimitiveDefinition = createPrimitive({
 })
 
 function renderTextureInput({ texture }: TextureValue) {
-	return <Texture style={{ height: 96 }} variant={texture} />
+	return <TexturePreview variant={texture} />
 }

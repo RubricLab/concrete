@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
 import {
-	FormRow,
-	FormSection,
-	FormShell,
-	type FormShellProps
-} from '../../primitives/internal/form-shell'
+	FormLayoutRow,
+	FormLayoutSection,
+	FormLayoutShell,
+	type FormLayoutShellProps
+} from '../../primitives/form-layout'
 import type { FieldStatus } from '../../schemas'
 
 export type SettingsPanelRow = {
@@ -23,17 +23,17 @@ export type SettingsPanelSection = {
 	title: ReactNode
 }
 
-export type SettingsPanelProps = Omit<FormShellProps, 'children'> & {
+export type SettingsPanelProps = Omit<FormLayoutShellProps, 'children'> & {
 	sections: readonly SettingsPanelSection[]
 }
 
 export function SettingsPanel({ sections, ...props }: SettingsPanelProps) {
 	return (
-		<FormShell compact {...props}>
+		<FormLayoutShell compact {...props}>
 			{sections.map(section => (
-				<FormSection description={section.description} key={section.id} title={section.title}>
+				<FormLayoutSection description={section.description} key={section.id} title={section.title}>
 					{section.rows.map(row => (
-						<FormRow
+						<FormLayoutRow
 							control={row.control}
 							description={row.description}
 							key={row.id}
@@ -42,8 +42,8 @@ export function SettingsPanel({ sections, ...props }: SettingsPanelProps) {
 							status={row.status}
 						/>
 					))}
-				</FormSection>
+				</FormLayoutSection>
 			))}
-		</FormShell>
+		</FormLayoutShell>
 	)
 }

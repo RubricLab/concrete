@@ -1,42 +1,41 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame'
 import { Textarea } from './component'
 
 export const textareaExamples = defineExamples({
 	default: {
 		description: 'Empty field state.',
 		render: () => (
-			<Frame>
-				<Textarea label="Prompt" placeholder="Describe the experiment..." />
-			</Frame>
+			<>
+				<Textarea label="Evaluation prompt" placeholder="Describe the experiment..." />
+			</>
 		)
 	},
 	disabled: {
 		description: 'Locked field.',
 		render: () => (
-			<Frame>
-				<Textarea disabled label="Prompt" placeholder="Describe the experiment..." />
-			</Frame>
+			<>
+				<Textarea disabled label="Evaluation prompt" placeholder="Describe the experiment..." />
+			</>
 		)
 	},
 	error: {
 		description: 'Validation failure.',
 		render: () => (
-			<Frame>
+			<>
 				<Textarea
 					error="Prompt is too short."
-					label="Prompt"
+					label="Evaluation prompt"
 					placeholder="Describe the experiment..."
 				/>
-			</Frame>
+			</>
 		)
 	},
 	filled: {
 		description: 'Value present.',
 		render: () => (
-			<Frame>
-				<Textarea defaultValue="Summarize the architecture review." label="Prompt" />
-			</Frame>
+			<>
+				<Textarea defaultValue="Summarize the architecture review." label="Evaluation prompt" />
+			</>
 		)
 	}
 })

@@ -1,2 +1,49 @@
-/* DX-TODO(sparkline): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and trend screenshots. */
+.concrete-sparkline {
+	display: block;
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-sparkline-block);
+	color: var(--concrete-sky);
+	overflow: visible;
+}
 
+.concrete-sparkline-line {
+	fill: none;
+	stroke: currentcolor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: var(--concrete-stroke-1-25);
+	vector-effect: non-scaling-stroke;
+}
+
+.concrete-sparkline-area {
+	fill: url("#concrete-sparkline-area");
+	stroke: none;
+}
+
+.concrete-sparkline-endpoint {
+	fill: currentcolor;
+	stroke: var(--concrete-surface);
+	stroke-width: var(--concrete-stroke-1-5);
+}
+
+.concrete-sparkline-bar {
+	fill: currentcolor;
+	opacity: var(--concrete-opacity-sparkline-bar);
+}
+
+.concrete-sparkline-dot {
+	fill: currentcolor;
+	opacity: var(--concrete-opacity-sparkline-dot);
+}
+
+.concrete-sparkline-neutral {
+	color: var(--concrete-ink-3);
+}
+
+.concrete-sparkline-terminal {
+	color: var(--concrete-terminal);
+}
+
+.concrete-sparkline-error {
+	color: var(--concrete-error);
+}

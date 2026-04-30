@@ -1,2 +1,105 @@
-/* DX-TODO(diagram-item): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and diagram-item screenshots. */
+.concrete-diagram-item {
+	display: grid;
+	gap: var(--concrete-space-0-5);
+	width: var(--concrete-size-full);
+	min-height: var(--concrete-size-diagram-item-min-block);
+	padding-block: var(--concrete-space-2);
+	padding-inline: var(--concrete-space-2-5);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+	color: var(--concrete-foreground-body);
+	text-align: left;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease);
+}
 
+.concrete-diagram-item-kind,
+.concrete-diagram-item-meta {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	text-transform: uppercase;
+}
+
+.concrete-diagram-item strong {
+	overflow: hidden;
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-12) / var(--concrete-line-control)
+		var(--concrete-font-sans);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.concrete-diagram-item b {
+	color: currentcolor;
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-18) / var(--concrete-line-tight)
+		var(--concrete-font-sans);
+}
+
+.concrete-diagram-item p {
+	margin: var(--concrete-space-0-5) var(--concrete-space-0) var(--concrete-space-0);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-11) / var(--concrete-line-help)
+		var(--concrete-font-sans);
+}
+
+.concrete-diagram-item-selected {
+	border-color: currentcolor;
+	background: var(--concrete-sky-1);
+	box-shadow: var(--concrete-shadow-diagram-item-selected);
+}
+
+.concrete-diagram-item[data-diagram-tone="sky"] {
+	border-color: var(--concrete-diagram-item-sky-border);
+}
+
+.concrete-diagram-item[data-diagram-tone="terminal"] {
+	border-color: var(--concrete-diagram-item-terminal-border);
+}
+
+.concrete-diagram-item[data-diagram-tone="ultra"] {
+	border-color: var(--concrete-diagram-item-ultra-border);
+}
+
+.concrete-diagram-item[data-diagram-tone="error"] {
+	border-color: var(--concrete-diagram-item-error-border);
+}
+
+.concrete-diagram-item-muted {
+	opacity: var(--concrete-opacity-diagram-muted);
+}
+
+.concrete-diagram-item-code {
+	background: var(--concrete-ink-9);
+	color: var(--concrete-canvas);
+}
+
+.concrete-diagram-item-code strong,
+.concrete-diagram-item-code .concrete-diagram-item-kind,
+.concrete-diagram-item-code .concrete-diagram-item-meta,
+.concrete-diagram-item-code p {
+	color: currentcolor;
+}
+
+.concrete-diagram-item-metric b {
+	color: var(--concrete-sky);
+}
+
+.concrete-diagram-item-status {
+	border-radius: var(--concrete-radius-pill);
+}
+
+.concrete-diagram-item-chart,
+.concrete-diagram-item-table,
+.concrete-diagram-item-document {
+	background: var(--concrete-raised);
+}

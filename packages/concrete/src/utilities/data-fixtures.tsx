@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import type { DataPoint, DataSeries, DiagramCanvasProps, FlowDiagramProps } from '../schemas'
 import { createDataTableColumns } from './data-table-columns'
 
@@ -191,7 +190,7 @@ export const flowDiagram: FlowDiagramProps['flow'] = {
 		[
 			['edge-context', 'prompt', 'context', 'retrieve', { variant: 'step' }],
 			['edge-plan', 'context', 'plan', 'shape', { tone: 'sky' }],
-			['edge-tools', 'plan', 'tools', 'execute', { selected: true, tone: 'terminal' }],
+			['edge-tools', 'plan', 'tools', 'execute', { tone: 'terminal' }],
 			['edge-answer', 'tools', 'answer', 'synthesize', { tone: 'ultra', variant: 'pulse' }]
 		] satisfies readonly FlowDiagramEdgeFixture[]
 	).map(([id, from, to, label, options]) => ({ from, id, label, to, ...options })),
@@ -199,7 +198,7 @@ export const flowDiagram: FlowDiagramProps['flow'] = {
 		[
 			['prompt', 'Prompt', 'user input', 24, 92, { tone: 'inverse' }],
 			['context', 'Context', 'memory + files', 224, 28],
-			['plan', 'Plan', 'typed steps', 424, 92, { selected: true, tone: 'accent' }],
+			['plan', 'Plan', 'typed steps', 424, 92, { tone: 'accent' }],
 			['tools', 'Tools', 'safe actions', 624, 28],
 			['answer', 'Answer', 'final response', 824, 92]
 		] satisfies readonly FlowDiagramNodeFixture[]
@@ -258,24 +257,4 @@ function createSeries({ id, label, tone, values }: SeriesFixture): DataSeries {
 		})),
 		tone
 	}
-}
-
-export function DataGridStage({ children }: { children: ReactNode }) {
-	return (
-		<div
-			style={{
-				display: 'grid',
-				gap: 12,
-				gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-				maxWidth: 720,
-				width: '100%'
-			}}
-		>
-			{children}
-		</div>
-	)
-}
-
-export function DataWideStage({ children }: { children: ReactNode }) {
-	return <div style={{ display: 'grid', gap: 12, maxWidth: 860, width: '100%' }}>{children}</div>
 }

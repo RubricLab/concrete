@@ -1,0 +1,154 @@
+.concrete-option-row,
+.concrete-command-item {
+	display: grid;
+	align-items: center;
+	width: var(--concrete-size-full);
+	min-width: var(--concrete-space-0);
+	border: var(--concrete-space-0);
+	background: transparent;
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	text-align: left;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+}
+
+.concrete-option-row[data-kind="command"],
+.concrete-command-item {
+	grid-template-columns: var(--concrete-size-command-item-icon-track) minmax(
+			var(--concrete-space-0),
+			var(--concrete-flex-fill)
+		) auto;
+	gap: var(--concrete-space-2-5);
+	min-height: var(--concrete-size-command-item-min-block);
+	padding-block: var(--concrete-space-1-75);
+	padding-inline: var(--concrete-space-2-5);
+	border-radius: var(--concrete-radius-3);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-14) / var(--concrete-line-snug)
+		var(--concrete-font-sans);
+}
+
+.concrete-option-row[data-kind="select"] {
+	grid-template-columns: var(--concrete-template-multi-select-option);
+	gap: var(--concrete-space-2);
+	min-height: var(--concrete-size-multi-select-option-min-block);
+	padding-block: var(--concrete-space-1-5);
+	padding-inline: var(--concrete-space-1-75);
+	border-radius: var(--concrete-radius-3);
+}
+
+.concrete-option-row[data-kind="command"]:hover,
+.concrete-option-row[data-kind="command"][data-active="true"],
+.concrete-command-item:hover,
+.concrete-command-item[data-active="true"] {
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-option-row[data-kind="command"][data-tone="error"]:hover,
+.concrete-option-row[data-kind="command"][data-tone="error"][data-active="true"],
+.concrete-command-item[data-tone="error"]:hover,
+.concrete-command-item[data-tone="error"][data-active="true"] {
+	background: var(--concrete-error-1);
+	color: var(--concrete-error);
+}
+
+.concrete-option-row[data-kind="select"]:hover,
+.concrete-option-row[data-kind="select"][data-selected="true"] {
+	background: var(--concrete-sky-1);
+	color: var(--concrete-sky-strong);
+}
+
+.concrete-option-row:disabled,
+.concrete-command-item:disabled {
+	opacity: var(--concrete-opacity-disabled-strong);
+	cursor: not-allowed;
+}
+
+.concrete-option-row[data-kind="command"]:disabled,
+.concrete-command-item:disabled {
+	opacity: var(--concrete-opacity-disabled);
+}
+
+.concrete-option-row[data-kind="select"]:active:not(:disabled) {
+	transform: translateY(var(--concrete-translate-press-strong));
+}
+
+.concrete-option-row-icon,
+.concrete-command-icon {
+	display: inline-grid;
+	place-items: center;
+	color: currentcolor;
+}
+
+.concrete-option-row[data-kind="command"] .concrete-option-row-icon,
+.concrete-command-icon {
+	width: var(--concrete-size-command-icon);
+	height: var(--concrete-size-command-icon);
+}
+
+.concrete-option-row-icon svg,
+.concrete-command-icon svg {
+	width: var(--concrete-size-command-icon-glyph);
+	height: var(--concrete-size-command-icon-glyph);
+}
+
+.concrete-option-row-copy,
+.concrete-command-copy {
+	display: grid;
+	gap: var(--concrete-space-0-5);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-option-row-copy b,
+.concrete-option-row-copy small,
+.concrete-command-copy b,
+.concrete-command-copy small {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.concrete-option-row-copy b,
+.concrete-command-copy b {
+	font-weight: var(--concrete-weight-strong);
+}
+
+.concrete-option-row-copy small,
+.concrete-command-copy small {
+	color: var(--concrete-foreground-soft);
+	font-size: var(--concrete-type-11);
+	font-weight: var(--concrete-weight-medium);
+}
+
+.concrete-option-row-aside,
+.concrete-command-aside {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--concrete-space-1-25);
+	min-width: max-content;
+	color: var(--concrete-foreground-soft);
+	white-space: nowrap;
+}
+
+.concrete-option-row[data-kind="command"] .concrete-option-row-aside,
+.concrete-command-aside {
+	font-size: var(--concrete-type-12);
+	font-weight: var(--concrete-weight-accent);
+}
+
+.concrete-option-row[data-kind="select"] .concrete-option-row-aside {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-option-row[data-kind="select"] .concrete-option-row-aside svg {
+	width: var(--concrete-size-picker-toggle-glyph);
+	height: var(--concrete-size-picker-toggle-glyph);
+}

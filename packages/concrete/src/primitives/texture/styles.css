@@ -1,2 +1,42 @@
-/* DX-TODO(texture): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and texture screenshots. */
+.concrete-lattice {
+	background-image:
+		linear-gradient(
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		),
+		linear-gradient(
+			var(--concrete-rotate-quarter),
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		);
+	background-size: var(--concrete-grid-unit) var(--concrete-grid-unit);
+}
 
+.concrete-dots {
+	background-image: radial-gradient(
+		var(--concrete-dots) var(--concrete-border-width-hairline),
+		transparent var(--concrete-texture-dot-fade-size)
+	);
+	background-size: var(--concrete-space-4) var(--concrete-space-4);
+}
+
+.concrete-lines {
+	background-image:
+		linear-gradient(
+			var(--concrete-rotate-quarter),
+			var(--concrete-lines) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		),
+		linear-gradient(
+			var(--concrete-angle-half),
+			var(--concrete-lines) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		);
+	background-size: var(--concrete-space-4) var(--concrete-space-4);
+}
+
+.concrete-texture-preview {
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-texture-preview);
+	border-radius: var(--concrete-radius-3);
+}

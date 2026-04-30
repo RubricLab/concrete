@@ -1,7 +1,11 @@
-import type { ComponentRegistryEntry, PrimitiveRegistryEntry } from '@rubriclab/concrete'
+import type {
+	ComponentRegistryEntry,
+	FoundationRegistryEntry,
+	PrimitiveRegistryEntry
+} from '@rubriclab/concrete'
 
 type CatalogPropsTableProps = {
-	entry: ComponentRegistryEntry | PrimitiveRegistryEntry
+	entry: ComponentRegistryEntry | FoundationRegistryEntry | PrimitiveRegistryEntry
 }
 
 export function CatalogPropsTable({ entry }: CatalogPropsTableProps) {

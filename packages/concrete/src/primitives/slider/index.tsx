@@ -18,7 +18,7 @@ export const sliderPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderSliderInput(sliderSchema.parse(input)),
 	schema: sliderSchema,
 	slug: 'slider',
-	states: exampleStates(sliderExamples, ['default', 'sky'])
+	states: exampleStates(sliderExamples, ['default', 'sky', 'disabled'])
 })
 
 function renderSliderInput({ value, ...input }: SliderValue) {

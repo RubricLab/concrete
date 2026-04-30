@@ -101,8 +101,8 @@ export function SegmentedProgress({
 }
 
 export type ProgressRingProps = HTMLAttributes<HTMLDivElement> & {
-	size?: number
-	strokeWidth?: number
+	size?: number | string
+	strokeWidth?: number | string
 	tone?: ProgressTone
 	value: number
 }
@@ -114,8 +114,8 @@ type RingStyle = CSSProperties & {
 
 export function ProgressRing({
 	className,
-	size = 96,
-	strokeWidth = 6,
+	size = 'var(--concrete-size-progress-ring)',
+	strokeWidth = 'var(--concrete-size-progress-ring-stroke)',
 	tone = 'default',
 	value,
 	...props
@@ -125,8 +125,8 @@ export function ProgressRing({
 	const circumference = 2 * Math.PI * radius
 	const dash = (percent / 100) * circumference
 	const style: RingStyle = {
-		'--concrete-ring-size': `${size}px`,
-		'--concrete-ring-stroke': `${strokeWidth}px`
+		'--concrete-ring-size': formatProgressRingSize(size),
+		'--concrete-ring-stroke': formatProgressRingSize(strokeWidth)
 	}
 
 	return (
@@ -154,4 +154,8 @@ export function ProgressRing({
 			</span>
 		</div>
 	)
+}
+
+function formatProgressRingSize(value: number | string): string {
+	return typeof value === 'number' ? `${value}px` : value
 }

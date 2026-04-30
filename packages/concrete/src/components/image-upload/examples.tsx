@@ -23,6 +23,38 @@ export const imageUploadExamples = defineExamples({
 		description: 'Compact avatar-oriented image picker.',
 		render: () => renderImageUploadExample('avatar')
 	},
+	default: {
+		description: 'Single preview image upload.',
+		render: () => renderImageUploadExample('single')
+	},
+	empty: {
+		description: 'Empty image drop target.',
+		render: () => (
+			<>
+				<ImageUpload defaultValue={[]} label="Reference image" />
+			</>
+		)
+	},
+	error: {
+		description: 'Rejected image upload row.',
+		render: () => (
+			<>
+				<ImageUpload
+					defaultValue={[
+						{
+							error: 'Image type is not accepted.',
+							id: 'reference-error',
+							name: 'reference.psd',
+							size: 2840000,
+							status: 'error',
+							type: 'application/octet-stream'
+						}
+					]}
+					label="Reference image"
+				/>
+			</>
+		)
+	},
 	grid: {
 		description: 'Multi-image grid treatment.',
 		render: () => renderImageUploadExample('grid')
@@ -34,13 +66,5 @@ export const imageUploadExamples = defineExamples({
 })
 
 function renderImageUploadExample(variant: 'avatar' | 'grid' | 'single'): ReactNode {
-	return (
-		<FormStage>
-			<ImageUpload defaultValue={imageUploadItems} label="Reference image" variant={variant} />
-		</FormStage>
-	)
-}
-
-function FormStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 480, width: '100%' }}>{children}</div>
+	return <ImageUpload defaultValue={imageUploadItems} label="Reference image" variant={variant} />
 }

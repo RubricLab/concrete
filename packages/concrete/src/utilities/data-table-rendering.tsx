@@ -1,18 +1,22 @@
 import type { ReactNode } from 'react'
-import { ConcreteIcon } from '../icons'
-import { Delta, Indicator, Progress, Sparkline } from '../primitives'
-import { cn } from '../primitives/utils'
-import type { DataTableSort, DataTableToolbarAction, DataTone } from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
+import {
+	DataTableAction,
+	DataTableEmptyCell,
+	Delta,
+	Indicator,
+	Progress,
+	Sparkline
+} from '../primitives'
+import type { DataTableToolbarAction, DataTone } from '../schemas'
 import { normalizeRangeValue } from './data-geometry'
-import { getDataToneClass, toIndicatorTone, toProgressTone, toSparklineTone } from './data-tone'
+import { toIndicatorTone, toProgressTone, toSparklineTone } from './data-tone'
 
 // DX-TODO(data-table): These JSX render helpers are shared only to preserve current
 // visuals during the structural refactor. Collapse them into the table component or
 // promote true reusable cells to primitives when the data display polish pass starts.
 export function renderTableCell(value: unknown): ReactNode {
 	if (value === null || value === undefined) {
-		return <span className={concreteClassNames.dataTableEmptyCell}>-</span>
+		return <DataTableEmptyCell>-</DataTableEmptyCell>
 	}
 
 	if (typeof value === 'number') {
@@ -76,40 +80,14 @@ export function renderTableToolbarAction(
 	onToolbarAction: ((actionId: string, selectedRowIds: readonly string[]) => void) | undefined
 ): ReactNode {
 	return (
-		<button
-			className={cn(concreteClassNames.dataTableAction, getDataToneClass(action.tone))}
+		<DataTableAction
 			disabled={action.disabled}
+			icon={action.icon}
 			key={action.id}
 			onClick={() => onToolbarAction?.(action.id, selectedRowIds)}
-			type="button"
+			tone={action.tone}
 		>
-			{action.icon ? <TableActionIcon icon={action.icon} /> : null}
 			{action.label}
-		</button>
+		</DataTableAction>
 	)
-}
-
-export function TableActionIcon({ icon }: { icon: NonNullable<DataTableToolbarAction['icon']> }) {
-	switch (icon) {
-		case 'download':
-			return <ConcreteIcon name="download" />
-		case 'inspect':
-			return <ConcreteIcon name="search" />
-		case 'more':
-			return <ConcreteIcon name="more-horizontal" />
-	}
-}
-
-export function SortGlyph({
-	activeSort,
-	columnKey
-}: {
-	activeSort: DataTableSort | null
-	columnKey: string
-}) {
-	if (activeSort?.key !== columnKey) {
-		return <ConcreteIcon name="chevrons-up-down" />
-	}
-
-	return <ConcreteIcon name={activeSort.direction === 'ascending' ? 'chevron-up' : 'chevron-down'} />
 }

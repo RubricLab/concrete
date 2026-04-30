@@ -5,20 +5,12 @@ import type { ControlDefinition } from './controls'
 import type {
 	ComponentRegistryEntry,
 	ComponentSlug,
+	FoundationSlug,
 	PrimitiveProp,
 	PrimitiveRegistryEntry,
 	PrimitiveSlug,
 	PrimitiveState
 } from './types'
-
-export type FoundationSlug =
-	| 'colors'
-	| 'elevation'
-	| 'motion'
-	| 'radii'
-	| 'spacing'
-	| 'textures'
-	| 'typography'
 
 export type ConcreteDefinitionSchema<Output = unknown> = z.ZodType<Output>
 

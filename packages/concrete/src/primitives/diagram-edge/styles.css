@@ -1,0 +1,108 @@
+.concrete-diagram-canvas-edges {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	overflow: visible;
+	color: var(--concrete-ink-7);
+	pointer-events: none;
+}
+
+.concrete-diagram-canvas-edge path {
+	fill: none;
+	stroke: currentcolor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: var(--concrete-stroke-1-55);
+}
+
+.concrete-diagram-canvas-edge marker path {
+	fill: none;
+	stroke: currentcolor;
+}
+
+.concrete-diagram-canvas-edge text {
+	fill: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	paint-order: stroke;
+	stroke: var(--concrete-sunken);
+	stroke-linejoin: round;
+	stroke-width: var(--concrete-space-1-75);
+	text-anchor: middle;
+	text-transform: uppercase;
+	transform: translateY(var(--concrete-offset-diagram-canvas-edge-label));
+}
+
+.concrete-diagram-canvas-edge-selected path {
+	stroke-width: var(--concrete-stroke-2-15);
+}
+
+.concrete-diagram-canvas-edge-dashed path {
+	stroke-dasharray: var(--concrete-diagram-canvas-edge-dashed);
+}
+
+.concrete-diagram-canvas-edge-dotted path {
+	stroke-dasharray: var(--concrete-diagram-canvas-edge-dotted);
+}
+
+.concrete-diagram-canvas-edge-step path {
+	stroke-linejoin: round;
+}
+
+.concrete-diagram-canvas-edge-reference path {
+	stroke-dasharray: var(--concrete-diagram-canvas-edge-reference);
+}
+
+.concrete-diagram-canvas-tone-ink {
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-diagram-canvas-tone-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-diagram-canvas-tone-terminal {
+	color: var(--concrete-terminal);
+}
+
+.concrete-diagram-canvas-tone-ultra {
+	color: var(--concrete-ultra);
+}
+
+.concrete-diagram-canvas-tone-error {
+	color: var(--concrete-error);
+}
+
+.concrete-flow-diagram-edge path {
+	fill: none;
+	stroke: currentcolor;
+	stroke-width: var(--concrete-stroke-1-4);
+}
+
+.concrete-flow-diagram-edge text {
+	fill: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-anchor: middle;
+	text-transform: uppercase;
+	transform: translateY(var(--concrete-offset-flow-diagram-edge-label));
+}
+
+.concrete-flow-diagram-edge-selected path {
+	stroke: var(--concrete-sky);
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-flow-diagram-edge-dashed path {
+	stroke-dasharray: var(--concrete-flow-diagram-edge-dashed);
+}
+
+.concrete-flow-diagram-edge-dotted path {
+	stroke-dasharray: var(--concrete-flow-diagram-edge-dotted);
+}
+
+.concrete-flow-diagram-edge-pulse path {
+	stroke: var(--concrete-terminal);
+}

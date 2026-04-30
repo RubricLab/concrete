@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
-import { DataWideStage, flowDiagram } from '../../utilities/data-fixtures'
+import { flowDiagram } from '../../utilities/data-fixtures'
 import { FlowDiagram } from './component'
 
 export const flowDiagramExamples = defineExamples({
@@ -24,22 +24,20 @@ export const flowDiagramExamples = defineExamples({
 
 function renderFlowDiagramExample(state = 'default'): ReactNode {
 	return (
-		<DataWideStage>
-			<FlowDiagram
-				controls={state === 'interactive'}
-				description="A compact map of context, planning, tool execution, and final synthesis."
-				draggableNodes={state === 'interactive'}
-				flow={state === 'empty' ? { edges: [], nodes: [] } : flowDiagram}
-				legend={[
-					{ label: 'context', tone: 'sky' },
-					{ label: 'tool path', tone: 'terminal' },
-					{ label: 'selected', tone: 'ultra' }
-				]}
-				selectedEdgeId={state === 'selected' ? 'edge-tools' : undefined}
-				selectedNodeId={state === 'selected' ? 'plan' : undefined}
-				title="Agent execution flow"
-				width={1020}
-			/>
-		</DataWideStage>
+		<FlowDiagram
+			controls={state === 'interactive'}
+			description="A compact map of context, planning, tool execution, and final synthesis."
+			draggableNodes={state === 'interactive'}
+			flow={state === 'empty' ? { edges: [], nodes: [] } : flowDiagram}
+			legend={[
+				{ label: 'context', tone: 'sky' },
+				{ label: 'tool path', tone: 'terminal' },
+				{ label: 'selected', tone: 'ultra' }
+			]}
+			selectedEdgeId={state === 'selected' ? 'edge-tools' : undefined}
+			selectedNodeId={state === 'selected' ? 'plan' : undefined}
+			title="Agent execution flow"
+			width={1020}
+		/>
 	)
 }

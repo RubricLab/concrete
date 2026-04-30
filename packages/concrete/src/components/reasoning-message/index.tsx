@@ -19,7 +19,14 @@ export const reasoningMessageComponentDefinition = createComponent({
 	schema: reasoningMessageComponentSchema,
 	seed: reasoningMessageComponentSchema.parse({ open: true }),
 	slug: 'reasoning-message',
-	states: exampleStates(reasoningMessageExamples, ['streaming', 'complete', 'collapsed'])
+	states: exampleStates(reasoningMessageExamples, [
+		'default',
+		'streaming',
+		'complete',
+		'collapsed',
+		'pending',
+		'error'
+	])
 })
 
 function renderReasoningMessageInput(input: ReasoningMessageValue) {

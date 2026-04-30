@@ -1,11 +1,11 @@
 import { Button } from '../../primitives'
-import { FormShell, type FormShellProps } from '../../primitives/internal/form-shell'
-import { concreteClassNames } from '../../styles/class-names'
+import { FormLayoutShell, type FormLayoutShellProps } from '../../primitives/form-layout'
+import { FormOverlayDialog, FormOverlayRoot } from '../../primitives/form-overlay'
 
 export type FormDialogPresentation = 'fixed' | 'inline'
 export type FormDialogSize = 'compact' | 'default' | 'wide'
 
-export type FormDialogProps = Omit<FormShellProps, 'variant'> & {
+export type FormDialogProps = Omit<FormLayoutShellProps, 'variant'> & {
 	onOpenChange?: ((open: boolean) => void) | undefined
 	open?: boolean | undefined
 	presentation?: FormDialogPresentation | undefined
@@ -44,21 +44,12 @@ export function FormDialog({
 		) : undefined
 
 	return (
-		<div
-			className={concreteClassNames.formOverlay}
-			data-presentation={presentation}
-			data-size={size}
-			data-type="dialog"
-		>
-			<div
-				aria-modal={presentation === 'fixed' ? true : undefined}
-				className={concreteClassNames.formDialog}
-				role="dialog"
-			>
-				<FormShell actions={chromeActions} className={className} variant="modal" {...props}>
+		<FormOverlayRoot presentation={presentation} size={size} type="dialog">
+			<FormOverlayDialog modal={presentation === 'fixed'}>
+				<FormLayoutShell actions={chromeActions} className={className} variant="modal" {...props}>
 					{children}
-				</FormShell>
-			</div>
-		</div>
+				</FormLayoutShell>
+			</FormOverlayDialog>
+		</FormOverlayRoot>
 	)
 }

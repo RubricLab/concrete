@@ -1,7 +1,14 @@
 import type { ReactNode } from 'react'
-import { cn } from '../primitives/utils'
+import {
+	ChartBarTrack,
+	ChartMessage,
+	ChartPlotBackground,
+	ChartRowLabel,
+	ChartStackSegment,
+	ChartSvg,
+	ChartValueLabel
+} from '../primitives'
 import type { DataPoint, stackedBarChartSchema } from '../schemas'
-import { concreteClassNames } from '../styles/class-names'
 import {
 	createChartPlotBox,
 	formatChartValue,
@@ -23,7 +30,7 @@ export function renderStackedBarChart(
 	const width = 640
 
 	if (groups.length === 0) {
-		return <div className={concreteClassNames.chartMessage}>No data</div>
+		return <ChartMessage>No data</ChartMessage>
 	}
 
 	if (orientation === 'vertical') {
@@ -60,8 +67,7 @@ function renderStackedBarColumns(
 	}))
 
 	return (
-		<svg aria-hidden className={concreteClassNames.chartSvg} viewBox={`0 0 ${width} ${height}`}>
-			<title>Stacked bar chart</title>
+		<ChartSvg title="Stacked bar chart" viewBox={`0 0 ${width} ${height}`}>
 			{renderCartesianGrid(plotBox, extent, xLabels, options)}
 			{groups.map((group, groupIndex) => {
 				const total = getStackedTotal(group)
@@ -71,21 +77,14 @@ function renderStackedBarColumns(
 
 				return (
 					<g key={group.label}>
-						<rect
-							className={concreteClassNames.chartBarTrack}
-							height={plotBox.height}
-							rx="4"
-							width={columnWidth}
-							x={x}
-							y={plotBox.top}
-						/>
+						<ChartBarTrack height={plotBox.height} rx="4" width={columnWidth} x={x} y={plotBox.top} />
 						{group.segments.map(segment => {
 							const segmentHeight = Math.max((segment.value / denominator) * plotBox.height, 1)
 							cursorY -= segmentHeight
 
 							return (
-								<rect
-									className={cn(concreteClassNames.chartStackSegment, getDataToneClass(segment.tone))}
+								<ChartStackSegment
+									className={getDataToneClass(segment.tone)}
 									height={segmentHeight}
 									key={segment.label}
 									rx="3"
@@ -96,19 +95,14 @@ function renderStackedBarColumns(
 							)
 						})}
 						{options.showValues ? (
-							<text
-								className={concreteClassNames.chartValueLabel}
-								textAnchor="middle"
-								x={x + columnWidth / 2}
-								y={plotBox.top - 7}
-							>
+							<ChartValueLabel textAnchor="middle" x={x + columnWidth / 2} y={plotBox.top - 7}>
 								{formatChartValue(total)}
-							</text>
+							</ChartValueLabel>
 						) : null}
 					</g>
 				)
 			})}
-		</svg>
+		</ChartSvg>
 	)
 }
 
@@ -131,10 +125,8 @@ function renderStackedBarRails(
 	const barHeight = Math.min(14, Math.max(rowStep * 0.38, 8))
 
 	return (
-		<svg aria-hidden className={concreteClassNames.chartSvg} viewBox={`0 0 ${width} ${height}`}>
-			<title>Stacked rail chart</title>
-			<rect
-				className={concreteClassNames.chartPlotBackground}
+		<ChartSvg title="Stacked rail chart" viewBox={`0 0 ${width} ${height}`}>
+			<ChartPlotBackground
 				height={plotBox.height}
 				rx="8"
 				width={plotBox.width}
@@ -149,16 +141,10 @@ function renderStackedBarRails(
 
 				return (
 					<g key={group.label}>
-						<text
-							className={concreteClassNames.chartRowLabel}
-							textAnchor="end"
-							x={plotBox.left - 10}
-							y={y + barHeight}
-						>
+						<ChartRowLabel textAnchor="end" x={plotBox.left - 10} y={y + barHeight}>
 							{group.label}
-						</text>
-						<rect
-							className={concreteClassNames.chartBarTrack}
+						</ChartRowLabel>
+						<ChartBarTrack
 							height={barHeight}
 							rx={barHeight / 2}
 							width={plotBox.width}
@@ -171,8 +157,8 @@ function renderStackedBarRails(
 							cursorX += segmentWidth
 
 							return (
-								<rect
-									className={cn(concreteClassNames.chartStackSegment, getDataToneClass(segment.tone))}
+								<ChartStackSegment
+									className={getDataToneClass(segment.tone)}
 									height={barHeight}
 									key={segment.label}
 									rx={barHeight / 2}
@@ -183,13 +169,13 @@ function renderStackedBarRails(
 							)
 						})}
 						{options.showValues ? (
-							<text className={concreteClassNames.chartValueLabel} x={plotBox.right + 9} y={y + barHeight}>
+							<ChartValueLabel x={plotBox.right + 9} y={y + barHeight}>
 								{formatChartValue(total)}
-							</text>
+							</ChartValueLabel>
 						) : null}
 					</g>
 				)
 			})}
-		</svg>
+		</ChartSvg>
 	)
 }

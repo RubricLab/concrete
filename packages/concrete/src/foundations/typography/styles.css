@@ -1,3 +1,79 @@
-/* DX-TODO(typography): Foundation type variables still live in the root stylesheet.
-   Keep them centralized until item CSS concatenation can preserve cascade order
-   and public `@rubriclab/concrete/styles.css` compatibility. */
+:root {
+	--concrete-font-sans:
+		"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+	--concrete-font-display: "Concrete Fraunces", "Iowan Old Style", "Apple Garamond", Georgia, serif;
+	--concrete-font-display-optical-sizing: none;
+	--concrete-font-display-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+	--concrete-font-mono: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, monospace;
+	--concrete-weight-light: 300;
+	--concrete-weight-regular: 400;
+	--concrete-weight-medium: 500;
+	--concrete-weight-accent: 550;
+	--concrete-weight-semibold: 600;
+	--concrete-weight-strong: 650;
+	--concrete-weight-bold: 700;
+	--concrete-weight-form-row-label: 680;
+	--concrete-weight-heading: 750;
+	--concrete-weight-title: 760;
+	--concrete-weight-subheading: 730;
+	--concrete-weight-heavy: 800;
+	--concrete-type-9-5: 9.5px;
+	--concrete-type-9: 9px;
+	--concrete-type-10: 10px;
+	--concrete-type-10-5: 10.5px;
+	--concrete-type-11: 11px;
+	--concrete-type-11-5: 11.5px;
+	--concrete-type-12: 12px;
+	--concrete-type-12-5: 12.5px;
+	--concrete-type-13: 13px;
+	--concrete-type-13-5: 13.5px;
+	--concrete-type-14: 14px;
+	--concrete-type-15: 15px;
+	--concrete-type-16: 16px;
+	--concrete-type-17: 17px;
+	--concrete-type-18: 18px;
+	--concrete-type-20: 20px;
+	--concrete-type-22: 22px;
+	--concrete-type-24: 24px;
+	--concrete-type-28: 28px;
+	--concrete-type-32: 32px;
+	--concrete-type-40: 40px;
+	--concrete-type-44: 44px;
+	--concrete-type-48: 48px;
+	--concrete-type-56: 56px;
+	--concrete-type-60: 60px;
+	--concrete-type-72: 72px;
+	--concrete-type-88: 88px;
+	--concrete-type-120: 120px;
+	--concrete-type-inline-code: 0.86em;
+	--concrete-type-message-inline-code: 0.93em;
+	--concrete-type-stat-unit: 0.58em;
+	--concrete-line-flat: 1;
+	--concrete-line-tight: 1.02;
+	--concrete-line-stat-display: 0.95;
+	--concrete-line-diagram-node-title: 1.16;
+	--concrete-line-snug: 1.18;
+	--concrete-line-compact: 1.25;
+	--concrete-line-control: 1.2;
+	--concrete-line-help: 1.35;
+	--concrete-line-normal: 1.45;
+	--concrete-line-prose-compact: 1.5;
+	--concrete-line-code: 1.7;
+	--concrete-line-loose: 1.6;
+	--concrete-line-zero: 0;
+	--concrete-tracking-display: 0;
+	--concrete-tracking-tight: 0;
+	--concrete-tracking-normal: 0;
+	--concrete-tracking-label: 0.01em;
+	--concrete-tracking-meta: 0.02em;
+	--concrete-tracking-code-action: 0.04em;
+	--concrete-tracking-section: 0.08em;
+	--concrete-tracking-caps: 0.1em;
+	--concrete-tracking-eyebrow: 0.12em;
+	--concrete-text-decoration-disabled-date: line-through;
+}
+
+.concrete-root {
+	font-family: var(--concrete-font-sans);
+	font-feature-settings: "ss01", "cv01", "tnum";
+}

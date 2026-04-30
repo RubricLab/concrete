@@ -19,19 +19,13 @@ export const datePickerExamples = defineExamples({
 
 function renderDatePickerExample(state: 'bounded' | 'default' | 'open'): ReactNode {
 	return (
-		<FormStage>
-			<DatePicker
-				defaultOpen={state === 'open'}
-				defaultValue="2026-04-28"
-				help={state === 'bounded' ? 'Only this sprint window is available.' : undefined}
-				label="Start date"
-				max={state === 'bounded' ? '2026-05-02' : undefined}
-				min={state === 'bounded' ? '2026-04-24' : undefined}
-			/>
-		</FormStage>
+		<DatePicker
+			defaultOpen={state === 'open'}
+			defaultValue="2026-04-28"
+			help={state === 'bounded' ? 'Only this sprint window is available.' : undefined}
+			label="Start date"
+			max={state === 'bounded' ? '2026-05-02' : undefined}
+			min={state === 'bounded' ? '2026-04-24' : undefined}
+		/>
 	)
-}
-
-function FormStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 420, width: '100%' }}>{children}</div>
 }

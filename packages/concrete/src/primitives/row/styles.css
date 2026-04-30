@@ -1,2 +1,54 @@
-/* DX-TODO(row): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and dense-row screenshots. */
+.concrete-row {
+	display: grid;
+	grid-template-columns: auto minmax(var(--concrete-space-0), var(--concrete-flex-fill)) auto;
+	align-items: center;
+	min-height: var(--concrete-space-8);
+	padding-block: var(--concrete-space-2);
+	padding-inline: var(--concrete-space-2-5);
+	column-gap: var(--concrete-space-2-5);
+	border-radius: var(--concrete-radius-2);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-13) / var(--concrete-line-compact)
+		var(--concrete-font-sans);
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease);
+}
 
+.concrete-row-interactive {
+	cursor: pointer;
+}
+
+.concrete-row-interactive:hover {
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-row-icon {
+	display: inline-grid;
+	width: var(--concrete-space-4);
+	height: var(--concrete-space-4);
+	place-items: center;
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-row-icon svg {
+	width: var(--concrete-size-icon-large);
+	height: var(--concrete-size-icon-large);
+}
+
+.concrete-row-label {
+	min-width: var(--concrete-space-0);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.concrete-row-meta {
+	color: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	font-variant-numeric: tabular-nums;
+}

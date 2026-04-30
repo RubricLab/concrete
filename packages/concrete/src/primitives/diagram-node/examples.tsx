@@ -1,5 +1,4 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame/component'
 import { DiagramNode } from './component'
 
 export const diagramNodeExamples = defineExamples({
@@ -28,19 +27,17 @@ function renderDiagramNodeExample(state = 'default') {
 	] as const
 
 	return (
-		<Frame>
-			<div style={{ display: 'grid', gap: 8, gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
-				{nodes.map(([role, title, meta]) => (
-					<DiagramNode
-						key={role}
-						meta={meta}
-						muted={state === 'muted' && role !== 'compute'}
-						role={role}
-						selected={state === 'selected' && role === 'compute'}
-						title={title}
-					/>
-				))}
-			</div>
-		</Frame>
+		<>
+			{nodes.map(([role, title, meta]) => (
+				<DiagramNode
+					key={role}
+					meta={meta}
+					muted={state === 'muted' && role !== 'compute'}
+					role={role}
+					selected={state === 'selected' && role === 'compute'}
+					title={title}
+				/>
+			))}
+		</>
 	)
 }

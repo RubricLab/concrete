@@ -1,3 +1,14 @@
-/* DX-TODO(radii): Foundation radius tokens still live in the root stylesheet.
-   Keep them centralized until item CSS concatenation can preserve cascade order
-   and public `@rubriclab/concrete/styles.css` compatibility. */
+:root {
+	--concrete-radius-0-5: 2px;
+	--concrete-radius-1: 3px;
+	--concrete-radius-2: 4px;
+	--concrete-radius-2-5: 5px;
+	--concrete-radius-3: 6px;
+	--concrete-radius-3-25: 7px;
+	--concrete-radius-3-5: 8px;
+	--concrete-radius-4: 10px;
+	--concrete-radius-4-5: 12px;
+	--concrete-radius-5: 14px;
+	--concrete-radius-6: 20px;
+	--concrete-radius-pill: 9999px;
+}

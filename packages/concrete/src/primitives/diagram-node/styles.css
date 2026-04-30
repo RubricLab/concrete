@@ -1,2 +1,168 @@
-/* DX-TODO(diagram-node): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and diagram-node screenshots. */
+.concrete-diagram-node {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: var(--concrete-template-diagram-node);
+	align-items: center;
+	gap: var(--concrete-space-2-5);
+	width: var(--concrete-size-full);
+	min-height: var(--concrete-size-diagram-node-min-block);
+	padding-block: var(--concrete-space-2-25);
+	padding-inline: var(--concrete-space-2-75);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	text-align: left;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-fast) var(--concrete-ease);
+}
 
+.concrete-diagram-node:hover {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-shadow-2);
+	transform: translateY(var(--concrete-translate-press-strong-negative));
+}
+
+.concrete-diagram-node:active {
+	transform: translateY(var(--concrete-space-0));
+}
+
+.concrete-diagram-node:focus-visible {
+	outline: var(--concrete-ring-focus);
+	outline-offset: var(--concrete-space-0-5);
+}
+
+.concrete-diagram-node-icon {
+	display: grid;
+	place-items: center;
+	width: var(--concrete-size-diagram-node-icon);
+	height: var(--concrete-size-diagram-node-icon);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-diagram-node-icon svg {
+	width: var(--concrete-size-diagram-node-icon-glyph);
+	height: var(--concrete-size-diagram-node-icon-glyph);
+	stroke-width: var(--concrete-stroke-1-8);
+}
+
+.concrete-diagram-node-text {
+	display: grid;
+	gap: var(--concrete-space-0-5);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-diagram-node-text strong {
+	overflow: hidden;
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-14) / var(--concrete-line-diagram-node-title)
+		var(--concrete-font-sans);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.concrete-diagram-node-text span {
+	overflow: hidden;
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-control)
+		var(--concrete-font-sans);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.concrete-diagram-node-selected {
+	border-color: var(--concrete-sky);
+	background: var(--concrete-sky-1);
+	box-shadow: var(--concrete-shadow-diagram-node-selected);
+}
+
+.concrete-diagram-node-muted {
+	opacity: var(--concrete-opacity-diagram-muted);
+}
+
+.concrete-diagram-node[data-diagram-role="external"],
+.concrete-diagram-node[data-diagram-role="compute"] {
+	border-color: var(--concrete-ink-7);
+	background: var(--concrete-ink-8);
+	box-shadow: var(--concrete-shadow-diagram-node-inverse);
+	color: var(--concrete-inverse-foreground);
+}
+
+.concrete-diagram-node[data-diagram-role="external"]:hover,
+.concrete-diagram-node[data-diagram-role="compute"]:hover {
+	border-color: var(--concrete-diagram-node-inverse-hover-border);
+	box-shadow: var(--concrete-shadow-diagram-node-inverse-hover);
+}
+
+.concrete-diagram-node[data-diagram-role="external"] .concrete-diagram-node-text strong,
+.concrete-diagram-node[data-diagram-role="compute"] .concrete-diagram-node-text strong {
+	color: var(--concrete-inverse-foreground);
+}
+
+.concrete-diagram-node[data-diagram-role="external"] .concrete-diagram-node-text span,
+.concrete-diagram-node[data-diagram-role="compute"] .concrete-diagram-node-text span {
+	color: var(--concrete-inverse-muted);
+}
+
+.concrete-diagram-node[data-diagram-role="external"] .concrete-diagram-node-icon,
+.concrete-diagram-node[data-diagram-role="compute"] .concrete-diagram-node-icon {
+	border-color: var(--concrete-inverse-border);
+	background: var(--concrete-diagram-node-inverse-icon-background);
+	color: var(--concrete-inverse-foreground);
+}
+
+.concrete-diagram-node[data-diagram-role="compute"] .concrete-diagram-node-icon {
+	background: var(--concrete-diagram-node-compute-icon-background);
+	color: var(--concrete-ultra-wash);
+}
+
+.concrete-diagram-node[data-diagram-role="data"] {
+	border-color: var(--concrete-diagram-role-data-border);
+}
+
+.concrete-diagram-node[data-diagram-role="decision"],
+.concrete-diagram-node[data-diagram-role="boundary"] {
+	border-color: var(--concrete-diagram-role-decision-border);
+}
+
+.concrete-diagram-node[data-diagram-role="process"] {
+	border-color: var(--concrete-diagram-role-process-border);
+}
+
+.concrete-diagram-node[data-diagram-role="error"] {
+	border-color: var(--concrete-diagram-role-error-border);
+}
+
+.concrete-diagram-role-compute .concrete-diagram-node-icon {
+	color: var(--concrete-ultra);
+}
+
+.concrete-diagram-role-data .concrete-diagram-node-icon {
+	color: var(--concrete-sky);
+}
+
+.concrete-diagram-role-decision .concrete-diagram-node-icon,
+.concrete-diagram-role-boundary .concrete-diagram-node-icon {
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-diagram-role-external .concrete-diagram-node-icon {
+	color: var(--concrete-terminal);
+}
+
+.concrete-diagram-role-error .concrete-diagram-node-icon {
+	color: var(--concrete-error);
+}

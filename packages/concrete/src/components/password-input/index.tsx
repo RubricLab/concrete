@@ -18,7 +18,7 @@ export const passwordInputComponentDefinition = createComponent({
 	renderInput: input => renderPasswordInputInput(passwordInputComponentSchema.parse(input)),
 	schema: passwordInputComponentSchema,
 	slug: 'password-input',
-	states: exampleStates(passwordInputExamples, ['default', 'visible', 'error'])
+	states: exampleStates(passwordInputExamples, ['default', 'success', 'error'])
 })
 
 function renderPasswordInputInput({ value, ...input }: PasswordInputValue) {

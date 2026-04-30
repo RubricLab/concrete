@@ -19,5 +19,5 @@ export const colorsFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(colorsExamples, state),
 	schema: colorFoundationSchema,
 	slug: 'colors',
-	states: exampleStates(colorsExamples, ['default'])
+	states: exampleStates(colorsExamples, ['default', 'signals', 'data'])
 })

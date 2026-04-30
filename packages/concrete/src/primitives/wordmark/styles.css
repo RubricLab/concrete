@@ -1,2 +1,14 @@
-/* DX-TODO(wordmark): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and brand screenshots. */
+.concrete-wordmark {
+	display: inline-flex;
+	width: var(--concrete-size-wordmark-inline);
+	height: var(--concrete-size-wordmark-block);
+	align-items: center;
+	color: var(--concrete-foreground-strong);
+}
 
+.concrete-wordmark svg {
+	display: block;
+	width: var(--concrete-size-full);
+	height: auto;
+	fill: currentcolor;
+}

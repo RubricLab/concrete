@@ -24,7 +24,15 @@ export const donutChartComponentDefinition = createComponent({
 		title: 'Workload split'
 	}),
 	slug: 'donut-chart',
-	states: exampleStates(donutChartExamples, ['default', 'thin', 'thick', 'plain'])
+	states: exampleStates(donutChartExamples, [
+		'default',
+		'thin',
+		'thick',
+		'plain',
+		'loading',
+		'empty',
+		'error'
+	])
 })
 
 function renderDonutChartInput(input: DonutChartValue) {

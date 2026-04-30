@@ -1,1 +1,39 @@
-/* DX-TODO(radio): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-radio {
+	display: inline-grid;
+	width: var(--concrete-size-choice-control);
+	height: var(--concrete-size-choice-control);
+	flex: none;
+	place-items: center;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-strong);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-surface);
+	color: var(--concrete-inverse-foreground-strong);
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-radio-checked {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+}
+
+.concrete-check-row:hover .concrete-radio {
+	border-color: var(--concrete-ink-5);
+}
+
+.concrete-check-row:has(input:focus-visible) .concrete-radio {
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-check-row:has(input:disabled):hover .concrete-radio {
+	border-color: var(--concrete-border-strong);
+}
+
+.concrete-radio-dot {
+	width: var(--concrete-size-radio-dot);
+	height: var(--concrete-size-radio-dot);
+	border-radius: var(--concrete-radius-pill);
+	background: currentcolor;
+}

@@ -18,7 +18,7 @@ export const numberStepperComponentDefinition = createComponent({
 	renderInput: input => renderNumberStepperInput(numberStepperComponentSchema.parse(input)),
 	schema: numberStepperComponentSchema,
 	slug: 'number-stepper',
-	states: exampleStates(numberStepperExamples, ['default', 'small', 'error'])
+	states: exampleStates(numberStepperExamples, ['default', 'small', 'disabled', 'error'])
 })
 
 function renderNumberStepperInput({ value, ...input }: NumberStepperValue) {

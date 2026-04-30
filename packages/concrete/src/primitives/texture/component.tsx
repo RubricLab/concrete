@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react'
-import { getConcreteClassName } from '../../styles/class-names'
+import { concreteClassNames, getConcreteClassName } from '../../styles/class-names'
 import { cn } from '../utils'
 
 const textureVariantValues = ['lattice', 'dots', 'lines'] as const
@@ -18,6 +18,16 @@ const textureClassNames = {
 
 export function Texture({ className, variant = 'lattice', ...props }: TextureProps) {
 	return <div className={cn(getTextureClass(variant), className)} {...props} />
+}
+
+export function TexturePreview({ className, variant = 'lattice', ...props }: TextureProps) {
+	return (
+		<Texture
+			className={cn(concreteClassNames.texturePreview, className)}
+			variant={variant}
+			{...props}
+		/>
+	)
 }
 
 export function getTextureClass(texture: TextureVariant): string {

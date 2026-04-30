@@ -11,6 +11,7 @@ import type { IconName } from '@rubriclab/concrete/icons'
 type ColorRow = readonly [string, string, string]
 type PairRow = readonly [string, string]
 type SpaceRow = readonly [string, number]
+type TypeRow = readonly [string, string, string, string]
 
 const inkNames = [
 	'ink-9',
@@ -59,6 +60,7 @@ const typographyNames = [
 	'label',
 	'caps'
 ] as const
+const homeTypographyNames = ['display', 'hero', 'h1', 'body'] as const
 
 const colorRoles = {
 	error: 'critical',
@@ -134,16 +136,9 @@ export const foundationSpaceRows = foundationSpacingNames.map(
 	name => [`s-${name.replace('space-', '')}`, findSpacingToken(name).value] as const
 ) satisfies readonly SpaceRow[]
 
-export const homeRadiusRows = [
-	['0', '0', 'charts'],
-	['2', '2px', 'hairlines'],
-	['4', '4px', 'atoms'],
-	['6', '6px', 'controls'],
-	['10', '10px', 'cards'],
-	['14', '14px', 'panels'],
-	['20', '20px', 'overlays'],
-	['pill', '999px', 'chips']
-] as const
+export const homeRadiusRows = radiusTokens.map(
+	token => [token.name.replace('radius-', ''), token.value, radiusUsage(token.name)] as const
+)
 
 export const foundationRadiusRows = radiusTokens
 	.filter(token => token.name !== 'radius-0')
@@ -163,6 +158,21 @@ export const typeRows = typographyNames.map(name => {
 		className
 	] as const
 })
+
+export const homeTypeRows = homeTypographyNames.map(name => typeRow(name))
+
+export const typographySummary = `${countUnique(
+	typographyTokens.map(token => token.family)
+)} families / ${typographyTokens.length} roles / ${countUnique(
+	typographyTokens.map(token => token.size)
+)} sizes`
+
+export const iconRuleRows = [
+	['Stroke', '1.75 token'],
+	['ViewBox', '24 x 24'],
+	['Default size', '13px'],
+	['Color', 'currentColor']
+] as const
 
 export const scrollItems = [
 	'Environment variables',
@@ -264,4 +274,40 @@ function elevationUsage(name: string): string {
 		default:
 			return name
 	}
+}
+
+function radiusUsage(name: string): string {
+	switch (name) {
+		case 'radius-0':
+			return 'charts'
+		case 'radius-2':
+			return 'atoms'
+		case 'radius-3':
+			return 'controls'
+		case 'radius-4':
+			return 'cards'
+		case 'radius-5':
+			return 'panels'
+		case 'radius-6':
+			return 'overlays'
+		case 'radius-pill':
+			return 'chips'
+		default:
+			return name
+	}
+}
+
+function typeRow(name: (typeof typographyNames)[number]): TypeRow {
+	const [lineHeight, sample, role, className] = typographyRows[name]
+
+	return [
+		`${findTypographyToken(name).size.replace('px', '')} / ${lineHeight}`,
+		sample,
+		role,
+		className
+	] as const
+}
+
+function countUnique(values: readonly string[]): number {
+	return new Set(values).size
 }

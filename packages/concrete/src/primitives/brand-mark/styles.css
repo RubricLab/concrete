@@ -1,2 +1,20 @@
-/* DX-TODO(brand-mark): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and brand screenshots. */
+.concrete-brand-mark {
+	display: inline-grid;
+	width: var(--concrete-size-brand-mark);
+	height: var(--concrete-size-brand-mark);
+	place-items: center;
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+}
 
+.concrete-brand-mark[data-inverse="true"] {
+	background: var(--concrete-transparent);
+	color: var(--concrete-inverse-foreground-strong);
+}
+
+.concrete-brand-mark svg {
+	width: var(--concrete-size-brand-mark-glyph);
+	height: var(--concrete-size-brand-mark-glyph);
+	fill: currentcolor;
+}

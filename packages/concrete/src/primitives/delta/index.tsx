@@ -18,7 +18,7 @@ export const deltaPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderDeltaInput(deltaSchema.parse(input)),
 	schema: deltaSchema,
 	slug: 'delta',
-	states: exampleStates(deltaExamples, ['default', 'wash'])
+	states: exampleStates(deltaExamples, ['default', 'basis', 'sizes', 'wash'])
 })
 
 function renderDeltaInput({ basis, ...props }: DeltaValue) {

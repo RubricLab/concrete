@@ -1,2 +1,122 @@
-/* DX-TODO(delta): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and data atom screenshots. */
+.concrete-delta {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+	white-space: nowrap;
+}
 
+.concrete-delta-icon {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	width: var(--concrete-size-delta-icon);
+	height: var(--concrete-size-delta-icon);
+	color: var(--concrete-foreground-soft);
+}
+
+.concrete-delta-icon svg {
+	display: block;
+	width: var(--concrete-size-delta-icon);
+	height: var(--concrete-size-delta-icon);
+	fill: none;
+	stroke: currentcolor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: var(--concrete-stroke-1-6);
+}
+
+.concrete-delta-small {
+	gap: var(--concrete-space-0-75);
+	font-size: var(--concrete-type-11-5);
+}
+
+.concrete-delta-small .concrete-delta-icon,
+.concrete-delta-small .concrete-delta-icon svg {
+	width: var(--concrete-size-delta-icon-small);
+	height: var(--concrete-size-delta-icon-small);
+}
+
+.concrete-delta-large {
+	gap: var(--concrete-space-1-25);
+	font-size: var(--concrete-type-16);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-delta-large .concrete-delta-icon,
+.concrete-delta-large .concrete-delta-icon svg {
+	width: var(--concrete-size-delta-icon-large);
+	height: var(--concrete-size-delta-icon-large);
+}
+
+.concrete-delta-xlarge {
+	gap: var(--concrete-space-1-5);
+	font-size: var(--concrete-type-22);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-delta-xlarge .concrete-delta-icon,
+.concrete-delta-xlarge .concrete-delta-icon svg {
+	width: var(--concrete-size-delta-icon-xlarge);
+	height: var(--concrete-size-delta-icon-xlarge);
+}
+
+.concrete-delta-wash {
+	height: var(--concrete-size-delta-wash);
+	padding-block: var(--concrete-space-0-75);
+	padding-right: var(--concrete-space-2);
+	padding-left: var(--concrete-space-1-75);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-ink-1);
+	font-size: var(--concrete-type-12);
+}
+
+.concrete-delta-basis {
+	color: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-delta-positive {
+	color: var(--concrete-terminal);
+}
+
+.concrete-delta-positive .concrete-delta-icon {
+	color: var(--concrete-terminal);
+}
+
+.concrete-delta-positive.concrete-delta-wash {
+	border-color: var(--concrete-terminal-wash);
+	background: var(--concrete-terminal-1);
+}
+
+.concrete-delta-negative {
+	color: var(--concrete-error);
+}
+
+.concrete-delta-negative .concrete-delta-icon {
+	color: var(--concrete-error);
+}
+
+.concrete-delta-negative.concrete-delta-wash {
+	border-color: var(--concrete-error-wash);
+	background: var(--concrete-error-1);
+}
+
+.concrete-delta-neutral {
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-delta-neutral.concrete-delta-wash {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-ink-1);
+}

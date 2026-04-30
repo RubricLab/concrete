@@ -39,31 +39,25 @@ export const searchBarExamples = defineExamples({
 
 function renderSearchBarExample(state: 'default' | 'menu' | 'scoped'): ReactNode {
 	return (
-		<CommandStage>
-			<SearchBar
-				actions={
-					<Button shortcut={['enter']} size="small" variant="primary">
-						Run
-					</Button>
-				}
-				placeholder="Search, ask, or command..."
-				query={state === 'default' ? '' : 'triage sligo'}
-				tokens={
-					state === 'scoped' || state === 'menu'
-						? [
-								{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
-								{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
-							]
-						: []
-				}
-				{...(state === 'menu'
-					? { menu: <CommandMenu items={searchBarCommandItems} query="sligo" searchable={false} /> }
-					: {})}
-			/>
-		</CommandStage>
+		<SearchBar
+			actions={
+				<Button shortcut={['enter']} size="small" variant="primary">
+					Run
+				</Button>
+			}
+			placeholder="Search, ask, or command..."
+			query={state === 'default' ? '' : 'triage sligo'}
+			tokens={
+				state === 'scoped' || state === 'menu'
+					? [
+							{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
+							{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
+						]
+					: []
+			}
+			{...(state === 'menu'
+				? { menu: <CommandMenu items={searchBarCommandItems} query="sligo" searchable={false} /> }
+				: {})}
+		/>
 	)
-}
-
-function CommandStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 520, width: '100%' }}>{children}</div>
 }

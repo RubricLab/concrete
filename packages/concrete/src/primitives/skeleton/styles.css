@@ -1,1 +1,29 @@
-/* DX-TODO(skeleton): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-skeleton {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-skeleton-background);
+	isolation: isolate;
+}
+
+.concrete-skeleton::after {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		var(--concrete-rotate-quarter),
+		var(--concrete-transparent),
+		var(--concrete-skeleton-highlight),
+		var(--concrete-transparent)
+	);
+	content: "";
+	transform: translateX(var(--concrete-translate-full-negative));
+	animation: concreteSkeleton var(--concrete-duration-progress-shuttle) var(--concrete-ease-linear)
+		infinite;
+}
+
+@keyframes concreteSkeleton {
+	to {
+		transform: translateX(var(--concrete-translate-full));
+	}
+}

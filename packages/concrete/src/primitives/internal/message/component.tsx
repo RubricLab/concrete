@@ -1,10 +1,8 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import type { MessageRole, MessageStatus, MessageSurface } from '../../../schemas'
-import { concreteClassNames } from '../../../styles/class-names'
 import { Avatar } from '../../avatar'
 import { Badge } from '../../badge'
-import { Bubble } from '../../bubble'
-import { cn } from '../../utils'
+import { MessageBubble, MessageMetaItem, MessagePlain, MessageShell } from '../../message-shell'
 
 export type MessageProps = HTMLAttributes<HTMLDivElement> & {
 	actions?: ReactNode
@@ -43,39 +41,35 @@ export function Message({
 	const direction = messageRole === 'user' ? 'outbound' : 'inbound'
 	const shouldRenderAvatar =
 		!grouped && (showAvatar ?? Boolean(avatar || avatarInitials || avatarSrc))
+	const messageMeta =
+		author || meta || (showStatus && status !== 'complete') ? (
+			<>
+				<MessageMetaItem>{author ?? getMessageRoleLabel(messageRole)}</MessageMetaItem>
+				{meta ? <MessageMetaItem>{meta}</MessageMetaItem> : null}
+				{showStatus && status !== 'complete' ? (
+					<Badge signal={getMessageStatusSignal(status)}>{status}</Badge>
+				) : null}
+			</>
+		) : undefined
 
 	return (
-		<article
-			className={cn(concreteClassNames.message, className)}
-			data-grouped={grouped ? true : undefined}
-			data-role={messageRole}
-			data-status={status}
-			data-surface={surface}
+		<MessageShell
+			actions={actions}
+			avatar={shouldRenderAvatar ? (avatar ?? renderMessageAvatar()) : undefined}
+			className={className}
+			grouped={grouped}
+			messageRole={messageRole}
+			meta={messageMeta}
+			status={status}
+			surface={surface}
 			{...props}
 		>
-			{shouldRenderAvatar ? (
-				<span className={concreteClassNames.messageAvatar}>{avatar ?? renderMessageAvatar()}</span>
-			) : null}
-			<div className={concreteClassNames.messageStack}>
-				{author || meta || (showStatus && status !== 'complete') ? (
-					<header className={concreteClassNames.messageMeta}>
-						<span>{author ?? getMessageRoleLabel(messageRole)}</span>
-						{meta ? <span>{meta}</span> : null}
-						{showStatus && status !== 'complete' ? (
-							<Badge signal={getMessageStatusSignal(status)}>{status}</Badge>
-						) : null}
-					</header>
-				) : null}
-				{surface === 'bubble' ? (
-					<Bubble className={concreteClassNames.messageBubble} direction={direction}>
-						{children}
-					</Bubble>
-				) : (
-					<div className={concreteClassNames.messagePlain}>{children}</div>
-				)}
-				{actions ? <div className={concreteClassNames.messageActions}>{actions}</div> : null}
-			</div>
-		</article>
+			{surface === 'bubble' ? (
+				<MessageBubble direction={direction}>{children}</MessageBubble>
+			) : (
+				<MessagePlain>{children}</MessagePlain>
+			)}
+		</MessageShell>
 	)
 
 	function renderMessageAvatar() {

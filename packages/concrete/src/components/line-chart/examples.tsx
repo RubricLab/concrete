@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
-import { chartSeries, DataWideStage } from '../../utilities/data-fixtures'
+import { chartSeries } from '../../utilities/data-fixtures'
 import { LineChart } from './component'
 
 export const lineChartExamples = defineExamples({
@@ -33,27 +33,23 @@ export const lineChartExamples = defineExamples({
 function renderLineChartExample(state = 'default'): ReactNode {
 	if (state === 'loading' || state === 'empty' || state === 'error') {
 		return (
-			<DataWideStage>
-				<LineChart
-					height={220}
-					message={state === 'error' ? 'Could not load the run summary.' : undefined}
-					series={[]}
-					state={state}
-					title="Agent runs"
-				/>
-			</DataWideStage>
+			<LineChart
+				height={220}
+				message={state === 'error' ? 'Could not load the run summary.' : undefined}
+				series={[]}
+				state={state}
+				title="Agent runs"
+			/>
 		)
 	}
 
 	return (
-		<DataWideStage>
-			<LineChart
-				description="Agent run volume with accepted output overlay."
-				series={chartSeries}
-				showDots={state === 'inspect'}
-				target={state === 'target' ? 58 : undefined}
-				title="Agent runs"
-			/>
-		</DataWideStage>
+		<LineChart
+			description="Agent run volume with accepted output overlay."
+			series={chartSeries}
+			showDots={state === 'inspect'}
+			target={state === 'target' ? 58 : undefined}
+			title="Agent runs"
+		/>
 	)
 }

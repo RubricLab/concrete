@@ -1,1 +1,20 @@
-/* DX-TODO(divider): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-divider {
+	display: flex;
+	align-items: center;
+	gap: var(--concrete-space-2-5);
+	width: var(--concrete-size-full);
+	color: var(--concrete-foreground-soft);
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}
+
+.concrete-divider::before,
+.concrete-divider::after {
+	height: var(--concrete-border-width-hairline);
+	flex: var(--concrete-flex-fill);
+	background: var(--concrete-border-soft);
+	content: "";
+}

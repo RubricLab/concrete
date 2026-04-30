@@ -38,82 +38,86 @@ export const primitiveStyleSources = [
 	{ kind: 'primitive', path: 'src/primitives/brand-mark/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/bubble/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/button/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/calendar-panel/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/card/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/caret/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/chart-legend/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/chart-surface/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/checkbox/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/chip/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/code/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/composer-rail/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/composer-shell/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/concept-connector/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/concept-frame/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/data-card-header/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/data-table-control/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/data-table-pagination/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/data-table-shell/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/delta/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/diagram-controls/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/diagram-edge/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/diagram-item/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/diagram-legend/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/diagram-minimap/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/diagram-node/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/diagram-rail/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/diagram-viewport/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/distribution/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/divider/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/dropzone/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/empty-state/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/feedback-panel/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/field/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/focus-ring/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/flow-node/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/form-layout/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/form-overlay/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/frame/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/icon/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/indicator/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/input/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/kbd/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/link/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/menu-shell/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/message-shell/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/metric-shell/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/option-row/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/picker-control/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/picker-shell/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/pill/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/preview-stage/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/progress/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/radio/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/range-control/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/reasoning-panel/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/row/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/search-field/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/search-token/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/select/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/select-control/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/select-menu/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/skeleton/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/slider/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/sparkline/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/spinner/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/stat/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/stepper-control/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/suggestion-menu/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/switch/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/tag/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/textarea/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/texture/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/time-list/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/tooltip/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/tool-call-panel/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/toolbar-control/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/upload-field/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/upload-item/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/wordmark/styles.css' }
 ] as const satisfies readonly ConcreteStyleSource[]
 
-export const componentStyleSources = [
-	{ kind: 'component', path: 'src/components/area-chart/styles.css' },
-	{ kind: 'component', path: 'src/components/bar-chart/styles.css' },
-	{ kind: 'component', path: 'src/components/chart/styles.css' },
-	{ kind: 'component', path: 'src/components/command-menu/styles.css' },
-	{ kind: 'component', path: 'src/components/composer/styles.css' },
-	{ kind: 'component', path: 'src/components/data-table/styles.css' },
-	{ kind: 'component', path: 'src/components/date-picker/styles.css' },
-	{ kind: 'component', path: 'src/components/date-range-picker/styles.css' },
-	{ kind: 'component', path: 'src/components/diagram-canvas/styles.css' },
-	{ kind: 'component', path: 'src/components/donut-chart/styles.css' },
-	{ kind: 'component', path: 'src/components/file-upload/styles.css' },
-	{ kind: 'component', path: 'src/components/flow-diagram/styles.css' },
-	{ kind: 'component', path: 'src/components/form-dialog/styles.css' },
-	{ kind: 'component', path: 'src/components/form-drawer/styles.css' },
-	{ kind: 'component', path: 'src/components/form-shell/styles.css' },
-	{ kind: 'component', path: 'src/components/heatmap/styles.css' },
-	{ kind: 'component', path: 'src/components/image-upload/styles.css' },
-	{ kind: 'component', path: 'src/components/line-chart/styles.css' },
-	{ kind: 'component', path: 'src/components/message/styles.css' },
-	{ kind: 'component', path: 'src/components/meter/styles.css' },
-	{ kind: 'component', path: 'src/components/metric-card/styles.css' },
-	{ kind: 'component', path: 'src/components/multi-select/styles.css' },
-	{ kind: 'component', path: 'src/components/number-stepper/styles.css' },
-	{ kind: 'component', path: 'src/components/password-input/styles.css' },
-	{ kind: 'component', path: 'src/components/range-slider/styles.css' },
-	{ kind: 'component', path: 'src/components/reasoning-message/styles.css' },
-	{ kind: 'component', path: 'src/components/search-bar/styles.css' },
-	{ kind: 'component', path: 'src/components/settings-panel/styles.css' },
-	{ kind: 'component', path: 'src/components/stacked-bar-chart/styles.css' },
-	{ kind: 'component', path: 'src/components/time-picker/styles.css' },
-	{ kind: 'component', path: 'src/components/tool-call-message/styles.css' },
-	{ kind: 'component', path: 'src/components/toolbar/styles.css' },
-	{ kind: 'component', path: 'src/components/validation-summary/styles.css' }
-] as const satisfies readonly ConcreteStyleSource[]
+export const componentStyleSources: readonly ConcreteStyleSource[] = []
 
 export const ownedItemStyleSources = [
 	...foundationStyleSources,
@@ -121,21 +125,52 @@ export const ownedItemStyleSources = [
 	...componentStyleSources
 ] as const satisfies readonly ConcreteStyleSource[]
 
+const rootStyleSource = {
+	kind: 'root',
+	path: 'src/styles.css',
+	transform: 'without-layer-imports'
+} as const satisfies PublicStyleSource
+
+const primitiveLayerStyleSource = {
+	kind: 'primitive-layer',
+	path: 'src/styles/primitives.css'
+} as const satisfies PublicStyleSource
+
+const componentLayerStyleSource = {
+	kind: 'component-layer',
+	path: 'src/styles/components.css'
+} as const satisfies PublicStyleSource
+
+export const publicFullStyleSources = [
+	rootStyleSource,
+	...foundationStyleSources,
+	primitiveLayerStyleSource,
+	...primitiveStyleSources,
+	componentLayerStyleSource,
+	...componentStyleSources
+] as const satisfies readonly PublicStyleSource[]
+
+export const publicPrimitiveStyleSources = [
+	primitiveLayerStyleSource,
+	...primitiveStyleSources
+] as const satisfies readonly PublicStyleSource[]
+
+export const publicComponentStyleSources = [
+	componentLayerStyleSource,
+	...componentStyleSources
+] as const satisfies readonly PublicStyleSource[]
+
 export const publicStyleBundles = [
 	{
 		outputPath: 'dist/styles.css',
-		sources: [
-			{ kind: 'root', path: 'src/styles.css', transform: 'without-layer-imports' },
-			{ kind: 'primitive-layer', path: 'src/styles/primitives.css' },
-			{ kind: 'component-layer', path: 'src/styles/components.css' }
-		]
+		sources: publicFullStyleSources
 	},
 	{
 		outputPath: 'dist/styles/primitives.css',
-		sources: [{ kind: 'primitive-layer', path: 'src/styles/primitives.css' }]
+		sources: publicPrimitiveStyleSources
 	},
 	{
 		outputPath: 'dist/styles/components.css',
-		sources: [{ kind: 'component-layer', path: 'src/styles/components.css' }]
+		sources: publicComponentStyleSources
 	}
 ] as const satisfies readonly PublicStyleBundle[]

@@ -1,22 +1,21 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame'
 import { Avatar } from './component'
 
 export const avatarExamples = defineExamples({
 	default: {
 		description: 'Initial avatar sizes.',
 		render: () => (
-			<Frame>
+			<>
 				<Avatar alt="Rubric interface reference" initials="AK" />
 				<Avatar initials="RL" size="large" />
 				<Avatar initials="C" size="small" />
-			</Frame>
+			</>
 		)
 	},
 	image: {
 		description: 'Image-backed avatar surface.',
 		render: () => (
-			<Frame>
+			<>
 				<Avatar
 					alt="Rubric interface reference"
 					initials="AK"
@@ -25,7 +24,7 @@ export const avatarExamples = defineExamples({
 				/>
 				<Avatar initials="RL" size="large" />
 				<Avatar initials="C" size="small" />
-			</Frame>
+			</>
 		)
 	}
 })

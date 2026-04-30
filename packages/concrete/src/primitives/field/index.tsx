@@ -19,7 +19,7 @@ export const fieldPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderFieldInput(fieldSchema.parse(input)),
 	schema: fieldSchema,
 	slug: 'field',
-	states: exampleStates(fieldExamples, ['default', 'error', 'success', 'count'])
+	states: exampleStates(fieldExamples, ['default', 'requirements', 'error', 'success', 'count'])
 })
 
 function renderFieldInput(input: FieldValue) {

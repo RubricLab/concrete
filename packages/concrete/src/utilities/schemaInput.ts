@@ -6,8 +6,14 @@ import {
 	schemaInputControlName,
 	schemaProperties,
 	schemaType,
+	schemaUnionOptions,
+	selectUnionOptionForDiscriminatorValue,
+	selectUnionOptionForValue,
+	stringConstDiscriminator,
+	stringConstValue,
 	stringEnumValues
 } from './schemaJson'
+import { seedFromJsonSchema } from './schemaSeed'
 
 export type SchemaInputSource = {
 	get: (name: string) => string | null
@@ -21,19 +27,43 @@ export function inputFromSchemaSource(
 	const jsonSchema = jsonSchemaFromZod(schema)
 
 	if (schemaType(jsonSchema) !== 'object' || !isRecord(seed)) {
-		return seed
+		const unionInput = inputFromUnionSchemaSource(schema, jsonSchema, seed, source)
+
+		return unionInput ?? seed
 	}
 
 	const rootInput = inputRootValue(schema, source.get(schemaInputControlName), seed)
 	const input: Record<string, unknown> = isRecord(rootInput) ? { ...rootInput } : { ...seed }
 
-	for (const [name, propertySchema] of Object.entries(schemaProperties(jsonSchema))) {
-		const sourceValue = source.get(name)
+	applyObjectInputValues(jsonSchema, input, source, [])
 
-		if (sourceValue !== null) {
-			input[name] = inputValueFromJsonSchema(propertySchema, sourceValue, input[name])
-		}
+	const parsedInput = schema.safeParse(input)
+	return parsedInput.success ? parsedInput.data : seed
+}
+
+function inputFromUnionSchemaSource(
+	schema: z.ZodType,
+	jsonSchema: ConcreteJsonSchema,
+	seed: unknown,
+	source: SchemaInputSource
+): unknown {
+	const unionOptions = schemaUnionOptions(jsonSchema)
+
+	if (unionOptions.length === 0) {
+		return undefined
 	}
+
+	const rootInput = inputRootValue(schema, source.get(schemaInputControlName), seed)
+	const selectedSchema = selectUnionSchemaForSource(unionOptions, rootInput, source)
+	const selectedSeed = seedForSelectedUnionSchema(selectedSchema, rootInput)
+
+	if (!selectedSchema || !isRecord(selectedSeed)) {
+		return rootInput
+	}
+
+	const input = { ...selectedSeed }
+
+	applyObjectInputValues(selectedSchema, input, source, [])
 
 	const parsedInput = schema.safeParse(input)
 	return parsedInput.success ? parsedInput.data : seed
@@ -54,9 +84,14 @@ function inputValueFromJsonSchema(
 	fallback: unknown
 ): unknown {
 	const enumValues = stringEnumValues(schema)
+	const constValue = stringConstValue(schema)
 
 	if (enumValues.length > 0) {
 		return enumValues.includes(value) ? value : fallback
+	}
+
+	if (constValue !== undefined) {
+		return value === constValue ? value : fallback
 	}
 
 	switch (schemaType(schema)) {
@@ -73,6 +108,141 @@ function inputValueFromJsonSchema(
 		default:
 			return fallback
 	}
+}
+
+function applyObjectInputValues(
+	schema: ConcreteJsonSchema,
+	input: Record<string, unknown>,
+	source: SchemaInputSource,
+	path: readonly string[]
+): boolean {
+	let changed = false
+
+	for (const [name, propertySchema] of Object.entries(schemaProperties(schema))) {
+		const propertyPath = [...path, name]
+		const sourceValue = source.get(inputName(propertyPath))
+
+		if (sourceValue !== null) {
+			setPathValue(
+				input,
+				propertyPath,
+				inputValueFromJsonSchema(propertySchema, sourceValue, getPathValue(input, propertyPath))
+			)
+			changed = true
+			continue
+		}
+
+		const nestedSchema = activeSchemaForValue(propertySchema, getPathValue(input, propertyPath))
+
+		if (schemaType(nestedSchema) !== 'object') {
+			continue
+		}
+
+		if (applyObjectInputValues(nestedSchema, input, source, propertyPath)) {
+			changed = true
+		}
+	}
+
+	return changed
+}
+
+function activeSchemaForValue(schema: ConcreteJsonSchema, value: unknown): ConcreteJsonSchema {
+	const unionOptions = schemaUnionOptions(schema)
+
+	if (unionOptions.length === 0) {
+		return schema
+	}
+
+	return selectUnionOptionForValue(unionOptions, value) ?? schema
+}
+
+function selectUnionSchemaForSource(
+	options: readonly ConcreteJsonSchema[],
+	rootInput: unknown,
+	source: SchemaInputSource
+): ConcreteJsonSchema | undefined {
+	const discriminator = stringConstDiscriminator(options)
+	const discriminatorValue = discriminator ? source.get(discriminator.name) : null
+
+	if (discriminator && discriminatorValue) {
+		return selectUnionOptionForDiscriminatorValue(options, discriminator.name, discriminatorValue)
+	}
+
+	return selectUnionOptionForValue(options, rootInput)
+}
+
+function seedForSelectedUnionSchema(
+	selectedSchema: ConcreteJsonSchema | undefined,
+	rootInput: unknown
+): unknown {
+	if (!selectedSchema) {
+		return rootInput
+	}
+
+	const discriminator = stringConstDiscriminator(schemaUnionOptions({ oneOf: [selectedSchema] }))
+	const rootDiscriminatorValue =
+		discriminator && isRecord(rootInput) ? rootInput[discriminator.name] : undefined
+	const selectedDiscriminatorValue = discriminator
+		? stringConstValue(schemaProperties(selectedSchema)[discriminator.name])
+		: undefined
+
+	if (
+		selectedDiscriminatorValue &&
+		rootDiscriminatorValue === selectedDiscriminatorValue &&
+		isRecord(rootInput)
+	) {
+		return rootInput
+	}
+
+	if (!selectedDiscriminatorValue && isRecord(rootInput)) {
+		return rootInput
+	}
+
+	const seed = seedFromJsonSchema(selectedSchema)
+	return seed
+}
+
+function getPathValue(record: Record<string, unknown>, path: readonly string[]): unknown {
+	let current: unknown = record
+
+	for (const part of path) {
+		if (!isRecord(current)) {
+			return undefined
+		}
+
+		current = current[part]
+	}
+
+	return current
+}
+
+function setPathValue(record: Record<string, unknown>, path: readonly string[], value: unknown) {
+	const lastPart = path.at(-1)
+
+	if (!lastPart) {
+		return
+	}
+
+	let current: Record<string, unknown> = record
+
+	for (const part of path.slice(0, -1)) {
+		const nextValue = current[part]
+
+		if (isRecord(nextValue)) {
+			current = nextValue
+			continue
+		}
+
+		const nextRecord: Record<string, unknown> = {}
+		current[part] = nextRecord
+		current = nextRecord
+	}
+
+	current[lastPart] = value
+}
+
+function inputName(path: readonly string[]): string {
+	return path.join('.')
 }
 
 function numberInputValue(value: string, fallback: unknown): unknown {

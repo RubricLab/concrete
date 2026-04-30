@@ -1,2 +1,17 @@
-/* DX-TODO(concept-connector): active selectors remain in styles/primitives.css until item CSS concatenation preserves the public stylesheet export and connector screenshots. */
+.concrete-concept-connector {
+	display: block;
+	width: var(--concrete-size-concept-connector-inline);
+	height: var(--concrete-size-concept-connector-block);
+	color: var(--concrete-foreground-muted);
+	transition:
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		opacity var(--concrete-duration-fast) var(--concrete-ease);
+}
 
+.concrete-concept-connector-selected {
+	color: var(--concrete-sky);
+}
+
+.concrete-concept-connector-muted {
+	opacity: var(--concrete-opacity-concept-connector-muted);
+}

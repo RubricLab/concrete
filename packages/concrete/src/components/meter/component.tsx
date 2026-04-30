@@ -1,7 +1,11 @@
-import { Card, Progress, ProgressRing } from '../../primitives'
-import { cn } from '../../primitives/utils'
+import {
+	MetricFooter,
+	MetricHeader,
+	MetricProgressRing,
+	MetricShell,
+	Progress
+} from '../../primitives'
 import { type MeterProps, meterSchema } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import { normalizeRangeValue } from '../../utilities/data-geometry'
 import { toProgressTone } from '../../utilities/data-tone'
 
@@ -23,22 +27,11 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 		parsedProps.unit === '%' ? `${percent}%` : `${parsedProps.value.value}${parsedProps.unit}`
 
 	return (
-		<Card
-			className={cn(
-				concreteClassNames.meterCard,
-				parsedProps.variant === 'ring' && concreteClassNames.meterRingCard,
-				className
-			)}
-			variant="raised"
-		>
-			<header className={concreteClassNames.meterHeader}>
-				<span>{parsedProps.label}</span>
-				<b>{formattedValue}</b>
-			</header>
+		<MetricShell className={className} kind="meter" ring={parsedProps.variant === 'ring'}>
+			<MetricHeader kind="meter" label={parsedProps.label} value={formattedValue} />
 			{parsedProps.variant === 'ring' ? (
-				<ProgressRing
-					size={parsedProps.compact ? 70 : 88}
-					strokeWidth={parsedProps.compact ? 6 : 7}
+				<MetricProgressRing
+					compact={parsedProps.compact}
 					tone={toProgressTone(parsedProps.tone)}
 					value={percent}
 				/>
@@ -50,11 +43,11 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 				/>
 			)}
 			{parsedProps.description || parsedProps.target !== undefined ? (
-				<footer className={concreteClassNames.meterFooter}>
-					{parsedProps.target !== undefined ? <span>Target {parsedProps.target}</span> : null}
-					{parsedProps.description ? <span>{parsedProps.description}</span> : null}
-				</footer>
+				<MetricFooter
+					end={parsedProps.description}
+					start={parsedProps.target !== undefined ? `Target ${parsedProps.target}` : undefined}
+				/>
 			) : null}
-		</Card>
+		</MetricShell>
 	)
 }

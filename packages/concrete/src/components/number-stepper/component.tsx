@@ -2,9 +2,7 @@
 
 import type { InputHTMLAttributes } from 'react'
 import { useState } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Field } from '../../primitives'
-import { concreteClassNames } from '../../styles/class-names'
+import { Field, StepperAction, StepperControl, StepperInput } from '../../primitives'
 import {
 	clampOptionalNumber,
 	type FieldChromeProps,
@@ -68,36 +66,28 @@ export function NumberStepper({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.numberStepper} data-disabled={disabled ? true : undefined}>
-				<button
-					aria-label="Decrease value"
+			<StepperControl disabled={disabled}>
+				<StepperAction
 					disabled={!canDecrement}
+					direction="decrement"
 					onClick={() => commitValue(currentValue - stepValue)}
-					type="button"
-				>
-					<ConcreteIcon name="minus" />
-				</button>
-				<input
-					aria-invalid={Boolean(error)}
+				/>
+				<StepperInput
 					id={id}
-					inputMode="numeric"
+					invalid={Boolean(error)}
 					max={max}
 					min={min}
 					onChange={event => commitValue(getNumber(event.currentTarget.value, currentValue))}
 					step={step}
-					type="number"
 					value={currentValue}
 					{...props}
 				/>
-				<button
-					aria-label="Increase value"
+				<StepperAction
 					disabled={!canIncrement}
+					direction="increment"
 					onClick={() => commitValue(currentValue + stepValue)}
-					type="button"
-				>
-					<ConcreteIcon name="plus" />
-				</button>
-			</div>
+				/>
+			</StepperControl>
 		</Field>
 	)
 }

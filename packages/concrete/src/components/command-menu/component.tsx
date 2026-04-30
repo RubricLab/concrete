@@ -2,11 +2,19 @@
 
 import type { ChangeEvent, HTMLAttributes, KeyboardEvent, ReactNode } from 'react'
 import { useEffect, useMemo, useState } from 'react'
-import { ConcreteIcon, type IconName } from '../../icons'
-import { Kbd, Spinner } from '../../primitives'
-import { cn } from '../../primitives/utils'
+import type { IconName } from '../../icons'
+import {
+	Kbd,
+	MenuShell,
+	MenuShellBody,
+	MenuShellEmpty,
+	MenuShellFooter,
+	MenuShellGroup,
+	MenuShellSearch,
+	OptionRow,
+	Spinner
+} from '../../primitives'
 import type { CommandItemTone } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import { formatShortcutKey, stringifyReactNode } from '../../utilities/interaction-helpers'
 
 export type CommandMenuItem = {
@@ -136,83 +144,70 @@ export function CommandMenu({
 	}
 
 	return (
-		<div
-			className={cn(concreteClassNames.commandMenu, className)}
+		<MenuShell
+			className={className}
 			onKeyDown={handleKeyDown}
 			role="listbox"
 			tabIndex={searchable ? undefined : 0}
 			{...props}
 		>
 			{searchable ? (
-				<label className={concreteClassNames.commandSearch}>
-					<ConcreteIcon name="search" />
-					<input
-						aria-label="Search commands"
-						onChange={(event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value)}
-						onInput={event => updateQuery(event.currentTarget.value)}
-						placeholder={placeholder}
-						value={currentQuery}
-					/>
-					<Kbd>Esc</Kbd>
-				</label>
+				<MenuShellSearch
+					inputProps={{
+						'aria-label': 'Search commands',
+						onChange: (event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value),
+						onInput: event => updateQuery(event.currentTarget.value),
+						placeholder,
+						value: currentQuery
+					}}
+				/>
 			) : null}
-			<div className={concreteClassNames.commandBody}>
+			<MenuShellBody>
 				{loading ? (
-					<div className={concreteClassNames.commandEmpty}>
+					<MenuShellEmpty>
 						<Spinner size={14} tone="sky" />
-						<span>Searching</span>
-					</div>
+						Searching
+					</MenuShellEmpty>
 				) : null}
-				{!loading && filteredItems.length === 0 ? (
-					<div className={concreteClassNames.commandEmpty}>{empty}</div>
-				) : null}
+				{!loading && filteredItems.length === 0 ? <MenuShellEmpty>{empty}</MenuShellEmpty> : null}
 				{!loading
 					? groupedItems.map(group => (
-							<section className={concreteClassNames.commandGroup} key={group.name}>
-								<div className={concreteClassNames.commandGroupTitle}>{group.name}</div>
+							<MenuShellGroup key={group.name} title={group.name}>
 								{group.items.map(item => (
-									<button
-										className={concreteClassNames.commandItem}
-										data-active={item.id === currentActiveId ? true : undefined}
-										data-tone={item.tone ?? 'default'}
+									<OptionRow
+										active={item.id === currentActiveId}
+										description={item.description}
 										disabled={item.disabled}
+										kind="command"
 										key={item.id}
+										label={item.label}
+										leadingIcon={item.leadingIcon}
+										meta={item.meta}
 										onClick={() => selectItem(item)}
 										onMouseEnter={() =>
 											setCommandMenuActiveId(item.id, setInternalActiveId, onActiveIdChange)
 										}
 										role="option"
-										type="button"
-									>
-										<span className={concreteClassNames.commandIcon}>
-											{item.leadingIcon ? <ConcreteIcon name={item.leadingIcon} /> : null}
-										</span>
-										<span className={concreteClassNames.commandCopy}>
-											<b>{item.label}</b>
-											{item.description ? <small>{item.description}</small> : null}
-										</span>
-										<span className={concreteClassNames.commandAside}>
-											{item.meta ? <span>{item.meta}</span> : null}
-											{item.shortcut?.map(shortcutKey => (
-												<Kbd key={shortcutKey}>{formatShortcutKey(shortcutKey)}</Kbd>
-											))}
-										</span>
-									</button>
+										shortcuts={item.shortcut?.map(formatShortcutKey)}
+										tone={item.tone ?? 'default'}
+									/>
 								))}
-							</section>
+							</MenuShellGroup>
 						))
 					: null}
-			</div>
-			{footer ? <div className={concreteClassNames.commandFooter}>{footer}</div> : null}
+			</MenuShellBody>
+			{footer ? <MenuShellFooter>{footer}</MenuShellFooter> : null}
 			{!footer && heading ? (
-				<div className={concreteClassNames.commandFooter}>
-					<span>{heading}</span>
-					<span>
-						<Kbd>↑</Kbd> <Kbd>↓</Kbd> navigate <Kbd>↵</Kbd> open
-					</span>
-				</div>
+				<MenuShellFooter
+					end={
+						<>
+							<Kbd>↑</Kbd> <Kbd>↓</Kbd> navigate <Kbd>↵</Kbd> open
+						</>
+					}
+					start={heading}
+				/>
 			) : null}
-		</div>
+		</MenuShell>
 	)
 }
 

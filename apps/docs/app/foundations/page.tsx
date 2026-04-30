@@ -2,13 +2,16 @@ import {
 	Badge,
 	Button,
 	ConcreteIcon,
+	foundationRegistry,
 	Input,
 	iconNames,
 	Kbd,
 	Progress,
+	renderFoundationExample,
 	Sparkline,
 	Texture
 } from '@rubriclab/concrete'
+import Link from 'next/link'
 import type { ReactNode } from 'react'
 import {
 	elevationRows,
@@ -30,7 +33,7 @@ export default function FoundationsRoute() {
 				<div className="specHeader">
 					<span className="specTitle">Foundations</span>
 					<span className="specMeta">
-						Type - color - space - radius - elevation - motion - focus - texture - icon
+						Color - typography - spacing - radii - elevation - motion - textures
 					</span>
 				</div>
 
@@ -72,6 +75,35 @@ export default function FoundationsRoute() {
 							<span className={`typeScaleSample ${className}`}>{sample}</span>
 							<span className="typeScaleRole">{role}</span>
 						</div>
+					))}
+				</div>
+
+				<div className="specSubhead">
+					<code>Registry</code>
+					<h2>Foundation item definitions</h2>
+					<span>{foundationRegistry.length} public foundations - render routes and detail pages</span>
+				</div>
+				<div className="componentCatalogGrid">
+					{foundationRegistry.map(entry => (
+						<article className="componentCatalogCard" key={entry.slug}>
+							<Link
+								aria-label={`Open ${entry.name} foundation details`}
+								className="homeCardOverlay"
+								href={`/foundations/${entry.slug}`}
+							/>
+							<header>
+								<strong>{entry.name}</strong>
+								<span>{entry.pressure.join(' / ')}</span>
+							</header>
+							<div className="componentCatalogStage">{renderFoundationExample(entry.slug)}</div>
+							<footer>
+								<p>{entry.description}</p>
+								<div className="componentCatalogMeta">
+									<span className="componentCatalogMetric">{entry.states.length} states</span>
+									<span className="componentCatalogMetric">render route</span>
+								</div>
+							</footer>
+						</article>
 					))}
 				</div>
 			</section>

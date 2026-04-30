@@ -1,5 +1,4 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame/component'
 import { ConceptConnector } from './component'
 
 const conceptConnectorKindValues = [
@@ -32,7 +31,7 @@ export const conceptConnectorExamples = defineExamples({
 
 function renderConceptConnectorExample(state = 'default') {
 	return (
-		<Frame>
+		<>
 			{conceptConnectorKindValues.map((kind, index) => (
 				<ConceptConnector
 					key={kind}
@@ -41,6 +40,6 @@ function renderConceptConnectorExample(state = 'default') {
 					tone={state === 'tones' ? (connectorTones[index % connectorTones.length] ?? 'ink') : 'muted'}
 				/>
 			))}
-		</Frame>
+		</>
 	)
 }

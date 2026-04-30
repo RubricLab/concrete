@@ -1,15 +1,9 @@
 'use client'
 
-import type { CSSProperties, HTMLAttributes } from 'react'
+import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { Field } from '../../primitives'
-import { concreteClassNames } from '../../styles/class-names'
+import { Field, RangeControl, RangeInput, RangeTrack, RangeValues } from '../../primitives'
 import { type FieldChromeProps, getNumber, getPercent } from '../../utilities/form-field-helpers'
-
-type RangeSliderStyle = CSSProperties & {
-	'--concrete-range-end': string
-	'--concrete-range-start': string
-}
 
 export type RangeSliderValue = readonly [number, number]
 
@@ -44,10 +38,6 @@ export function RangeSlider({
 	const currentValue = value ?? internalValue
 	const lowerPercent = getPercent(currentValue[0], min, max)
 	const upperPercent = getPercent(currentValue[1], min, max)
-	const rangeStyle: RangeSliderStyle = {
-		'--concrete-range-end': `${upperPercent}%`,
-		'--concrete-range-start': `${lowerPercent}%`
-	}
 
 	function commitValue(index: 0 | 1, nextNumber: number) {
 		const nextValue: RangeSliderValue =
@@ -73,31 +63,26 @@ export function RangeSlider({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.rangeSlider} style={rangeStyle} {...props}>
-				<div className={concreteClassNames.rangeSliderTrack} />
-				<input
-					aria-label="Minimum"
+			<RangeControl end={upperPercent} start={lowerPercent} {...props}>
+				<RangeTrack />
+				<RangeInput
+					label="Minimum"
 					max={max}
 					min={min}
 					onChange={event => commitValue(0, getNumber(event.currentTarget.value, currentValue[0]))}
 					step={step}
-					type="range"
 					value={currentValue[0]}
 				/>
-				<input
-					aria-label="Maximum"
+				<RangeInput
+					label="Maximum"
 					max={max}
 					min={min}
 					onChange={event => commitValue(1, getNumber(event.currentTarget.value, currentValue[1]))}
 					step={step}
-					type="range"
 					value={currentValue[1]}
 				/>
-				<div className={concreteClassNames.rangeSliderValues}>
-					<span>{currentValue[0]}</span>
-					<span>{currentValue[1]}</span>
-				</div>
-			</div>
+				<RangeValues end={currentValue[1]} start={currentValue[0]} />
+			</RangeControl>
 		</Field>
 	)
 }

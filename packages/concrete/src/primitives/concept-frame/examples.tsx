@@ -1,5 +1,4 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Frame } from '../frame/component'
 import { ConceptFrame } from './component'
 
 const conceptFrameKindValues = [
@@ -25,12 +24,22 @@ export const conceptFrameExamples = defineExamples({
 	selected: {
 		description: 'Focused frame state.',
 		render: () => renderConceptFrameExample('selected')
+	},
+	sizes: {
+		description: 'Concept frame size scale for explainers.',
+		render: () => (
+			<>
+				<ConceptFrame kind="browser-window" size="small" />
+				<ConceptFrame kind="workflow-canvas" size="medium" selected />
+				<ConceptFrame kind="assistant-response" size="large" />
+			</>
+		)
 	}
 })
 
 function renderConceptFrameExample(state = 'default') {
 	return (
-		<Frame>
+		<>
 			{conceptFrameKindValues.map(kind => (
 				<ConceptFrame
 					key={kind}
@@ -39,6 +48,6 @@ function renderConceptFrameExample(state = 'default') {
 					selected={state === 'selected' && kind === 'model-card'}
 				/>
 			))}
-		</Frame>
+		</>
 	)
 }

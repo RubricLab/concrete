@@ -1,1 +1,44 @@
-/* DX-TODO(spinner): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-spinner {
+	width: var(--concrete-size-spinner-inline);
+	height: var(--concrete-size-spinner-inline);
+	border: var(--concrete-border-width-spinner) solid currentcolor;
+	border-right-color: transparent;
+	border-radius: var(--concrete-radius-pill);
+	animation: concreteSpin var(--concrete-duration-spin-inline) var(--concrete-ease-linear) infinite;
+	opacity: var(--concrete-opacity-spinner);
+}
+
+@keyframes concreteSpin {
+	to {
+		transform: rotate(var(--concrete-rotate-full));
+	}
+}
+
+.concrete-spinner-svg {
+	display: inline-block;
+	color: var(--concrete-ink-9);
+	animation: concreteSpin var(--concrete-duration-spin) var(--concrete-ease-linear) infinite;
+}
+
+.concrete-spinner-svg circle {
+	fill: none;
+	stroke: var(--concrete-ink-1);
+}
+
+.concrete-spinner-svg path {
+	fill: none;
+	stroke: currentcolor;
+	stroke-linecap: round;
+}
+
+.concrete-spinner-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-spinner-inverse {
+	color: var(--concrete-inverse-foreground-strong);
+}
+
+.concrete-spinner-inverse circle {
+	stroke: var(--concrete-spinner-inverse-track);
+}

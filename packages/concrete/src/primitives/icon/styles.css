@@ -1,2 +1,10 @@
-/* DX-TODO(icon): active .concrete-icon sizing lives in shared button/icon selectors until icon ownership and screenshot coverage are formalized. */
-
+.concrete-icon {
+	width: var(--concrete-size-icon-medium);
+	height: var(--concrete-size-icon-medium);
+	flex: none;
+	fill: none;
+	stroke: currentcolor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: var(--concrete-stroke-1-75);
+}

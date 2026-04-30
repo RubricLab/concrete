@@ -1,0 +1,65 @@
+.concrete-diagram-canvas-legend {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--concrete-space-2-5) var(--concrete-space-4-5);
+	align-items: center;
+	min-width: var(--concrete-space-0);
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-diagram-canvas-legend span {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-2);
+	white-space: nowrap;
+}
+
+.concrete-diagram-canvas-legend i {
+	display: inline-block;
+	width: var(--concrete-size-diagram-canvas-legend-mark);
+	height: var(--concrete-size-diagram-canvas-legend-mark);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-surface);
+}
+
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-compute {
+	border-color: var(--concrete-ink-7);
+	background: var(--concrete-ink-8);
+}
+
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-data {
+	border-color: var(--concrete-diagram-canvas-legend-data-border);
+	background: var(--concrete-sky-1);
+}
+
+.concrete-diagram-canvas-legend b {
+	display: inline-block;
+	width: var(--concrete-size-diagram-canvas-legend-line);
+	height: var(--concrete-size-diagram-canvas-legend-line-block);
+	background: var(--concrete-foreground-strong);
+}
+
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-flow::after,
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-event::after,
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-reference::after {
+	display: block;
+	width: var(--concrete-size-diagram-canvas-legend-arrow);
+	height: var(--concrete-size-diagram-canvas-legend-arrow);
+	margin: var(--concrete-offset-diagram-canvas-legend-arrow);
+	border-top: var(--concrete-border-width-control) solid currentcolor;
+	border-right: var(--concrete-border-width-control) solid currentcolor;
+	transform: rotate(var(--concrete-rotate-eighth));
+	content: "";
+}
+
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-event {
+	background: var(--concrete-diagram-canvas-legend-event-background);
+}
+
+.concrete-diagram-canvas-legend .concrete-diagram-canvas-legend-reference {
+	background: var(--concrete-diagram-canvas-legend-reference-background);
+}

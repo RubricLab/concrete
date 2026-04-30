@@ -1,0 +1,45 @@
+.concrete-flow-diagram-node {
+	cursor: pointer;
+}
+
+.concrete-flow-diagram-node rect {
+	rx: var(--concrete-radius-3-5);
+	fill: var(--concrete-surface);
+	stroke: var(--concrete-border);
+	stroke-width: var(--concrete-stroke-1-25);
+}
+
+.concrete-flow-diagram-node:hover rect,
+.concrete-flow-diagram-node-selected rect {
+	stroke: var(--concrete-sky);
+	stroke-width: var(--concrete-stroke-2);
+}
+
+.concrete-flow-diagram-node-accent rect {
+	fill: var(--concrete-sky-1);
+	stroke: var(--concrete-sky-3);
+}
+
+.concrete-flow-diagram-node-inverse rect {
+	fill: var(--concrete-ink-9);
+	stroke: var(--concrete-ink-9);
+}
+
+.concrete-flow-diagram-node-title {
+	fill: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-flow-diagram-node-subtitle {
+	fill: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-11) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-flow-diagram-node-inverse .concrete-flow-diagram-node-title,
+.concrete-flow-diagram-node-inverse .concrete-flow-diagram-node-subtitle {
+	fill: var(--concrete-canvas);
+}

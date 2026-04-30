@@ -1,0 +1,13 @@
+.concrete-file-upload {
+	display: grid;
+	gap: var(--concrete-space-2);
+	width: min(var(--concrete-measure-file-upload), var(--concrete-size-full));
+}
+
+.concrete-file-upload.concrete-image-upload {
+	width: min(var(--concrete-measure-image-upload), var(--concrete-size-full));
+}
+
+.concrete-file-upload.concrete-image-upload[data-variant="avatar"] {
+	width: var(--concrete-measure-image-upload-avatar);
+}

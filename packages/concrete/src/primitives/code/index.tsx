@@ -18,7 +18,7 @@ export const codePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderCodeInput(codeSchema.parse(input)),
 	schema: codeSchema,
 	slug: 'code',
-	states: exampleStates(codeExamples, ['default', 'html', 'inline'])
+	states: exampleStates(codeExamples, ['default', 'typescript', 'html', 'inline'])
 })
 
 function renderCodeInput(input: CodeValue) {

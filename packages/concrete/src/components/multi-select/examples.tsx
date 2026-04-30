@@ -22,18 +22,12 @@ export const multiSelectExamples = defineExamples({
 
 function renderMultiSelectExample(state: 'default' | 'empty' | 'open'): ReactNode {
 	return (
-		<FormStage>
-			<MultiSelect
-				defaultOpen={state === 'open'}
-				defaultValue={state === 'empty' ? [] : ['design', 'ai']}
-				help="Tags are removable and options stay source-of-truth controlled by value."
-				label="Project tags"
-				options={multiSelectOptions}
-			/>
-		</FormStage>
+		<MultiSelect
+			defaultOpen={state === 'open'}
+			defaultValue={state === 'empty' ? [] : ['design', 'ai']}
+			help="Tags are removable and options stay source-of-truth controlled by value."
+			label="Project tags"
+			options={multiSelectOptions}
+		/>
 	)
-}
-
-function FormStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 420, width: '100%' }}>{children}</div>
 }

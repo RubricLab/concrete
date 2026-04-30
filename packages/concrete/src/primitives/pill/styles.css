@@ -1,1 +1,85 @@
-/* DX-TODO(pill): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-1-25);
+	height: var(--concrete-size-label-medium);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-2-5);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-11-5) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+	white-space: nowrap;
+}
+
+.concrete-pill svg {
+	width: var(--concrete-space-2-5);
+	height: var(--concrete-space-2-5);
+	flex: none;
+	margin-left: calc(var(--concrete-space-0) - var(--concrete-space-0-75));
+	color: var(--concrete-foreground-soft);
+	stroke-width: var(--concrete-stroke-1-8);
+}
+
+.concrete-pill.concrete-label-sky {
+	border-color: transparent;
+	background: var(--concrete-sky-2);
+	color: var(--concrete-sky-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-pill.concrete-label-sky svg {
+	color: var(--concrete-sky);
+}
+
+.concrete-pill.concrete-label-ink {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+	color: var(--concrete-inverse-foreground-strong);
+	font-weight: var(--concrete-weight-semibold);
+}
+
+.concrete-pill.concrete-label-ink svg {
+	color: var(--concrete-inverse-icon-muted);
+}
+
+.concrete-pill.concrete-label-sunken {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-pill.concrete-label-terminal {
+	border-color: transparent;
+	background: var(--concrete-terminal-wash);
+	color: var(--concrete-terminal-strong);
+}
+
+.concrete-pill.concrete-label-terminal svg {
+	color: var(--concrete-terminal);
+}
+
+.concrete-pill.concrete-label-ultra {
+	border-color: transparent;
+	background: var(--concrete-ultra-wash);
+	color: var(--concrete-ultra-strong);
+}
+
+.concrete-pill.concrete-label-ultra svg {
+	color: var(--concrete-ultra);
+}
+
+.concrete-pill.concrete-label-error {
+	border-color: transparent;
+	background: var(--concrete-error-wash);
+	color: var(--concrete-error-strong);
+}
+
+.concrete-pill.concrete-label-error svg {
+	color: var(--concrete-error);
+}

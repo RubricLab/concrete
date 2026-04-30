@@ -21,7 +21,7 @@ export const metricCardExamples = defineExamples({
 
 function renderMetricCardExample(state = 'default'): ReactNode {
 	return (
-		<MetricCardGrid>
+		<>
 			<MetricCard
 				compact={state === 'compact'}
 				delta={{
@@ -46,22 +46,6 @@ function renderMetricCardExample(state = 'default'): ReactNode {
 				trendTone="error"
 				value="4.2%"
 			/>
-		</MetricCardGrid>
-	)
-}
-
-function MetricCardGrid({ children }: { children: ReactNode }) {
-	return (
-		<div
-			style={{
-				display: 'grid',
-				gap: 12,
-				gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-				maxWidth: 720,
-				width: '100%'
-			}}
-		>
-			{children}
-		</div>
+		</>
 	)
 }

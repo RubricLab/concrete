@@ -19,9 +19,11 @@
 		"build": "bun run build:package && bun run build:app",
 		"build:app": "next build",
 		"build:package": "bun run --cwd ../../packages/concrete build",
+		"catalog:audit": "bun run scripts/catalog-audit.ts",
 		"dev": "next dev",
 		"start": "next start",
 		"typecheck": "bun run build:package && bun run typecheck:app",
-		"typecheck:app": "tsc -p tsconfig.json --noEmit"
+		"typecheck:app": "tsc -p tsconfig.json --noEmit",
+		"visual:smoke": "bun run scripts/visual-smoke.ts"
 	}
 }

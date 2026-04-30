@@ -19,17 +19,11 @@ export const timePickerExamples = defineExamples({
 
 function renderTimePickerExample(state: 'default' | 'dense' | 'open'): ReactNode {
 	return (
-		<FormStage>
-			<TimePicker
-				defaultOpen={state === 'open'}
-				defaultValue={state === 'dense' ? '09:15' : '14:30'}
-				interval={state === 'dense' ? 15 : 30}
-				label="Run time"
-			/>
-		</FormStage>
+		<TimePicker
+			defaultOpen={state === 'open'}
+			defaultValue={state === 'dense' ? '09:15' : '14:30'}
+			interval={state === 'dense' ? 15 : 30}
+			label="Run time"
+		/>
 	)
-}
-
-function FormStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 420, width: '100%' }}>{children}</div>
 }

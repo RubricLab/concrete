@@ -7,6 +7,10 @@ export const rangeSliderExamples = defineExamples({
 		description: 'Selected range on a 0-100 scale.',
 		render: () => renderRangeSliderExample('default')
 	},
+	error: {
+		description: 'Range with validation feedback.',
+		render: () => renderRangeSliderExample('error')
+	},
 	narrow: {
 		description: 'Narrow range for filtering.',
 		render: () => renderRangeSliderExample('narrow')
@@ -17,17 +21,12 @@ export const rangeSliderExamples = defineExamples({
 	}
 })
 
-function renderRangeSliderExample(state: 'default' | 'narrow' | 'wide'): ReactNode {
+function renderRangeSliderExample(state: 'default' | 'error' | 'narrow' | 'wide'): ReactNode {
 	return (
-		<FormStage>
-			<RangeSlider
-				defaultValue={state === 'narrow' ? [42, 58] : state === 'wide' ? [5, 95] : [20, 80]}
-				label="Confidence range"
-			/>
-		</FormStage>
+		<RangeSlider
+			defaultValue={state === 'narrow' ? [42, 58] : state === 'wide' ? [5, 95] : [20, 80]}
+			error={state === 'error' ? 'Choose a narrower confidence band.' : undefined}
+			label="Confidence range"
+		/>
 	)
-}
-
-function FormStage({ children }: { children: ReactNode }) {
-	return <div style={{ maxWidth: 420, width: '100%' }}>{children}</div>
 }

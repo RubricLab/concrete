@@ -2,10 +2,8 @@
 
 import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { ConcreteIcon } from '../../icons'
-import { Field, Tag } from '../../primitives'
+import { Field, OptionRow, PickerShell, SelectControl, SelectMenu, Tag } from '../../primitives'
 import type { MultiSelectOption } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import type { FieldChromeProps } from '../../utilities/form-field-helpers'
 
 export type MultiSelectProps = Omit<HTMLAttributes<HTMLDivElement>, 'defaultValue' | 'onChange'> &
@@ -82,72 +80,57 @@ export function MultiSelect({
 			required={required}
 			success={success}
 		>
-			<div className={concreteClassNames.multiSelect} data-open={open ? true : undefined} {...props}>
-				<div className={concreteClassNames.multiSelectControl}>
-					<span
-						className={concreteClassNames.multiSelectValues}
-						data-empty={selectedOptions.length === 0 ? true : undefined}
-					>
-						{selectedOptions.length > 0
-							? selectedOptions.map(option => (
-									<Tag
-										dismissible
-										key={option.value}
-										onDismiss={() =>
-											commitValue(currentValue.filter(valueItem => valueItem !== option.value))
-										}
-										size="small"
-										tone="sunken"
-									>
-										{option.label}
-									</Tag>
-								))
-							: placeholder}
-					</span>
-					<button
-						aria-expanded={open}
-						aria-label="Toggle options"
-						className={concreteClassNames.multiSelectToggle}
-						onClick={event => {
-							event.stopPropagation()
-							setOpen(current => !current)
-						}}
-						type="button"
-					>
-						<ConcreteIcon name="chevron-down" />
-					</button>
-				</div>
-				{open ? (
-					<div className={concreteClassNames.multiSelectMenu}>
-						<input
-							aria-label="Filter options"
-							onChange={event => setQuery(event.currentTarget.value)}
-							placeholder="Filter..."
-							value={query}
-						/>
-						<div role="listbox">
-							{filteredOptions.map(option => (
-								<button
-									aria-selected={currentValue.includes(option.value)}
-									data-selected={currentValue.includes(option.value) ? true : undefined}
-									disabled={option.disabled}
+			<PickerShell kind="multi-select" open={open} {...props}>
+				<SelectControl
+					empty={selectedOptions.length === 0}
+					onToggle={event => {
+						event.stopPropagation()
+						setOpen(current => !current)
+					}}
+					open={open}
+				>
+					{selectedOptions.length > 0
+						? selectedOptions.map(option => (
+								<Tag
+									dismissible
 									key={option.value}
-									onClick={() => toggleOption(option)}
-									role="option"
-									type="button"
+									onDismiss={() => commitValue(currentValue.filter(valueItem => valueItem !== option.value))}
+									size="small"
+									tone="sunken"
 								>
-									<span>
-										<b>{option.label}</b>
-										{option.description ? <small>{option.description}</small> : null}
-									</span>
-									{option.meta ? <small>{option.meta}</small> : null}
-									{currentValue.includes(option.value) ? <ConcreteIcon name="check" /> : null}
-								</button>
-							))}
-						</div>
-					</div>
+									{option.label}
+								</Tag>
+							))
+						: placeholder}
+				</SelectControl>
+				{open ? (
+					<SelectMenu
+						filterInputProps={{
+							'aria-label': 'Filter options',
+							onChange: event => setQuery(event.currentTarget.value),
+							placeholder: 'Filter...',
+							value: query
+						}}
+						placement="floating"
+					>
+						{filteredOptions.map(option => (
+							<OptionRow
+								aria-selected={currentValue.includes(option.value)}
+								description={option.description}
+								disabled={option.disabled}
+								key={option.value}
+								kind="select"
+								meta={option.meta}
+								onClick={() => toggleOption(option)}
+								role="option"
+								selected={currentValue.includes(option.value)}
+							>
+								{option.label}
+							</OptionRow>
+						))}
+					</SelectMenu>
 				) : null}
-			</div>
+			</PickerShell>
 		</Field>
 	)
 }

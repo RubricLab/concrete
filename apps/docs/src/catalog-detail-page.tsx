@@ -4,6 +4,8 @@ import {
 	Chip,
 	type ComponentDefinition,
 	type ComponentRegistryEntry,
+	type FoundationDefinition,
+	type FoundationRegistryEntry,
 	type PrimitiveDefinition,
 	type PrimitiveRegistryEntry,
 	TextLink
@@ -11,6 +13,7 @@ import {
 import { type ReactNode, Suspense } from 'react'
 import { CatalogPropsTable } from './catalog-props-table'
 import { ComponentPlayground } from './component-playground'
+import { FoundationPlayground } from './foundation-playground'
 import { PrimitivePlayground } from './primitive-playground'
 
 type CatalogDetailConfiguration = {
@@ -29,6 +32,11 @@ type CatalogDetailPageProps =
 			definition: ComponentDefinition
 			entry: ComponentRegistryEntry
 			kind: 'component'
+	  }
+	| {
+			definition: FoundationDefinition
+			entry: FoundationRegistryEntry
+			kind: 'foundation'
 	  }
 	| {
 			definition: PrimitiveDefinition
@@ -50,6 +58,14 @@ const catalogDetailConfigurations: Record<
 		stateCardClassName: 'componentStateCard',
 		stateGridClassName: 'componentStateGrid',
 		stateStageClassName: 'componentStateStage'
+	},
+	foundation: {
+		actionLabel: 'Token schema',
+		detailHeroClassName: 'foundationDetailHero',
+		detailPreviewClassName: 'foundationDetailPreview',
+		label: 'Foundation',
+		playgroundDescription:
+			'Foundation examples are token specimens. The route stays registry-led so every foundation can be rendered, linked, and screenshotted through the same catalog surface.'
 	},
 	primitive: {
 		actionLabel: 'Typed export',
@@ -155,6 +171,8 @@ function renderDetailPlayground(props: CatalogDetailPageProps): ReactNode {
 	switch (props.kind) {
 		case 'component':
 			return <ComponentPlayground entry={props.entry} />
+		case 'foundation':
+			return <FoundationPlayground entry={props.entry} />
 		case 'primitive':
 			return <PrimitivePlayground entry={props.entry} />
 	}

@@ -1,3 +1,274 @@
-/* DX-TODO(colors): Foundation token variables still live in the root stylesheet.
-   Keep them centralized until item CSS concatenation can preserve cascade order
-   and public `@rubriclab/concrete/styles.css` compatibility. */
+:root {
+	--concrete-canvas: #f7f8fa;
+	--concrete-surface: #ffffff;
+	--concrete-transparent: transparent;
+	--concrete-raised: #fcfcfd;
+	--concrete-sunken: #f1f2f5;
+	--concrete-mist: #eaecf0;
+	--concrete-ink-9: #0a0b0f;
+	--concrete-ink-8: #16171c;
+	--concrete-ink-7: #22242b;
+	--concrete-ink-6: #3a3c45;
+	--concrete-ink-5: #5a5d68;
+	--concrete-ink-4: #878a95;
+	--concrete-ink-3: #b4b7c0;
+	--concrete-ink-2: #d7d9e0;
+	--concrete-ink-1: #e8eaee;
+	--concrete-foreground-strong: var(--concrete-ink-9);
+	--concrete-foreground-body: var(--concrete-ink-7);
+	--concrete-foreground: var(--concrete-ink-6);
+	--concrete-foreground-muted: var(--concrete-ink-5);
+	--concrete-foreground-soft: var(--concrete-ink-4);
+	--concrete-foreground-faint: var(--concrete-ink-3);
+	--concrete-border-soft: var(--concrete-ink-1);
+	--concrete-border: var(--concrete-ink-2);
+	--concrete-border-strong: var(--concrete-ink-3);
+	--concrete-sky-1: #eef3fb;
+	--concrete-sky-2: #d9e6f8;
+	--concrete-sky-3: #a9c6ef;
+	--concrete-sky-4: #4e8bde;
+	--concrete-sky: #1f6fd4;
+	--concrete-sky-strong: #0f4e9e;
+	--concrete-sky-ring: rgb(31 111 212 / 28%);
+	--concrete-sky-border-muted: color-mix(in oklab, var(--concrete-sky) 50%, var(--concrete-border));
+	--concrete-terminal-1: #f2fbf5;
+	--concrete-terminal: #16c46a;
+	--concrete-terminal-strong: #15803d;
+	--concrete-terminal-wash: #e0f5e8;
+	--concrete-terminal-ring: rgb(22 196 106 / 22%);
+	--concrete-ultra-1: #f6f5ff;
+	--concrete-ultra: #6b5bff;
+	--concrete-ultra-strong: #4a3de0;
+	--concrete-ultra-wash: #eeecff;
+	--concrete-ultra-ring: rgb(107 91 255 / 28%);
+	--concrete-error-1: #fef3f3;
+	--concrete-error: #f03a3a;
+	--concrete-error-strong: #b91c1c;
+	--concrete-error-wash: #fce0e0;
+	--concrete-error-ring: rgb(240 58 58 / 26%);
+	--concrete-syntax-string: #1f7a4a;
+	--concrete-syntax-type: #0a2c5c;
+	--concrete-inverse-background: var(--concrete-ink-9);
+	--concrete-inverse-foreground-strong: #ffffff;
+	--concrete-inverse-foreground: #eceef2;
+	--concrete-inverse-muted: #a0a3ae;
+	--concrete-inverse-soft: #6c6f7a;
+	--concrete-inverse-border: rgb(255 255 255 / 8%);
+	--concrete-inverse-overlay-soft: rgb(255 255 255 / 12%);
+	--concrete-inverse-overlay: rgb(255 255 255 / 18%);
+	--concrete-inverse-highlight: rgb(255 255 255 / 60%);
+	--concrete-inverse-icon-muted: rgb(255 255 255 / 78%);
+	--concrete-inverse-control-muted: rgb(255 255 255 / 82%);
+	--concrete-inverse-foreground-bright: rgb(255 255 255 / 88%);
+	--concrete-inverse-foreground-muted-alpha: rgb(255 255 255 / 68%);
+	--concrete-inverse-border-subtle: rgb(255 255 255 / 18%);
+	--concrete-inverse-border-muted: rgb(255 255 255 / 20%);
+	--concrete-inverse-border-active: rgb(255 255 255 / 32%);
+	--concrete-inverse-border-strong: rgb(255 255 255 / 40%);
+	--concrete-inverse-surface-subtle: rgb(255 255 255 / 14%);
+	--concrete-inverse-surface-active: rgb(255 255 255 / 24%);
+	--concrete-inverse-surface-strong: rgb(255 255 255 / 55%);
+	--concrete-data-1: var(--concrete-ink-9);
+	--concrete-data-2: var(--concrete-sky);
+	--concrete-data-3: var(--concrete-terminal);
+	--concrete-data-4: var(--concrete-ink-5);
+	--concrete-data-5: var(--concrete-ultra);
+	--concrete-data-grid: var(--concrete-ink-1);
+	--concrete-data-axis: var(--concrete-ink-3);
+	--concrete-spinner-inverse-track: rgb(255 255 255 / 25%);
+	--concrete-terminal-strong-muted: color-mix(
+		in oklab,
+		var(--concrete-terminal-strong) 72%,
+		var(--concrete-foreground-soft)
+	);
+	--concrete-terminal-control-hover: color-mix(
+		in oklab,
+		var(--concrete-terminal-wash),
+		var(--concrete-terminal) 12%
+	);
+	--concrete-ultra-strong-muted: color-mix(
+		in oklab,
+		var(--concrete-ultra-strong) 72%,
+		var(--concrete-foreground-soft)
+	);
+	--concrete-ultra-control-hover: color-mix(
+		in oklab,
+		var(--concrete-ultra-wash),
+		var(--concrete-ultra) 12%
+	);
+	--concrete-error-strong-muted: color-mix(
+		in oklab,
+		var(--concrete-error-strong) 72%,
+		var(--concrete-foreground-soft)
+	);
+	--concrete-error-control-hover: color-mix(
+		in oklab,
+		var(--concrete-error-wash),
+		var(--concrete-error) 12%
+	);
+	--concrete-form-overlay-background: color-mix(
+		in oklab,
+		var(--concrete-sunken) 84%,
+		var(--concrete-surface)
+	);
+	--concrete-form-shell-error-border: color-mix(
+		in oklab,
+		var(--concrete-error) 18%,
+		var(--concrete-border)
+	);
+	--concrete-validation-error-border: color-mix(
+		in oklab,
+		var(--concrete-error) 30%,
+		var(--concrete-border)
+	);
+	--concrete-validation-success-border: color-mix(
+		in oklab,
+		var(--concrete-terminal) 32%,
+		var(--concrete-border)
+	);
+	--concrete-sky-strong-muted: color-mix(
+		in oklab,
+		var(--concrete-sky-strong) 72%,
+		var(--concrete-foreground-soft)
+	);
+	--concrete-currentcolor-wash-subtle: color-mix(in oklab, currentcolor 12%, transparent);
+	--concrete-currentcolor-wash-strong: color-mix(in oklab, currentcolor 18%, transparent);
+	--concrete-chart-grid-stroke: color-mix(in oklab, var(--concrete-border-soft) 72%, transparent);
+	--concrete-chart-axis-stroke: color-mix(in oklab, var(--concrete-border) 76%, transparent);
+	--concrete-sky-soft-hover-background: color-mix(
+		in oklab,
+		var(--concrete-sky-2) 82%,
+		var(--concrete-sky-3)
+	);
+	--concrete-sky-shadow-border-subtle: rgb(15 78 158 / 18%);
+	--concrete-sky-shadow-border-strong: rgb(15 78 158 / 28%);
+	--concrete-skeleton-background: color-mix(
+		in oklab,
+		var(--concrete-ink-2) 75%,
+		var(--concrete-canvas)
+	);
+	--concrete-skeleton-highlight: color-mix(
+		in oklab,
+		var(--concrete-ink-1) 55%,
+		var(--concrete-inverse-foreground-strong)
+	);
+	--concrete-diagram-node-inverse-hover-border: color-mix(
+		in srgb,
+		var(--concrete-ultra) 48%,
+		var(--concrete-ink-6)
+	);
+	--concrete-diagram-node-inverse-icon-background: color-mix(
+		in srgb,
+		var(--concrete-surface) 9%,
+		transparent
+	);
+	--concrete-diagram-node-compute-icon-background: color-mix(
+		in srgb,
+		var(--concrete-ultra) 20%,
+		transparent
+	);
+	--concrete-diagram-role-data-border: color-mix(
+		in srgb,
+		var(--concrete-sky) 36%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-role-decision-border: color-mix(
+		in srgb,
+		var(--concrete-ultra) 34%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-role-process-border: color-mix(
+		in srgb,
+		var(--concrete-terminal) 24%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-role-error-border: color-mix(
+		in srgb,
+		var(--concrete-error) 42%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-item-sky-border: color-mix(
+		in srgb,
+		var(--concrete-sky) 28%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-item-terminal-border: color-mix(
+		in srgb,
+		var(--concrete-terminal) 28%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-item-ultra-border: color-mix(
+		in srgb,
+		var(--concrete-ultra) 28%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-item-error-border: color-mix(
+		in srgb,
+		var(--concrete-error) 28%,
+		var(--concrete-border)
+	);
+	--concrete-diagram-canvas-rail-background: color-mix(
+		in srgb,
+		var(--concrete-surface) 94%,
+		transparent
+	);
+	--concrete-diagram-canvas-minimap-background: color-mix(
+		in srgb,
+		var(--concrete-surface) 92%,
+		transparent
+	);
+	--concrete-diagram-canvas-legend-data-border: color-mix(
+		in srgb,
+		var(--concrete-sky) 34%,
+		var(--concrete-border)
+	);
+	--concrete-range-control-track-background: linear-gradient(
+		to right,
+		var(--concrete-ink-1) var(--concrete-progress-start),
+		var(--concrete-ink-1) var(--concrete-range-start),
+		var(--concrete-sky) var(--concrete-range-start),
+		var(--concrete-sky) var(--concrete-range-end),
+		var(--concrete-ink-1) var(--concrete-range-end),
+		var(--concrete-ink-1) var(--concrete-progress-end)
+	);
+}
+
+.concrete-data-tone-muted {
+	color: var(--concrete-foreground-muted);
+}
+
+.concrete-data-tone-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-data-tone-terminal {
+	color: var(--concrete-terminal);
+}
+
+.concrete-data-tone-ultra {
+	color: var(--concrete-ultra);
+}
+
+.concrete-data-tone-error {
+	color: var(--concrete-error);
+}
+
+.concrete-diagram-tone-ink {
+	color: var(--concrete-foreground-strong);
+}
+
+.concrete-diagram-tone-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-diagram-tone-terminal {
+	color: var(--concrete-terminal);
+}
+
+.concrete-diagram-tone-ultra {
+	color: var(--concrete-ultra);
+}
+
+.concrete-diagram-tone-error {
+	color: var(--concrete-error);
+}

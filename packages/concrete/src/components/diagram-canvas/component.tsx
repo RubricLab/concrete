@@ -2,23 +2,33 @@
 
 import type { PointerEvent, WheelEvent } from 'react'
 import { useId, useMemo, useState } from 'react'
-import { Card } from '../../primitives'
-import { cn } from '../../primitives/utils'
+import {
+	DiagramCanvasControls,
+	DiagramCanvasEdgePath,
+	DiagramCanvasEdges,
+	DiagramCanvasElement,
+	DiagramCanvasElementButton,
+	DiagramCanvasFooter,
+	DiagramCanvasHeader,
+	DiagramCanvasShell,
+	DiagramCanvasStage,
+	DiagramCanvasViewport,
+	DiagramItem,
+	DiagramLegend,
+	DiagramMiniMap,
+	DiagramNode,
+	DiagramRail
+} from '../../primitives'
 import { type DiagramCanvasProps, diagramCanvasPropsSchema } from '../../schemas'
-import { concreteClassNames } from '../../styles/class-names'
 import {
 	getDiagramCanvasGraphBoxes,
-	getDiagramCanvasStageStyle,
 	getDiagramCanvasTransform
 } from '../../utilities/diagram-canvas-logic'
 import {
-	DiagramCanvasControls,
-	DiagramCanvasGraphLayer,
-	DiagramCanvasLegend,
-	DiagramCanvasMiniMap,
-	DiagramCanvasRail
-} from '../../utilities/diagram-canvas-rendering'
-import { clampDiagramViewport, type DiagramViewport } from '../../utilities/diagram-geometry'
+	clampDiagramViewport,
+	type DiagramViewport,
+	routeDiagramCanvasEdge
+} from '../../utilities/diagram-geometry'
 
 type ComponentShellProps = {
 	className?: string
@@ -121,65 +131,106 @@ export function DiagramCanvas({
 	}
 
 	return (
-		<Card className={cn(concreteClassNames.diagramCanvasCard, className)} variant="raised">
-			<header className={concreteClassNames.diagramCanvasHeader}>
-				<div className={concreteClassNames.diagramCanvasTitleBlock}>
-					<h3>{parsedProps.title}</h3>
-				</div>
-				{parsedProps.description ? (
-					<p className={concreteClassNames.diagramCanvasStatus}>
-						<span />
-						{parsedProps.description}
-					</p>
-				) : null}
-			</header>
-			<div
-				className={cn(
-					concreteClassNames.diagramCanvasViewport,
-					panOrigin && concreteClassNames.diagramCanvasPanning
-				)}
+		<DiagramCanvasShell className={className}>
+			<DiagramCanvasHeader description={parsedProps.description} title={parsedProps.title} />
+			<DiagramCanvasViewport
 				onPointerCancel={handlePointerEnd}
 				onPointerDown={handlePointerDown}
 				onPointerMove={handlePointerMove}
 				onPointerUp={handlePointerEnd}
 				onWheel={handleWheel}
+				panning={Boolean(panOrigin)}
 			>
-				<DiagramCanvasRail />
-				<div
-					className={concreteClassNames.diagramCanvasStage}
-					style={getDiagramCanvasStageStyle({
-						height: parsedProps.height,
-						transform,
-						width: parsedProps.width
-					})}
-				>
-					<DiagramCanvasGraphLayer
-						activeSelectedId={activeSelectedId}
-						graph={parsedProps.graph}
-						graphBoxes={graphBoxes}
+				<DiagramRail />
+				<DiagramCanvasStage height={parsedProps.height} transform={transform} width={parsedProps.width}>
+					<DiagramCanvasEdges
 						height={parsedProps.height}
 						markerId={markerId}
-						onSelectElement={selectElement}
 						reverseMarkerId={reverseMarkerId}
 						width={parsedProps.width}
-					/>
-				</div>
+					>
+						{parsedProps.graph.edges.map(edge => {
+							const fromBox = graphBoxes.get(edge.from)
+							const toBox = graphBoxes.get(edge.to)
+
+							if (!fromBox || !toBox) {
+								return null
+							}
+
+							const route = routeDiagramCanvasEdge(fromBox, toBox, edge)
+							const selected = edge.selected || activeSelectedId === edge.id
+
+							return (
+								<DiagramCanvasEdgePath
+									key={edge.id}
+									label={edge.label}
+									labelPoint={route.label}
+									markerEnd={`url(#${markerId})`}
+									markerStart={edge.variant === 'bidirectional' ? `url(#${reverseMarkerId})` : undefined}
+									path={route.path}
+									selected={selected}
+									tone={edge.tone}
+									variant={edge.variant}
+								/>
+							)
+						})}
+					</DiagramCanvasEdges>
+					{parsedProps.graph.nodes.map(node => (
+						<DiagramCanvasElement
+							height={node.height}
+							key={node.id}
+							width={node.width}
+							x={node.x}
+							y={node.y}
+						>
+							<DiagramNode
+								meta={node.meta}
+								muted={node.muted}
+								onClick={() => selectElement(node.id)}
+								role={node.role}
+								selected={node.selected || activeSelectedId === node.id}
+								title={node.title}
+							/>
+						</DiagramCanvasElement>
+					))}
+					{parsedProps.graph.items.map(item => (
+						<DiagramCanvasElementButton
+							height={item.height}
+							key={item.id}
+							onClick={() => selectElement(item.id)}
+							width={item.width}
+							x={item.x}
+							y={item.y}
+						>
+							<DiagramItem
+								body={item.body}
+								kind={item.kind}
+								meta={item.meta}
+								muted={item.muted}
+								selected={item.selected || activeSelectedId === item.id}
+								title={item.title}
+								tone={item.tone}
+								value={item.value}
+							/>
+						</DiagramCanvasElementButton>
+					))}
+				</DiagramCanvasStage>
 				{parsedProps.minimap ? (
-					<DiagramCanvasMiniMap graph={parsedProps.graph} selectedId={activeSelectedId} />
+					<DiagramMiniMap nodes={parsedProps.graph.nodes} selectedId={activeSelectedId} />
 				) : null}
-			</div>
-			<footer className={concreteClassNames.diagramCanvasFooter}>
-				<DiagramCanvasLegend />
+			</DiagramCanvasViewport>
+			<DiagramCanvasFooter>
+				<DiagramLegend />
 				{parsedProps.controls ? (
 					<DiagramCanvasControls
 						disabled={!parsedProps.zoomable}
 						onFit={() => commitViewport({ x: 0, y: 0, zoom: 1 })}
 						onZoomIn={() => zoomFromCenter(1.14)}
 						onZoomOut={() => zoomFromCenter(1 / 1.14)}
-						viewport={viewport}
+						zoom={viewport.zoom}
 					/>
 				) : null}
-			</footer>
-		</Card>
+			</DiagramCanvasFooter>
+		</DiagramCanvasShell>
 	)
 }

@@ -9,9 +9,9 @@ export type BrandMarkProps = HTMLAttributes<HTMLSpanElement> & {
 export function BrandMark({ className, inverse = false, ...props }: BrandMarkProps) {
 	return (
 		<span
-			className={cn(concreteClassNames.brandMark, className)}
-			style={inverse ? { background: 'transparent', color: '#fff' } : undefined}
 			{...props}
+			className={cn(concreteClassNames.brandMark, className)}
+			data-inverse={inverse ? true : undefined}
 		>
 			<svg aria-hidden viewBox="0 0 900 900">
 				<title>Concrete mark</title>

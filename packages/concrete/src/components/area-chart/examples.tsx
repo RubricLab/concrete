@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
-import { chartSeries, DataWideStage } from '../../utilities/data-fixtures'
+import { chartSeries } from '../../utilities/data-fixtures'
 import { AreaChart } from './component'
 
 export const areaChartExamples = defineExamples({
@@ -12,6 +12,18 @@ export const areaChartExamples = defineExamples({
 		description: 'Inspection state with point markers.',
 		render: () => renderAreaChartExample('dots')
 	},
+	empty: {
+		description: 'No-data state inside the area chart shell.',
+		render: () => renderAreaChartExample('empty')
+	},
+	error: {
+		description: 'Failed data state with an explicit message.',
+		render: () => renderAreaChartExample('error')
+	},
+	loading: {
+		description: 'Stable loading state for async generated output.',
+		render: () => renderAreaChartExample('loading')
+	},
 	quiet: {
 		description: 'Transparent surface and hidden axes for compact generated UI.',
 		render: () => renderAreaChartExample('quiet')
@@ -19,20 +31,29 @@ export const areaChartExamples = defineExamples({
 })
 
 function renderAreaChartExample(state = 'default'): ReactNode {
-	return (
-		<DataWideStage>
+	if (state === 'loading' || state === 'empty' || state === 'error') {
+		return (
 			<AreaChart
-				description={state === 'quiet' ? undefined : 'Accepted runs and total executions.'}
-				series={chartSeries}
-				showDots={state === 'dots'}
-				showEndLabels={state !== 'quiet'}
-				showGrid={state !== 'quiet'}
-				showXAxis={state !== 'quiet'}
-				showYAxis={state !== 'quiet'}
-				surface={state === 'quiet' ? 'transparent' : 'raised'}
-				target={state === 'quiet' ? undefined : 58}
+				message={state === 'error' ? 'Could not load execution trend.' : undefined}
+				series={[]}
+				state={state}
 				title="Execution trend"
 			/>
-		</DataWideStage>
+		)
+	}
+
+	return (
+		<AreaChart
+			description={state === 'quiet' ? undefined : 'Accepted runs and total executions.'}
+			series={chartSeries}
+			showDots={state === 'dots'}
+			showEndLabels={state !== 'quiet'}
+			showGrid={state !== 'quiet'}
+			showXAxis={state !== 'quiet'}
+			showYAxis={state !== 'quiet'}
+			surface={state === 'quiet' ? 'transparent' : 'raised'}
+			target={state === 'quiet' ? undefined : 58}
+			title="Execution trend"
+		/>
 	)
 }

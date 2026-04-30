@@ -1,1 +1,56 @@
-/* DX-TODO(checkbox): active selectors still live in styles/primitives.css until item CSS concatenation preserves the public styles.css contract. */
+.concrete-check-row {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--concrete-space-2);
+	height: var(--concrete-size-label-medium);
+	color: var(--concrete-foreground-body);
+	font:
+		var(--concrete-weight-medium) var(--concrete-type-12-5) / var(--concrete-line-control)
+		var(--concrete-font-sans);
+	cursor: pointer;
+	user-select: none;
+}
+
+.concrete-check-row:has(input:disabled) {
+	opacity: var(--concrete-opacity-disabled);
+	cursor: not-allowed;
+}
+
+.concrete-checkbox {
+	display: inline-grid;
+	width: var(--concrete-size-choice-control);
+	height: var(--concrete-size-choice-control);
+	flex: none;
+	place-items: center;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-strong);
+	border-radius: var(--concrete-radius-1);
+	background: var(--concrete-surface);
+	color: var(--concrete-inverse-foreground-strong);
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-checkbox-checked {
+	border-color: var(--concrete-ink-9);
+	background: var(--concrete-ink-9);
+}
+
+.concrete-check-row:hover .concrete-checkbox {
+	border-color: var(--concrete-ink-5);
+}
+
+.concrete-check-row:has(input:focus-visible) .concrete-checkbox {
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.concrete-check-row:has(input:disabled):hover .concrete-checkbox {
+	border-color: var(--concrete-border-strong);
+}
+
+.concrete-checkbox svg {
+	width: var(--concrete-size-icon-small);
+	height: var(--concrete-size-icon-small);
+	stroke-width: var(--concrete-stroke-2-4);
+}

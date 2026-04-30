@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { createElement, Fragment } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { z } from 'zod/v4'
 import {
 	ConcreteIcon,
 	commandItemSchema,
@@ -9,6 +10,8 @@ import {
 	composerConfigSchema,
 	composerSuggestionSchema,
 	composerValueSchema,
+	concreteNodeSchema,
+	concreteNodeTreeSchema,
 	concreteSignalSchema,
 	dateRangeValueSchema,
 	dateValueSchema,
@@ -16,6 +19,8 @@ import {
 	formShellConfigSchema,
 	formValidationItemSchema,
 	foundationDefinitions,
+	foundationRegistry,
+	getFoundationEntry,
 	iconNames,
 	messageSchema,
 	multiSelectOptionSchema,
@@ -25,13 +30,16 @@ import {
 	registryEntrySchema,
 	renderComponentExample,
 	renderDefinitionInput,
+	renderFoundationExample,
 	renderPrimitiveExample,
 	renderQuerySchema,
 	searchBarTokenSchema,
 	settingsPanelSectionSchema,
 	timeValueSchema,
 	toolCallSchema,
-	uploadItemSchema
+	uploadItemSchema,
+	validateConcreteNode,
+	validateConcreteNodeTree
 } from '..'
 
 describe('Concrete registry', () => {
@@ -43,12 +51,22 @@ describe('Concrete registry', () => {
 	})
 
 	test('derives public registries from item definitions in order', () => {
+		expect(foundationRegistry.map(entry => entry.slug)).toEqual(
+			foundationDefinitions.map(definition => definition.slug)
+		)
 		expect(primitiveRegistry.map(entry => entry.slug)).toEqual(
 			primitiveDefinitions.map(definition => definition.slug)
 		)
 		expect(componentRegistry.map(entry => entry.slug)).toEqual(
 			componentDefinitions.map(definition => definition.slug)
 		)
+	})
+
+	test('validates foundation metadata with the public schema', () => {
+		for (const entry of foundationRegistry) {
+			expect(registryEntrySchema.safeParse(entry).success).toBe(true)
+			expect(getFoundationEntry(entry.slug)?.name).toBe(entry.name)
+		}
 	})
 
 	test('validates primitive metadata with the public schema', () => {
@@ -196,6 +214,18 @@ describe('Concrete registry', () => {
 	})
 
 	test('renders every registered primitive and component state', () => {
+		for (const entry of foundationRegistry) {
+			const states = entry.states.length > 0 ? entry.states : [{ query: 'default' }]
+
+			for (const state of states) {
+				const markup = renderToStaticMarkup(
+					createElement(Fragment, null, renderFoundationExample(entry.slug, state.query))
+				)
+
+				expect(markup.length).toBeGreaterThan(0)
+			}
+		}
+
 		for (const entry of primitiveRegistry) {
 			const states = entry.states.length > 0 ? entry.states : [{ query: 'default' }]
 
@@ -254,6 +284,9 @@ describe('Concrete registry', () => {
 
 		for (const definition of foundationDefinitions) {
 			expect(definition.kind).toBe('foundation')
+			expect(foundationRegistry.some(entry => entry.slug === definition.slug)).toBe(true)
+			expect(hasUniqueNames(definition.controls)).toBe(true)
+			expect(hasUniqueQueries(definition.states)).toBe(true)
 			expect(definition.schema.safeParse({}).success).toBe(true)
 			expect(!('seed' in definition) || definition.schema.safeParse(definition.seed).success).toBe(
 				true
@@ -355,23 +388,204 @@ describe('Concrete registry', () => {
 		).toContain('JSON action')
 	})
 
+	test('generates nested and discriminated playground controls', () => {
+		const chartDefinition = componentDefinitions.find(definition => definition.slug === 'chart')
+		const dataTableDefinition = componentDefinitions.find(
+			definition => definition.slug === 'data-table'
+		)
+		const metricCardDefinition = componentDefinitions.find(
+			definition => definition.slug === 'metric-card'
+		)
+		const chartVariantControl = chartDefinition?.controls.find(control => control.name === 'variant')
+
+		expect(metricCardDefinition?.controls.map(control => control.name)).toContain('delta.value')
+		expect(metricCardDefinition?.controls.map(control => control.name)).toContain('delta.intent')
+		expect(dataTableDefinition?.controls.map(control => control.name)).toContain('pagination.page')
+		expect(dataTableDefinition?.controls.map(control => control.name)).toContain('sort.direction')
+		expect(chartVariantControl?.type).toBe('select')
+		expect(chartVariantControl?.options?.map(option => option.value)).toEqual([
+			'line',
+			'area',
+			'bar',
+			'stacked-bar',
+			'donut',
+			'heatmap'
+		])
+	})
+
+	test('renders playground input from nested and discriminated controls', () => {
+		const chartDefinition = componentDefinitions.find(definition => definition.slug === 'chart')
+		const metricCardDefinition = componentDefinitions.find(
+			definition => definition.slug === 'metric-card'
+		)
+		const chartSearchParams = new URLSearchParams({
+			points: JSON.stringify([{ label: 'Proof', tone: 'sky', value: 12 }]),
+			title: 'Bar proof',
+			variant: 'bar'
+		})
+		const metricSearchParams = new URLSearchParams({
+			'delta.value': '+99.9%',
+			value: '9000'
+		})
+
+		if (!chartDefinition || !metricCardDefinition) {
+			throw new Error('Missing chart or metric-card definition')
+		}
+
+		const chartMarkup = renderToStaticMarkup(
+			createElement(Fragment, null, renderDefinitionInput(chartDefinition, chartSearchParams))
+		)
+		const metricMarkup = renderToStaticMarkup(
+			createElement(Fragment, null, renderDefinitionInput(metricCardDefinition, metricSearchParams))
+		)
+
+		expect(chartMarkup).toContain('Bar proof')
+		expect(chartMarkup).toContain('concrete-chart-bar')
+		expect(metricMarkup).toContain('+99.9%')
+		expect(metricMarkup).toContain('9000')
+	})
+
+	test('parses recursive Concrete node defaults', () => {
+		const parsedNode = concreteNodeSchema.parse({
+			item: { kind: 'primitive', slug: 'button' },
+			type: 'item'
+		})
+
+		expect(concreteNodeTreeSchema.parse({})).toEqual({ nodes: [] })
+		expect(parsedNode).toEqual({
+			children: [],
+			item: { kind: 'primitive', slug: 'button' },
+			props: {},
+			slots: {},
+			type: 'item'
+		})
+	})
+
+	test('validates recursive nodes against registry item schemas', () => {
+		const result = validateConcreteNodeTree({
+			nodes: [
+				{
+					children: [{ type: 'text', value: 'Run protocol' }],
+					item: { kind: 'primitive', slug: 'button' },
+					props: { label: 'Run protocol', variant: 'primary' },
+					slots: {
+						leading: [
+							{
+								item: { kind: 'primitive', slug: 'icon' },
+								props: { name: 'sparkles' },
+								type: 'item'
+							}
+						]
+					},
+					type: 'item'
+				}
+			]
+		})
+
+		expect(result.success).toBe(true)
+
+		if (!result.success) {
+			throw new Error(result.issues.map(issue => issue.message).join(', '))
+		}
+
+		expect(result.data.nodes[0]).toMatchObject({
+			item: { kind: 'primitive', slug: 'button' },
+			props: { label: 'Run protocol', variant: 'primary' }
+		})
+	})
+
+	test('rejects unknown registry references and invalid item props in nodes', () => {
+		const unknownReference = validateConcreteNode({
+			item: { kind: 'primitive', slug: 'not-real' },
+			props: {},
+			type: 'item'
+		})
+		const invalidProps = validateConcreteNode({
+			item: { kind: 'primitive', slug: 'button' },
+			props: { label: 7 },
+			type: 'item'
+		})
+
+		expect(unknownReference.success).toBe(false)
+		expect(invalidProps.success).toBe(false)
+
+		if (unknownReference.success || invalidProps.success) {
+			throw new Error('Expected invalid node validation results.')
+		}
+
+		expect(unknownReference.issues[0]?.path).toEqual(['item', 'slug'])
+		expect(unknownReference.issues[0]?.message).toContain('Unknown primitive reference')
+		expect(invalidProps.issues.some(issue => issue.path.join('.') === 'props.label')).toBe(true)
+	})
+
+	test('keeps Concrete node props serializable and validation-only', () => {
+		const nonSerializableProps = concreteNodeSchema.safeParse({
+			item: { kind: 'primitive', slug: 'button' },
+			props: { onClick: () => undefined },
+			type: 'item'
+		})
+		const validationOnlyDefinitions = [
+			{
+				kind: 'primitive' as const,
+				schema: z.object({ label: z.string().min(1) }).strict(),
+				slug: 'custom-button'
+			}
+		]
+		const result = validateConcreteNode(
+			{
+				item: { kind: 'primitive', slug: 'custom-button' },
+				props: { label: 'Schema only' },
+				type: 'item'
+			},
+			validationOnlyDefinitions
+		)
+
+		expect(nonSerializableProps.success).toBe(false)
+		expect(result.success).toBe(true)
+	})
+
 	test('preserves public export compatibility', () => {
 		expect(typeof renderPrimitiveExample).toBe('function')
 		expect(typeof renderComponentExample).toBe('function')
+		expect(typeof validateConcreteNode).toBe('function')
+		expect(typeof validateConcreteNodeTree).toBe('function')
 		expect(primitiveDefinitions.map(definition => definition.slug)).toEqual([
 			'button',
+			'toolbar-control',
 			'input',
 			'field',
+			'search-field',
+			'search-token',
+			'menu-shell',
+			'message-shell',
+			'metric-shell',
+			'form-layout',
+			'form-overlay',
+			'feedback-panel',
+			'option-row',
+			'calendar-panel',
 			'dropzone',
+			'upload-field',
 			'upload-item',
 			'caret',
 			'textarea',
 			'select',
 			'checkbox',
 			'radio',
+			'stepper-control',
+			'range-control',
+			'reasoning-panel',
 			'switch',
 			'slider',
+			'select-control',
+			'select-menu',
 			'card',
+			'data-card-header',
+			'chart-surface',
+			'chart-legend',
+			'data-table-shell',
+			'data-table-control',
+			'data-table-pagination',
 			'pill',
 			'chip',
 			'badge',
@@ -380,13 +594,25 @@ describe('Concrete registry', () => {
 			'row',
 			'bubble',
 			'code',
+			'composer-shell',
+			'composer-rail',
 			'concept-frame',
 			'concept-connector',
+			'diagram-viewport',
+			'diagram-controls',
+			'diagram-rail',
+			'diagram-edge',
+			'diagram-minimap',
+			'diagram-legend',
 			'diagram-node',
 			'diagram-item',
+			'flow-node',
 			'kbd',
 			'spinner',
 			'link',
+			'picker-control',
+			'picker-shell',
+			'preview-stage',
 			'divider',
 			'empty-state',
 			'tooltip',
@@ -398,7 +624,10 @@ describe('Concrete registry', () => {
 			'indicator',
 			'skeleton',
 			'frame',
+			'suggestion-menu',
 			'texture',
+			'time-list',
+			'tool-call-panel',
 			'brand-mark',
 			'wordmark',
 			'icon',

@@ -1,0 +1,52 @@
+.concrete-time-menu {
+	position: absolute;
+	z-index: var(--concrete-z-picker-menu);
+	top: calc(var(--concrete-size-full) + var(--concrete-space-1-5));
+	left: var(--concrete-space-0);
+	display: grid;
+	width: var(--concrete-size-full);
+	max-height: var(--concrete-size-time-menu-max-block);
+	overflow: auto;
+	padding: var(--concrete-space-1-25);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-3);
+}
+
+.concrete-time-menu[data-placement="inline"] {
+	position: relative;
+	z-index: auto;
+	top: auto;
+	left: auto;
+}
+
+.concrete-time-menu button {
+	display: flex;
+	align-items: center;
+	height: var(--concrete-size-time-option-block);
+	padding-block: var(--concrete-space-0);
+	padding-inline: var(--concrete-space-2);
+	border: var(--concrete-space-0);
+	border-radius: var(--concrete-radius-2);
+	background: transparent;
+	color: var(--concrete-foreground-body);
+	cursor: pointer;
+	font:
+		var(--concrete-weight-accent) var(--concrete-type-12) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+}
+
+.concrete-time-menu button:hover,
+.concrete-time-menu button[data-selected="true"] {
+	background: var(--concrete-sky-1);
+	color: var(--concrete-sky-strong);
+}
+
+.concrete-time-menu button:active {
+	transform: translateY(var(--concrete-translate-press-strong));
+}

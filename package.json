@@ -13,13 +13,15 @@
 		"build": "bun run build:package && bun run build:docs",
 		"build:docs": "bun run --cwd apps/docs build:app",
 		"build:package": "bun run --cwd packages/concrete build",
+		"catalog:audit": "bun run --cwd apps/docs catalog:audit",
 		"check": "bun run typecheck && bun run lint && bun test",
 		"clean": "rm -rf node_modules apps/docs/.next packages/concrete/.tsbuildinfo",
 		"dev": "bun run build:package && bun run --cwd apps/docs dev",
 		"dev:docs": "bun run --cwd apps/docs dev",
 		"format": "bun x biome check . --write",
 		"lint": "bun x biome check .",
-		"typecheck": "bun run --cwd packages/concrete typecheck && bun run build:package && bun run --cwd apps/docs typecheck:app"
+		"typecheck": "bun run --cwd packages/concrete typecheck && bun run build:package && bun run --cwd apps/docs typecheck:app",
+		"visual:smoke": "bun run --cwd apps/docs visual:smoke"
 	},
 	"workspaces": [
 		"apps/*",

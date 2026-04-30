@@ -1,11 +1,11 @@
 import { Button } from '../../primitives'
-import { FormShell, type FormShellProps } from '../../primitives/internal/form-shell'
-import { concreteClassNames } from '../../styles/class-names'
+import { FormLayoutShell, type FormLayoutShellProps } from '../../primitives/form-layout'
+import { FormOverlayDrawer, FormOverlayRoot } from '../../primitives/form-overlay'
 
 export type FormDrawerSide = 'left' | 'right'
 export type FormDrawerPresentation = 'fixed' | 'inline'
 
-export type FormDrawerProps = Omit<FormShellProps, 'variant'> & {
+export type FormDrawerProps = Omit<FormLayoutShellProps, 'variant'> & {
 	onOpenChange?: ((open: boolean) => void) | undefined
 	open?: boolean | undefined
 	presentation?: FormDrawerPresentation | undefined
@@ -44,21 +44,12 @@ export function FormDrawer({
 		) : undefined
 
 	return (
-		<div
-			className={concreteClassNames.formOverlay}
-			data-presentation={presentation}
-			data-side={side}
-			data-type="drawer"
-		>
-			<aside
-				aria-modal={presentation === 'fixed' ? true : undefined}
-				className={concreteClassNames.formDrawer}
-				role="dialog"
-			>
-				<FormShell actions={chromeActions} className={className} variant="drawer" {...props}>
+		<FormOverlayRoot presentation={presentation} side={side} type="drawer">
+			<FormOverlayDrawer modal={presentation === 'fixed'}>
+				<FormLayoutShell actions={chromeActions} className={className} variant="drawer" {...props}>
 					{children}
-				</FormShell>
-			</aside>
-		</div>
+				</FormLayoutShell>
+			</FormOverlayDrawer>
+		</FormOverlayRoot>
 	)
 }
