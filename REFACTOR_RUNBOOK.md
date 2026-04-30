@@ -42,7 +42,7 @@ Keep the codebase aligned with the Concrete DX policies:
 - [x] Move reused component JSX into private internal primitives.
 - [x] Add durable codebase policy documentation.
 - [x] Run format, lint, typecheck, tests, and build.
-- [ ] Commit and push to `main`.
+- [x] Commit and push to `main`.
 
 ## Next Chunks
 
@@ -59,3 +59,4 @@ Keep the codebase aligned with the Concrete DX policies:
 - 2026-04-29: Moved loose shared engines/render helpers out of `packages/concrete/src/components` into `packages/concrete/src/utilities`.
 - 2026-04-29: Promoted shared message, toolbar, form-shell, and file-upload implementations into private internal primitive folders so component implementations import primitives instead of siblings.
 - 2026-04-29: Gates passed: `bun run format`, `bun run lint`, `bun test`, `bun run typecheck`, and `bun run build`.
+- 2026-04-29: Committed `fdfaf66 Refine Concrete DX architecture` and pushed it to `origin/main`.
