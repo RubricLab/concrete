@@ -52,7 +52,7 @@ optionRowCopy optionRowIcon
 pill progressError progressFill progressLined progressRing progressRingCenter progressRingFill progressRingTrack
 progressRingUnit progressShuttle progressSky progressTerminal progressThick progressThin progressTrack progressUltra
 radio radioChecked radioDot rail tokenRailItem range rangeTrack rangeValues root row rowIcon rowInteractive
-rowLabel rowMeta
+rowLabel rowMeta scaleFrame scaleFrameContent scaleFrameSurface
 `,
 	`
 section sectionBody segmentedProgress select selectWrap composerSendButton skeleton slider
@@ -62,7 +62,8 @@ stat statDisplay statLabel statLarge statMeta statMuted statNumber statSky
 split splitAside splitBody stack statSmall statUnit statValue statXlarge statXsmall composerSubmitDock surface switch switchChecked
 switchTrack syntaxAttribute syntaxComment syntaxFunction syntaxIdentifier syntaxKeyword syntaxNumber syntaxOperator
 syntaxPunctuation syntaxString syntaxType tag tagActive tagClose tagError tagLarge text
-tagOutline tagSelected tagSky tagSmall tagTerminal tagUltra textarea timeMenu
+tagOutline tagSelected tagSky tagSmall tagTerminal tagUltra textarea tiltFrame tiltFrameContent
+tiltFrameGlare tiltFrameSurface timeMenu
 trace traceStatus traceSteps traceSummaryMain traceSummaryText
 `,
 	`

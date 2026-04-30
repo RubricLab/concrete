@@ -3,5 +3,32 @@
 }
 
 .primitiveConceptCard {
+	grid-column: span 3;
 	min-width: 0;
+	padding: 14px;
+}
+
+.primitiveConceptCard .conceptEyebrowRow {
+	margin-bottom: 10px;
+}
+
+.primitiveConceptCard .conceptEyebrow {
+	font-size: var(--concrete-type-11);
+	letter-spacing: 0.08em;
+}
+
+.primitiveConceptCard .conceptStage {
+	min-height: 132px;
+	padding: 12px;
+	overflow: hidden;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background:
+		linear-gradient(var(--concrete-lattice) 1px, transparent 1px),
+		linear-gradient(90deg, var(--concrete-lattice) 1px, transparent 1px), var(--concrete-canvas);
+	background-size: 18px 18px;
+}
+
+.primitiveConceptCard .conceptStage > * {
+	max-width: 100%;
 }

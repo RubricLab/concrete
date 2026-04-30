@@ -666,6 +666,8 @@ describe('Concrete registry', () => {
 			'frame',
 			'time-list',
 			'tool-call-panel',
+			'tilt-frame',
+			'scale-frame',
 			'brand-mark',
 			'wordmark',
 			'icon'
@@ -697,6 +699,7 @@ describe('Concrete registry', () => {
 			'donut-chart',
 			'heatmap',
 			'chart',
+			'feature-card',
 			'data-table',
 			'flow-diagram',
 			'diagram-canvas',

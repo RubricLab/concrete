@@ -8,6 +8,7 @@ import { datePickerComponentDefinition } from '../components/date-picker'
 import { dateRangePickerComponentDefinition } from '../components/date-range-picker'
 import { diagramCanvasComponentDefinition } from '../components/diagram-canvas'
 import { donutChartComponentDefinition } from '../components/donut-chart'
+import { featureCardComponentDefinition } from '../components/feature-card'
 import { fileUploadComponentDefinition } from '../components/file-upload'
 import { flowDiagramComponentDefinition } from '../components/flow-diagram'
 import { formDialogComponentDefinition } from '../components/form-dialog'
@@ -104,6 +105,7 @@ import { radioPrimitiveDefinition } from '../primitives/radio'
 import { railPrimitiveDefinition } from '../primitives/rail'
 import { rangePrimitiveDefinition } from '../primitives/range'
 import { rowPrimitiveDefinition } from '../primitives/row'
+import { scaleFramePrimitiveDefinition } from '../primitives/scale-frame'
 import { scrollAreaPrimitiveDefinition } from '../primitives/scroll-area'
 import { searchInputPrimitiveDefinition } from '../primitives/search-input'
 import { sectionPrimitiveDefinition } from '../primitives/section'
@@ -127,6 +129,7 @@ import { targetLinePrimitiveDefinition } from '../primitives/target-line'
 import { textPrimitiveDefinition } from '../primitives/text'
 import { textareaPrimitiveDefinition } from '../primitives/textarea'
 import { timeListPrimitiveDefinition } from '../primitives/time-list'
+import { tiltFramePrimitiveDefinition } from '../primitives/tilt-frame'
 import { tokenPrimitiveDefinition } from '../primitives/token'
 import { tokenRailPrimitiveDefinition } from '../primitives/token-rail'
 import { toolCallPanelPrimitiveDefinition } from '../primitives/tool-call-panel'
@@ -245,6 +248,8 @@ export const primitiveDefinitions = [
 	framePrimitiveDefinition,
 	timeListPrimitiveDefinition,
 	toolCallPanelPrimitiveDefinition,
+	tiltFramePrimitiveDefinition,
+	scaleFramePrimitiveDefinition,
 	brandMarkPrimitiveDefinition,
 	wordmarkPrimitiveDefinition,
 	iconPrimitiveDefinition
@@ -277,6 +282,7 @@ export const componentDefinitions = [
 	donutChartComponentDefinition,
 	heatmapComponentDefinition,
 	chartComponentDefinition,
+	featureCardComponentDefinition,
 	dataTableComponentDefinition,
 	flowDiagramComponentDefinition,
 	diagramCanvasComponentDefinition,

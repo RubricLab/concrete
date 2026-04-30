@@ -101,6 +101,7 @@ const dynamicPrimitiveInlineStyleFiles = [
 	'packages/concrete/src/primitives/heatmap-grid/component.tsx',
 	'packages/concrete/src/primitives/progress/component.tsx',
 	'packages/concrete/src/primitives/range/component.tsx',
+	'packages/concrete/src/primitives/scale-frame/component.tsx',
 	'packages/concrete/src/primitives/skeleton/component.tsx',
 	'packages/concrete/src/primitives/slider/component.tsx',
 	'packages/concrete/src/primitives/table/component.tsx',
@@ -499,7 +500,7 @@ describe('Import boundaries', () => {
 			([key, value]) => value !== toConcreteSelector(key)
 		)
 
-		expect(concreteClassNameEntries.length).toBe(507)
+		expect(concreteClassNameEntries.length).toBe(513)
 		expect(classNameRecord.button).toBe('concrete-button')
 		expect(classNameRecord.diagramCanvasEdgeSelected).toBe('concrete-diagram-canvas-edge-selected')
 		expect(classNameRecord.alertAction).toBe('concrete-alert-action')

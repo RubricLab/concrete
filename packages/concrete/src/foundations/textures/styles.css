@@ -29,6 +29,27 @@
 	--concrete-lattice: rgb(10 11 15 / 3.5%);
 	--concrete-dots: rgb(10 11 15 / 14%);
 	--concrete-lines: rgb(10 11 15 / 6%);
+	--concrete-depth: var(--concrete-inverse-background);
+	--concrete-depth-background: #070a10;
+	--concrete-depth-line: rgb(78 139 222 / 18%);
+	--concrete-depth-line-strong: rgb(78 139 222 / 32%);
+	--concrete-depth-glow: rgb(31 111 212 / 18%);
+	--concrete-depth-fade: rgb(7 10 16 / 92%);
+	--concrete-depth-background-image:
+		radial-gradient(circle at 50% 0, var(--concrete-depth-glow), transparent 42%),
+		linear-gradient(var(--concrete-depth-line) 1px, transparent 1px),
+		linear-gradient(90deg, var(--concrete-depth-line) 1px, transparent 1px),
+		linear-gradient(180deg, transparent 12%, var(--concrete-depth-glow) 54%, transparent);
+	--concrete-tilt-frame-glare-background: linear-gradient(
+		135deg,
+		rgb(255 255 255 / 12%),
+		transparent 36% 70%,
+		rgb(78 139 222 / 8%)
+	);
+	--concrete-tilt-frame-glare-shadow:
+		inset 0 0 0 1px rgb(78 139 222 / 14%),
+		inset 0 14px 24px -22px rgb(78 139 222 / 32%),
+		inset 0 -18px 28px -26px rgb(10 11 15 / 28%);
 }
 
 .concrete-lattice {

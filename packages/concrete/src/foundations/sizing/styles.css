@@ -230,6 +230,17 @@
 	--concrete-measure-message-bubble: 68ch;
 	--concrete-measure-empty-state: 360px;
 	--concrete-measure-empty-body: 300px;
+	--concrete-measure-preview-stage-control: 420px;
+	--concrete-measure-preview-stage-media: 480px;
+	--concrete-measure-preview-stage-search: 520px;
+	--concrete-measure-preview-stage-feedback: 620px;
+	--concrete-measure-preview-stage-message: 680px;
+	--concrete-measure-preview-stage-data: 720px;
+	--concrete-measure-preview-stage-form: 760px;
+	--concrete-measure-preview-stage-composer: 860px;
+	--concrete-measure-preview-stage: var(--concrete-size-full);
+	--concrete-size-texture-preview: 96px;
+	--concrete-size-tilt-frame-perspective: 820px;
 	--concrete-size-brand-mark: var(--concrete-size-button-medium);
 	--concrete-size-brand-mark-glyph: 62%;
 	--concrete-size-wordmark-inline: 108px;
