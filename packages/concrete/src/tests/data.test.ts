@@ -18,7 +18,7 @@ import {
 	getNumericExtent,
 	routeDiagramEdge,
 	sortDataTableRows
-} from '../components/data-geometry'
+} from '../utilities/data-geometry'
 
 describe('Concrete data components', () => {
 	test('keeps warning out of the data tone model', () => {

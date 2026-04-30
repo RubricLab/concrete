@@ -1,0 +1,65 @@
+import type { ReactNode } from 'react'
+import { defineExamples } from '../../factories/createExamples'
+import { DataWideStage, dataTableColumns, dataTableRows } from '../../utilities/data-fixtures'
+import { DataTable } from './component'
+
+export const dataTableExamples = defineExamples({
+	default: {
+		description: 'Dense table with status, delta, sparkline, and meter cells.',
+		render: () => renderDataTableExample('default')
+	},
+	empty: {
+		description: 'No-row state inside the same table shell.',
+		render: () => renderDataTableExample('empty')
+	},
+	filtered: {
+		description: 'Search and filter controls with pagination.',
+		render: () => renderDataTableExample('filtered')
+	},
+	selected: {
+		description: 'Selectable rows with toolbar actions.',
+		render: () => renderDataTableExample('selected')
+	}
+})
+
+function renderDataTableExample(state = 'default'): ReactNode {
+	return (
+		<DataWideStage>
+			<DataTable
+				caption="Typed cells stay compact while still supporting signals and microvisuals."
+				columns={dataTableColumns}
+				filters={
+					state === 'filtered'
+						? [
+								{
+									id: 'status',
+									label: 'Status',
+									options: [
+										{ count: 1, label: 'Shipping', value: 'shipping' },
+										{ count: 1, label: 'Review', value: 'review' },
+										{ count: 1, label: 'Blocked', value: 'blocked' }
+									],
+									value: 'shipping'
+								}
+							]
+						: []
+				}
+				pagination={{ page: 1, pageSize: 4, totalRows: state === 'empty' ? 0 : dataTableRows.length }}
+				rows={state === 'empty' ? [] : dataTableRows}
+				searchPlaceholder="Search runs"
+				selectable={state === 'selected'}
+				selectedRowIds={state === 'selected' ? ['router-contract', 'tool-router'] : []}
+				sort={state === 'default' ? { direction: 'descending', key: 'cost' } : undefined}
+				title="Evaluation runs"
+				toolbarActions={
+					state === 'selected'
+						? [
+								{ icon: 'download', id: 'export', label: 'Export', tone: 'sky' },
+								{ icon: 'more', id: 'more', label: 'More' }
+							]
+						: [{ icon: 'inspect', id: 'inspect', label: 'Inspect' }]
+				}
+			/>
+		</DataWideStage>
+	)
+}

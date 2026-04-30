@@ -1,0 +1,3 @@
+/* DX-TODO(metric-card): Active metric selectors still live in ../styles/components.css.
+   Move them here only after item CSS concatenation exists and a focused visual pass
+   can validate whether component CSS should become primitive/layout composition. */

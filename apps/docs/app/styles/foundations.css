@@ -412,8 +412,56 @@
 }
 
 .foundationFocusTokens {
+	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
 	margin-bottom: 14px;
+}
+
+.focusToken {
+	display: grid;
+	gap: 7px;
+	min-width: 0;
+}
+
+.focusToken > div {
+	display: grid;
+	height: 44px;
+	place-items: center;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-strong);
+	font-size: 12px;
+	font-weight: 700;
+}
+
+.focusToken span {
+	color: var(--concrete-foreground-muted);
+	font-size: 11.5px;
+	line-height: 1.25;
+}
+
+.focusTokenDefault > div {
+	box-shadow: 0 0 0 3px var(--concrete-sky-ring);
+}
+
+.focusTokenTerminal > div {
+	box-shadow: 0 0 0 3px var(--concrete-terminal-ring);
+}
+
+.focusTokenError > div {
+	box-shadow: 0 0 0 3px var(--concrete-error-ring);
+}
+
+.focusVisibleDemo {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-ring-focus);
+}
+
+.focusDemoInput input {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-ring-focus);
 }
 
 .foundationTextureGrid {

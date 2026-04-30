@@ -3,7 +3,8 @@
 import type { ControlDefinition, PrimitiveState } from '@rubriclab/concrete'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { getQueryValue, PropControl } from '@/playground-controls'
+import { PropControl } from '@/playground-controls'
+import { getQueryValue } from '@/playground-query'
 
 type CatalogPlaygroundProps = {
 	controls: readonly ControlDefinition[]

@@ -24,6 +24,7 @@ import {
 	reasoningStepSchema,
 	registryEntrySchema,
 	renderComponentExample,
+	renderDefinitionInput,
 	renderPrimitiveExample,
 	renderQuerySchema,
 	searchBarTokenSchema,
@@ -39,6 +40,15 @@ describe('Concrete registry', () => {
 		const uniqueSlugs = new Set(slugs)
 
 		expect(uniqueSlugs.size).toBe(slugs.length)
+	})
+
+	test('derives public registries from item definitions in order', () => {
+		expect(primitiveRegistry.map(entry => entry.slug)).toEqual(
+			primitiveDefinitions.map(definition => definition.slug)
+		)
+		expect(componentRegistry.map(entry => entry.slug)).toEqual(
+			componentDefinitions.map(definition => definition.slug)
+		)
 	})
 
 	test('validates primitive metadata with the public schema', () => {
@@ -211,6 +221,26 @@ describe('Concrete registry', () => {
 		}
 	})
 
+	test('renders every playground definition input from its schema seed', () => {
+		const searchParams = new URLSearchParams()
+
+		for (const definition of primitiveDefinitions) {
+			const markup = renderToStaticMarkup(
+				createElement(Fragment, null, renderDefinitionInput(definition, searchParams))
+			)
+
+			expect(markup).not.toBe('')
+		}
+
+		for (const definition of componentDefinitions) {
+			const markup = renderToStaticMarkup(
+				createElement(Fragment, null, renderDefinitionInput(definition, searchParams))
+			)
+
+			expect(markup).not.toBe('')
+		}
+	})
+
 	test('validates item definition metadata and examples', () => {
 		expect(foundationDefinitions.map(definition => definition.slug)).toEqual([
 			'colors',
@@ -225,6 +255,9 @@ describe('Concrete registry', () => {
 		for (const definition of foundationDefinitions) {
 			expect(definition.kind).toBe('foundation')
 			expect(definition.schema.safeParse({}).success).toBe(true)
+			expect(!('seed' in definition) || definition.schema.safeParse(definition.seed).success).toBe(
+				true
+			)
 			expect(renderToStaticMarkup(createElement(Fragment, null, definition.renderExample()))).not.toBe(
 				''
 			)
@@ -235,6 +268,9 @@ describe('Concrete registry', () => {
 			expect(primitiveRegistry.some(entry => entry.slug === definition.slug)).toBe(true)
 			expect(hasUniqueNames(definition.controls)).toBe(true)
 			expect(hasUniqueQueries(definition.states)).toBe(true)
+			expect(!('seed' in definition) || definition.schema.safeParse(definition.seed).success).toBe(
+				true
+			)
 
 			for (const state of definition.states) {
 				expect(
@@ -248,6 +284,9 @@ describe('Concrete registry', () => {
 			expect(componentRegistry.some(entry => entry.slug === definition.slug)).toBe(true)
 			expect(hasUniqueNames(definition.controls)).toBe(true)
 			expect(hasUniqueQueries(definition.states)).toBe(true)
+			expect(!('seed' in definition) || definition.schema.safeParse(definition.seed).success).toBe(
+				true
+			)
 
 			for (const state of definition.states) {
 				expect(
@@ -255,6 +294,65 @@ describe('Concrete registry', () => {
 				).not.toBe('')
 			}
 		}
+	})
+
+	test('generates seed and controls for migrated folder-owned items', () => {
+		const buttonDefinition = primitiveDefinitions.find(definition => definition.slug === 'button')
+		const metricCardDefinition = componentDefinitions.find(
+			definition => definition.slug === 'metric-card'
+		)
+		const colorsDefinition = foundationDefinitions.find(definition => definition.slug === 'colors')
+		const buttonSeed =
+			buttonDefinition && 'seed' in buttonDefinition ? buttonDefinition.seed : undefined
+		const metricCardSeed =
+			metricCardDefinition && 'seed' in metricCardDefinition ? metricCardDefinition.seed : undefined
+		const colorsSeed =
+			colorsDefinition && 'seed' in colorsDefinition ? colorsDefinition.seed : undefined
+
+		expect(buttonSeed).toMatchObject({
+			disabled: false,
+			iconOnly: false,
+			label: 'Continue',
+			loading: false,
+			pressed: false,
+			size: 'medium',
+			variant: 'secondary'
+		})
+		expect(buttonDefinition?.controls.map(control => control.name)).toEqual([
+			'disabled',
+			'iconOnly',
+			'label',
+			'leadingIcon',
+			'loading',
+			'pressed',
+			'size',
+			'trailingIcon',
+			'variant',
+			'props'
+		])
+		expect(metricCardDefinition?.controls.some(control => control.type === 'json')).toBe(true)
+		expect(metricCardDefinition?.schema.safeParse(metricCardSeed).success).toBe(true)
+		expect(colorsSeed).toEqual({ tokens: [] })
+	})
+
+	test('renders playground input from exhaustive props JSON', () => {
+		const buttonDefinition = primitiveDefinitions.find(definition => definition.slug === 'button')
+		const searchParams = new URLSearchParams({
+			props: JSON.stringify({
+				label: 'JSON action',
+				variant: 'primary'
+			})
+		})
+
+		if (!buttonDefinition) {
+			throw new Error('Missing button definition')
+		}
+
+		expect(
+			renderToStaticMarkup(
+				createElement(Fragment, null, renderDefinitionInput(buttonDefinition, searchParams))
+			)
+		).toContain('JSON action')
 	})
 
 	test('preserves public export compatibility', () => {

@@ -1,0 +1,3 @@
+/* DX-TODO(elevation): Foundation shadow tokens still live in the root stylesheet.
+   Keep them centralized until item CSS concatenation can preserve cascade order
+   and public `@rubriclab/concrete/styles.css` compatibility. */

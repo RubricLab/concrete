@@ -31,8 +31,10 @@ type ConcreteDefinitionBase<Kind extends string, Slug extends string, SchemaOutp
 	name: string
 	pressure: readonly ConcretePressure[]
 	props: readonly PrimitiveProp[]
+	renderInput?: (input: unknown) => ReactNode
 	renderExample: (state?: string) => ReactNode
 	schema: ConcreteDefinitionSchema<SchemaOutput>
+	seed?: SchemaOutput
 	slug: Slug
 	states: readonly PrimitiveState[]
 }

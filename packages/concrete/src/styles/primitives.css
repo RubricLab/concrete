@@ -16,6 +16,9 @@
 }
 
 /* Controls */
+/* DX-TODO(button): Button now has an item folder, but its active selectors remain here until
+   item CSS concatenation and screenshot coverage are ready. Raw #fff/rgb shadow values below
+   should become foundation tokens in a visual QA pass, not during structural migration. */
 .concrete-button {
 	display: inline-flex;
 	position: relative;
@@ -66,6 +69,7 @@
 	filter: saturate(1.04);
 }
 
+/* DX-TODO(icon): shared icon sizing stays centralized until icon primitive CSS ownership and public icon screenshots are formalized. */
 .concrete-button svg,
 .concrete-icon {
 	width: 13px;
@@ -248,6 +252,7 @@
 	}
 }
 
+/* DX-TODO(spinner): active selectors stay centralized until item CSS concatenation preserves public styles.css and feedback screenshots. */
 .concrete-spinner-svg {
 	display: inline-block;
 	color: var(--concrete-ink-9);
@@ -277,6 +282,7 @@
 	stroke: rgb(255 255 255 / 25%);
 }
 
+/* DX-TODO(kbd): active selectors stay centralized until item CSS concatenation preserves public styles.css and shortcut/button composition pixels. */
 .concrete-kbd {
 	display: inline-flex;
 	align-items: center;
@@ -355,6 +361,7 @@
 	color: var(--concrete-sky-strong);
 }
 
+/* DX-TODO(caret): active selectors stay centralized until item CSS concatenation preserves public styles.css and disclosure screenshots. */
 .concrete-caret {
 	display: inline-flex;
 	align-items: center;
@@ -755,6 +762,7 @@
 }
 
 /* Surfaces and layout */
+/* DX-TODO(card): active selectors stay centralized until item CSS concatenation preserves public styles.css and surface screenshots. */
 .concrete-card {
 	display: flex;
 	flex-direction: column;
@@ -798,6 +806,7 @@
 	font: 500 11.5px / 1.45 var(--concrete-font-sans);
 }
 
+/* DX-TODO(row): active selectors stay centralized until item CSS concatenation preserves public styles.css and dense product-row screenshots. */
 .concrete-row {
 	display: grid;
 	grid-template-columns: auto minmax(0, 1fr) auto;
@@ -849,6 +858,7 @@
 }
 
 /* Labels and status atoms */
+/* DX-TODO(pill/chip/badge/tag): active selectors stay centralized until item CSS concatenation preserves public styles.css and label/status screenshot coverage. */
 .concrete-pill {
 	display: inline-flex;
 	align-items: center;
@@ -1317,6 +1327,7 @@
 }
 
 /* Media atoms */
+/* DX-TODO(avatar/bubble): active selectors stay centralized until item CSS concatenation preserves public styles.css and media/message screenshots. */
 .concrete-avatar {
 	display: inline-grid;
 	width: 28px;
@@ -1361,6 +1372,7 @@
 	color: #fff;
 }
 
+/* DX-TODO(code): active selectors stay centralized until item CSS concatenation preserves public styles.css and code screenshots. */
 .concrete-code {
 	display: block;
 	width: 100%;
@@ -1515,6 +1527,7 @@
 	color: var(--concrete-ink-8);
 }
 
+/* DX-TODO(link): active selectors stay centralized until item CSS concatenation preserves public styles.css and prose/navigation screenshots. */
 .concrete-link {
 	color: var(--concrete-foreground-strong);
 	font-weight: inherit;
@@ -1579,6 +1592,7 @@
 	opacity: 1;
 }
 
+/* DX-TODO(divider): active selectors stay centralized until item CSS concatenation preserves public styles.css and layout screenshots. */
 .concrete-divider {
 	display: flex;
 	align-items: center;
@@ -1598,6 +1612,7 @@
 	content: "";
 }
 
+/* DX-TODO(empty-state): active selectors stay centralized until item CSS concatenation preserves public styles.css and blank-state screenshots. */
 .concrete-empty-state {
 	display: flex;
 	flex-direction: column;
@@ -1688,6 +1703,7 @@
 	text-wrap: pretty;
 }
 
+/* DX-TODO(tooltip): active selectors stay centralized until item CSS concatenation preserves public styles.css and tooltip screenshots. */
 .concrete-tooltip-wrap {
 	position: relative;
 	display: inline-flex;
@@ -1859,6 +1875,7 @@
 }
 
 /* Feedback */
+/* DX-TODO(progress): active selectors stay centralized until item CSS concatenation preserves public styles.css and progress screenshots. */
 .concrete-progress-track {
 	position: relative;
 	width: 100%;
@@ -2058,6 +2075,7 @@
 }
 
 /* Data display */
+/* DX-TODO(stat/delta/sparkline/distribution): active selectors stay centralized until item CSS concatenation preserves public styles.css and data-display screenshots. */
 .concrete-stat {
 	display: flex;
 	flex-direction: column;
@@ -2344,6 +2362,7 @@
 	text-align: right;
 }
 
+/* DX-TODO(indicator/skeleton): active selectors stay centralized until item CSS concatenation preserves public styles.css and data/feedback screenshots. */
 .concrete-indicator {
 	display: inline-flex;
 	align-items: center;
@@ -2408,6 +2427,7 @@
 	}
 }
 
+/* DX-TODO(frame): active selectors stay centralized until item CSS concatenation preserves public styles.css and frame/texture screenshots. */
 .concrete-frame {
 	display: flex;
 	flex-direction: column;
@@ -2459,6 +2479,7 @@
 }
 
 /* Diagram language */
+/* DX-TODO(concept-frame/concept-connector/diagram-node/diagram-item): active selectors stay centralized until item CSS concatenation preserves public styles.css and diagram screenshots. */
 
 .concrete-concept-frame {
 	display: block;
@@ -3032,6 +3053,7 @@
 }
 
 /* Brand and texture */
+/* DX-TODO(brand-mark/wordmark/texture): active selectors stay centralized until item CSS concatenation preserves public styles.css and brand/texture screenshots. */
 .concrete-brand-mark {
 	display: inline-grid;
 	width: 28px;

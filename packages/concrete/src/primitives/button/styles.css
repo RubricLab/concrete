@@ -1,0 +1,3 @@
+/* DX-TODO(button): Active button selectors still live in ../styles/primitives.css during
+   the structural slice. Move them here only after item CSS concatenation exists and a
+   focused visual pass can replace raw #fff/rgb shadow values with foundation tokens. */

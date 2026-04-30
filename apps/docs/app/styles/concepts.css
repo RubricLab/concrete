@@ -16,10 +16,6 @@
 	box-shadow: var(--concrete-shadow-1);
 }
 
-.primitiveConceptWide {
-	grid-column: span 12;
-}
-
 .conceptEyebrowRow {
 	display: flex;
 	align-items: baseline;
@@ -93,12 +89,6 @@
 	display: grid;
 	min-height: 120px;
 	place-items: center;
-}
-
-.conceptGridThree {
-	display: grid;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 10px;
 }
 
 .conceptSpanAll {

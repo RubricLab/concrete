@@ -1,13 +1,6 @@
-import {
-	Badge,
-	getComponentDefinition,
-	getComponentEntry,
-	getPrimitiveDefinition,
-	getPrimitiveEntry,
-	renderComponentExample,
-	renderPrimitiveExample
-} from '@rubriclab/concrete'
 import { notFound } from 'next/navigation'
+import { getCatalogRenderItem } from '@/catalog-render-item'
+import { CatalogRenderPage } from '@/catalog-render-page'
 import { parseRenderQuery, type SearchParamsInput } from '@/rendering'
 
 type RenderPageProps = {
@@ -21,51 +14,18 @@ type RenderPageProps = {
 export default async function RenderPage({ params, searchParams }: RenderPageProps) {
 	const routeParams = await params
 	const query = parseRenderQuery(await searchParams)
+	const item = getCatalogRenderItem(routeParams.kind, routeParams.slug)
 
-	switch (routeParams.kind) {
-		case 'primitive': {
-			const entry = getPrimitiveEntry(routeParams.slug)
-
-			if (!entry) {
-				notFound()
-			}
-
-			const definition = getPrimitiveDefinition(entry.slug)
-
-			return (
-				<main className="renderShell" data-pressure={query.pressure} data-state={query.state}>
-					<section className="renderStage">
-						{definition?.renderExample(query.state) ?? renderPrimitiveExample(entry.slug, query.state)}
-						<div className="metaRow" style={{ marginTop: 14 }}>
-							<Badge signal="terminal">{entry.name}</Badge>
-							<Badge signal="ultra">{query.pressure}</Badge>
-						</div>
-					</section>
-				</main>
-			)
-		}
-		case 'component': {
-			const entry = getComponentEntry(routeParams.slug)
-
-			if (!entry) {
-				notFound()
-			}
-
-			const definition = getComponentDefinition(entry.slug)
-
-			return (
-				<main className="renderShell" data-pressure={query.pressure} data-state={query.state}>
-					<section className="renderStage">
-						{definition?.renderExample(query.state) ?? renderComponentExample(entry.slug, query.state)}
-						<div className="metaRow" style={{ marginTop: 14 }}>
-							<Badge signal="terminal">{entry.name}</Badge>
-							<Badge signal="ultra">{query.pressure}</Badge>
-						</div>
-					</section>
-				</main>
-			)
-		}
-		default:
-			notFound()
+	if (!item) {
+		notFound()
 	}
+
+	return (
+		<CatalogRenderPage
+			definition={item.definition}
+			entry={item.entry}
+			pressure={query.pressure}
+			state={query.state}
+		/>
+	)
 }

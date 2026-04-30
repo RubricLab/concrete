@@ -16,6 +16,10 @@ bun run check
 bun run build
 ```
 
+## Codebase Policies
+
+Concrete's architecture rules live in [`CODEBASE_POLICIES.md`](./CODEBASE_POLICIES.md). Read that file before structural work. Long-running refactors should use [`REFACTOR_RUNBOOK.md`](./REFACTOR_RUNBOOK.md) to track the active chunk, gates, and next actions across context compaction.
+
 ## Public Package
 
 ```sh

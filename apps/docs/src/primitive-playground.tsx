@@ -1,9 +1,12 @@
 'use client'
 
-import { getPrimitiveDefinition, type PrimitiveRegistryEntry } from '@rubriclab/concrete'
+import {
+	getPrimitiveDefinition,
+	type PrimitiveRegistryEntry,
+	renderDefinitionInput
+} from '@rubriclab/concrete'
 import { useSearchParams } from 'next/navigation'
 import { CatalogPlayground } from './catalog-playground'
-import { renderPlaygroundPrimitive } from './primitive-playground-renderers'
 
 type PrimitivePlaygroundProps = {
 	entry: PrimitiveRegistryEntry
@@ -11,11 +14,12 @@ type PrimitivePlaygroundProps = {
 
 export function PrimitivePlayground({ entry }: PrimitivePlaygroundProps) {
 	const searchParams = useSearchParams()
+	const definition = getPrimitiveDefinition(entry.slug)
 
 	return (
 		<CatalogPlayground
-			controls={getPrimitiveDefinition(entry.slug)?.controls ?? []}
-			preview={renderPlaygroundPrimitive(entry.slug, searchParams)}
+			controls={definition?.controls ?? []}
+			preview={definition ? renderDefinitionInput(definition, searchParams) : undefined}
 			states={entry.states}
 		/>
 	)

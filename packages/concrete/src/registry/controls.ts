@@ -11,7 +11,7 @@ export type ControlDefinition = {
 	label: string
 	name: string
 	options?: readonly ControlOption[]
-	type: 'boolean' | 'number' | 'select' | 'text'
+	type: 'boolean' | 'json' | 'number' | 'select' | 'text'
 }
 
 export const iconOptions = [
@@ -38,6 +38,10 @@ export function booleanControl(
 	defaultValue: string
 ): ControlDefinition {
 	return { defaultValue, label, name, type: 'boolean' }
+}
+
+export function jsonControl(name: string, label: string, defaultValue: string): ControlDefinition {
+	return { defaultValue, label, name, type: 'json' }
 }
 
 export function numberControl(

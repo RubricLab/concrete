@@ -20,7 +20,7 @@ import {
 	clampDiagramViewport,
 	createDiagramCanvasBox,
 	routeDiagramCanvasEdge
-} from '../components/diagram-geometry'
+} from '../utilities/diagram-geometry'
 
 describe('Concrete diagram language', () => {
 	test('parses diagram primitive schemas without warning tones', () => {

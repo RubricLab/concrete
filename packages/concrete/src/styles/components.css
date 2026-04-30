@@ -245,6 +245,9 @@
 }
 
 /* Interaction controls */
+/* DX-TODO(toolbar): Toolbar now has an item folder, but active selectors remain
+   centralized until item CSS concatenation is wired. Composer toolbar overlap should
+   be audited before moving these pixels. */
 .concrete-toolbar-root {
 	display: inline-flex;
 	min-width: 0;
@@ -484,6 +487,8 @@
 	font-size: 12px;
 }
 
+/* DX-TODO(command-menu): CommandMenu now has an item folder, but active selectors
+   remain centralized until item CSS concatenation is wired. */
 .concrete-command-menu {
 	min-width: 0;
 	max-width: 100%;
@@ -661,6 +666,8 @@
 	font: 600 var(--concrete-type-13) / 1 var(--concrete-font-sans);
 }
 
+/* DX-TODO(search-bar): SearchBar now has an item folder, but active selectors remain
+   centralized until item CSS concatenation is wired. */
 .concrete-search-shell {
 	position: relative;
 	display: grid;
@@ -796,6 +803,10 @@
 }
 
 /* AI messages */
+/* DX-TODO(message/reasoning-message/tool-call-message): These components now have item
+   folders, but the selectors remain centralized until item CSS concatenation is wired.
+   Revisit whether transcript spacing and disclosure rows can be expressed through
+   layout primitives before moving pixels. */
 .concrete-message {
 	display: flex;
 	width: 100%;
@@ -1151,6 +1162,9 @@
 }
 
 /* Form composition */
+/* DX-TODO(form-shell/settings-panel): These form composition components now have item
+   folders, but active selectors remain centralized. Future polish should decide
+   which rows/sections are true layout primitives before moving pixels. */
 .concrete-form-shell {
 	display: grid;
 	overflow: hidden;
@@ -1397,6 +1411,9 @@
 	color: var(--concrete-terminal-strong);
 }
 
+/* DX-TODO(validation-summary): This component now has an item folder, but the active
+   selectors remain centralized. A future visual QA pass should decide whether this
+   is a composed feedback primitive instead of component-owned CSS. */
 .concrete-validation-summary {
 	display: grid;
 	grid-template-columns: 24px minmax(0, 1fr);
@@ -1521,6 +1538,8 @@
 	font: 500 var(--concrete-type-11) / var(--concrete-line-normal) var(--concrete-font-sans);
 }
 
+/* DX-TODO(form-dialog/form-drawer): Overlay CSS remains centralized until item CSS
+   concatenation is wired and fixed-position presentation receives visual QA. */
 .concrete-form-overlay {
 	display: grid;
 	min-width: 0;
@@ -1580,6 +1599,7 @@
 	min-height: 100%;
 }
 
+/* DX-TODO(password-input): this form-control selector cluster is still shared component CSS; move only after item CSS concatenation and a form screenshot pass preserve current pixels. */
 .concrete-form-control-wrap {
 	position: relative;
 	display: block;
@@ -1664,6 +1684,7 @@
 }
 
 /* Form controls */
+/* DX-TODO(number-stepper): this component still owns layout CSS that may eventually become a control/layout primitive; defer visual/token edits to the component polish pass. */
 .concrete-number-stepper {
 	display: grid;
 	grid-template-columns: 28px minmax(48px, 1fr) 28px;
@@ -1750,6 +1771,8 @@
 	appearance: none;
 }
 
+/* DX-TODO(range-slider): RangeSlider now has an item folder, but active selectors
+   remain centralized until item CSS concatenation is wired. */
 .concrete-range-slider {
 	--concrete-range-start: 20%;
 	--concrete-range-end: 80%;
@@ -1840,6 +1863,9 @@
 	font: 650 var(--concrete-type-11) / 1 var(--concrete-font-sans);
 }
 
+/* DX-TODO(multi-select/date-picker/date-range-picker/time-picker): These interactive form
+   components now have item folders, but active selectors remain centralized. A future
+   pass should decide which picker/menu surfaces become reusable primitives. */
 .concrete-multi-select,
 .concrete-date-picker,
 .concrete-time-picker {
@@ -2191,6 +2217,10 @@
 	transform: translateY(1px);
 }
 
+/* DX-TODO(file-upload/image-upload): Upload components now have item folders, but active
+   selectors remain centralized until item CSS concatenation is deterministic. Width
+   constraints and grid behavior should be re-evaluated with visual QA before token/layout
+   primitive cleanup. */
 .concrete-file-upload {
 	display: grid;
 	gap: 8px;
@@ -2256,6 +2286,11 @@
 }
 
 /* Data Components */
+/* DX-TODO(metric-card/meter/chart-family/data-table): MetricCard, Meter, focused chart items,
+   and DataTable now
+   have item folders, but these selectors remain in the shared component stylesheet until
+   item CSS concatenation and screenshot coverage are ready. Revisit whether the
+   card-specific layout should become primitive/layout composition before moving pixels. */
 .concrete-metric-card,
 .concrete-meter-card,
 .concrete-chart-card,
@@ -2888,6 +2923,9 @@
 	max-width: 116px;
 }
 
+/* DX-TODO(flow-diagram/diagram-canvas): Diagram components now have item folders, but
+   canvas/graph selectors remain centralized until item CSS concatenation is wired.
+   Several values here are visual-layout decisions and need screenshot QA before token cleanup. */
 .concrete-flow-diagram-viewport {
 	overflow: hidden;
 	border: 1px solid var(--concrete-border-soft);

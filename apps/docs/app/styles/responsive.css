@@ -39,16 +39,6 @@
 
 	.homeBandCompact,
 	.homePressureGrid,
-	.componentHero,
-	.interactionDemo,
-	.formsDemo,
-	.formsGridFive,
-	.formsGridFour,
-	.formsGridThree,
-	.formsGridTwo,
-	.formsCompositionGrid,
-	.componentMetricGrid,
-	.componentBoundaryGrid,
 	.componentPlaygroundStageDataGrid,
 	.componentCatalogGrid,
 	.componentStateGrid,
@@ -64,8 +54,7 @@
 	.stateCard,
 	.primitiveCard,
 	.foundationCard,
-	.primitiveConceptCard,
-	.primitiveConceptWide {
+	.primitiveConceptCard {
 		grid-column: span 12;
 	}
 
@@ -94,16 +83,8 @@
 		flex-direction: column;
 	}
 
-	.chatHeader {
-		flex-direction: column;
-	}
-
 	.detailIntro h1 {
 		font-size: 48px;
-	}
-
-	.componentHero .detailIntro h1 {
-		font-size: var(--concrete-type-48);
 	}
 
 	.stateGrid {
@@ -124,42 +105,12 @@
 	.foundationTokenGrid,
 	.foundationElevationGrid,
 	.foundationTextureGrid,
-	.conceptGridThree,
-	.sparkGrid,
-	.iconMiniGrid,
-	.focusTokenGrid,
-	.emptyContextGrid,
-	.skeletonAtoms,
-	.skeletonDashboard {
+	.focusTokenGrid {
 		grid-template-columns: repeat(2, 1fr);
-	}
-
-	.skeletonPatternFour,
-	.skeletonPatternSix,
-	.skeletonPatternEight,
-	.skeletonPatternTwelve {
-		grid-column: 1 / -1;
-	}
-
-	.skeletonTokenRows,
-	.skeletonTokenRows > div {
-		grid-template-columns: 1fr;
-	}
-
-	.skeletonTable {
-		overflow-x: auto;
-	}
-
-	.skeletonTableRow {
-		min-width: 620px;
 	}
 
 	.foundationIconGrid {
 		grid-template-columns: repeat(6, 1fr);
-	}
-
-	.metricBar {
-		grid-template-columns: 72px 1fr 44px;
 	}
 
 	.specHeader,

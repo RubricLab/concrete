@@ -8,7 +8,6 @@ import './styles/foundations.css'
 import './styles/concepts.css'
 import './styles/primitives.css'
 import './styles/components.css'
-import './styles/forms.css'
 import './styles/render.css'
 import './styles/responsive.css'
 
