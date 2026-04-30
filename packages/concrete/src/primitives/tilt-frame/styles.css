@@ -1,0 +1,67 @@
+.concrete-tilt-frame {
+	display: grid;
+	min-width: var(--concrete-space-0);
+	perspective: var(--concrete-size-tilt-frame-perspective);
+}
+
+.concrete-tilt-frame-surface {
+	position: relative;
+	display: grid;
+	min-width: var(--concrete-space-0);
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-2);
+	transform: rotateX(var(--concrete-tilt-rotate-x, 0deg))
+		rotateY(var(--concrete-tilt-rotate-y, 0deg)) translate3d(0, 0, 0);
+	transform-origin: center;
+	transform-style: preserve-3d;
+	transition:
+		transform var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease);
+	backface-visibility: hidden;
+	contain: paint;
+	will-change: transform;
+}
+
+.concrete-tilt-frame[data-surface="sunken"] .concrete-tilt-frame-surface {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+	box-shadow: inset var(--concrete-space-0) var(--concrete-border-width-hairline)
+		var(--concrete-space-0) var(--concrete-surface);
+}
+
+.concrete-tilt-frame[data-surface="transparent"] .concrete-tilt-frame-surface {
+	border-color: transparent;
+	background: transparent;
+	box-shadow: none;
+}
+
+.concrete-tilt-frame[data-interactive="true"]:hover .concrete-tilt-frame-surface {
+	border-color: var(--concrete-border-strong);
+	box-shadow: var(--concrete-shadow-2);
+}
+
+.concrete-tilt-frame-content {
+	display: grid;
+	gap: var(--concrete-space-2);
+	min-width: var(--concrete-space-0);
+	padding: var(--concrete-space-4);
+}
+
+.concrete-tilt-frame-glare {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	border-radius: inherit;
+	background: var(--concrete-tilt-frame-glare-background);
+	box-shadow: var(--concrete-tilt-frame-glare-shadow);
+	opacity: var(--concrete-opacity-hidden);
+	pointer-events: none;
+	transition: opacity var(--concrete-duration-fast) var(--concrete-ease);
+}
+
+.concrete-tilt-frame[data-interactive="true"]:hover .concrete-tilt-frame-glare {
+	opacity: var(--concrete-opacity-tilt-frame-glare);
+}

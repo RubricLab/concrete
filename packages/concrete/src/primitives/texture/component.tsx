@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react'
 import { concreteClassNames, getConcreteClassName } from '../../styles/class-names'
 import { cn } from '../utils'
 
-const textureVariantValues = ['lattice', 'dots', 'lines'] as const
+const textureVariantValues = ['lattice', 'dots', 'lines', 'depth'] as const
 
 export type TextureVariant = (typeof textureVariantValues)[number]
 
@@ -11,6 +11,7 @@ export type TextureProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 const textureClassNames = {
+	depth: getConcreteClassName('depth'),
 	dots: getConcreteClassName('dots'),
 	lattice: getConcreteClassName('lattice'),
 	lines: getConcreteClassName('lines')

@@ -100,6 +100,7 @@ const dynamicPrimitiveInlineStyleFiles = [
 	'packages/concrete/src/primitives/diagram-viewport/component.tsx',
 	'packages/concrete/src/primitives/progress/component.tsx',
 	'packages/concrete/src/primitives/range-control/component.tsx',
+	'packages/concrete/src/primitives/scale-frame/component.tsx',
 	'packages/concrete/src/primitives/skeleton/component.tsx',
 	'packages/concrete/src/primitives/slider/component.tsx',
 	'packages/concrete/src/primitives/upload-item/component.tsx'
@@ -498,7 +499,7 @@ describe('Import boundaries', () => {
 			([key, value]) => value !== toConcreteSelector(key)
 		)
 
-		expect(concreteClassNameEntries.length).toBe(514)
+		expect(concreteClassNameEntries.length).toBe(520)
 		expect(classNameRecord.button).toBe('concrete-button')
 		expect(classNameRecord.diagramCanvasEdgeSelected).toBe('concrete-diagram-canvas-edge-selected')
 		expect(classNameRecord.validationSummaryAction).toBe('concrete-validation-summary-action')

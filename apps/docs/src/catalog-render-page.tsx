@@ -1,24 +1,30 @@
-import { Badge, type ConcretePressure } from '@rubriclab/concrete'
+import { Badge, type RenderQuery } from '@rubriclab/concrete'
 import type { ReactNode } from 'react'
 import type { CatalogRenderItem } from '@/catalog-render-item'
+import { renderDefinitionFromSearchParams, type SearchParamsInput } from '@/rendering'
 
 type CatalogRenderPageProps = CatalogRenderItem & {
-	pressure: ConcretePressure
-	state: string
+	query: RenderQuery
+	searchParams: SearchParamsInput
 }
 
-export function CatalogRenderPage({ definition, entry, pressure, state }: CatalogRenderPageProps) {
+export function CatalogRenderPage({
+	definition,
+	entry,
+	query,
+	searchParams
+}: CatalogRenderPageProps) {
 	return (
-		<main className="renderShell" data-pressure={pressure} data-state={state}>
+		<main className="renderShell" data-pressure={query.pressure} data-state={query.state}>
 			<section className="renderStage">
-				{definition.renderExample(state)}
-				{renderCatalogRenderMeta(entry.name, pressure)}
+				{renderDefinitionFromSearchParams(definition, searchParams, query.state)}
+				{renderCatalogRenderMeta(entry.name, query.pressure)}
 			</section>
 		</main>
 	)
 }
 
-function renderCatalogRenderMeta(name: string, pressure: ConcretePressure): ReactNode {
+function renderCatalogRenderMeta(name: string, pressure: RenderQuery['pressure']): ReactNode {
 	return (
 		<div className="metaRow" style={{ marginTop: 14 }}>
 			<Badge signal="terminal">{name}</Badge>

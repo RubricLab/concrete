@@ -2,7 +2,7 @@ import { z } from 'zod/v4'
 
 export const textureSchema = z
 	.object({
-		texture: z.enum(['lattice', 'dots', 'lines']).default('lattice')
+		texture: z.enum(['lattice', 'dots', 'lines', 'depth']).default('lattice')
 	})
 	.strict()
 

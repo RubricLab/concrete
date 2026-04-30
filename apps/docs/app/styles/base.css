@@ -60,16 +60,28 @@ body {
 	opacity: 1;
 }
 
-.navIconLink {
+.navLogoLink {
 	justify-content: center;
-	width: 28px;
+	width: 30px;
 	padding: 0;
+	border: 1px solid var(--concrete-border-soft);
+	background: var(--concrete-raised);
 }
 
-.navIconLink svg {
+.navLogoLink svg {
+	display: block;
+	flex: none;
+}
+
+.npmLogo {
+	width: 22px;
+	height: 8px;
+}
+
+.githubLogo {
 	width: 15px;
 	height: 15px;
-	fill: currentColor;
+	fill: currentcolor;
 }
 
 .main {
@@ -332,6 +344,66 @@ body {
 	grid-template-columns: minmax(0, 1fr) 360px;
 	gap: 14px;
 	align-items: stretch;
+}
+
+.detailContractGrid {
+	display: grid;
+	grid-template-columns: minmax(0, 0.85fr) minmax(280px, 0.7fr) minmax(320px, 1fr);
+	gap: 12px;
+}
+
+.detailContractGrid article {
+	display: grid;
+	align-content: start;
+	gap: 10px;
+	min-width: 0;
+	padding: 16px;
+	border: 1px solid var(--concrete-border);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.detailContractGrid svg {
+	width: 18px;
+	height: 18px;
+	color: var(--concrete-sky);
+}
+
+.detailContractGrid strong {
+	color: var(--concrete-foreground-strong);
+	font-size: 14px;
+	font-weight: 800;
+}
+
+.detailContractGrid p {
+	color: var(--concrete-foreground-muted);
+	font-size: 12.5px;
+	line-height: 1.55;
+}
+
+.detailRouteStack {
+	display: grid;
+	gap: 7px;
+}
+
+.detailRouteStack code {
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.detailSeedCard pre {
+	max-height: 240px;
+	margin: 0;
+	padding: 12px;
+	overflow: auto;
+	border: 1px solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-sunken);
+	color: var(--concrete-foreground-body);
+	font: 600 11px / 1.55 var(--concrete-font-mono);
 }
 
 .playgroundPreview {

@@ -1,400 +1,443 @@
 import {
+	Badge,
 	Button,
-	Card,
-	Chip,
+	Checkbox,
+	FeatureCard as ConcreteFeatureCard,
 	ConcreteIcon,
-	componentRegistry,
-	Delta,
-	Frame,
-	foundationRegistry,
-	InlineCode,
-	Kbd,
-	Progress,
-	ProgressRing,
-	primitiveRegistry,
+	type IconName,
+	Input,
+	MetricCard,
 	renderComponentExample,
-	renderPrimitiveExample,
-	SegmentedProgress,
-	Spinner,
-	Stat,
+	ScaleFrame,
 	Switch,
-	TextLink,
-	Texture
+	Tag,
+	Texture,
+	Wordmark
 } from '@rubriclab/concrete'
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
-import {
-	homeTypeRows,
-	homeIconNames as iconNames,
-	iconRuleRows,
-	homeInkStops as inkStops,
-	pressureRows,
-	homeRadiusRows as radiusRows,
-	homeSignalStops as signalStops,
-	homeSkyStops as skyStops,
-	homeSpaceRows as spaceRows,
-	typographySummary
-} from '@/foundation-data'
+import type { ReactNode } from 'react'
+import { CopyCommand } from '../src/copy-command'
+import { RenderContractDemo } from '../src/render-contract-demo'
 
-// DX-TODO(docs): This route still owns raw docs HTML/CSS classes. Future UX polish should rebuild the page from Concrete primitives only.
+type HeroFeature = {
+	accent: 'ink' | 'sky' | 'terminal' | 'ultra'
+	description: string
+	icon: IconName
+	title: string
+}
+
+type SystemLayer = {
+	description: string
+	href: string
+	items: readonly string[]
+	key: 'foundations' | 'primitives' | 'components' | 'applications'
+	title: string
+}
+
+const heroFeatures = [
+	{
+		accent: 'ink',
+		description: 'Zod props, examples, states.',
+		icon: 'code',
+		title: 'Typed surface'
+	},
+	{
+		accent: 'sky',
+		description: 'Same grid, four contexts.',
+		icon: 'sliders-horizontal',
+		title: 'Density aware'
+	},
+	{
+		accent: 'terminal',
+		description: 'React and image URLs.',
+		icon: 'image',
+		title: 'Render routes'
+	},
+	{
+		accent: 'ultra',
+		description: 'Specs machines can use.',
+		icon: 'zap',
+		title: 'Agent native'
+	}
+] as const satisfies readonly HeroFeature[]
+
+const systemLayers = [
+	{
+		description: 'The rules of the system.',
+		href: '/foundations',
+		items: ['Color', 'Type', 'Space', 'Surface', 'Radius', 'Texture'],
+		key: 'foundations',
+		title: 'Foundations'
+	},
+	{
+		description: 'Low-level building blocks.',
+		href: '/primitives',
+		items: ['Button', 'Input', 'Badge', 'Switch', 'Checkbox', 'Tag'],
+		key: 'primitives',
+		title: 'Primitives'
+	},
+	{
+		description: 'High-level composable UI.',
+		href: '/components',
+		items: ['Composer', 'Menu', 'Chart', 'Table', 'Trace'],
+		key: 'components',
+		title: 'Components'
+	},
+	{
+		description: 'Interfaces that ship.',
+		href: '#library',
+		items: ['Dashboards', 'Docs', 'Agents', 'Generated UI'],
+		key: 'applications',
+		title: 'Applications'
+	}
+] as const satisfies readonly SystemLayer[]
+
+const pressureModes = [
+	{
+		body: 'Generous margins, long measures, open rhythm, and selected proof.',
+		mode: 'Hierarchy',
+		title: 'Editorial'
+	},
+	{
+		body: 'High information density, efficient scanning, persistent tools, and visible states.',
+		mode: 'Compact',
+		title: 'Product'
+	},
+	{
+		body: 'Focused flow, one useful output, progressive reveal, and inline artifacts.',
+		mode: 'Standard',
+		title: 'Generative'
+	},
+	{
+		body: 'Simplified frames, clear annotations, mocked fidelity, and easy scanning.',
+		mode: 'Mocked',
+		title: 'Explainer'
+	}
+] as const satisfies readonly {
+	body: string
+	mode: string
+	title: string
+}[]
+
 export default function HomeRoute() {
 	return (
 		<main className="docsHome" id="home">
-			<section className="docsChapter docsHero">
-				<ChapterMeta label="Concrete" meta="Editorial system / product primitives" number="00" />
-				<h1>Concrete is a design system for labs that ship</h1>
-				<p className="docsLead">
-					An editorial voice for serious tools: crisp type, soft controls, dense product surfaces, and
-					one primitive kit underneath every page.
-				</p>
-				<div className="heroInstall">
-					<span>npm</span>
-					<code>npm install @rubriclab/concrete</code>
-				</div>
-				<div className="heroBillboard" aria-hidden>
-					<span className="heroKicker">Concrete / 00</span>
-					<p>
-						Build the <em>language</em>
-						<br />
-						before the page.
+			<section className="docsHeroV3" aria-labelledby="hero-title">
+				<Texture className="homeLatticeField" variant="lattice" />
+				<div className="heroEditorial">
+					<span className="homeKicker">Concrete</span>
+					<h1 id="hero-title">
+						The language layer for labs that <span className="heroShipWord">ship.</span>
+					</h1>
+					<p className="docsLead">
+						A rigorous React design system for research writing, dense products, generated interfaces,
+						agent workflows, and the strange space between them.
 					</p>
-					<div className="heroStrip">
-						<span>type</span>
-						<span>color</span>
-						<span>density</span>
-						<span>motion</span>
-						<span>primitives</span>
+					<div className="heroCommandRow">
+						<CopyCommand command="bun add @rubriclab/concrete" label="Copy bun install command" />
 					</div>
 				</div>
+				<div className="heroComponentMount">
+					<header>
+						<span>Composer</span>
+						<em>Product density</em>
+					</header>
+					<div className="heroComposerStage">{renderComponentExample('composer')}</div>
+				</div>
+				<div className="heroFeatureRail">{heroFeatures.map(renderHeroFeature)}</div>
 			</section>
 
-			<section className="docsChapter" id="foundations">
-				<ChapterMeta
-					label="Foundations"
-					meta={`${foundationRegistry.length} foundations / registry-backed tokens`}
-					number="01"
+			<section className="docsChapter systemChapter" id="system">
+				<SectionIntro
+					title="The system, from the ground up."
+					body="Layers build on each other. Each one does one thing well; together, they scale from a sentence of research to a working product surface."
 				/>
-				<h2>One language, many pressures.</h2>
-				<p className="docsLead">
-					Foundations are strict enough for product density and expressive enough for published research.
-					Pressure is creative direction, not a universal primitive prop.
-				</p>
-
-				<Subhead detail={typographySummary} index="01.01" title="Typography" />
-				<div className="foundationSplit">
-					<div className="typeSpecimen">
-						<p>
-							Rubric is a lab
-							<br />
-							that <em>ships</em>
-						</p>
-					</div>
-					<div className="typeScaleCompact">
-						{homeTypeRows.map(([metric, sample, role, className]) => (
-							<div key={role}>
-								<span>{metric}</span>
-								{renderHomeTypeSample(sample, className)}
-								<em>{role}</em>
-							</div>
-						))}
-					</div>
-				</div>
-
-				<Subhead detail="ink / sky / three signals" index="01.02" title="Color" />
-				<div className="colorFigure">
-					<SwatchGrid stops={inkStops} />
-					<SwatchGrid stops={skyStops} />
-					<div className="signalGrid">
-						{signalStops.map(([label, color, role]) => (
-							<div className="signalTile" key={label}>
-								<i style={{ background: color }} />
-								<b>{label}</b>
-								<span>{role}</span>
-							</div>
-						))}
-					</div>
-				</div>
-
-				<Subhead detail="4 contexts / one grid" index="01.03" title="Pressure and density" />
-				<div className="densityGrid">
-					{pressureRows.map(([title, description]) => (
-						<article key={title}>
-							<strong>{title}</strong>
-							<span>{description}</span>
-							<i data-density={title.toLowerCase()} />
-						</article>
-					))}
-				</div>
-
-				<Subhead detail="4px base / strict meaning" index="01.04" title="Space, radius, elevation" />
-				<div className="foundationTrio">
-					<div className="spacingScale">
-						{spaceRows.map(([label, size, role]) => (
-							<span key={label} style={{ '--home-space': `${size}px` } as CSSProperties}>
-								<b>{label}</b>
-								<i>{size}</i>
-								<em>{role}</em>
-							</span>
-						))}
-					</div>
-					<div className="radiusGrid">
-						{radiusRows.map(([label, radius, role]) => (
-							<article key={label} style={{ '--home-radius': radius } as CSSProperties}>
-								<i />
-								<b>{label}</b>
-								<span>{role}</span>
-							</article>
-						))}
-					</div>
-					<div className="elevationGrid">
-						<span>Border</span>
-						<span>Raised</span>
-						<span>Floating</span>
-						<span>Overlay</span>
-					</div>
-				</div>
-
-				<Subhead detail="state only / always visible" index="01.05" title="Motion, focus, texture" />
-				<div className="foundationUtilityGrid">
-					<div className="motionFigure">
-						<span>Fade</span>
-						<span>Move</span>
-						<span>Reveal</span>
-						<span>Dismiss</span>
-					</div>
-					<div className="focusFigure">
-						<Button className="homeFocusedButton" variant="secondary">
-							Focused action
-						</Button>
-						<Chip selected>Selected chip</Chip>
-						<Switch checked label="Visible focus" readOnly />
-					</div>
-					<div className="textureFigure">
-						<Texture variant="lattice" />
-						<Texture variant="dots" />
-						<Texture variant="lines" />
-					</div>
-				</div>
-
-				<Subhead detail="currentColor / typed registry" index="01.06" title="Iconography" />
-				<div className="iconSystem">
-					<div className="iconRules">
-						{iconRuleRows.map(([label, value]) => (
-							<span key={label}>
-								<b>{label}</b>
-								<i>{value}</i>
-							</span>
-						))}
-					</div>
-					<div className="iconLibrary">
-						{iconNames.map(name => (
-							<span key={name}>
-								<ConcreteIcon name={name} />
-								{name}
-							</span>
-						))}
-					</div>
+				<div className="systemShowcase">
+					<div className="systemLayerGrid">{systemLayers.map(renderSystemLayer)}</div>
 				</div>
 			</section>
 
-			<section className="docsChapter" id="primitives">
-				<ChapterMeta
-					label="Primitives"
-					meta={`${primitiveRegistry.length} atoms / registry-backed specs`}
-					number="02"
+			<section className="docsChapter pressureChapter" id="pressure">
+				<SectionIntro
+					title="One grid. Four pressures."
+					body="Pressure changes composition, not the component contract. The same spatial system expands, compresses, focuses, or simplifies around the user's job."
 				/>
-				<h2>Small parts, clear roles.</h2>
-				<p className="docsLead">
-					Each card shows a real exported primitive centered in a sunken stage. The full card opens the
-					typed primitive page with states, props, and render routes.
-				</p>
-				<div className="homePrimitiveGrid">
-					{primitiveRegistry.map(entry => (
-						<article className="homePrimitiveCard" key={entry.slug}>
-							<Link
-								aria-label={`Open ${entry.name} primitive details`}
-								className="homeCardOverlay"
-								href={`/primitives/${entry.slug}`}
-							/>
-							<header>
-								<strong>{entry.name}</strong>
-								<span>{entry.category}</span>
-							</header>
-							<div className="homePrimitiveStage">{renderPrimitiveExample(entry.slug)}</div>
-						</article>
-					))}
+				<div className="pressureExplainer">{pressureModes.map(renderPressureMode)}</div>
+			</section>
+
+			<section className="agentChapter" id="api">
+				<Texture className="agentDepthTexture" variant="depth" />
+				<div className="agentIntro">
+					<span className="homeKicker">Interface contract</span>
+					<h2>Built for agents and developers.</h2>
+					<p>
+						Every item carries typed props, examples, states, usage guidance, generated controls, DOM
+						render routes, and screenshot routes from one package-owned definition.
+					</p>
+					<div className="agentContractList">
+						{['Zod/v4 schemas', 'Generated controls', 'Fixed visual state', 'React or JPEG output'].map(
+							item => (
+								<span key={item}>
+									<ConcreteIcon name="circle-check" />
+									{item}
+								</span>
+							)
+						)}
+					</div>
+					<div className="agentGithubCallout">
+						<strong>Source is the contract.</strong>
+						<p>Every public item is registered with schemas, examples, states, and render routes.</p>
+						<Link href="https://github.com/RubricLab/concrete" rel="noreferrer" target="_blank">
+							<ConcreteIcon name="external-link" />
+							GitHub
+						</Link>
+					</div>
+				</div>
+				<div className="agentContractSurface">
+					<RenderContractDemo />
 				</div>
 			</section>
 
-			<section className="docsChapter" id="components">
-				<ChapterMeta
-					label="Components"
-					meta={`${componentRegistry.length} compositions / built from primitives`}
-					number="03"
-				/>
-				<h2>Components declare density.</h2>
-				<p className="docsLead">
-					Components assemble primitive contracts into agentic interaction, AI-native transcript, and
-					form workflows. They can own deterministic local behavior, but product policy stays in the
-					application.
-				</p>
-
-				<div className="componentFeatureGrid">
-					{componentRegistry.map(entry => (
-						<article className="componentFeatureCard" key={entry.slug}>
-							<Link
-								aria-label={`Open ${entry.name} component details`}
-								className="homeCardOverlay"
-								href={`/components/${entry.slug}`}
-							/>
-							<header>
-								<strong>{entry.name}</strong>
-								<span>{entry.category}</span>
-							</header>
-							<div className="componentFeatureStage" data-component={entry.slug}>
-								{renderComponentExample(entry.slug)}
-							</div>
-							<p>{entry.description}</p>
-						</article>
-					))}
+			<footer className="docsFooter" id="library">
+				<div className="footerIntro">
+					<span>Built by</span>
+					<Wordmark className="footerWordmark" />
+					<p>Concrete is Rubric Labs' system for soft, compact, agent-native interfaces.</p>
 				</div>
-			</section>
-
-			<section className="docsChapter" id="api">
-				<ChapterMeta label="API" meta="stable public package surface" number="04" />
-				<h2>Contracts stay small.</h2>
-				<p className="docsLead">
-					Concrete ships one public React package, one registry, one schema boundary, and one render
-					contract for DOM and screenshots.
-				</p>
-
-				<div className="apiGrid">
-					<Card title="Package exports">
-						<div className="apiCodeRows">
-							<InlineCode>@rubriclab/concrete</InlineCode>
-							<InlineCode>@rubriclab/concrete/components</InlineCode>
-							<InlineCode>@rubriclab/concrete/primitives</InlineCode>
-							<InlineCode>@rubriclab/concrete/styles.css</InlineCode>
-							<InlineCode>@rubriclab/concrete/registry</InlineCode>
-							<InlineCode>@rubriclab/concrete/icons</InlineCode>
-							<InlineCode>@rubriclab/concrete/schemas</InlineCode>
-						</div>
-					</Card>
-					<Card title="Render routes">
-						<div className="apiCodeRows">
-							<TextLink href="/render/foundation/colors">/render/foundation/colors</TextLink>
-							<TextLink href="/render/primitive/button">/render/primitive/button</TextLink>
-							<TextLink href="/render/primitive/button.jpg">/render/primitive/button.jpg</TextLink>
-							<TextLink href="/render/component/composer">/render/component/composer</TextLink>
-							<TextLink href="/render/component/composer.jpg">/render/component/composer.jpg</TextLink>
-						</div>
-					</Card>
-					<Card title="Skill contract">
-						<p>
-							Use primitives for controls and surfaces. Use registry metadata for docs and screenshots.
-							Choose pressure before composing, never as a universal primitive prop.
-						</p>
-					</Card>
-					<Card title="Smoke sample">
-						<div className="apiSmoke">
-							<Stat delta={<Delta intent="positive" value="100%" />} label="Exports" value="clean" />
-							<Progress tone="terminal" value={100} />
-							<Kbd>⌘</Kbd>
-							<Kbd>K</Kbd>
-							<Spinner size={14} tone="sky" />
-						</div>
-					</Card>
-				</div>
-
-				<div className="apiFooter">
-					<Frame header="Registry" headerMeta="shared source">
-						<div className="apiMetrics">
-							<Stat label="Foundations" value={foundationRegistry.length} />
-							<Stat label="Primitives" value={primitiveRegistry.length} />
-							<Stat label="Components" value={componentRegistry.length} />
-							<SegmentedProgress segments={8} value={8} />
-							<ProgressRing size={76} tone="terminal" value={100} />
-						</div>
-					</Frame>
-					<Link className="actionLink" href="/components">
-						Open components
+				<nav className="footerRouteGrid" aria-label="Concrete library">
+					<Link href="/foundations">Foundations</Link>
+					<Link href="/primitives">Primitives</Link>
+					<Link href="/components">Components</Link>
+					<Link href="/#api">Render API</Link>
+				</nav>
+				<div className="footerInstall">
+					<CopyCommand command="bun add @rubriclab/concrete" label="Copy bun install command" />
+					<Link
+						href="https://www.npmjs.com/package/@rubriclab/concrete"
+						rel="noreferrer"
+						target="_blank"
+					>
+						NPM
+					</Link>
+					<Link href="https://github.com/RubricLab/concrete" rel="noreferrer" target="_blank">
+						GitHub
 					</Link>
 				</div>
-			</section>
+			</footer>
 		</main>
 	)
 }
 
-type ChapterMetaProps = {
-	label: string
-	meta: string
-	number: string
-}
-
-function ChapterMeta({ label, meta, number }: ChapterMetaProps) {
+function renderHeroFeature(feature: HeroFeature): ReactNode {
 	return (
-		<div className="chapterMeta">
-			<span className="chapterNumber">{number}</span>
-			<span className="chapterLabel">{label}</span>
-			<span>{meta}</span>
-		</div>
+		<ConcreteFeatureCard
+			accent={feature.accent}
+			className="homeFeatureCard"
+			description={feature.description}
+			icon={feature.icon}
+			interactive={false}
+			key={feature.title}
+			title={feature.title}
+		/>
 	)
 }
 
-type SubheadProps = {
-	detail: string
-	index: string
+function renderSystemLayer(layer: SystemLayer): ReactNode {
+	return (
+		<article className="systemLayerCard" data-layer={layer.key} key={layer.key}>
+			<header>
+				<strong>{layer.title}</strong>
+				<span>{layer.description}</span>
+			</header>
+			<div className="systemLayerPreview">{renderLayerPreview(layer.key)}</div>
+			<footer>
+				<div className="systemLayerItems">
+					{layer.items.map(item => (
+						<span key={item}>{item}</span>
+					))}
+				</div>
+				<Link href={layer.href} aria-label={`Open ${layer.title}`}>
+					Open
+				</Link>
+			</footer>
+		</article>
+	)
+}
+
+function renderLayerPreview(layer: SystemLayer['key']): ReactNode {
+	switch (layer) {
+		case 'applications':
+			return (
+				<div className="applicationPreview">
+					<ScaleFrame align="center" className="systemScaleFrame" scale={0.52} surface="transparent">
+						<div className="systemScaledComponent systemScaledApplication">
+							<div className="applicationDashboardPreview">
+								<header>
+									<strong>Agent ops</strong>
+									<Badge signal="terminal">Live</Badge>
+								</header>
+								<div className="applicationDashboardMetrics">
+									<MetricCard
+										compact
+										delta={{ basis: 'accepted', intent: 'positive', value: '+12%' }}
+										label="Latency p95"
+										trend={[33, 37, 36, 42, 47, 46, 52, 58, 61, 64]}
+										value="184ms"
+									/>
+									<MetricCard
+										compact
+										delta={{ basis: 'blocked', intent: 'negative', value: '-2.4%' }}
+										label="Interventions"
+										trend={[48, 44, 41, 39, 35, 32, 29]}
+										trendTone="error"
+										value="4.2%"
+									/>
+								</div>
+								<div className="applicationDashboardRows">
+									<span>
+										<b>Router</b>
+										<em>Ready</em>
+									</span>
+									<span>
+										<b>Eval batch</b>
+										<em>Queued</em>
+									</span>
+								</div>
+							</div>
+						</div>
+					</ScaleFrame>
+				</div>
+			)
+		case 'components':
+			return (
+				<div className="componentPreviewCard">
+					<ScaleFrame align="center" className="systemScaleFrame" scale={0.56} surface="transparent">
+						<div className="systemScaledComponent systemScaledComponentMenu">
+							{renderComponentExample('command-menu')}
+						</div>
+					</ScaleFrame>
+				</div>
+			)
+		case 'foundations':
+			return (
+				<div className="foundationPreview">
+					<div className="foundationSpecimen">
+						<strong>Ag</strong>
+					</div>
+					<div className="miniSwatches">
+						<span />
+						<span />
+						<span />
+						<span />
+						<span />
+					</div>
+					<div className="foundationMarks">
+						<span />
+						<span />
+						<span />
+					</div>
+				</div>
+			)
+		case 'primitives':
+			return (
+				<div className="primitivePreviewList">
+					<div className="primitivePreviewRow">
+						<Button size="small" variant="sky-soft">
+							Button
+						</Button>
+						<Input aria-label="Primitive preview input" placeholder="Input" />
+					</div>
+					<div className="primitivePreviewPillLine">
+						<Badge>Badge</Badge>
+						<Tag size="small" tone="ultra" variant="outline">
+							Agent
+						</Tag>
+						<div className="primitiveInlineControls">
+							<Switch checked readOnly aria-label="Primitive preview switch" />
+							<Checkbox checked readOnly aria-label="Primitive preview checkbox" />
+						</div>
+					</div>
+				</div>
+			)
+	}
+}
+
+function renderPressureMode(mode: (typeof pressureModes)[number]): ReactNode {
+	return (
+		<article className="pressureMode" data-pressure={mode.title.toLowerCase()} key={mode.title}>
+			<header>
+				<strong>{mode.title}</strong>
+				<em>{mode.mode}</em>
+			</header>
+			{renderPressureDiagram(mode.title)}
+			<p>{mode.body}</p>
+		</article>
+	)
+}
+
+function renderPressureDiagram(title: (typeof pressureModes)[number]['title']): ReactNode {
+	switch (title) {
+		case 'Editorial':
+			return (
+				<div className="pressureDiagram pressureEditorialDiagram" aria-hidden>
+					<strong>Q2 conversion rose 18%</strong>
+					<span />
+					<span />
+					<span />
+					<svg aria-hidden className="pressureMiniChart" viewBox="0 0 92 52">
+						<title>Editorial chart</title>
+						<path d="M4 44C15 41 19 34 28 35C38 36 40 24 49 24C58 24 61 13 70 15C78 17 82 10 88 8V48H4Z" />
+						<path d="M4 44C15 41 19 34 28 35C38 36 40 24 49 24C58 24 61 13 70 15C78 17 82 10 88 8" />
+						<path d="M4 48H88" />
+					</svg>
+				</div>
+			)
+		case 'Product':
+			return (
+				<div className="pressureDiagram pressureProductDiagram" aria-hidden>
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
+					<span />
+				</div>
+			)
+		case 'Generative':
+			return (
+				<div className="pressureDiagram pressureGenerativeDiagram" aria-hidden>
+					<strong>Why did Q2 rise?</strong>
+					<span />
+					<span />
+					<svg aria-hidden className="pressureTinySparkline" viewBox="0 0 92 28">
+						<title>Generative output chart</title>
+						<path d="M2 24C13 22 20 19 28 20C38 21 42 12 50 13C61 14 65 6 74 8C82 10 86 7 90 3" />
+					</svg>
+				</div>
+			)
+		case 'Explainer':
+			return (
+				<div className="pressureDiagram pressureExplainerDiagram" aria-hidden>
+					<span>Input</span>
+					<i />
+					<span>Process</span>
+					<i />
+					<span>Output</span>
+				</div>
+			)
+	}
+}
+
+type SectionIntroProps = {
+	body: string
 	title: string
 }
 
-function Subhead({ detail, index, title }: SubheadProps) {
+function SectionIntro({ body, title }: SectionIntroProps) {
 	return (
-		<div className="docsSubhead">
-			<span>{index}</span>
-			<strong>{title}</strong>
-			<em>{detail}</em>
+		<div className="sectionIntro">
+			<h2>{title}</h2>
+			<p>{body}</p>
 		</div>
 	)
-}
-
-type SwatchGridProps = {
-	stops: readonly (readonly [string, string, string])[]
-}
-
-function SwatchGrid({ stops }: SwatchGridProps) {
-	return (
-		<div className="swatchGridCompact">
-			{stops.map(([label, color, role], index) => (
-				<span
-					className={index > stops.length / 2 ? 'isLight' : undefined}
-					key={label}
-					style={{ '--home-swatch': color } as CSSProperties}
-				>
-					<b>{label}</b>
-					<i>{role}</i>
-				</span>
-			))}
-		</div>
-	)
-}
-
-function renderHomeTypeSample(sample: string, className: string) {
-	const homeClassName = getHomeTypeClassName(className)
-
-	return className === 'scaleBody' ? (
-		<p className={homeClassName}>{sample}</p>
-	) : (
-		<strong className={homeClassName}>{sample}</strong>
-	)
-}
-
-function getHomeTypeClassName(className: string): string {
-	switch (className) {
-		case 'scaleDisplay':
-			return 'displayRole'
-		case 'scaleHero':
-			return 'heroRole'
-		default:
-			return className
-	}
 }
