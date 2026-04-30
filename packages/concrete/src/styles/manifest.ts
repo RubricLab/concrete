@@ -24,12 +24,17 @@ export type PublicStyleBundle = {
 
 export const foundationStyleSources = [
 	{ kind: 'foundation', path: 'src/foundations/colors/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/typography/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/spacing/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/sizing/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/layout/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/radii/styles.css' },
 	{ kind: 'foundation', path: 'src/foundations/elevation/styles.css' },
 	{ kind: 'foundation', path: 'src/foundations/motion/styles.css' },
-	{ kind: 'foundation', path: 'src/foundations/radii/styles.css' },
-	{ kind: 'foundation', path: 'src/foundations/spacing/styles.css' },
 	{ kind: 'foundation', path: 'src/foundations/textures/styles.css' },
-	{ kind: 'foundation', path: 'src/foundations/typography/styles.css' }
+	{ kind: 'foundation', path: 'src/foundations/iconography/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/state/styles.css' },
+	{ kind: 'foundation', path: 'src/foundations/accessibility/styles.css' }
 ] as const satisfies readonly ConcreteStyleSource[]
 
 export const primitiveStyleSources = [

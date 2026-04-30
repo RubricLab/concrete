@@ -16,7 +16,7 @@ Concrete is Rubric Labs' design system for AI-native products and publishing. Us
 - Do not add amber warning variants, decorative gradients, double borders, emoji, bouncy motion, or loose component APIs.
 - Keep primitive props literal and narrow. Pressure is not a universal primitive prop.
 - Prefer TypeScript plus Zod v4 schemas at every runtime boundary.
-- Prefer CSS Modules for component internals and tokenized global CSS for foundations.
+- Prefer stable global Concrete selectors collected through the public stylesheet. Foundations emit tokens and utilities; primitives own scoped selectors; components should assemble primitives instead of owning CSS.
 
 ## Pressure Guidance
 
@@ -61,9 +61,9 @@ The `.jpg` route captures the real DOM render with Playwright. Use it for screen
 
 ## Workflow
 
-1. Add or edit primitives in `packages/concrete/src/primitives`.
-2. Add or edit components in `packages/concrete/src/components`.
-3. Register examples in `packages/concrete/src/registry`.
-4. Validate query, prop, or metadata changes in `packages/concrete/src/schemas`.
+1. Read `CODE.md` for rules and `PLAN.md` for the active DX todo.
+2. Add or edit foundations, primitives, and components in their item folders.
+3. Keep schemas, examples, metadata, and styles beside the owning item.
+4. Validate query, prop, or metadata changes through item schemas and public registry surfaces.
 5. Verify with `bun run check`.
 6. Visually inspect docs and render routes through `bun run dev`.

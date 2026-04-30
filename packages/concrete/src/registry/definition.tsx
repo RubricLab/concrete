@@ -5,6 +5,7 @@ import type { ControlDefinition } from './controls'
 import type {
 	ComponentRegistryEntry,
 	ComponentSlug,
+	FoundationRegistryEntry,
 	FoundationSlug,
 	PrimitiveProp,
 	PrimitiveRegistryEntry,
@@ -35,7 +36,8 @@ export type FoundationDefinition<SchemaOutput = unknown> = ConcreteDefinitionBas
 	'foundation',
 	FoundationSlug,
 	SchemaOutput
->
+> &
+	FoundationRegistryEntry
 
 export type PrimitiveDefinition<
 	SchemaOutput = unknown,

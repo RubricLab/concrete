@@ -72,8 +72,3 @@
 	--concrete-filter-concept-frame-selected: drop-shadow(0 0 0 var(--concrete-sky));
 	--concrete-filter-chart-bar: drop-shadow(0 1px 0 rgb(13 18 28 / 6%));
 }
-
-.concrete-focus-target:focus-visible {
-	outline: 0;
-	box-shadow: var(--concrete-ring-focus);
-}

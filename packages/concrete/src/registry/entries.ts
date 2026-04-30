@@ -81,7 +81,8 @@ function foundationEntryFromDefinition(
 		pressure: definition.pressure,
 		props: definition.props,
 		slug: definition.slug,
-		states: definition.states
+		states: definition.states,
+		tokens: definition.tokens
 	}
 }
 

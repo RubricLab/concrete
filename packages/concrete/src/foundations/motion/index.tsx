@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { motionExamples } from './examples'
 import { motionMeta } from './meta'
-import { motionFoundationSchema } from './schema'
+import { motionFoundationSchema, motionTokens } from './schema'
 
 export {
 	type MotionFoundationInput,
@@ -19,5 +19,6 @@ export const motionFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(motionExamples, state),
 	schema: motionFoundationSchema,
 	slug: 'motion',
-	states: exampleStates(motionExamples, ['default', 'states'])
+	states: exampleStates(motionExamples, ['default', 'states']),
+	tokens: motionTokens
 })

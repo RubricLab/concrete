@@ -20,6 +20,7 @@ import {
 	formValidationItemSchema,
 	foundationDefinitions,
 	foundationRegistry,
+	foundationTokenSchema,
 	getFoundationEntry,
 	iconNames,
 	messageSchema,
@@ -65,7 +66,12 @@ describe('Concrete registry', () => {
 	test('validates foundation metadata with the public schema', () => {
 		for (const entry of foundationRegistry) {
 			expect(registryEntrySchema.safeParse(entry).success).toBe(true)
+			expect(entry.tokens.length).toBeGreaterThan(0)
 			expect(getFoundationEntry(entry.slug)?.name).toBe(entry.name)
+
+			for (const token of entry.tokens) {
+				expect(foundationTokenSchema.safeParse(token).success).toBe(true)
+			}
 		}
 	})
 
@@ -276,15 +282,22 @@ describe('Concrete registry', () => {
 			'colors',
 			'typography',
 			'spacing',
+			'sizing',
+			'layout',
 			'radii',
 			'elevation',
 			'motion',
-			'textures'
+			'textures',
+			'iconography',
+			'state',
+			'accessibility'
 		])
 
 		for (const definition of foundationDefinitions) {
 			expect(definition.kind).toBe('foundation')
 			expect(foundationRegistry.some(entry => entry.slug === definition.slug)).toBe(true)
+			expect(definition.tokens.length).toBeGreaterThan(0)
+			expect(getFoundationEntry(definition.slug)?.tokens).toEqual(definition.tokens)
 			expect(hasUniqueNames(definition.controls)).toBe(true)
 			expect(hasUniqueQueries(definition.states)).toBe(true)
 			expect(definition.schema.safeParse({}).success).toBe(true)

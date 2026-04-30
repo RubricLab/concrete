@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { texturesExamples } from './examples'
 import { texturesMeta } from './meta'
-import { textureFoundationSchema } from './schema'
+import { textureFoundationSchema, textureTokens } from './schema'
 
 export {
 	type TextureFoundationInput,
@@ -18,5 +18,6 @@ export const texturesFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(texturesExamples, state),
 	schema: textureFoundationSchema,
 	slug: 'textures',
-	states: exampleStates(texturesExamples, ['default', 'diagram'])
+	states: exampleStates(texturesExamples, ['default', 'diagram']),
+	tokens: textureTokens.map(token => ({ name: token, value: token }))
 })

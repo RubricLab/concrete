@@ -93,11 +93,6 @@ const packageStyleExports = [
 	}
 ] as const
 const allowedMediaQueryConditions = new Set(['(width <= 420px)', '(width <= 640px)'])
-const scopedItemRoots = [
-	'packages/concrete/src/foundations',
-	'packages/concrete/src/primitives',
-	'packages/concrete/src/components'
-]
 const dynamicPrimitiveInlineStyleFiles = [
 	'packages/concrete/src/primitives/chart-surface/component.tsx',
 	'packages/concrete/src/primitives/data-table-shell/component.tsx',
@@ -164,34 +159,30 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
-	test('temporary architecture docs have been replaced by CODE.md', () => {
+	test('temporary architecture docs have been replaced by CODE.md and PLAN.md', () => {
 		expect(existsSync(join(repoRoot, 'CODE.md'))).toBe(true)
+		expect(existsSync(join(repoRoot, 'PLAN.md'))).toBe(true)
 		expect(existsSync(join(repoRoot, 'CODEBASE_POLICIES.md'))).toBe(false)
 		expect(existsSync(join(repoRoot, 'DX_ARCHITECTURE.md'))).toBe(false)
+		expect(existsSync(join(repoRoot, 'CONCRETE_ONTOLOGY_PROPOSAL.md'))).toBe(false)
+		expect(existsSync(join(repoRoot, 'CONCRETE_ONTOLOGY_TODO.md'))).toBe(false)
+		expect(existsSync(join(repoRoot, 'ITEM_SCOPE.md'))).toBe(false)
+		expect(existsSync(join(repoRoot, 'MIGRATION_QUEUE.md'))).toBe(false)
+		expect(existsSync(join(repoRoot, 'REFACTOR_RUNBOOK.md'))).toBe(false)
 	})
 
-	test('autonomous migration queue stays present and structured', () => {
-		const queuePath = join(repoRoot, 'MIGRATION_QUEUE.md')
-		const queue = existsSync(queuePath) ? readFileSync(queuePath, 'utf8') : ''
+	test('actionable plan stays present and structured', () => {
+		const planPath = join(repoRoot, 'PLAN.md')
+		const plan = existsSync(planPath) ? readFileSync(planPath, 'utf8') : ''
 
-		expect(queue).toContain('## Active Chunk')
-		expect(queue).toContain('## Backlog')
-		expect(queue).toContain('## Completed')
-		expect(readFileSync(join(repoRoot, 'CODE.md'), 'utf8')).toContain('MIGRATION_QUEUE.md')
-		expect(readFileSync(join(repoRoot, 'REFACTOR_RUNBOOK.md'), 'utf8')).toContain(
-			'MIGRATION_QUEUE.md'
-		)
-	})
-
-	test('item scope ledger covers every public item folder', () => {
-		const scopePath = join(repoRoot, 'ITEM_SCOPE.md')
-		const expectedPaths = [...scopedItemRoots.flatMap(listScopedItemPaths)].sort()
-		const actualPaths = [...listLedgerItemPaths(scopePath)].sort()
-		const duplicatePaths = findDuplicates(actualPaths)
-
-		expect(existsSync(scopePath)).toBe(true)
-		expect(actualPaths).toEqual(expectedPaths)
-		expect(duplicatePaths).toEqual([])
+		expect(plan).toContain('## Current Baseline')
+		expect(plan).toContain('## Active Work')
+		expect(plan).toContain('## Foundation Folders')
+		expect(plan).toContain('## Primitive Folders')
+		expect(plan).toContain('## Component Folders')
+		expect(plan).toContain('## Implementation Phases')
+		expect(plan).toContain('## Per-Item Audit Template')
+		expect(readFileSync(join(repoRoot, 'CODE.md'), 'utf8')).toContain('PLAN.md')
 	})
 
 	test('docs routes do not proxy one-line page components', () => {
@@ -775,32 +766,6 @@ function listExistingItemFiles(root: string, fileNames: readonly string[]): read
 	return listItemDirectories(join(repoRoot, root)).flatMap(directory =>
 		fileNames.map(fileName => join(directory, fileName)).filter(filePath => existsSync(filePath))
 	)
-}
-
-function listScopedItemPaths(root: string): readonly string[] {
-	return listItemDirectories(join(repoRoot, root)).map(directory =>
-		relative(join(repoRoot, 'packages/concrete/src'), directory)
-	)
-}
-
-function listLedgerItemPaths(path: string): readonly string[] {
-	if (!existsSync(path)) {
-		return []
-	}
-
-	const ledger = readFileSync(path, 'utf8')
-	const entryPattern = /^- `((?:foundations|primitives|components)\/[a-z0-9-]+)`/gmu
-	const paths: string[] = []
-
-	for (const match of ledger.matchAll(entryPattern)) {
-		const itemPath = match[1]
-
-		if (itemPath) {
-			paths.push(itemPath)
-		}
-	}
-
-	return paths
 }
 
 function findDuplicates(items: readonly string[]): readonly string[] {

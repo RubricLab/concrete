@@ -1,12 +1,16 @@
 import { z } from 'zod/v4'
+import {
+	commandItemToneSchema,
+	messageStatusSchema,
+	toolCallStatusSchema
+} from '../foundations/state/schema'
 
 export const composerFormatSchema = z.enum(['bold', 'italic', 'underline', 'strikethrough'])
 export const composerSuggestionKindSchema = z.enum(['command', 'mention'])
-export const commandItemToneSchema = z.enum(['default', 'error', 'sky', 'terminal', 'ultra'])
 export const messageRoleSchema = z.enum(['assistant', 'system', 'tool', 'user'])
 export const messageSurfaceSchema = z.enum(['bubble', 'plain'])
-export const messageStatusSchema = z.enum(['complete', 'error', 'pending', 'streaming'])
-export const toolCallStatusSchema = z.enum(['error', 'queued', 'running', 'success'])
+
+export { commandItemToneSchema, messageStatusSchema, toolCallStatusSchema }
 
 export const composerAttachmentSchema = z
 	.object({

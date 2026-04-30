@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { colorsExamples } from './examples'
 import { colorsMeta } from './meta'
-import { colorFoundationSchema } from './schema'
+import { colorFoundationSchema, colorTokens } from './schema'
 
 export {
 	type ColorFoundationInput,
@@ -19,5 +19,6 @@ export const colorsFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(colorsExamples, state),
 	schema: colorFoundationSchema,
 	slug: 'colors',
-	states: exampleStates(colorsExamples, ['default', 'signals', 'data'])
+	states: exampleStates(colorsExamples, ['default', 'signals', 'data']),
+	tokens: colorTokens
 })

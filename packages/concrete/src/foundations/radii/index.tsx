@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { radiiExamples } from './examples'
 import { radiiMeta } from './meta'
-import { radiiFoundationSchema } from './schema'
+import { radiiFoundationSchema, radiusTokens } from './schema'
 
 export {
 	type RadiiFoundationInput,
@@ -19,5 +19,6 @@ export const radiiFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(radiiExamples, state),
 	schema: radiiFoundationSchema,
 	slug: 'radii',
-	states: exampleStates(radiiExamples, ['default', 'controls'])
+	states: exampleStates(radiiExamples, ['default', 'controls']),
+	tokens: radiusTokens
 })

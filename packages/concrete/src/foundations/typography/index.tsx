@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { typographyExamples } from './examples'
 import { typographyMeta } from './meta'
-import { typographyFoundationSchema } from './schema'
+import { typographyFoundationSchema, typographyTokens } from './schema'
 
 export {
 	type TypographyFoundationInput,
@@ -19,5 +19,6 @@ export const typographyFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(typographyExamples, state),
 	schema: typographyFoundationSchema,
 	slug: 'typography',
-	states: exampleStates(typographyExamples, ['default', 'scale', 'mono'])
+	states: exampleStates(typographyExamples, ['default', 'scale', 'mono']),
+	tokens: typographyTokens
 })

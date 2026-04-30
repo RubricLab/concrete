@@ -24,8 +24,13 @@ When a file is opened, it should be obvious why that file exists, what it owns, 
 - Keep `@rubriclab/concrete/styles.css` as the required public stylesheet export.
 - Prefer generated controls from schemas. Do not hand-author partial playground switchboards.
 - Prefer typed example recipes over arbitrary React examples.
+- Treat `PLAN.md` as the target item inventory and operating todo for ontology work. If the target changes, update that file before code.
+- Foundations must exhaust the reusable design language that primitives consume. Do not add primitive CSS values to compensate for missing foundation concepts.
+- Public primitives must be reusable UI vocabulary, not component selector buckets extracted to satisfy the component CSS rule.
+- Primitive props must express role, hierarchy, intent, density, placement, slot, and state. They must not expose arbitrary visual overrides.
 - Avoid `any`, hidden flows, and untyped escape hatches.
 - Treat LOC as a signal, not an architecture rule. Splitting one complete concern only to reduce line count makes the codebase worse.
+- Keep internal DX Markdown to two files: `CODE.md` for rules and `PLAN.md` for active work, target inventory, and migration memory.
 
 ## Ownership Law
 
@@ -39,25 +44,63 @@ Components define workflows. They own orchestration, state, parsing, schema-boun
 
 Registry and docs project item definitions. They never become a second component system.
 
+## Ontology Law
+
+The Concrete ontology is the layered contract for what belongs in foundations, primitives, and components. `PLAN.md` is the executable inventory and migration memory. During ontology work, the plan beats memory, previous migration convenience, and local naming inertia.
+
+Foundations are exhaustive. If two primitives need the same visual concept, the concept belongs in a foundation first. Foundation token names should describe design language, not product objects. Prefer `control`, `surface`, `panel`, `overlay`, `rail`, `track`, `viewport`, `feedback`, `trace`, `data`, `diagram`, `status`, and `tone` vocabulary over component names like `form-shell`, `data-table`, `metric-card`, or `composer`. A domain noun is allowed only when the noun is a true design domain used across the system, such as `chart`, `table`, `diagram`, `message`, or `tool`.
+
+Primitives are rigid grammar. A primitive should be the smallest named HTML concept that future components can assemble without inventing style. Good primitives are boring to use because the visual decisions are already encoded in foundations. A primitive may compose other primitives only when the result is still one reusable HTML-level concept, such as a field row, menu item, panel header, or trace panel.
+
+Components are behavior. They parse schemas, own state, map data, respond to events, run keyboard flow, and compose primitives. A component may compose another component only after the dependency is declared in an acyclic component tier map and the import-boundary test allows that tier. Until that map exists, the current stricter rule remains active: component implementations do not import sibling component implementations.
+
+Public primitive status is earned. A private internal primitive can become public only when its name, schema, examples, docs, and styles describe reusable Concrete vocabulary. Docs-only render helpers, preview constraints, and migration shims do not belong in the public primitive registry.
+
+Primitive props are closed. Allowed prop categories are:
+
+- `role`: semantic job inside the composition.
+- `hierarchy`: primary, secondary, tertiary, ghost, or another shared hierarchy.
+- `intent`: neutral, sky, terminal, ultra, danger, or another shared tone.
+- `density`: compact, comfortable, editorial, or another shared density.
+- `state`: open, selected, pressed, loading, disabled, error, success, pending.
+- `placement`: top, right, bottom, left, inline, overlay, start, end.
+- `slot`: typed React slots or serializable Concrete node slots.
+
+Banned public primitive prop categories are:
+
+- raw color
+- raw spacing
+- raw radius
+- raw shadow
+- raw font size
+- raw width or height, except data-driven SVG geometry
+- arbitrary `style`
+- arbitrary CSS variable bags
+- open-ended `variant` when it really means visual override
+
+`className` may remain as a root placement escape hatch for compatibility. It must not become the styling API, and new internal structure should not depend on consumer class names.
+
 ## Promotion Rules
 
 When a chunk exposes missing vocabulary, promote by the narrowest durable boundary:
 
 - Add a foundation token when at least two items need the same visual value or when one item needs a value that clearly belongs to global Concrete language.
 - Add a foundation utility only for behavior lower than an item, such as visually hidden content, focus targeting, reset-level layout, or typography rhythm that should be stable across many primitives.
-- Add or expand a primitive when JSX, class names, ARIA, or scoped style can be named as one reusable HTML concept.
+- Add or expand a primitive when JSX, class names, ARIA, or scoped style can be named as one reusable HTML concept in the ontology.
 - Add a private internal primitive when the concept is reusable inside the package but not ready to become public API.
 - Promote an internal primitive to public only when docs, examples, schemas, and naming can defend it as product vocabulary.
 - Keep logic in a component when the concern is orchestration, controlled state, schema parsing, data transformation, or multi-step workflow behavior.
 - Move calculations to `utilities/` only when they are pure, reusable, and easier to explain than the duplication they remove.
 - Re-scope foundations immediately when a migration needs a value that cannot be expressed with existing tokens. Do not hide the missing token in item CSS.
 
-Do not create a new primitive for a single wrapper whose only purpose is to bypass the component styling rule. First ask whether an existing layout, frame, row, field, surface, menu, or data primitive should grow.
+Do not create a new primitive for a single wrapper whose only purpose is to bypass the component styling rule. First ask whether an existing layout, surface, text, control, field, overlay, menu, feedback, data, chart, diagram, agent, or media primitive should grow.
 
 ## Current Checkpoint
 
 - Foundations, primitives, and components are folder-owned item bundles.
+- The public foundation set is now `colors`, `typography`, `spacing`, `sizing`, `layout`, `radii`, `elevation`, `motion`, `textures`, `iconography`, `state`, and `accessibility`.
 - Public registries are derived from item definitions.
+- Public foundation registry entries expose validated `tokens` so docs can explain foundation data without importing foundation-specific schema files.
 - Docs detail, render, playground, and catalog flows consume registry definitions.
 - `factories/` owns item, control, and example creation.
 - `utilities/` owns shared pure algorithms, render helpers, schema input helpers, and temporary shared engines.
@@ -65,9 +108,8 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - Shared JSX used by components lives in private `primitives/internal/*` folders until it becomes a public primitive or collapses back into one owner.
 - Component `component.tsx` files must not import sibling component folders.
 - Remaining centralized CSS is explicit migration debt for deferred primitive slices. Item `styles.css` files either own active selectors or do not exist for that item.
-- The next checkpoint is item-owned CSS: foundations emit tokens/utilities, primitives own scoped selectors, and components shed bespoke styling by composing primitives.
-- `ITEM_SCOPE.md` is the live scope ledger. Every structural chunk must update it before stopping.
-- `MIGRATION_QUEUE.md` is the autonomous todo queue. Every completed chunk must leave the next chunk's todo list ready to run.
+- The next checkpoint is primitive vocabulary correction: foundations emit tokens/utilities, primitives own scoped selectors, and components shed bespoke styling by composing generic primitives.
+- `PLAN.md` is the live scope ledger, autonomous queue, and target foundation/primitive/component inventory. Every structural chunk must update it before stopping.
 - Composer remains whole. Do not split one interactive component file only to satisfy a LOC budget.
 
 ## Package Shape
@@ -222,12 +264,13 @@ Component implementation rules:
 
 - `components/<slug>/component.tsx` may import primitives, foundations, schemas, icons, utilities, and its own local schema/types.
 - It must not import from `components/<other-slug>`.
+- Future component-to-component imports require a declared acyclic tier map and a test that names the allowed dependency. Until that exists, compose shared UI through primitives and shared behavior through utilities.
 - If two components need the same JSX, promote the JSX to a primitive or private internal primitive.
 - If two components need the same calculation, promote the calculation to `utilities/`.
 - If the reuse is fake or only exists for docs convenience, delete the abstraction and keep the JSX with the owner.
 - Migrated components must not import `concreteClassNames`, use `className` for internal structure, render raw DOM tags for styled structure, or own active CSS.
 - Components may pass `className` through to a primitive only when preserving public API requires it. They must not build new styling around that escape hatch.
-- A component may keep raw semantic DOM only while it is an explicit migration exception in `ITEM_SCOPE.md`; the exception must name the primitive boundary that should absorb it.
+- A component may keep raw semantic DOM only while it is an explicit migration exception in `PLAN.md`; the exception must name the primitive boundary that should absorb it.
 
 Components should not need CSS in the current architecture. When a component appears to need layout styling, first ask which primitive is missing. A future component stylesheet is allowed only as a ledger-recorded migration exception with a `DX-TODO(component-name)` comment explaining the structural debt.
 
@@ -241,16 +284,22 @@ Primitives should be small but not starved. A primitive can own enough JSX to ma
 
 Primitive implementation rules:
 
+- Before adding or renaming a primitive, classify it in `PLAN.md`.
+- Prefer generic primitives before domain primitives. Add `Surface`, `Panel`, `Header`, `Stack`, `Inline`, `Grid`, `Listbox`, `Token`, or `TracePanel` before adding another component-shaped shell.
 - `primitives/<slug>/component.tsx` places stable Concrete classes on DOM through JSX.
 - `primitives/<slug>/styles.css` is the only item-owned stylesheet allowed to define that primitive's selectors.
 - Primitive selectors must stay in the primitive namespace unless styling a direct child slot that the primitive owns.
 - Primitive CSS must not contain raw values. Missing values become foundation variables first.
 - Primitive class names should come from the deterministic selector contract while migration is active; once a primitive is complete, its selector keys should be easy to map back to that primitive.
+- Primitive schemas should import shared foundation/state enums when a prop is generic across items. Local enums are allowed only for item-specific semantic state, not visual override.
+- A primitive may expose `className` only on the root element unless a public slot explicitly needs placement control.
 - Public primitives must export one item bundle and may export local runtime helpers only when they are part of that primitive's public concept.
 
 Foundation implementation rules:
 
+- Before adding a foundation token, decide whether it belongs to colors, typography, spacing, sizing, layout, radii, elevation, motion, textures, iconography, state, or accessibility.
 - Foundation CSS may define raw values, semantic aliases, global reset behavior, and foundation utilities.
+- Foundation token names should be generic design language. Component names in foundation tokens require a written exception in `PLAN.md`.
 - A foundation utility must be value-backed by foundation tokens or reset-level browser behavior.
 - If a utility starts describing one reusable UI object, it is a primitive, not a foundation.
 - Foundation examples demonstrate the token system; they do not introduce alternate styling policy.
@@ -304,9 +353,9 @@ Primitive and component examples must not own visual styling or generic preview 
 
 Foundation examples may demonstrate raw tokens because foundations own the language values. Even there, examples should consume exported foundation definitions, token maps, and foundation styles rather than duplicating docs-only values.
 
-Docs routes for item detail, render, screenshot, playground, and catalog views must cover foundations as well as primitives and components when the route concept applies. If one layer cannot use a generic renderer, record the reason in this file or `ITEM_SCOPE.md` before adding a special path.
+Docs routes for item detail, render, screenshot, playground, and catalog views must cover foundations as well as primitives and components when the route concept applies. If one layer cannot use a generic renderer, record the reason in this file or `PLAN.md` before adding a special path.
 
-Visual smoke and catalog audit scripts are part of the item contract. A new public item, example state, or docs projection must either enter the generic audit surface or record a deliberate exclusion with a repair ticket in `MIGRATION_QUEUE.md`.
+Visual smoke and catalog audit scripts are part of the item contract. A new public item, example state, or docs projection must either enter the generic audit surface or record a deliberate exclusion with a repair ticket in `PLAN.md`.
 
 ## Schema, Seeds, And Controls
 
@@ -423,7 +472,7 @@ Hard CSS rules:
 - No nested card-in-card visual compositions unless the component semantically requires a framed repeated item.
 - Do not add CSS modules unless the architecture decision changes and stable public aliases are enforced.
 
-Current implementation checkpoint: root custom properties live in foundation stylesheets, token-consuming CSS is scanner-checked for raw visual values, the shared primitive/component layer files own no active selectors, and `componentStyleSources` is empty. Keep the central layer files as compatibility bundle substrate only; new styling must enter through foundation or primitive item styles and update `ITEM_SCOPE.md`.
+Current implementation checkpoint: root custom properties live in foundation stylesheets, token-consuming CSS is scanner-checked for raw visual values, the shared primitive/component layer files own no active selectors, and `componentStyleSources` is empty. Keep the central layer files as compatibility bundle substrate only; new styling must enter through foundation or primitive item styles and update `PLAN.md`.
 
 Class-name implementation note: `styles/class-names.ts` owns deterministic selector derivation and the runtime selector contract. Prefer runtime contract tests for selector coverage over recursive mapped types that create TypeScript union-complexity failures at JSX scale.
 
@@ -491,6 +540,10 @@ Keep tests narrow and contract-level:
 - package source does not import CSS modules unless the CSS decision changes
 - styles contain no banned raw values outside token files
 - component implementations do not import sibling components
+- any future component-to-component import is declared in an acyclic component tier map
+- foundation token names do not contain component slugs unless documented as domain vocabulary
+- public primitive schemas do not expose raw visual override props
+- public primitive registry does not contain docs-only or migration-only primitives
 - examples and render-input definitions do not own inline visual style
 - primitive runtime inline style is limited to documented dynamic adapters
 - chart render utilities may own geometry and scaling, but chart selector vocabulary must be applied through chart-surface primitives
@@ -534,27 +587,24 @@ Current standardization checkpoint:
 1. Component implementations are guarded against owned class names, styled raw DOM, and component stylesheets.
 2. The recursive Concrete node schema is validation-only and registry-checked.
 3. Public export compatibility, raw CSS value policy, media-query exceptions, and browser/screenshot smoke coverage are guarded by tests.
-4. The next active phase is full catalog example and docs accuracy: registry-led foundation coverage, serializable examples, and audit-backed previews for every public item.
+4. The foundation concept split is structurally complete. The next active phase is generic layout/surface/text primitives, primitive prop discipline, and component assembly over the target inventory in `PLAN.md`.
 
-When new structural debt appears, add it to `MIGRATION_QUEUE.md` first, then pull the first unblocked item into `## Active Chunk`.
+When new structural debt appears, add it to `PLAN.md` first, then pull the first unblocked item into `## Active Work`.
 
 ## Autonomous Long-Run Protocol
 
 Before a long run:
 
 1. Read this file first.
-2. Read `ITEM_SCOPE.md` for layer definitions, per-item status, and unresolved boundary notes.
-3. Read `MIGRATION_QUEUE.md` for the active chunk and backlog.
-4. Read `REFACTOR_RUNBOOK.md` for history and gate results.
-5. Run `git status -sb`.
-6. Pull the first unblocked queue item into an explicit active todo list before editing.
-7. Convert the slice fully before broad migration.
-8. Run the narrow gate, then the full gate when the cluster is done.
-9. Update `ITEM_SCOPE.md` with every item boundary/status change.
-10. Update `MIGRATION_QUEUE.md` by marking the chunk complete or blocked, recording discoveries, and creating the next active chunk's todo list.
-11. Update `REFACTOR_RUNBOOK.md` with what changed, what passed, what failed, and what should run next.
-12. Repeat.
+2. Read `PLAN.md` for the target inventory, current active work, and migration memory.
+3. Run `git status -sb`.
+4. Pull the first unblocked plan item into an explicit active todo list before editing.
+5. Convert the slice fully before broad migration.
+6. Run the narrow gate, then the full gate when the cluster is done.
+7. Update `PLAN.md` with target changes, item boundary/status changes, discovered work, gate results, and the next runnable chunk.
+8. Update this file only when the architecture rules change.
+9. Repeat.
 
-The queue is the live operating memory. The runbook is the continuity anchor across context compaction. The scope ledger is the item boundary memory. This file is the architecture contract.
+`PLAN.md` is the live operating memory across context compaction. This file is the architecture contract.
 
 Do not continue broad migration if a slice makes the item contract feel worse. Stop, revise the factory surface, then proceed.

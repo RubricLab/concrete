@@ -44,6 +44,26 @@ export const primitiveStateSchema = z
 	})
 	.strict()
 
+export const foundationTokenValueSchema = z.union([
+	z.number(),
+	z.string(),
+	z.array(z.string().min(1))
+])
+
+export const foundationTokenSchema = z
+	.object({
+		description: z.string().min(1).optional(),
+		family: z.string().min(1).optional(),
+		hex: z.string().min(1).optional(),
+		kind: z.string().min(1).optional(),
+		name: z.string().min(1),
+		role: z.string().min(1).optional(),
+		size: z.string().min(1).optional(),
+		value: foundationTokenValueSchema.optional(),
+		values: z.array(z.string().min(1)).optional()
+	})
+	.strict()
+
 export const registryEntrySchema = z
 	.object({
 		category: primitiveCategorySchema,
@@ -53,10 +73,13 @@ export const registryEntrySchema = z
 		pressure: z.array(concretePressureSchema).min(1),
 		props: z.array(primitivePropSchema),
 		slug: z.string().min(1),
-		states: z.array(primitiveStateSchema).min(1)
+		states: z.array(primitiveStateSchema).min(1),
+		tokens: z.array(foundationTokenSchema).optional()
 	})
 	.strict()
 
+export type FoundationTokenShape = z.infer<typeof foundationTokenSchema>
+export type FoundationTokenValueShape = z.infer<typeof foundationTokenValueSchema>
 export type PrimitiveCategory = z.infer<typeof primitiveCategorySchema>
 export type PrimitivePropShape = z.infer<typeof primitivePropSchema>
 export type PrimitiveStateShape = z.infer<typeof primitiveStateSchema>

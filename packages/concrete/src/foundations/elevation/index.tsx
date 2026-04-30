@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { elevationExamples } from './examples'
 import { elevationMeta } from './meta'
-import { elevationFoundationSchema } from './schema'
+import { elevationFoundationSchema, elevationTokens } from './schema'
 
 export {
 	type ElevationFoundationInput,
@@ -19,5 +19,6 @@ export const elevationFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(elevationExamples, state),
 	schema: elevationFoundationSchema,
 	slug: 'elevation',
-	states: exampleStates(elevationExamples, ['default', 'stack'])
+	states: exampleStates(elevationExamples, ['default', 'stack']),
+	tokens: elevationTokens
 })

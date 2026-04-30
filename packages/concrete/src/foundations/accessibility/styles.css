@@ -1,0 +1,25 @@
+:root {
+	--concrete-size-visually-hidden: 1px;
+	--concrete-clip-visually-hidden: rect(
+		var(--concrete-space-0),
+		var(--concrete-space-0),
+		var(--concrete-space-0),
+		var(--concrete-space-0)
+	);
+}
+
+.concrete-visually-hidden {
+	position: absolute;
+	width: var(--concrete-size-visually-hidden);
+	height: var(--concrete-size-visually-hidden);
+	padding: 0;
+	overflow: hidden;
+	clip: var(--concrete-clip-visually-hidden);
+	white-space: nowrap;
+	border: 0;
+}
+
+.concrete-focus-target:focus-visible {
+	outline: 0;
+	box-shadow: var(--concrete-ring-focus);
+}

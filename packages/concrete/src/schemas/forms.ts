@@ -1,12 +1,13 @@
 import { z } from 'zod/v4'
+import { fieldStatusSchema, uploadItemStatusSchema } from '../foundations/state/schema'
 
-export const fieldStatusSchema = z.enum(['default', 'error', 'success'])
 export const dateValueSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
 export const timeValueSchema = z.string().regex(/^\d{2}:\d{2}$/)
-export const uploadItemStatusSchema = z.enum(['error', 'idle', 'success', 'uploading'])
 export const formShellVariantSchema = z.enum(['panel', 'modal', 'drawer'])
 export const formGridColumnsSchema = z.union([z.literal(1), z.literal(2), z.literal(3)])
 export const formOverlayPresentationSchema = z.enum(['fixed', 'inline'])
+
+export { fieldStatusSchema, uploadItemStatusSchema }
 
 export const dateRangeValueSchema = z
 	.object({

@@ -1,11 +1,16 @@
 import type { ConcretePressure, PrimitiveCategory } from '../schemas'
 
 export type FoundationSlug =
+	| 'accessibility'
 	| 'colors'
 	| 'elevation'
+	| 'iconography'
+	| 'layout'
 	| 'motion'
 	| 'radii'
+	| 'sizing'
 	| 'spacing'
+	| 'state'
 	| 'textures'
 	| 'typography'
 
@@ -150,6 +155,20 @@ export type ComponentRegistryEntry = {
 	states: readonly PrimitiveState[]
 }
 
+export type FoundationTokenValue = number | string | readonly string[]
+
+export type FoundationToken = {
+	description?: string
+	family?: string
+	hex?: string
+	kind?: string
+	name: string
+	role?: string
+	size?: string
+	value?: FoundationTokenValue
+	values?: readonly string[]
+}
+
 export type FoundationRegistryEntry = {
 	category: PrimitiveCategory
 	description: string
@@ -159,6 +178,7 @@ export type FoundationRegistryEntry = {
 	props: readonly PrimitiveProp[]
 	slug: FoundationSlug
 	states: readonly PrimitiveState[]
+	tokens: readonly FoundationToken[]
 }
 
 export type PrimitiveProp = {

@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createFoundation } from '../../factories/createItems'
 import { spacingExamples } from './examples'
 import { spacingMeta } from './meta'
-import { spacingFoundationSchema } from './schema'
+import { spacingFoundationSchema, spacingTokens } from './schema'
 
 export {
 	type SpacingFoundationInput,
@@ -19,5 +19,6 @@ export const spacingFoundationDefinition = createFoundation({
 	renderExample: (state?: string) => renderExample(spacingExamples, state),
 	schema: spacingFoundationSchema,
 	slug: 'spacing',
-	states: exampleStates(spacingExamples, ['default', 'density'])
+	states: exampleStates(spacingExamples, ['default', 'density']),
+	tokens: spacingTokens
 })

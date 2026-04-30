@@ -25,7 +25,7 @@ The root export is the ergonomic default. Subpath exports are available when an 
 - `@rubriclab/concrete/components` exposes higher-order product, data, form, AI, and interaction components.
 - `@rubriclab/concrete/primitives` exposes atomic UI primitives.
 - `@rubriclab/concrete/foundations` exposes foundation definitions.
-- `@rubriclab/concrete/registry` exposes item metadata, examples, schemas, and render definitions.
+- `@rubriclab/concrete/registry` exposes item metadata, foundation tokens, examples, schemas, and render definitions.
 - `@rubriclab/concrete/icons` exposes the icon registry.
 - `@rubriclab/concrete/schemas` exposes shared public schemas.
 - `@rubriclab/concrete/styles.css` is the required public stylesheet.
@@ -89,4 +89,4 @@ Publishing expects npm trusted publishing to be configured for `RubricLab/concre
 
 Concrete's codebase guide lives in [`CODE.md`](./CODE.md). It is the senior-engineer manifesto for item ownership, schemas, examples, controls, CSS, docs structure, tests, and long-running refactors.
 
-Read `CODE.md` before structural work. Long-running CSS and component standardization work should also read [`ITEM_SCOPE.md`](./ITEM_SCOPE.md) for item boundaries, [`MIGRATION_QUEUE.md`](./MIGRATION_QUEUE.md) for the autonomous chunk queue, and [`REFACTOR_RUNBOOK.md`](./REFACTOR_RUNBOOK.md) to track gates and context-compaction history.
+Read `CODE.md` before structural work, then read [`PLAN.md`](./PLAN.md) for the executable todo list, target inventory, active chunk, and migration notes. Those two files are the internal DX operating surface.

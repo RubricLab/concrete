@@ -1,9 +1,12 @@
 import { z } from 'zod/v4'
+import {
+	dataComponentStateSchema,
+	dataDeltaIntentSchema,
+	dataToneSchema
+} from '../foundations/state/schema'
 import { finiteNumberSchema } from './numbers'
 
-export const dataToneSchema = z.enum(['ink', 'muted', 'sky', 'terminal', 'ultra', 'error'])
-export const dataComponentStateSchema = z.enum(['ready', 'loading', 'empty', 'error'])
-export const dataDeltaIntentSchema = z.enum(['negative', 'neutral', 'positive'])
+export { dataComponentStateSchema, dataDeltaIntentSchema, dataToneSchema }
 
 export const dataDeltaSchema = z
 	.object({
