@@ -5,11 +5,11 @@
 	max-width: var(--concrete-size-full);
 	overflow: hidden;
 	padding: var(--concrete-space-2);
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
 	border-radius: var(--concrete-radius-5);
-	background: var(--concrete-surface);
+	background: var(--concrete-control-background);
 	box-shadow: var(--concrete-shadow-2);
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-control-foreground-body);
 }
 
 .concrete-menu-surface[data-density="compact"] {
@@ -24,5 +24,6 @@
 
 .concrete-menu-surface:focus-visible {
 	outline: var(--concrete-space-0);
-	box-shadow: var(--concrete-ring-focus);
+	border-color: var(--concrete-control-border-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }

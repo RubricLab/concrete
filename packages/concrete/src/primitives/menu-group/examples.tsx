@@ -4,11 +4,15 @@ import { MenuGroup } from './component'
 
 export const menuGroupExamples = defineExamples({
 	default: {
-		description: 'Labeled menu group region.',
+		description: 'Labeled menu group with active and passive commands.',
 		render: () => (
 			<MenuGroup title="Commands">
-				<OptionRow kind="command">Ask Concrete</OptionRow>
-				<OptionRow kind="command">Open brief</OptionRow>
+				<OptionRow active kind="command" leadingIcon="sparkles">
+					Ask Concrete
+				</OptionRow>
+				<OptionRow kind="command" leadingIcon="file-text">
+					Open brief
+				</OptionRow>
 			</MenuGroup>
 		)
 	},
@@ -18,6 +22,7 @@ export const menuGroupExamples = defineExamples({
 			<MenuGroup title="Views">
 				<OptionRow selected>Product</OptionRow>
 				<OptionRow>Editorial</OptionRow>
+				<OptionRow disabled>Archived</OptionRow>
 			</MenuGroup>
 		)
 	},

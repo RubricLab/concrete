@@ -1,23 +1,25 @@
 import { defineExamples } from '../../factories/createExamples'
+import { Stack } from '../stack'
 import { Radio } from './component'
 
 export const radioExamples = defineExamples({
 	default: {
-		description: 'Selected and unselected options.',
+		description: 'Selected and unselected density options.',
 		render: () => (
-			<>
+			<Stack density="compact">
 				<Radio checked label="Product density" name="rhythm" readOnly />
 				<Radio label="Editorial rhythm" name="rhythm" readOnly />
-			</>
+				<Radio label="Educational explainer" name="rhythm" readOnly />
+			</Stack>
 		)
 	},
 	disabled: {
 		description: 'Locked option state.',
 		render: () => (
-			<>
+			<Stack density="compact">
 				<Radio checked disabled label="Product density" name="rhythm-disabled" readOnly />
 				<Radio disabled label="Editorial rhythm" name="rhythm-disabled" readOnly />
-			</>
+			</Stack>
 		)
 	}
 })

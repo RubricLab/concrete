@@ -6,7 +6,7 @@
 }
 
 .concrete-stat-label {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -17,7 +17,7 @@
 	display: inline-flex;
 	align-items: baseline;
 	gap: var(--concrete-space-0);
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-data-foreground);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-24) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -29,7 +29,7 @@
 	display: flex;
 	align-items: baseline;
 	gap: var(--concrete-space-1-5);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -40,7 +40,7 @@
 	display: inline-flex;
 	align-items: baseline;
 	gap: var(--concrete-space-0);
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-data-foreground);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-24) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -59,7 +59,7 @@
 
 .concrete-stat-unit {
 	margin-left: var(--concrete-space-0-5);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 	font-size: var(--concrete-type-stat-unit);
 	font-weight: var(--concrete-weight-medium);
 	letter-spacing: var(--concrete-tracking-normal);
@@ -96,7 +96,7 @@
 .concrete-stat-muted,
 .concrete-stat-muted .concrete-stat-value,
 .concrete-stat-muted.concrete-stat-number {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 }
 
 .concrete-stat-sky,

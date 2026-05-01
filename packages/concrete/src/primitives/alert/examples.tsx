@@ -1,11 +1,26 @@
 import { defineExamples } from '../../factories/createExamples'
 import { Button } from '../button'
+import { Stack } from '../stack'
 import { Alert } from './component'
 
 export const alertExamples = defineExamples({
 	default: {
 		description: 'Neutral inline status message.',
-		render: () => <Alert title="Ready">All required fields are complete.</Alert>
+		render: () => (
+			<Stack density="compact">
+				<Alert title="Ready">All required fields are complete.</Alert>
+				<Alert
+					action={
+						<Button density="small" hierarchy="secondary">
+							Open
+						</Button>
+					}
+					title="Draft saved"
+				>
+					Local changes are ready to review.
+				</Alert>
+			</Stack>
+		)
 	},
 	error: {
 		description: 'Error status message with action slot.',

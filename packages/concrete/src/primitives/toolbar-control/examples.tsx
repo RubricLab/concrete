@@ -16,6 +16,18 @@ export const toolbarControlExamples = defineExamples({
 		description: 'Grouped controls with tooltip and shortcut affordances.',
 		render: () => renderToolbarControlExample('default')
 	},
+	disabled: {
+		description: 'Disabled toolbar action inside an otherwise active group.',
+		render: () => (
+			<ToolbarControl label="Disabled toolbar">
+				<ToolbarControlGroup>
+					<ToolbarControlButton icon="paperclip" label="Attach" showLabel={false} />
+					<ToolbarControlButton disabled icon="sparkles" label="Generate" showLabel={false} />
+					<ToolbarControlButton icon="settings" label="Settings" showLabel={false} />
+				</ToolbarControlGroup>
+			</ToolbarControl>
+		)
+	},
 	selected: {
 		description: 'Selected and keyboard-pressed states for mode controls.',
 		render: () => renderToolbarControlExample('selected')

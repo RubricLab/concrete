@@ -251,6 +251,50 @@ describe('Concrete registry', () => {
 		}
 	})
 
+	test('keeps polished primitive examples state-rich and registered', () => {
+		const requiredPrimitiveStates = {
+			alert: ['default', 'error', 'success'],
+			card: ['default', 'interactive', 'raised', 'sunken'],
+			checkbox: ['default', 'disabled'],
+			'control-group': ['default', 'attached', 'vertical'],
+			'data-surface': ['default', 'compact', 'media', 'toolbar'],
+			delta: ['default', 'basis', 'density', 'wash'],
+			'empty-state': ['default', 'compact', 'sky', 'editorial'],
+			field: ['default', 'requirements', 'error', 'success', 'count'],
+			'field-row': ['default', 'meta', 'success', 'error'],
+			frame: ['default', 'compact', 'texture', 'showcase'],
+			input: ['default', 'filled', 'error', 'disabled', 'inlineControl'],
+			listbox: ['default', 'compact', 'empty'],
+			'menu-group': ['default', 'selection', 'status'],
+			'menu-surface': ['default', 'search', 'compact'],
+			'option-row': ['default', 'command', 'select', 'danger'],
+			panel: ['default', 'compact', 'footer', 'raised'],
+			'picker-button': ['default', 'open', 'time', 'disabled'],
+			progress: ['default', 'signals', 'indeterminate'],
+			'progress-ring': ['default', 'density', 'signals'],
+			radio: ['default', 'disabled'],
+			range: ['default', 'disabled', 'narrow'],
+			'search-input': ['default', 'tokens', 'value'],
+			'segmented-progress': ['default', 'empty', 'complete'],
+			select: ['default', 'filled', 'error', 'disabled'],
+			slider: ['default', 'sky', 'disabled'],
+			stat: ['default', 'numeric', 'display', 'intents'],
+			stepper: ['default', 'error', 'disabled'],
+			surface: ['default', 'raised', 'selected', 'inverse', 'sticky'],
+			switch: ['default', 'disabled'],
+			textarea: ['default', 'filled', 'error', 'disabled'],
+			'time-list': ['default', 'formatted', 'later'],
+			'toolbar-control': ['default', 'selected', 'compact', 'disabled'],
+			'validation-list': ['default', 'linked', 'success']
+		} satisfies Record<string, readonly string[]>
+
+		for (const [slug, requiredStates] of Object.entries(requiredPrimitiveStates)) {
+			const definition = primitiveDefinitions.find(definition => definition.slug === slug)
+
+			expect(definition?.states.map(state => state.query)).toEqual(requiredStates)
+		}
+	})
+
 	test('renders every playground definition input from its schema seed', () => {
 		const searchParams = new URLSearchParams()
 

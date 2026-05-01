@@ -18,7 +18,7 @@ export const segmentedProgressPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderSegmentedProgressInput(segmentedProgressSchema.parse(input)),
 	schema: segmentedProgressSchema,
 	slug: 'segmented-progress',
-	states: exampleStates(segmentedProgressExamples, ['default', 'complete'])
+	states: exampleStates(segmentedProgressExamples, ['default', 'empty', 'complete'])
 })
 
 function renderSegmentedProgressInput(input: SegmentedProgressValue) {

@@ -8,6 +8,10 @@ export const timeListExamples = defineExamples({
 		description: 'Time list with selected value.',
 		render: () => renderTimeListExample('10:00 AM')
 	},
+	formatted: {
+		description: 'Floating time list state with a nearby selected value.',
+		render: () => <TimeList options={timeListOptions} value="9:30 AM" />
+	},
 	later: {
 		description: 'Later selected value.',
 		render: () => renderTimeListExample('11:30 AM')

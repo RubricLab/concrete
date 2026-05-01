@@ -16,6 +16,23 @@
 		0 1px 2px rgb(10 11 15 / 12%);
 	--concrete-shadow-control-inset: inset 0 1px 0 rgb(10 11 15 / 1.5%);
 	--concrete-shadow-control-focus-inset: inset 0 0 0 2px var(--concrete-sky);
+	--concrete-shadow-control-rest: var(--concrete-shadow-control-inset), 0 1px 0 rgb(10 11 15 / 2%);
+	--concrete-shadow-control-hover:
+		var(--concrete-shadow-control-inset), 0 1px 0 rgb(10 11 15 / 4%), 0 1px 2px rgb(10 11 15 / 3%);
+	--concrete-shadow-control-pressed: var(--concrete-shadow-control-inset);
+	--concrete-shadow-control-focus: var(--concrete-ring-focus), var(--concrete-shadow-control-inset);
+	--concrete-shadow-control-error: var(--concrete-ring-error), var(--concrete-shadow-control-inset);
+	--concrete-shadow-control-selected:
+		inset 0 1px 0 rgb(255 255 255 / 8%), 0 1px 0 rgb(0 0 0 / 18%), 0 1px 2px rgb(10 11 15 / 10%);
+	--concrete-shadow-control-selected-soft:
+		inset 0 1px 0 rgb(255 255 255 / 36%), 0 1px 0 rgb(15 78 158 / 12%);
+	--concrete-shadow-control-action: inset 0 1px 0 rgb(255 255 255 / 28%);
+	--concrete-shadow-surface-rest: var(--concrete-shadow-border);
+	--concrete-shadow-surface-raised: var(--concrete-shadow-1);
+	--concrete-shadow-surface-hover: var(--concrete-shadow-2);
+	--concrete-shadow-surface-selected: var(--concrete-ring-focus), var(--concrete-shadow-1);
+	--concrete-shadow-feedback: var(--concrete-shadow-control-rest);
+	--concrete-shadow-data: var(--concrete-shadow-1);
 	--concrete-shadow-step-control: var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
 	--concrete-shadow-interval-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
 	--concrete-shadow-interval-thumb-hover:

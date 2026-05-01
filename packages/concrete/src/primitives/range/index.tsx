@@ -23,7 +23,7 @@ export const rangePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderRangeInput(rangeSchema.parse(input)),
 	schema: rangeSchema,
 	slug: 'range',
-	states: exampleStates(rangeExamples, ['default', 'narrow'])
+	states: exampleStates(rangeExamples, ['default', 'disabled', 'narrow'])
 })
 
 function renderRangeInput({ end, start }: RangeValue) {

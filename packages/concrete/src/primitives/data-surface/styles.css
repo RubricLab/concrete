@@ -2,12 +2,12 @@
 	display: grid;
 	gap: var(--concrete-space-3);
 	min-inline-size: var(--concrete-space-0);
-	padding: var(--concrete-space-3-5);
+	padding: var(--concrete-size-data-surface-padding);
 }
 
 .concrete-data-surface[data-compact="true"] {
 	gap: var(--concrete-space-2);
-	padding: var(--concrete-space-3);
+	padding: var(--concrete-size-data-surface-padding-compact);
 }
 
 .concrete-data-surface[data-layout="media"] {
@@ -35,7 +35,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: var(--concrete-space-2);
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-data-foreground);
 	font-size: var(--concrete-type-13);
 	font-weight: var(--concrete-weight-heavy);
 }
@@ -47,7 +47,7 @@
 	gap: var(--concrete-space-2);
 	justify-content: space-between;
 	margin: var(--concrete-space-0);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 	font-size: var(--concrete-type-12);
 	line-height: var(--concrete-line-normal);
 }

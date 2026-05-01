@@ -18,7 +18,7 @@ export const cardPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderCardInput(cardSchema.parse(input)),
 	schema: cardSchema,
 	slug: 'card',
-	states: exampleStates(cardExamples, ['default', 'raised', 'sunken'])
+	states: exampleStates(cardExamples, ['default', 'interactive', 'raised', 'sunken'])
 })
 
 function renderCardInput(input: CardValue) {

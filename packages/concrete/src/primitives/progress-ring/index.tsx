@@ -18,7 +18,7 @@ export const progressRingPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderProgressRingInput(progressRingSchema.parse(input)),
 	schema: progressRingSchema,
 	slug: 'progress-ring',
-	states: exampleStates(progressRingExamples, ['default', 'signals'])
+	states: exampleStates(progressRingExamples, ['default', 'density', 'signals'])
 })
 
 function renderProgressRingInput(input: ProgressRingValue) {

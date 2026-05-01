@@ -17,11 +17,12 @@ export const listboxExamples = defineExamples({
 		)
 	},
 	default: {
-		description: 'Selectable option listbox surface.',
+		description: 'Selectable option listbox surface with selected and disabled states.',
 		render: () => (
 			<Listbox>
 				<OptionRow selected>Research</OptionRow>
 				<OptionRow>Design systems</OptionRow>
+				<OptionRow disabled>Archived traces</OptionRow>
 				<OptionRow>Agent traces</OptionRow>
 			</Listbox>
 		)

@@ -4,7 +4,7 @@
 	place-items: center;
 	width: var(--concrete-ring-size, var(--concrete-size-progress-ring));
 	height: var(--concrete-ring-size, var(--concrete-size-progress-ring));
-	color: var(--concrete-ink-9);
+	color: var(--concrete-data-fill);
 }
 
 .concrete-progress-ring-compact {
@@ -31,7 +31,7 @@
 }
 
 .concrete-progress-ring-track {
-	stroke: var(--concrete-ink-1);
+	stroke: var(--concrete-data-track-background);
 }
 
 .concrete-progress-ring-fill {
@@ -45,7 +45,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-data-foreground);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-22) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -55,7 +55,7 @@
 
 .concrete-progress-ring-unit {
 	margin-left: var(--concrete-border-width-hairline);
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-data-foreground-soft);
 	font-size: var(--concrete-type-12);
 	font-weight: var(--concrete-weight-medium);
 }

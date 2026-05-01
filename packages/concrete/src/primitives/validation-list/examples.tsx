@@ -3,12 +3,13 @@ import { ValidationList } from './component'
 
 export const validationListExamples = defineExamples({
 	default: {
-		description: 'Validation issue list for forms and generated workflows.',
+		description: 'Validation issue list with error and success rows.',
 		render: () => (
 			<ValidationList
 				items={[
 					{ id: 'email', label: 'Email', message: 'Enter a work email.' },
-					{ id: 'role', label: 'Role', message: 'Choose at least one role.' }
+					{ id: 'role', label: 'Role', message: 'Choose at least one role.' },
+					{ id: 'schema', label: 'Schema', message: 'Boundary parsed.', status: 'success' }
 				]}
 			/>
 		)

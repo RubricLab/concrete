@@ -1,5 +1,6 @@
 .concrete-slider {
-	--concrete-slider-fill: var(--concrete-ink-9);
+	--concrete-slider-fill: var(--concrete-control-background-selected);
+	--concrete-slider-track-fill: var(--concrete-control-background-active);
 	--concrete-slider-thumb: var(--concrete-size-slider-thumb);
 	--concrete-slider-track: var(--concrete-size-slider-track);
 	appearance: none;
@@ -24,8 +25,8 @@
 		var(--concrete-rotate-quarter),
 		var(--concrete-slider-fill) var(--concrete-progress-start),
 		var(--concrete-slider-fill) var(--concrete-slider-percent, var(--concrete-progress-start)),
-		var(--concrete-ink-1) var(--concrete-slider-percent, var(--concrete-progress-start)),
-		var(--concrete-ink-1) var(--concrete-progress-end)
+		var(--concrete-slider-track-fill) var(--concrete-slider-percent, var(--concrete-progress-start)),
+		var(--concrete-slider-track-fill) var(--concrete-progress-end)
 	);
 }
 
@@ -40,6 +41,7 @@
 	border: var(--concrete-space-0);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-slider-fill);
+	box-shadow: var(--concrete-shadow-control-selected);
 	cursor: grab;
 	transition:
 		background var(--concrete-duration-fast) var(--concrete-ease),
@@ -61,13 +63,13 @@
 }
 
 .concrete-slider:focus-visible::-webkit-slider-thumb {
-	box-shadow: var(--concrete-ring-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-slider::-moz-range-track {
 	height: var(--concrete-slider-track);
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-ink-1);
+	background: var(--concrete-slider-track-fill);
 }
 
 .concrete-slider::-moz-range-progress {
@@ -82,6 +84,7 @@
 	border: var(--concrete-space-0);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-slider-fill);
+	box-shadow: var(--concrete-shadow-control-selected);
 	cursor: grab;
 	transition:
 		background var(--concrete-duration-fast) var(--concrete-ease),
@@ -90,11 +93,11 @@
 }
 
 .concrete-slider:focus-visible::-moz-range-thumb {
-	box-shadow: var(--concrete-ring-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-slider:disabled {
-	--concrete-slider-fill: var(--concrete-ink-3);
+	--concrete-slider-fill: var(--concrete-control-foreground-soft);
 	cursor: not-allowed;
 }
 

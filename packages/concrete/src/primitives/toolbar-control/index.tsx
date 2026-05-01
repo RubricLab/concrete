@@ -42,7 +42,7 @@ export const toolbarControlPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderToolbarControlInput(toolbarControlSchema.parse(input)),
 	schema: toolbarControlSchema,
 	slug: 'toolbar-control',
-	states: exampleStates(toolbarControlExamples, ['default', 'selected', 'compact'])
+	states: exampleStates(toolbarControlExamples, ['default', 'selected', 'compact', 'disabled'])
 })
 
 function renderToolbarControlInput(input: ToolbarControlValue) {

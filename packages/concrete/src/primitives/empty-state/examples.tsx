@@ -27,6 +27,20 @@ export const emptyStateExamples = defineExamples({
 			</>
 		)
 	},
+	editorial: {
+		description: 'Larger explainer empty state.',
+		render: () => (
+			<>
+				<EmptyState
+					action={<Button hierarchy="secondary">Read guide</Button>}
+					body="No generated examples exist yet for this primitive family."
+					density="editorial"
+					icon="file-text"
+					title="No examples"
+				/>
+			</>
+		)
+	},
 	sky: {
 		description: 'Sky-accented empty state.',
 		render: () => (

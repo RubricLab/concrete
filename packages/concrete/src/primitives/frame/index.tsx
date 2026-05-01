@@ -18,7 +18,7 @@ export const framePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderFrameInput(frameSchema.parse(input)),
 	schema: frameSchema,
 	slug: 'frame',
-	states: exampleStates(frameExamples, ['default', 'texture', 'showcase'])
+	states: exampleStates(frameExamples, ['default', 'compact', 'texture', 'showcase'])
 })
 
 function renderFrameInput({

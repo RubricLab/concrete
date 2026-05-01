@@ -6,7 +6,7 @@
 	min-width: var(--concrete-space-0);
 	border: var(--concrete-space-0);
 	background: transparent;
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-control-foreground-body);
 	cursor: pointer;
 	text-align: left;
 	transition:
@@ -44,8 +44,8 @@
 .concrete-option-row[data-kind="command"][data-active="true"],
 .concrete-command-item:hover,
 .concrete-command-item[data-active="true"] {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-foreground);
 }
 
 .concrete-option-row[data-kind="command"][data-intent="error"]:hover,
@@ -58,8 +58,8 @@
 
 .concrete-option-row[data-kind="select"]:hover,
 .concrete-option-row[data-kind="select"][data-selected="true"] {
-	background: var(--concrete-sky-1);
-	color: var(--concrete-sky-strong);
+	background: var(--concrete-control-background-selected-soft);
+	color: var(--concrete-control-foreground-selected-soft);
 }
 
 .concrete-option-row:disabled,
@@ -142,7 +142,7 @@
 }
 
 .concrete-option-row[data-kind="select"] .concrete-option-row-aside {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
 		var(--concrete-font-sans);

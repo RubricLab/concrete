@@ -21,15 +21,21 @@ export const menuSurfaceExamples = defineExamples({
 		)
 	},
 	default: {
-		description: 'Menu surface for command and selection workflows.',
+		description: 'Menu surface for command, selected, and destructive workflows.',
 		render: () => (
 			<MenuSurface>
 				<MenuGroup title="Commands">
-					<OptionRow kind="command" leadingIcon="sparkles">
+					<OptionRow active kind="command" leadingIcon="sparkles" shortcuts={['A']}>
 						Ask Concrete
 					</OptionRow>
 					<OptionRow kind="command" leadingIcon="file-text">
 						Open brief
+					</OptionRow>
+					<OptionRow kind="select" selected meta="12">
+						Research workspace
+					</OptionRow>
+					<OptionRow kind="command" leadingIcon="trash-2" intent="error">
+						Delete run
 					</OptionRow>
 				</MenuGroup>
 			</MenuSurface>

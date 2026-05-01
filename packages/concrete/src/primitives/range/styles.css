@@ -42,7 +42,7 @@
 	width: var(--concrete-size-interval-thumb);
 	height: var(--concrete-size-interval-thumb);
 	margin-top: var(--concrete-translate-interval-thumb);
-	border: var(--concrete-border-width-emphasis) solid var(--concrete-surface);
+	border: var(--concrete-border-width-emphasis) solid var(--concrete-control-background);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-sky);
 	box-shadow: var(--concrete-shadow-interval-thumb);
@@ -68,14 +68,14 @@
 }
 
 .concrete-range input[type="range"]:focus-visible::-webkit-slider-thumb {
-	box-shadow: var(--concrete-ring-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-range-values {
 	display: flex;
 	justify-content: space-between;
 	padding-top: var(--concrete-space-5);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-flat)
 		var(--concrete-font-sans);

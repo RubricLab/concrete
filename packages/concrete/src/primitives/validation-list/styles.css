@@ -12,19 +12,19 @@
 	gap: var(--concrete-space-1-75);
 	align-items: start;
 	min-width: var(--concrete-space-0);
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-surface-foreground);
 }
 
 .concrete-validation-list-icon {
 	width: var(--concrete-size-validation-list-icon);
 	height: var(--concrete-size-validation-list-icon);
 	margin-top: var(--concrete-space-0-75);
-	color: var(--concrete-error);
+	color: var(--concrete-feedback-error-foreground);
 	stroke-width: var(--concrete-stroke-2-2);
 }
 
 .concrete-validation-list-item[data-status="success"] .concrete-validation-list-icon {
-	color: var(--concrete-terminal-strong);
+	color: var(--concrete-feedback-success-foreground);
 }
 
 .concrete-validation-list-copy {
@@ -35,7 +35,7 @@
 
 .concrete-validation-list-copy b,
 .concrete-validation-list-copy a {
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-surface-foreground-strong);
 	font:
 		var(--concrete-weight-field-row-label) var(--concrete-type-12) / var(--concrete-line-control)
 		var(--concrete-font-sans);
@@ -48,7 +48,7 @@
 }
 
 .concrete-validation-list-copy small {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-surface-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-normal)
 		var(--concrete-font-sans);

@@ -2,19 +2,19 @@
 	display: grid;
 	grid-template-columns: var(--concrete-template-step-control);
 	width: min(var(--concrete-measure-step-control), var(--concrete-size-full));
-	height: var(--concrete-size-field-control);
+	height: var(--concrete-size-control-compact);
 	overflow: hidden;
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-surface);
-	box-shadow: var(--concrete-shadow-step-control);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-rest);
 }
 
 .concrete-stepper button,
 .concrete-stepper input {
 	border: var(--concrete-space-0);
 	background: transparent;
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-control-foreground);
 	font:
 		var(--concrete-weight-strong) var(--concrete-type-13) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -23,8 +23,8 @@
 .concrete-stepper button {
 	display: grid;
 	place-items: center;
-	background: var(--concrete-raised);
-	color: var(--concrete-foreground-muted);
+	background: var(--concrete-control-background-hover);
+	color: var(--concrete-control-foreground-muted);
 	cursor: pointer;
 	transition:
 		background var(--concrete-duration-fast) var(--concrete-ease),
@@ -34,19 +34,19 @@
 }
 
 .concrete-stepper button:hover {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-foreground);
 }
 
 .concrete-stepper button:active {
-	background: var(--concrete-ink-9);
-	color: var(--concrete-surface);
+	background: var(--concrete-control-background-selected);
+	color: var(--concrete-control-foreground-selected);
 	transform: translateY(var(--concrete-translate-press-strong));
 }
 
 .concrete-stepper button:disabled {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-soft);
+	background: var(--concrete-control-background-disabled);
+	color: var(--concrete-control-foreground-soft);
 	cursor: not-allowed;
 	transform: none;
 }
@@ -58,23 +58,23 @@
 }
 
 .concrete-stepper button svg {
-	width: var(--concrete-size-icon-medium);
-	height: var(--concrete-size-icon-medium);
+	width: var(--concrete-size-control-action-glyph);
+	height: var(--concrete-size-control-action-glyph);
 }
 
 .concrete-stepper input {
 	min-width: var(--concrete-space-0);
 	border-right: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
 	border-left: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
-	background: var(--concrete-surface);
+	background: var(--concrete-control-background);
 	cursor: text;
 	text-align: center;
 	appearance: textfield;
 }
 
 .concrete-stepper input:disabled {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-muted);
+	background: var(--concrete-control-background-disabled);
+	color: var(--concrete-control-foreground-disabled);
 	cursor: not-allowed;
 }
 

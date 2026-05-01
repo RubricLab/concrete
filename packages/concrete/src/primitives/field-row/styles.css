@@ -8,7 +8,7 @@
 	padding-block: var(--concrete-space-2);
 	padding-inline: var(--concrete-space-0);
 	border-radius: var(--concrete-radius-3);
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-control-foreground-body);
 }
 
 .concrete-field-row + .concrete-field-row {
@@ -31,8 +31,8 @@
 }
 
 .concrete-field-row[data-interactive="true"]:hover {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-hover);
+	color: var(--concrete-control-foreground);
 }
 
 .concrete-field-row-copy {
@@ -42,21 +42,21 @@
 }
 
 .concrete-field-row-label {
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-control-foreground);
 	font:
 		var(--concrete-weight-field-row-label) var(--concrete-type-13) / var(--concrete-line-control)
 		var(--concrete-font-sans);
 }
 
 .concrete-field-row-description {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-12) / var(--concrete-line-normal)
 		var(--concrete-font-sans);
 }
 
 .concrete-field-row-meta {
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-foreground-soft);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-11) / var(--concrete-line-flat)
 		var(--concrete-font-mono);

@@ -35,6 +35,19 @@ export const surfaceExamples = defineExamples({
 			</Surface>
 		)
 	},
+	selected: {
+		description: 'Selected and disabled interactive surface states.',
+		render: () => (
+			<Stack density="compact">
+				<Surface density="compact" interactive selected>
+					<Text intent="strong">Selected workspace</Text>
+				</Surface>
+				<Surface density="compact" disabled interactive>
+					<Text intent="muted">Locked workspace</Text>
+				</Surface>
+			</Stack>
+		)
+	},
 	semantic: {
 		description: 'Semantic landmark surface without changing treatment.',
 		render: () => (

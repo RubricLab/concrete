@@ -18,7 +18,7 @@ export const emptyStatePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderEmptyStateInput(emptyStateSchema.parse(input)),
 	schema: emptyStateSchema,
 	slug: 'empty-state',
-	states: exampleStates(emptyStateExamples, ['default', 'compact', 'sky'])
+	states: exampleStates(emptyStateExamples, ['default', 'compact', 'sky', 'editorial'])
 })
 
 function renderEmptyStateInput({ body, density, icon, intent, title }: EmptyStateValue) {

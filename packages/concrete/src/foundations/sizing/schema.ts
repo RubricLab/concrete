@@ -28,11 +28,42 @@ export const sizingFoundationSchema = z
 
 export const sizingTokens = [
 	{ kind: 'control', name: 'field-control', value: 'var(--concrete-size-field-control)' },
+	{ kind: 'control', name: 'control-compact', value: 'var(--concrete-size-control-compact)' },
+	{ kind: 'control', name: 'control', value: 'var(--concrete-size-control)' },
+	{
+		kind: 'control',
+		name: 'control-comfortable',
+		value: 'var(--concrete-size-control-comfortable)'
+	},
+	{ kind: 'control', name: 'control-leading', value: 'var(--concrete-size-control-leading)' },
+	{ kind: 'control', name: 'control-action', value: 'var(--concrete-size-control-action)' },
 	{ kind: 'control', name: 'button-medium', value: 'var(--concrete-size-button-medium)' },
 	{
 		kind: 'control',
 		name: 'control-strip-action',
 		value: 'var(--concrete-size-control-strip-action)'
+	},
+	{
+		kind: 'measure',
+		name: 'surface-padding-compact',
+		value: 'var(--concrete-size-surface-padding-compact)'
+	},
+	{ kind: 'measure', name: 'surface-padding', value: 'var(--concrete-size-surface-padding)' },
+	{
+		kind: 'measure',
+		name: 'surface-padding-editorial',
+		value: 'var(--concrete-size-surface-padding-editorial)'
+	},
+	{ kind: 'measure', name: 'feedback-padding', value: 'var(--concrete-size-feedback-padding)' },
+	{
+		kind: 'measure',
+		name: 'data-surface-padding',
+		value: 'var(--concrete-size-data-surface-padding)'
+	},
+	{
+		kind: 'measure',
+		name: 'data-surface-padding-compact',
+		value: 'var(--concrete-size-data-surface-padding-compact)'
 	},
 	{ kind: 'measure', name: 'layout-grid-min', value: 'var(--concrete-size-layout-grid-min)' },
 	{ kind: 'measure', name: 'layout-sidebar', value: 'var(--concrete-measure-layout-sidebar)' },

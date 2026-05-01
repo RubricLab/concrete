@@ -23,7 +23,7 @@ export const stepperPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderStepperInput(stepperSchema.parse(input)),
 	schema: stepperSchema,
 	slug: 'stepper',
-	states: exampleStates(stepperExamples, ['default', 'disabled'])
+	states: exampleStates(stepperExamples, ['default', 'error', 'disabled'])
 })
 
 function renderStepperInput({ disabled, value }: StepperValue) {

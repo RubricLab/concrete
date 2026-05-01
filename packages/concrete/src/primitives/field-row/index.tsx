@@ -18,7 +18,7 @@ export const fieldRowPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderFieldRowInput(fieldRowSchema.parse(input)),
 	schema: fieldRowSchema,
 	slug: 'field-row',
-	states: exampleStates(fieldRowExamples, ['default', 'meta', 'error'])
+	states: exampleStates(fieldRowExamples, ['default', 'meta', 'success', 'error'])
 })
 
 function renderFieldRowInput({

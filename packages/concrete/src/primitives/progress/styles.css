@@ -4,7 +4,7 @@
 	height: var(--concrete-size-progress-track);
 	overflow: hidden;
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-ink-1);
+	background: var(--concrete-data-track-background);
 }
 
 .concrete-progress-thin {
@@ -20,7 +20,7 @@
 	inset: var(--concrete-space-0) auto var(--concrete-space-0) var(--concrete-space-0);
 	width: var(--concrete-progress-value, var(--concrete-progress-start));
 	border-radius: inherit;
-	background: var(--concrete-ink-9);
+	background: var(--concrete-data-fill);
 }
 
 .concrete-progress-shuttle {
@@ -30,9 +30,9 @@
 }
 
 .concrete-progress-lined {
-	--concrete-progress-lined-color: var(--concrete-ink-9);
+	--concrete-progress-lined-color: var(--concrete-data-fill);
 
-	background-color: var(--concrete-ink-1);
+	background-color: var(--concrete-data-track-background);
 	background-image: repeating-linear-gradient(
 		var(--concrete-progress-lined-angle),
 		var(--concrete-progress-lined-color) var(--concrete-progress-start)

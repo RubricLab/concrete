@@ -10,9 +10,9 @@
 .concrete-segmented-progress i {
 	display: block;
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-ink-1);
+	background: var(--concrete-data-track-background);
 }
 
 .concrete-segmented-progress i[data-active="true"] {
-	background: var(--concrete-ink-9);
+	background: var(--concrete-data-fill);
 }

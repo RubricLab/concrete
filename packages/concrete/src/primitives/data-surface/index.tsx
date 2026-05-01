@@ -28,7 +28,7 @@ export const dataSurfacePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderDataSurfaceInput(dataSurfaceSchema.parse(input)),
 	schema: dataSurfaceSchema,
 	slug: 'data-surface',
-	states: exampleStates(dataSurfaceExamples, ['default', 'media', 'toolbar'])
+	states: exampleStates(dataSurfaceExamples, ['default', 'compact', 'media', 'toolbar'])
 })
 
 function renderDataSurfaceInput({

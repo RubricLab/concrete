@@ -2,7 +2,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: var(--concrete-space-1);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-13) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -18,7 +18,7 @@
 	justify-content: center;
 	width: var(--concrete-size-delta-icon);
 	height: var(--concrete-size-delta-icon);
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-data-foreground-soft);
 }
 
 .concrete-delta-icon svg {
@@ -72,14 +72,14 @@
 	padding-block: var(--concrete-space-0-75);
 	padding-right: var(--concrete-space-2);
 	padding-left: var(--concrete-space-1-75);
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-surface-border-soft);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-ink-1);
+	background: var(--concrete-data-track-background);
 	font-size: var(--concrete-type-12);
 }
 
 .concrete-delta-basis {
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-data-foreground-soft);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
@@ -87,36 +87,36 @@
 }
 
 .concrete-delta-positive {
-	color: var(--concrete-terminal);
+	color: var(--concrete-data-positive);
 }
 
 .concrete-delta-positive .concrete-delta-icon {
-	color: var(--concrete-terminal);
+	color: var(--concrete-data-positive);
 }
 
 .concrete-delta-positive.concrete-delta-wash {
-	border-color: var(--concrete-terminal-wash);
-	background: var(--concrete-terminal-1);
+	border-color: var(--concrete-feedback-success-border);
+	background: var(--concrete-feedback-success-background);
 }
 
 .concrete-delta-negative {
-	color: var(--concrete-error);
+	color: var(--concrete-data-negative);
 }
 
 .concrete-delta-negative .concrete-delta-icon {
-	color: var(--concrete-error);
+	color: var(--concrete-data-negative);
 }
 
 .concrete-delta-negative.concrete-delta-wash {
-	border-color: var(--concrete-error-wash);
-	background: var(--concrete-error-1);
+	border-color: var(--concrete-feedback-error-border);
+	background: var(--concrete-feedback-error-background);
 }
 
 .concrete-delta-neutral {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-neutral);
 }
 
 .concrete-delta-neutral.concrete-delta-wash {
-	border-color: var(--concrete-border-soft);
-	background: var(--concrete-ink-1);
+	border-color: var(--concrete-surface-border-soft);
+	background: var(--concrete-data-track-background);
 }

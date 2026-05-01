@@ -68,7 +68,7 @@ Color tokens for ink, surfaces, accents, and the three Concrete signals.
 - Category: `foundation`
 - Pressure: `product`, `editorial`, `generative`, `educational`
 - Guidance: Use tokens directly through Concrete CSS variables; do not create component-local palettes.
-- Tokens: Palette (23: `canvas`, `surface`, `raised`, `sunken`, `mist`, `ink-9`, `ink-8`, `ink-7`, plus 15 more)
+- Tokens: Palette (23: `canvas`, `surface`, `raised`, `sunken`, `mist`, `ink-9`, `ink-8`, `ink-7`, plus 15 more); Tokens (50: `control-background`, `control-background-hover`, `control-background-active`, `control-background-disabled`, `control-background-selected`, `control-background-selected-soft`, `control-border`, `control-border-hover`, plus 42 more)
 
 #### Typography
 
@@ -98,7 +98,7 @@ Dimension tokens for controls, icons, tracks, media, viewports, and measures.
 - Category: `foundation`
 - Pressure: `product`, `generative`, `educational`
 - Guidance: Use sizing tokens for intrinsic dimensions. Use spacing tokens for rhythm and layout tokens for composition.
-- Tokens: Control (3: `field-control`, `button-medium`, `control-strip-action`); Measure (6: `layout-grid-min`, `layout-sidebar`, `container-content`, `container-wide`, `dialog-surface`, `trace-panel`); Viewport (2: `scroll-area-medium`, `diagram`); Icon (4: `icon-medium`, `spinner-compact`, `spinner-comfortable`, `spinner-editorial`); Avatar (1: `avatar-medium`); Track (5: `progress-track`, `progress-ring-compact`, `progress-ring`, `progress-ring-editorial`, `slider-hit`); Data (1: `chart-height`); Media (2: `thumbnail`, `media-field`)
+- Tokens: Control (8: `field-control`, `control-compact`, `control`, `control-comfortable`, `control-leading`, `control-action`, `button-medium`, `control-strip-action`); Measure (12: `surface-padding-compact`, `surface-padding`, `surface-padding-editorial`, `feedback-padding`, `data-surface-padding`, `data-surface-padding-compact`, `layout-grid-min`, `layout-sidebar`, plus 4 more); Viewport (2: `scroll-area-medium`, `diagram`); Icon (4: `icon-medium`, `spinner-compact`, `spinner-comfortable`, `spinner-editorial`); Avatar (1: `avatar-medium`); Track (5: `progress-track`, `progress-ring-compact`, `progress-ring`, `progress-ring-editorial`, `slider-hit`); Data (1: `chart-height`); Media (2: `thumbnail`, `media-field`)
 
 #### Layout
 
@@ -128,7 +128,7 @@ Restrained shadows and borders for Concrete surfaces.
 - Category: `foundation`
 - Pressure: `product`, `generative`
 - Guidance: Prefer hairlines first; add shadow only when a surface must separate from its plane.
-- Tokens: Tokens (5: `hairline`, `shadow-1`, `shadow-2`, `shadow-3`, `shadow-4`)
+- Tokens: Tokens (17: `hairline`, `shadow-1`, `shadow-2`, `shadow-3`, `shadow-4`, `control-rest`, `control-hover`, `control-focus`, plus 9 more)
 
 #### Motion
 

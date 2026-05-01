@@ -12,6 +12,16 @@ export const progressRingExamples = defineExamples({
 			</>
 		)
 	},
+	density: {
+		description: 'Compact through editorial ring sizes.',
+		render: () => (
+			<>
+				<ProgressRing density="compact" value={42} />
+				<ProgressRing value={68} />
+				<ProgressRing density="editorial" intent="sky" value={91} />
+			</>
+		)
+	},
 	signals: {
 		description: 'Circular signal intents.',
 		render: () => (

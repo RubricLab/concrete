@@ -18,7 +18,7 @@ export const panelPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderPanelInput(panelSchema.parse(input)),
 	schema: panelSchema,
 	slug: 'panel',
-	states: exampleStates(panelExamples, ['default', 'footer', 'raised'])
+	states: exampleStates(panelExamples, ['default', 'compact', 'footer', 'raised'])
 })
 
 function renderPanelInput({

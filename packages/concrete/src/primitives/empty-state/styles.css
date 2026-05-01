@@ -4,15 +4,15 @@
 	align-items: center;
 	gap: var(--concrete-space-3-5);
 	max-width: var(--concrete-measure-empty-state);
-	padding-block: var(--concrete-space-8);
-	padding-inline: var(--concrete-space-7);
+	padding-block: var(--concrete-space-7);
+	padding-inline: var(--concrete-space-6);
 	text-align: center;
 }
 
 .concrete-empty-state-small {
 	gap: var(--concrete-space-3);
-	padding-block: var(--concrete-space-6);
-	padding-inline: var(--concrete-space-5-5);
+	padding-block: var(--concrete-space-5);
+	padding-inline: var(--concrete-space-5);
 }
 
 .concrete-empty-state-large {
@@ -27,10 +27,10 @@
 	justify-content: center;
 	width: var(--concrete-size-empty-state-mark-medium);
 	height: var(--concrete-size-empty-state-mark-medium);
-	border: var(--concrete-border-width-hairline) dashed var(--concrete-ink-3);
+	border: var(--concrete-border-width-hairline) dashed var(--concrete-surface-border-hover);
 	border-radius: var(--concrete-radius-4);
 	background: transparent;
-	color: var(--concrete-ink-5);
+	color: var(--concrete-data-foreground-muted);
 }
 
 .concrete-empty-state-small .concrete-mark {
@@ -69,7 +69,7 @@
 }
 
 .concrete-empty-title {
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-surface-foreground-strong);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-18) / var(--concrete-line-compact)
 		var(--concrete-font-display);
@@ -80,7 +80,7 @@
 }
 
 .concrete-empty-title em {
-	color: var(--concrete-ink-7);
+	color: var(--concrete-surface-foreground);
 	font-synthesis: none;
 	font-style: italic;
 	font-weight: var(--concrete-weight-regular);
@@ -88,7 +88,7 @@
 
 .concrete-empty-body {
 	max-width: var(--concrete-measure-empty-body);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-surface-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-12-5) / var(--concrete-line-prose-compact)
 		var(--concrete-font-sans);

@@ -24,7 +24,7 @@
 	width: var(--concrete-border-width-hairline);
 	height: var(--concrete-size-control-strip-separator-block);
 	margin-inline: var(--concrete-control-strip-separator-margin-inline);
-	background: var(--concrete-border);
+	background: var(--concrete-control-border);
 }
 
 .concrete-toolbar-root-button {
@@ -41,7 +41,7 @@
 	border-radius: var(--concrete-radius-3);
 	background: transparent;
 	box-shadow: var(--concrete-shadow-none);
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-foreground-soft);
 	cursor: pointer;
 	font:
 		var(--concrete-weight-bold) var(--concrete-type-12) / var(--concrete-line-flat)
@@ -69,42 +69,42 @@
 .concrete-toolbar-root-button[data-appearance="chip"] {
 	min-width: var(--concrete-space-0);
 	padding-inline: var(--concrete-space-2-5);
-	border-color: var(--concrete-border);
+	border-color: var(--concrete-control-border);
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-surface);
-	color: var(--concrete-foreground-body);
+	background: var(--concrete-control-background);
+	color: var(--concrete-control-foreground-body);
 	font-weight: var(--concrete-weight-strong);
 }
 
 .concrete-toolbar-root-button:hover,
 .concrete-toolbar-root-button:focus-visible {
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-control-foreground);
 }
 
 .concrete-toolbar-root-button[data-appearance="subtle"]:hover,
 .concrete-toolbar-root-button[data-appearance="subtle"][data-selected="true"],
 .concrete-toolbar-root-button[data-appearance="subtle"][data-pressed="true"] {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-foreground);
 }
 
 .concrete-toolbar-root-button[data-appearance="chip"]:hover {
-	border-color: var(--concrete-border-strong);
-	background: var(--concrete-raised);
+	border-color: var(--concrete-control-border-hover);
+	background: var(--concrete-control-background-hover);
 }
 
 .concrete-toolbar-root-button[data-appearance="chip"][data-selected="true"],
 .concrete-toolbar-root-button[data-appearance="chip"][data-pressed="true"] {
-	border-color: var(--concrete-ink-9);
-	background: var(--concrete-ink-9);
-	color: var(--concrete-inverse-foreground-strong);
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	color: var(--concrete-control-foreground-selected);
 	font-weight: var(--concrete-weight-heading);
 }
 
 .concrete-toolbar-root-button:not([data-appearance="chip"])[data-selected="true"],
 .concrete-toolbar-root-button:not([data-appearance="chip"])[data-pressed="true"] {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-foreground);
 }
 
 .concrete-toolbar-root-button[data-pressed="true"] {
@@ -118,7 +118,7 @@
 
 .concrete-toolbar-root-button:focus-visible {
 	outline: var(--concrete-space-0);
-	box-shadow: var(--concrete-ring-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-toolbar-root-button svg {

@@ -18,7 +18,7 @@ export const pickerButtonPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderPickerButtonInput(pickerButtonSchema.parse(input)),
 	schema: pickerButtonSchema,
 	slug: 'picker-button',
-	states: exampleStates(pickerButtonExamples, ['default', 'open', 'time'])
+	states: exampleStates(pickerButtonExamples, ['default', 'open', 'time', 'disabled'])
 })
 
 function renderPickerButtonInput({ icon, label, open }: PickerButtonValue) {

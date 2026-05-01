@@ -7,7 +7,7 @@
 .concrete-menu-group-title {
 	padding-block: var(--concrete-space-1-5) var(--concrete-space-1);
 	padding-inline: var(--concrete-space-2);
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-bold) var(--concrete-type-13) / var(--concrete-line-flat)
 		var(--concrete-font-sans);

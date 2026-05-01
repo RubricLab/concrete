@@ -7,8 +7,16 @@ import { Text } from '../text'
 import { DataSurface } from './component'
 
 export const dataSurfaceExamples = defineExamples({
+	compact: {
+		description: 'Dense table-adjacent surface with footer status.',
+		render: () => (
+			<DataSurface compact footer="Updated 12 seconds ago" meta="1,284" purpose="table" title="Runs">
+				<Text intent="muted">Indexed rows are ready for export.</Text>
+			</DataSurface>
+		)
+	},
 	default: {
-		description: 'Compact generated-output surface.',
+		description: 'Compact generated-output surface with metric and delta.',
 		render: () => (
 			<DataSurface description="Validated against the active schema." title="Run quality">
 				<Stat delta={<Delta intent="positive" value="+8.4%" />} purpose="display" value="97.2" />

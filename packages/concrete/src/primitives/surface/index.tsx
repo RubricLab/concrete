@@ -32,7 +32,7 @@ export const surfacePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderSurfaceInput(surfaceSchema.parse(input)),
 	schema: surfaceSchema,
 	slug: 'surface',
-	states: exampleStates(surfaceExamples, ['default', 'raised', 'inverse', 'sticky'])
+	states: exampleStates(surfaceExamples, ['default', 'raised', 'selected', 'inverse', 'sticky'])
 })
 
 function renderSurfaceInput({

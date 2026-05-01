@@ -144,10 +144,18 @@ function renderColorSwatches(names: readonly string[]): ReactNode {
 				}}
 			>
 				<b>{token.name}</b>
-				<small>{token.hex?.replace('#', '')}</small>
+				<small>{getColorTokenCaption(token)}</small>
 			</span>
 		)
 	})
+}
+
+function getColorTokenCaption(token: ColorToken): string {
+	if ('hex' in token) {
+		return token.hex.replace('#', '')
+	}
+
+	return 'computed'
 }
 
 function getColorToken(name: string): ColorToken {

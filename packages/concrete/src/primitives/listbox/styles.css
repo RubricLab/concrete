@@ -5,8 +5,8 @@
 	overflow: auto;
 	padding: var(--concrete-space-1);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-surface);
-	color: var(--concrete-foreground-body);
+	background: var(--concrete-control-background);
+	color: var(--concrete-control-foreground-body);
 }
 
 .concrete-listbox[data-density="compact"] {
@@ -26,7 +26,7 @@
 .concrete-listbox-empty {
 	padding-block: var(--concrete-space-3);
 	padding-inline: var(--concrete-space-2);
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-foreground-soft);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-flat)
 		var(--concrete-font-sans);

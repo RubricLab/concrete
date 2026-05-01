@@ -5,8 +5,25 @@ import { Text } from '../text'
 import { Panel } from './component'
 
 export const panelExamples = defineExamples({
+	compact: {
+		description: 'Compact product panel with action slot.',
+		render: () => (
+			<Panel
+				actions={
+					<Button density="small" hierarchy="secondary">
+						Open
+					</Button>
+				}
+				density="compact"
+				meta={<Label marker>Live</Label>}
+				title="Agent runtime"
+			>
+				<Text intent="muted">4 tools enabled.</Text>
+			</Panel>
+		)
+	},
 	default: {
-		description: 'Grouped region with header and body.',
+		description: 'Grouped region with header, body, and compact copy.',
 		render: () => (
 			<Panel description="Connected workspace controls." title="Runtime">
 				<Text intent="muted">Tools, memory, and model routing are available.</Text>

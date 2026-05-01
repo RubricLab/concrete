@@ -1,12 +1,32 @@
 import { defineExamples } from '../../factories/createExamples'
+import { Badge } from '../badge'
+import { Button } from '../button'
+import { Stack } from '../stack'
+import { Text } from '../text'
 import { Frame } from './component'
 
 export const frameExamples = defineExamples({
+	compact: {
+		description: 'Compact frame for tool panels and generated controls.',
+		render: () => (
+			<Frame
+				align="start"
+				footer={<Button density="small">Apply</Button>}
+				header="Inspector"
+				scale="compact"
+			>
+				<Text purpose="mono">props.status = "ready"</Text>
+			</Frame>
+		)
+	},
 	default: {
 		description: 'Header, body, and footer chrome.',
 		render: () => (
-			<Frame footer="Footer" footerMeta="meta" header="Eyebrow" headerMeta="meta">
-				body
+			<Frame footer="Preview" footerMeta="ready" header="Generated UI" headerMeta="compact">
+				<Stack align="center" density="compact">
+					<Badge intent="terminal">schema valid</Badge>
+					<Text intent="muted">Dense preview frame.</Text>
+				</Stack>
 			</Frame>
 		)
 	},
@@ -20,7 +40,7 @@ export const frameExamples = defineExamples({
 				scale="showcase"
 				texture="perspective"
 			>
-				body
+				<Badge intent="ultra">showcase</Badge>
 			</Frame>
 		)
 	},
@@ -28,7 +48,7 @@ export const frameExamples = defineExamples({
 		description: 'Textured body ground.',
 		render: () => (
 			<Frame footer="Footer" footerMeta="meta" header="Eyebrow" headerMeta="meta" texture="field">
-				body
+				<Text intent="strong">Textured body ground</Text>
 			</Frame>
 		)
 	}

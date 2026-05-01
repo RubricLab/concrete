@@ -1,10 +1,21 @@
 import { defineExamples } from '../../factories/createExamples'
+import { Stack } from '../stack'
 import { OptionRow } from './component'
 
 export const optionRowExamples = defineExamples({
 	command: {
 		description: 'Command row with icon, description, and shortcut.',
-		render: () => renderCommandOptionRow()
+		render: () => (
+			<OptionRow
+				active
+				description="Create a new research note"
+				kind="command"
+				leadingIcon="folder-plus"
+				shortcuts={['N']}
+			>
+				New note
+			</OptionRow>
+		)
 	},
 	danger: {
 		description: 'Destructive command treatment.',
@@ -17,9 +28,9 @@ export const optionRowExamples = defineExamples({
 		)
 	},
 	default: {
-		description: 'Command, select, and destructive option row anatomy.',
+		description: 'Active command, selected value, disabled, and destructive rows.',
 		render: () => (
-			<>
+			<Stack density="compact">
 				<OptionRow
 					active
 					description="Create a new research note"
@@ -32,10 +43,13 @@ export const optionRowExamples = defineExamples({
 				<OptionRow description="Research workspace" kind="select" meta="12" selected>
 					Rubric Labs
 				</OptionRow>
+				<OptionRow disabled description="Locked by release policy" kind="select">
+					Production
+				</OptionRow>
 				<OptionRow kind="command" leadingIcon="trash-2" intent="error">
 					Delete thread
 				</OptionRow>
-			</>
+			</Stack>
 		)
 	},
 	select: {
@@ -49,17 +63,3 @@ export const optionRowExamples = defineExamples({
 		)
 	}
 })
-
-function renderCommandOptionRow() {
-	return (
-		<OptionRow
-			active
-			description="Create a new research note"
-			kind="command"
-			leadingIcon="folder-plus"
-			shortcuts={['N']}
-		>
-			New note
-		</OptionRow>
-	)
-}

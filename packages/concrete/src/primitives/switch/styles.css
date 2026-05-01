@@ -2,7 +2,7 @@
 	display: inline-flex;
 	align-items: center;
 	gap: var(--concrete-space-2);
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-control-foreground-body);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-12-5) / var(--concrete-line-control)
 		var(--concrete-font-sans);
@@ -19,9 +19,10 @@
 	position: relative;
 	width: var(--concrete-size-switch-track-width);
 	height: var(--concrete-size-switch-track-height);
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-ink-1);
+	background: var(--concrete-control-background-active);
+	box-shadow: var(--concrete-shadow-control-rest);
 	transition:
 		background var(--concrete-duration-control) var(--concrete-ease),
 		border-color var(--concrete-duration-control) var(--concrete-ease),
@@ -35,21 +36,46 @@
 	width: var(--concrete-size-switch-thumb);
 	height: var(--concrete-size-switch-thumb);
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-surface);
+	background: var(--concrete-control-background);
 	box-shadow: var(--concrete-shadow-switch-thumb);
 	content: "";
 	transition: transform var(--concrete-duration-control) var(--concrete-ease);
 }
 
 .concrete-switch-checked {
-	border-color: var(--concrete-ink-9);
-	background: var(--concrete-ink-9);
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	box-shadow: var(--concrete-shadow-control-selected);
 }
 
 .concrete-switch-checked::after {
 	transform: translateX(var(--concrete-translate-switch-thumb));
 }
 
+.concrete-switch:hover .concrete-switch-track {
+	border-color: var(--concrete-control-border-hover);
+	background: var(--concrete-control-background-hover);
+	box-shadow: var(--concrete-shadow-control-hover);
+}
+
+.concrete-switch:hover .concrete-switch-checked {
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	box-shadow: var(--concrete-shadow-control-selected);
+}
+
+.concrete-switch:has(input:disabled):hover .concrete-switch-track {
+	border-color: var(--concrete-control-border);
+	background: var(--concrete-control-background-active);
+	box-shadow: var(--concrete-shadow-control-rest);
+}
+
+.concrete-switch:has(input:disabled):hover .concrete-switch-checked {
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	box-shadow: var(--concrete-shadow-control-selected);
+}
+
 .concrete-switch:has(input:focus-visible) .concrete-switch-track {
-	box-shadow: var(--concrete-ring-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
