@@ -40,3 +40,10 @@
 			minmax(var(--concrete-space-0), var(--concrete-grid-track-fill))
 		);
 }
+
+@media (width <= 640px) {
+	.concrete-grid[data-columns="two"],
+	.concrete-grid[data-columns="three"] {
+		grid-template-columns: minmax(var(--concrete-space-0), var(--concrete-grid-track-fill));
+	}
+}

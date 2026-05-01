@@ -95,7 +95,7 @@ function getSampleStyle(name: string): CSSProperties {
 	return {
 		color: name === 'display' ? 'var(--concrete-foreground-strong)' : 'var(--concrete-foreground)',
 		fontFamily: getFontFamily(token.family),
-		fontSize: token.size,
+		fontSize: getSampleFontSize(token.name, token.size),
 		fontVariationSettings:
 			token.family === 'display' ? 'var(--concrete-font-display-settings)' : undefined,
 		fontWeight: getFontWeight(token.name),
@@ -107,6 +107,15 @@ function getScaleSampleStyle(name: string): CSSProperties {
 	return {
 		...getSampleStyle(name),
 		fontSize: 'var(--concrete-type-32)'
+	}
+}
+
+function getSampleFontSize(name: string, size: string): string {
+	switch (name) {
+		case 'display':
+			return 'var(--concrete-type-48)'
+		default:
+			return size
 	}
 }
 

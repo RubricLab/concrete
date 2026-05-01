@@ -2,6 +2,7 @@ import {
 	Badge,
 	Button,
 	Chip,
+	Cluster,
 	type ComponentDefinition,
 	type ComponentRegistryEntry,
 	Container,
@@ -97,7 +98,7 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 						ratio="even"
 					>
 						<Stack density="editorial">
-							<Stack density="compact">
+							<Stack align="start" density="compact">
 								<Badge intent="terminal">{configuration.label}</Badge>
 								<Heading hierarchy="display" level="1">
 									{entry.name}
@@ -107,20 +108,20 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 								</Text>
 								<Text intent="muted">{entry.guidance}</Text>
 							</Stack>
-							<Stack density="compact">
+							<Cluster density="compact">
 								<Badge intent="ultra">{entry.category}</Badge>
 								{entry.pressure.map(pressure => (
 									<Chip key={pressure}>{pressure}</Chip>
 								))}
-							</Stack>
-							<Stack density="compact">
+							</Cluster>
+							<Cluster density="compact">
 								<TextLink href={`/render/${kind}/${entry.slug}`} purpose="nav">
 									DOM render
 								</TextLink>
 								<TextLink href={`/render/${kind}/${entry.slug}/screenshot`} purpose="nav">
 									Image render
 								</TextLink>
-							</Stack>
+							</Cluster>
 						</Stack>
 					</Split>
 				</Container>

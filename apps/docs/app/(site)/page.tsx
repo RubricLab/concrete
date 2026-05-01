@@ -158,7 +158,7 @@ export default function HomeRoute() {
 							ratio="even"
 						>
 							<Stack density="editorial">
-								<Stack density="compact">
+								<Stack align="start" density="compact">
 									<Label intent="sky" purpose="status">
 										Concrete
 									</Label>
@@ -230,7 +230,7 @@ export default function HomeRoute() {
 				<Container density="editorial" measure="wide">
 					<Split aside={<RenderContractDemo />} density="editorial" ratio="even">
 						<Stack density="editorial">
-							<Stack density="compact">
+							<Stack align="start" density="compact">
 								<Label intent="terminal" purpose="status">
 									Interface contract
 								</Label>

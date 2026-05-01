@@ -17,8 +17,8 @@ export function PropControl({
 		<FieldRow
 			align={control.type === 'json' ? 'start' : 'center'}
 			control={renderControlInput(control, value, onChange)}
+			description={control.name}
 			label={control.label}
-			meta={control.name}
 		/>
 	)
 }
