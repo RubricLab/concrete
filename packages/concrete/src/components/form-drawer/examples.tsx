@@ -1,7 +1,6 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Button, Select, Switch } from '../../primitives'
+import { Button, FieldRow, Section, Select, Switch } from '../../primitives'
 import { DatePicker } from '../date-picker'
-import { FormRow, FormSection } from '../form-shell'
 import { NumberStepper } from '../number-stepper'
 import { ValidationSummary } from '../validation-summary'
 import { FormDrawer } from './component'
@@ -46,13 +45,13 @@ function renderFormDrawerExample(state: 'default' | 'left' | 'review') {
 					]}
 				/>
 			) : null}
-			<FormSection title="Access">
-				<FormRow
+			<Section separated title="Access">
+				<FieldRow
 					control={<Switch checked label="Enabled" readOnly />}
 					description="Allow collaborators to inspect generated artifacts."
 					label="Shared visibility"
 				/>
-				<FormRow
+				<FieldRow
 					control={
 						<Select
 							defaultValue="team"
@@ -65,21 +64,21 @@ function renderFormDrawerExample(state: 'default' | 'left' | 'review') {
 					description="Default visibility for new runs."
 					label="Scope"
 				/>
-			</FormSection>
-			<FormSection title="Limits">
-				<FormRow
+			</Section>
+			<Section separated title="Limits">
+				<FieldRow
 					control={<NumberStepper defaultValue={state === 'review' ? 0 : 25} max={100} min={0} />}
 					description="Daily command executions for this workspace."
 					label="Run budget"
 					meta="daily"
 					status={state === 'review' ? 'error' : 'default'}
 				/>
-				<FormRow
+				<FieldRow
 					control={<DatePicker defaultValue="2026-05-01" label="" />}
 					description="Policy review date."
 					label="Review"
 				/>
-			</FormSection>
+			</Section>
 		</FormDrawer>
 	)
 }

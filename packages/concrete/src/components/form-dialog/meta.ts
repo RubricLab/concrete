@@ -2,7 +2,7 @@ import { prop } from '../../registry/props'
 
 export const formDialogMeta = {
 	category: 'layout',
-	description: 'Inline or fixed modal form surface using FormShell inside a dimmed stage.',
+	description: 'Inline or fixed modal form surface inside a dimmed stage.',
 	guidance:
 		'Form dialog provides the constrained form surface. Product code owns focus trapping and portal strategy when using fixed presentation.',
 	name: 'Form dialog',

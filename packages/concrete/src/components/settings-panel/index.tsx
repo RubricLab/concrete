@@ -1,6 +1,6 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
-import { Button, Select, Switch } from '../../primitives'
+import { Select, Switch } from '../../primitives'
 import { NumberStepper } from '../number-stepper'
 import { SettingsPanel, type SettingsPanelSection } from './component'
 import { settingsPanelExamples } from './examples'
@@ -59,7 +59,7 @@ function renderSettingsPanelInput(input: SettingsPanelValue) {
 		<SettingsPanel
 			{...props}
 			{...(description ? { description } : {})}
-			sections={sections.length > 0 ? renderSettingsSections(sections) : getDefaultSettingsSections()}
+			sections={renderSettingsSections(sections)}
 		/>
 	)
 }
@@ -74,45 +74,13 @@ function renderSettingsSections(sections: SettingsPanelValue['sections']): Setti
 	}))
 }
 
-function getDefaultSettingsSections(): SettingsPanelSection[] {
-	return renderSettingsSections([
-		{
-			description: 'Core behavior for generated work and local tools.',
-			id: 'runtime',
-			rows: [
-				{
-					description: 'Permit tool calls from approved command surfaces.',
-					id: 'tools',
-					label: 'Tools',
-					meta: 'on',
-					status: 'default'
-				},
-				{
-					description: 'Maximum active workers for one request.',
-					id: 'workers',
-					label: 'Parallel workers',
-					meta: 'max 12',
-					status: 'default'
-				},
-				{
-					description: 'Fallback model used when a prompt does not pin a route.',
-					id: 'model',
-					label: 'Default model',
-					status: 'default'
-				}
-			],
-			title: 'Runtime'
-		}
-	])
-}
-
 function renderSettingsControl(rowIndex: number) {
 	switch (rowIndex % 3) {
 		case 0:
 			return <Switch checked label="Enabled" readOnly />
 		case 1:
 			return <NumberStepper defaultValue={6} max={12} min={1} />
-		case 2:
+		default:
 			return (
 				<Select
 					defaultValue="router"
@@ -123,10 +91,4 @@ function renderSettingsControl(rowIndex: number) {
 				/>
 			)
 	}
-
-	return (
-		<Button leadingIcon="paperclip" density="small" hierarchy="secondary">
-			Attach
-		</Button>
-	)
 }

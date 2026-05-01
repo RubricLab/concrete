@@ -58,20 +58,9 @@ export const commandMenuComponentDefinition = createComponent({
 })
 
 function renderCommandMenuInput(input: CommandMenuValue) {
-	const items = input.items.map(item => {
-		const { description, leadingIcon, meta, ...requiredItem } = item
-
-		return {
-			...requiredItem,
-			...(description ? { description } : {}),
-			...(leadingIcon ? { leadingIcon } : {}),
-			...(meta ? { meta } : {})
-		} satisfies CommandMenuItem
-	})
-
 	return (
 		<CommandMenu
-			items={items}
+			items={input.items}
 			loading={input.loading}
 			query={input.query}
 			searchable={input.searchable}

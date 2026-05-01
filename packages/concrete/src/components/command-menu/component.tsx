@@ -25,7 +25,7 @@ export type CommandMenuItem = {
 	id: string
 	intent?: CommandItemIntent
 	label: ReactNode
-	leadingIcon?: IconName
+	leadingIcon?: IconName | undefined
 	meta?: ReactNode
 	shortcut?: readonly string[]
 }

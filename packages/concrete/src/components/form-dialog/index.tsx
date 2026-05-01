@@ -1,8 +1,7 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
-import { Button, Input } from '../../primitives'
+import { Button, Grid, Input } from '../../primitives'
 import { DateRangePicker } from '../date-range-picker'
-import { FormGrid } from '../form-shell'
 import { FormDialog } from './component'
 import { formDialogExamples } from './examples'
 import { formDialogMeta } from './meta'
@@ -44,10 +43,10 @@ function renderFormDialogInput(input: FormDialogValue) {
 				</>
 			}
 		>
-			<FormGrid columns={input.measure === 'wide' ? 2 : 1}>
+			<Grid columns={input.measure === 'wide' ? 'two' : 'one'}>
 				<Input label="Run name" placeholder="Router contract check" />
 				<DateRangePicker defaultValue={{ end: '2026-05-07', start: '2026-04-28' }} label="Window" />
-			</FormGrid>
+			</Grid>
 		</FormDialog>
 	)
 }

@@ -129,10 +129,26 @@ const retiredPublicPrimitiveSlugs = [
 	'suggestion-menu',
 	'texture'
 ] as const
-const retiredPublicComponentSlugs = ['toolbar'] as const
+const retiredPublicComponentSlugs = ['feature-card', 'form-shell', 'toolbar'] as const
 const allowedComponentImplementationImports = new Map<string, readonly string[]>([
 	['packages/concrete/src/components/reasoning-message/component.tsx', ['message']],
 	['packages/concrete/src/components/tool-call-message/component.tsx', ['message']]
+])
+const allowedComponentDemoImports = new Map<string, readonly string[]>([
+	[
+		'packages/concrete/src/components/form-dialog/examples.tsx',
+		['date-range-picker', 'file-upload', 'multi-select', 'validation-summary']
+	],
+	['packages/concrete/src/components/form-dialog/index.tsx', ['date-range-picker']],
+	[
+		'packages/concrete/src/components/form-drawer/examples.tsx',
+		['date-picker', 'number-stepper', 'validation-summary']
+	],
+	['packages/concrete/src/components/form-drawer/index.tsx', ['number-stepper']],
+	['packages/concrete/src/components/search-bar/examples.tsx', ['command-menu']],
+	['packages/concrete/src/components/search-bar/index.tsx', ['command-menu']],
+	['packages/concrete/src/components/settings-panel/examples.tsx', ['number-stepper']],
+	['packages/concrete/src/components/settings-panel/index.tsx', ['number-stepper']]
 ])
 const allowedMediaQueryConditions = new Set(['(width <= 420px)', '(width <= 640px)'])
 const dynamicPrimitiveInlineStyleFiles = [
@@ -457,6 +473,7 @@ const documentedPrimitiveRuntimeExports = new Map<string, readonly string[]>([
 	['trace-panel', ['TracePanel', 'TraceSteps', 'TraceStep']],
 	['transcript-item', ['TranscriptItem', 'TranscriptPlain', 'TranscriptMetaItem']]
 ])
+const documentedComponentRuntimeExports = new Map<string, readonly string[]>([])
 const chartRenderingUtilityFiles = [
 	'packages/concrete/src/utilities/bar-chart-rendering.tsx',
 	'packages/concrete/src/utilities/chart-core-rendering.tsx',
@@ -799,6 +816,7 @@ describe('Import boundaries', () => {
 		const componentFiles = listItemDirectories(
 			join(repoRoot, 'packages/concrete/src/components')
 		).map(directory => join(directory, 'component.tsx'))
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
 		const violations = componentFiles.flatMap(filePath => {
 			const relativePath = relative(repoRoot, filePath)
 			const allowedSlugs = new Set(allowedComponentImplementationImports.get(relativePath) ?? [])
@@ -823,8 +841,61 @@ describe('Import boundaries', () => {
 				)
 			}
 		)
+		const undocumentedAllowedImports = [...allowedComponentImplementationImports.entries()].flatMap(
+			([relativePath, componentSlugs]) => {
+				const componentSlug = basename(relativePath.replace(/\/component\.tsx$/u, ''))
 
-		expect([...violations, ...staleAllowedImports]).toEqual([])
+				return componentSlugs.flatMap(dependencySlug =>
+					plan.includes(`| \`${componentSlug}\` | \`${dependencySlug}\` |`)
+						? []
+						: [`PLAN.md does not document component tier ${componentSlug} -> ${dependencySlug}`]
+				)
+			}
+		)
+
+		expect([...violations, ...staleAllowedImports, ...undocumentedAllowedImports]).toEqual([])
+	})
+
+	test('component examples and render adapters compose only documented sibling components', () => {
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const compositionFiles = listExistingItemFiles('packages/concrete/src/components', [
+			'examples.tsx',
+			'index.tsx'
+		])
+		const violations = compositionFiles.flatMap(filePath => {
+			const relativePath = relative(repoRoot, filePath)
+			const allowedSlugs = new Set(allowedComponentDemoImports.get(relativePath) ?? [])
+
+			return listSiblingComponentImports(readFileSync(filePath, 'utf8')).flatMap(componentSlug =>
+				allowedSlugs.has(componentSlug)
+					? []
+					: [`${relativePath} composes undocumented sibling component ${componentSlug}`]
+			)
+		})
+		const staleAllowedImports = [...allowedComponentDemoImports.entries()].flatMap(
+			([relativePath, componentSlugs]) => {
+				const absolutePath = join(repoRoot, relativePath)
+				const imports = existsSync(absolutePath)
+					? new Set(listSiblingComponentImports(readFileSync(absolutePath, 'utf8')))
+					: new Set<string>()
+
+				return componentSlugs.flatMap(componentSlug =>
+					imports.has(componentSlug)
+						? []
+						: [`${relativePath} no longer composes allowed component ${componentSlug}`]
+				)
+			}
+		)
+		const undocumentedAllowedImports = [...allowedComponentDemoImports.entries()].flatMap(
+			([relativePath, componentSlugs]) =>
+				componentSlugs.flatMap(componentSlug =>
+					plan.includes(`| \`${relativePath}\` | \`${componentSlug}\` |`)
+						? []
+						: [`PLAN.md does not document demo composition ${relativePath} -> ${componentSlug}`]
+				)
+		)
+
+		expect([...violations, ...staleAllowedImports, ...undocumentedAllowedImports]).toEqual([])
 	})
 
 	test('phase 5C message workflow uses declared component tier', () => {
@@ -1053,6 +1124,44 @@ describe('Import boundaries', () => {
 			existsSync(join(repoRoot, 'packages/concrete/src/primitives', slug, 'component.tsx'))
 				? []
 				: [`documented primitive subpart slug ${slug} no longer exists`]
+		)
+
+		expect([...violations, ...staleDocumentedSlugs]).toEqual([])
+	})
+
+	test('component runtime exports are singular unless documented', () => {
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const componentFiles = listExistingItemFiles('packages/concrete/src/components', [
+			'component.tsx'
+		])
+		const violations = componentFiles.flatMap(filePath => {
+			const slug = basename(filePath.replace(/\/component\.tsx$/u, ''))
+			const source = readFileSync(filePath, 'utf8')
+			const actualExports = listExportedRuntimeComponentNames(source)
+			const expectedExports = documentedComponentRuntimeExports.get(slug)
+
+			if (expectedExports) {
+				const undocumentedNames = expectedExports.flatMap(name =>
+					plan.includes(name) ? [] : [`PLAN.md does not document component export ${name}`]
+				)
+
+				return actualExports.length > 1 && areStringArraysEqual(actualExports, expectedExports)
+					? undocumentedNames
+					: [
+							`${relative(repoRoot, filePath)} exports ${actualExports.join(', ')} instead of ${expectedExports.join(', ')}`
+						]
+			}
+
+			return actualExports.length <= 1
+				? []
+				: [
+						`${relative(repoRoot, filePath)} exports undocumented runtime subparts ${actualExports.join(', ')}`
+					]
+		})
+		const staleDocumentedSlugs = [...documentedComponentRuntimeExports.keys()].flatMap(slug =>
+			existsSync(join(repoRoot, 'packages/concrete/src/components', slug, 'component.tsx'))
+				? []
+				: [`documented component subpart slug ${slug} no longer exists`]
 		)
 
 		expect([...violations, ...staleDocumentedSlugs]).toEqual([])

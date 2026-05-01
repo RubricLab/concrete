@@ -1,7 +1,6 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
-import { Button, Select, Switch } from '../../primitives'
-import { FormRow, FormSection } from '../form-shell'
+import { Button, FieldRow, Section, Select, Switch } from '../../primitives'
 import { NumberStepper } from '../number-stepper'
 import { FormDrawer } from './component'
 import { formDrawerExamples } from './examples'
@@ -44,13 +43,13 @@ function renderFormDrawerInput(input: FormDrawerValue) {
 				</>
 			}
 		>
-			<FormSection title="Access">
-				<FormRow
+			<Section separated title="Access">
+				<FieldRow
 					control={<Switch checked label="Enabled" readOnly />}
 					description="Allow collaborators to inspect generated artifacts."
 					label="Shared visibility"
 				/>
-				<FormRow
+				<FieldRow
 					control={
 						<Select
 							defaultValue="team"
@@ -63,15 +62,15 @@ function renderFormDrawerInput(input: FormDrawerValue) {
 					description="Default visibility for new runs."
 					label="Scope"
 				/>
-			</FormSection>
-			<FormSection title="Limits">
-				<FormRow
+			</Section>
+			<Section separated title="Limits">
+				<FieldRow
 					control={<NumberStepper defaultValue={25} max={100} min={0} />}
 					description="Daily command executions for this workspace."
 					label="Run budget"
 					meta="daily"
 				/>
-			</FormSection>
+			</Section>
 		</FormDrawer>
 	)
 }

@@ -1,7 +1,7 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
 import { BrandMark, Inline, Text } from '../../primitives'
-import { Nav, type NavItem } from './component'
+import { Nav } from './component'
 import { navExamples } from './examples'
 import { navMeta } from './meta'
 import { type NavComponentValue, navComponentSchema } from './schema'
@@ -44,11 +44,7 @@ function renderNavInput(input: NavComponentValue) {
 					<Text intent="strong">{brandLabel}</Text>
 				</Inline>
 			}
-			items={renderNavItems(input.items)}
+			items={input.items}
 		/>
 	)
-}
-
-function renderNavItems(items: readonly NavComponentValue['items'][number][]): readonly NavItem[] {
-	return items.map(item => ({ ...item, label: item.label }))
 }

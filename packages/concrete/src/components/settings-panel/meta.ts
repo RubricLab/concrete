@@ -24,6 +24,6 @@ export const settingsPanelMeta = {
 		prop('footer', 'ReactNode', 'Footer action slot, usually cancel and submit buttons.'),
 		prop('status', "'default' | 'error' | 'success'", 'Outer status border treatment.', 'default'),
 		prop('compact', 'boolean', 'Tightens header/body spacing for dense settings.', 'false'),
-		prop('FormRow.control', 'ReactNode', 'Right-aligned primitive or component control slot.')
+		prop('FieldRow.control', 'ReactNode', 'Right-aligned primitive or component control slot.')
 	]
 } as const

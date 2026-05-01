@@ -1,7 +1,7 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
 import { CodeBlock } from '../../primitives'
-import { Footer, type FooterColumn, type FooterLink } from './component'
+import { Footer } from './component'
 import { footerExamples } from './examples'
 import { footerMeta } from './meta'
 import { type FooterComponentValue, footerComponentSchema } from './schema'
@@ -50,26 +50,10 @@ function renderFooterInput(input: FooterComponentValue) {
 	return (
 		<Footer
 			{...props}
-			actions={renderFooterLinks(actions)}
+			actions={actions}
 			aside={asideCode ? <CodeBlock code={asideCode} language="Shell" mode="command" /> : undefined}
 			brand={brandLabel}
-			columns={renderFooterColumns(columns)}
+			columns={columns}
 		/>
 	)
-}
-
-function renderFooterColumns(
-	columns: readonly FooterComponentValue['columns'][number][]
-): readonly FooterColumn[] {
-	return columns.map(column => ({
-		...column,
-		links: renderFooterLinks(column.links),
-		title: column.title
-	}))
-}
-
-function renderFooterLinks(
-	links: readonly FooterComponentValue['actions'][number][]
-): readonly FooterLink[] {
-	return links.map(link => ({ ...link, label: link.label }))
 }

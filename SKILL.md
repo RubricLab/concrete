@@ -56,7 +56,7 @@ import { foundationRegistry } from '@rubriclab/concrete/registry'
 
 This section is generated from `foundationRegistry`, `primitiveRegistry`, and `componentRegistry`. Run `bun run build:skill` after registry changes.
 
-Concrete currently exposes 12 foundations, 110 primitives, and 35 components.
+Concrete currently exposes 12 foundations, 110 primitives, and 33 components.
 
 ### Foundations
 
@@ -204,12 +204,12 @@ Components assemble primitives into reusable product behavior. They should not i
 
 - **Navigation** (3): Nav (`nav`), Footer (`footer`), Command menu (`command-menu`)
 - **Form** (9): Search bar (`search-bar`), Password input (`password-input`), Multi select (`multi-select`), Date picker (`date-picker`), Date range picker (`date-range-picker`), Time picker (`time-picker`), Number stepper (`number-stepper`), Range slider (`range-slider`), File upload (`file-upload`)
-- **Layout** (5): Form shell (`form-shell`), Settings panel (`settings-panel`), Form dialog (`form-dialog`), Form drawer (`form-drawer`), Composer (`composer`)
 - **Feedback** (3): Validation summary (`validation-summary`), Reasoning message (`reasoning-message`), Tool call message (`tool-call-message`)
+- **Layout** (4): Settings panel (`settings-panel`), Form dialog (`form-dialog`), Form drawer (`form-drawer`), Composer (`composer`)
 - **Media** (1): Image upload (`image-upload`)
 - **Data** (11): Metric card (`metric-card`), Meter (`meter`), Line chart (`line-chart`), Area chart (`area-chart`), Bar chart (`bar-chart`), Stacked bar chart (`stacked-bar-chart`), Donut chart (`donut-chart`), Heatmap (`heatmap`), Chart (`chart`), Data table (`data-table`), Flow diagram (`flow-diagram`)
-- **Surface** (2): FeatureCard (`feature-card`), Message (`message`)
 - **Diagram** (1): Diagram canvas (`diagram-canvas`)
+- **Surface** (1): Message (`message`)
 <!-- concrete-skill:generated:end -->
 
 ## Usage Guide

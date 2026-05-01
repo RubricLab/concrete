@@ -13,15 +13,15 @@ This is the only actionable internal plan document for Concrete DX work.
 ## Current Baseline
 
 - Audit date: 2026-05-01.
-- Current public package inventory: 12 foundations, 110 primitives, 35 components.
+- Current public package inventory: 12 foundations, 110 primitives, 33 components.
 - Current private primitive inventory: 0 internal primitive folders.
 - Folder-per-item architecture exists for every public foundation, primitive, and component.
 - Public registry, docs, examples, playgrounds, render routes, and screenshot routes are item-definition driven.
 - Active component CSS debt should remain zero. Any new component `styles.css` is a regression unless this file records a temporary exception.
 - Central primitive/component CSS layers are compatibility bundle substrate only. Active selectors belong in foundation or primitive item styles.
 - Phases 1-7 are structurally complete for foundations and primitives: foundation split, primitive ontology correction, destructive legacy primitive cleanup, prop discipline, component assembly hardening, foundation token nouns, primitive scope closure, primitive family consistency, runtime subpart export contracts, and final hardening gates have passed.
-- Phase 8 is the active component closure phase. Component implementations pass the current structural contract, but component item indexes, public multi-export surfaces, renderInput composition, and rich React slot serialization still need a deliberate closure pass before calling components uncompromising.
-- The current `main` rebase keeps the docs-shell additions `container`, `scale-frame`, `tilt-frame`, `nav`, `footer`, and `feature-card`; `row` and `toolbar` remain retired.
+- Phase 8 component structural closure is complete. Component implementations pass the current structural contract, docs-shell scope is decided, demo/renderInput sibling composition is ledgered, and component item indexes are tightened around exact schema-to-JSX boundaries. Rich React slot serialization is documented as a deliberate future node-language pass.
+- The current `main` rebase keeps the docs-shell additions `container`, `scale-frame`, `tilt-frame`, `nav`, and `footer`; `row`, `toolbar`, `form-shell`, and `feature-card` remain retired.
 
 ## Operating Loop
 
@@ -55,11 +55,13 @@ This is the only actionable internal plan document for Concrete DX work.
 - [x] Phase 7D: add enforcement tests for Phase 7 and run final gates.
 - [x] Phase 7E: mark foundation and primitive architecture ready for aesthetic polish only after every row below is `done` or explicitly deferred.
 - [x] Phase 8 audit: inspect the component layer against the current ontology and record the real remaining debt.
-- [ ] Phase 8A: add a component runtime export and dependency-tier contract.
-- [ ] Phase 8B: decide and execute the `FormShell` compatibility/recast/delete path.
-- [ ] Phase 8C: tighten component `index.tsx`, `renderInput`, and example composition rules.
-- [ ] Phase 8D: document the rich child/slot serialization boundary and keep it deferred unless it becomes current scope.
-- [ ] Phase 8E: run full gates and mark components structurally closed.
+- [x] Phase 8 launch preflight: fast-forward to current `origin/main`, re-read `CODE.md` and this plan, and audit components for sibling imports, raw DOM, multi-runtime exports, heavy indexes, and test coverage.
+- [x] Phase 8A: add and pass the component contract harness.
+- [x] Phase 8B: delete, demote, or recast `form-shell` so generic form layout is primitive composition, not a component family.
+- [x] Phase 8C: decide docs-shell components and add the demo/renderInput sibling composition contract.
+- [x] Phase 8D: tighten heavy component `index.tsx` render adapters.
+- [x] Phase 8E: document the rich child/slot serialization boundary and keep it deferred unless it becomes current scope.
+- [x] Phase 8F: run full gates and mark components structurally closed.
 
 ## Completion Bar Before Aesthetic Polish
 
@@ -144,24 +146,72 @@ Components are behavior and workflow surfaces. The audit found the implementatio
 
 Current component audit result:
 
-- Implementation boundary: `A-`. Component implementations assemble primitives/utilities, do not own CSS, do not own Concrete class names, and do not style raw DOM.
-- Component ontology: `B+`. Most components are correctly scoped workflows, but `FormShell` still exports generic layout subparts that now overlap with primitives.
-- Item-bundle purity: `B`. Several `index.tsx` files own heavy renderInput/demo assembly and sibling component composition.
-- Aesthetic readiness: blocked only by Phase 8. Foundations/primitives are ready; components need this closure pass first.
+- Implementation boundary: `A`. Component implementations assemble primitives/utilities, do not own CSS, do not own Concrete class names, and do not style raw DOM under the current contract tests.
+- Component ontology: `A-`. Generic `form-shell` layout topology and landing-page-only `feature-card` are retired. `nav` and `footer` stay as durable app-shell components.
+- Item-bundle purity: `A-`. Demo-only sibling composition is now ledgered and test-backed. Component indexes no longer carry pass-through mappers or hidden default content; remaining larger indexes are exact serializable adapters for React slots, queue seeds, or representative workflow render output.
+- Aesthetic readiness: structurally ready. Foundations, primitives, and components are now ready for visual/aesthetic polish; recursive React node serialization remains a separate future architecture pass.
 
 | Component scope | Status | Exact action | Done when |
 | --- | --- | --- | --- |
 | Component audit checkpoint | `done` | Inspected all 35 component folders, high-risk implementation files, utilities, indexes, and the import-boundary test contract. | `bun test packages/concrete/src/tests/import-boundaries.test.ts` passes and this phase records the remaining debt honestly. |
-| Docs shell components | `audit` | `nav`, `footer`, and `feature-card` were preserved from the docs refactor while rebasing. Decide whether they are durable package components or should collapse back into docs/app composition in Phase 8. | Each item is either defended as reusable component vocabulary or demoted with registry/export/style/test cleanup in one wave. |
-| Runtime export contract | `audit` | Add a component equivalent of the primitive runtime subpart ledger. `component.tsx` should export one runtime component unless `PLAN.md` names the exception. | The test fails on new multi-export component files unless the exception is documented. Current known pressure: `form-shell`. |
-| Component dependency tiers | `audit` | Promote the current message exception into a named acyclic component tier map. Keep all other component implementation imports banned. | `Message` may be a declared lower-tier component for `ReasoningMessage` and `ToolCallMessage`; no other component implementation dependency appears without a ledger row. |
-| `form-shell` | `audit` | Decide whether to keep it as public compatibility, delete it, or recast consumers directly onto `Panel`, `Section`, `Grid`, `FieldRow`, and `Dock`. Breaking change is allowed if this row records the decision. | No generic form layout wrapper remains as a component unless it is explicitly a compatibility API surface with a retirement plan. |
-| Component `index.tsx` files | `refine` | Keep indexes focused on public re-exports, item definition, seed, and renderInput adapter. Move durable fixtures to examples or schemas only when that improves ownership. Do not split one coherent adapter just for LOC. | Heavy indexes such as `settings-panel`, `form-shell`, `search-bar`, and `form-dialog` have an explicit rule: allowed render adapter, or simplified. |
-| RenderInput and examples | `refine` | Allow sibling component composition only inside examples/renderInput when it is demo output, not runtime implementation. Prefer primitive composition when the same UI could be assembled without component dependencies. | Tests distinguish implementation imports from example/renderInput composition, and examples remain serializable/server-renderable. |
-| Rich child and slot serialization | `deferred` | Do not implement the recursive Concrete node language in this phase. Record that `SettingsPanel`, form overlays, search menus, and similar slots still need JSX adapters until node serialization is greenlit. | Serializable own props stay schema-validated; rich React slots remain typed runtime props or renderInput adapters. |
+| Launch preflight | `done` | Fast-forwarded to `origin/main` release baseline, re-read the active rulebook, and audited components for sibling imports, raw DOM, runtime exports, index LOC, and test coverage. | Worktree is synced, existing contract surface is understood, and Phase 8 starts from `c707744 release: concrete v0.0.12`. |
+| Component contract harness | `done` | Added a component runtime export contract, kept the sibling implementation import ban, and made the message lower-tier dependency ledger test-backed. | Tests fail on new multi-export component files unless this file names the exception. `message` is the only declared lower-tier implementation dependency for `reasoning-message` and `tool-call-message`. |
+| `form-shell` topology | `done` | Deleted the public `form-shell` component bundle and replaced `FormSection`, `FormGrid`, and `FormRow` consumers with `Section`, `Grid`, and `FieldRow`. Removed the registry entry, barrel export, slug type, component schema bundle, generated skill inventory entry, and old public form-shell schema surface. | No public component exports generic form layout subparts. `form-shell` is retired and guarded by the retired component slug test. |
+| Component `index.tsx` files | `done` | Kept indexes focused on public re-exports, item definition, seed, and renderInput adapter. Removed pass-through schema-output mappers from `command-menu`, `search-bar`, `nav`, and `footer`, removed hidden default content from `settings-panel`, and aligned icon slot types with exact optional schema output. | Heavy indexes have a written reason or are simplified. Current top index is `settings-panel` at 94 LOC, and every larger adapter listed below owns one coherent boundary. |
+| RenderInput and examples | `done` | Allow sibling component composition only inside examples/renderInput when it is demo output, not runtime implementation. Prefer primitive composition when the same UI could be assembled without component dependencies. | Tests distinguish implementation imports from example/renderInput composition, examples remain serializable/server-renderable, and every allowed sibling composition is documented below. |
+| Docs shell components | `done` | Kept `nav` and `footer` because they are reusable app-shell components. Deleted `feature-card` because it was landing-page composition over `TiltFrame`, icon, and text primitives. | `nav` and `footer` stay in registry/barrel/docs; `feature-card` is retired and guarded by the retired component slug test. |
+| Rich child and slot serialization | `done` | Deferred the recursive Concrete node language from this phase and recorded the boundary explicitly. `SettingsPanel`, form overlays, search menus, `Nav` brand slots, `Footer` aside code, and similar rich slots use JSX adapters until node serialization is greenlit. | Serializable own props stay schema-validated; rich React slots remain typed runtime props or renderInput adapters. |
 | Large controller components | `keep` | Keep `Composer`, `DataTable`, `CommandMenu`, and `DiagramCanvas` whole when each file owns one controller/event/render flow. Promote only reusable algorithms to utilities and reusable JSX to primitives/components. | No split is made solely for LOC. Large files are acceptable when the concern is singular and guarded by tests. |
 | Component schema locality | `deferred` | Central public schemas stay for compatibility. Item-local schema ownership can be revisited in a breaking schema pass. | No duplicate schema truth appears; item `schema.ts` files continue to expose the correct public schema boundary. |
-| Phase 8 gates | `pending` | After implementation, run `bun run format`, registry/import-boundary tests, `bun test`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. | The Recent Gate Log records a passing Phase 8E checkpoint and components are marked structurally closed. |
+| Phase 8 gates | `done` | Ran `bun run format`, registry/import-boundary tests, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. | The Recent Gate Log records a passing Phase 8F checkpoint and components are marked structurally closed. |
+
+Component runtime ledger:
+
+Target state: every component `component.tsx` exports exactly one runtime JSX component. Type exports may live beside that runtime export. No component runtime export exceptions are currently allowed. `form-shell` is retired and guarded as a deleted public component slug.
+
+Component dependency tier ledger:
+
+| Component | May import implementation from | Rationale |
+| --- | --- | --- |
+| `reasoning-message` | `message` | Reasoning output is a specialized message surface and should inherit the lower-tier message workflow shell. |
+| `tool-call-message` | `message` | Tool-call output is a specialized message surface and should inherit the lower-tier message workflow shell. |
+
+Component demo composition ledger:
+
+These files may compose sibling components because they are examples or serializable render adapters, not implementation dependencies. Additions require this table and the import-boundary test to change together.
+
+| File | May compose | Rationale |
+| --- | --- | --- |
+| `packages/concrete/src/components/form-dialog/examples.tsx` | `date-range-picker` | Rich form example showing dialog composition with picker workflow. |
+| `packages/concrete/src/components/form-dialog/examples.tsx` | `file-upload` | Rich form example showing dialog composition with upload workflow. |
+| `packages/concrete/src/components/form-dialog/examples.tsx` | `multi-select` | Rich form example showing dialog composition with multi-value selection workflow. |
+| `packages/concrete/src/components/form-dialog/examples.tsx` | `validation-summary` | Rich form example showing validation feedback inside dialog composition. |
+| `packages/concrete/src/components/form-dialog/index.tsx` | `date-range-picker` | Serializable renderInput adapter for a representative dialog form. |
+| `packages/concrete/src/components/form-drawer/examples.tsx` | `date-picker` | Rich form example showing drawer composition with picker workflow. |
+| `packages/concrete/src/components/form-drawer/examples.tsx` | `number-stepper` | Rich form example showing drawer composition with numeric control workflow. |
+| `packages/concrete/src/components/form-drawer/examples.tsx` | `validation-summary` | Rich form example showing validation feedback inside drawer composition. |
+| `packages/concrete/src/components/form-drawer/index.tsx` | `number-stepper` | Serializable renderInput adapter for a representative drawer form. |
+| `packages/concrete/src/components/search-bar/examples.tsx` | `command-menu` | Rich search example showing command result menu composition. |
+| `packages/concrete/src/components/search-bar/index.tsx` | `command-menu` | Serializable renderInput adapter for a representative search menu. |
+| `packages/concrete/src/components/settings-panel/examples.tsx` | `number-stepper` | Rich settings example showing numeric control composition. |
+| `packages/concrete/src/components/settings-panel/index.tsx` | `number-stepper` | Serializable renderInput adapter for representative settings rows. |
+
+Component index adapter ledger:
+
+These are the remaining component `index.tsx` files above 50 LOC after Phase 8D. They are allowed because each file owns one item boundary; do not split them solely for line count.
+
+| Component | Current LOC | Reason |
+| --- | ---: | --- |
+| `settings-panel` | 94 | Bridges serializable section/row records into typed control React slots. |
+| `form-drawer` | 76 | Renders representative drawer children and footer from serializable drawer props. |
+| `file-upload` | 72 | Owns schema-valid queue seed fixtures and maps queue mode to upload defaults. |
+| `command-menu` | 69 | Owns command seed fixtures and passes parsed schema items directly into the menu. |
+| `search-bar` | 68 | Bridges serializable query/tokens/menu state into action and menu React slots. |
+| `image-upload` | 66 | Owns image queue seed fixtures, including the inline preview data URI. |
+| `composer` | 63 | Owns one schema-valid rich composer seed and adapter for optional menu/value props. |
+| `footer` | 59 | Bridges serializable footer data and optional command code into a `CodeBlock` aside. |
+| `form-dialog` | 52 | Renders representative dialog children and footer from serializable dialog props. |
+| `message` | 51 | Bridges serializable message text into the typed `children` slot. |
 
 ## Phase 7D: Enforcement
 
@@ -244,8 +294,12 @@ import "./.next/types/routes.d.ts";
 
 ## Recent Gate Log
 
+- 2026-05-01 Phase 8D/8E/8F component structural closure passed: tightened component `index.tsx` adapters, removed hidden default content from `settings-panel`, removed pass-through schema-output mappers from `command-menu`, `search-bar`, `nav`, and `footer`, aligned icon slot types with exact optional schema output, documented the remaining rich slot/node-language boundary, and marked components structurally ready for aesthetic polish. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 487 render routes.
+- 2026-05-01 Phase 8C component shell checkpoint passed: kept `nav` and `footer` as durable app-shell components, retired landing-page-only `feature-card`, added the sibling demo/renderInput composition ledger and enforcement test, regenerated `SKILL.md` to 33 components, and restored the production Next route type import after generated-file drift. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 487 render routes.
+- 2026-05-01 Phase 8A/8B component closure checkpoint passed: added the component runtime export contract and dependency-tier ledger enforcement, retired `form-shell`, replaced its consumers with `Section`, `Grid`, and `FieldRow`, removed stale registry/barrel/type/schema/test references, and regenerated `SKILL.md` to 34 components. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 489 render routes.
+- 2026-05-01 Phase 8 launch preflight passed: fast-forwarded to `c707744 release: concrete v0.0.12`, re-read `CODE.md` and `PLAN.md`, audited 35 component folders for sibling imports, raw DOM, multi-runtime exports, heavy indexes, and existing contract coverage, and crystallized the Phase 8 mega-blast sequence. Gates passed: `bun run format` and `bun test packages/concrete/src/tests/import-boundaries.test.ts`.
 - 2026-05-01 DX refactor publish checkpoint passed: refreshed `CODE.md` and `PLAN.md` around Phase 8 component closure, restored the production Next route type import after build-generated drift, and prepared the structural refactor for `main`. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun test`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 476 render routes.
-- 2026-05-01 Phase 8 component audit checkpoint passed: inspected component folders, high-risk component implementations, utilities, indexes, renderInput adapters, and example composition. Current component implementations are structurally clean; remaining debt is `FormShell` compatibility/subparts, heavy `index.tsx` render adapters, component dependency tier documentation, and rich child/slot serialization. Gate passed: `bun test packages/concrete/src/tests/import-boundaries.test.ts`.
+- 2026-05-01 Phase 8 component audit checkpoint passed: inspected component folders, high-risk component implementations, utilities, indexes, renderInput adapters, and example composition. At that checkpoint, the debt was generic form layout topology, heavy `index.tsx` render adapters, component dependency tier documentation, and rich child/slot serialization. Gate passed: `bun test packages/concrete/src/tests/import-boundaries.test.ts`.
 - 2026-05-01 Phase 7D/7E readiness checkpoint passed: added the exact primitive runtime subpart export contract, documented the runtime subpart ledger, closed every remaining foundation/primitive scope row, restored the production Next route type import after generated-file drift, and marked foundation/primitive architecture ready for component closure. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun test`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 476 render routes.
 - 2026-05-01 Phase 7C primitive consistency checkpoint passed: audited the label, control, and media/support primitive families, synchronized `ControlGroup` metadata, removed the remaining `Skeleton` arbitrary style passthrough, and kept upload/media workflow scope out of new primitives. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, and `bun run build`.
 - 2026-05-01 Phase 7B primitive scope checkpoint passed: split `ProgressRing` and `SegmentedProgress` into standalone primitive bundles, retired public `row`, rebuilt `TimeList` on `Listbox` plus `OptionRow`, documented/enforced the `ToolCallPanel` subpart exception, and kept diagram-domain primitive decisions closed. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`, and `bun run catalog:audit`.

@@ -8,13 +8,11 @@ import { datePickerComponentDefinition } from '../components/date-picker'
 import { dateRangePickerComponentDefinition } from '../components/date-range-picker'
 import { diagramCanvasComponentDefinition } from '../components/diagram-canvas'
 import { donutChartComponentDefinition } from '../components/donut-chart'
-import { featureCardComponentDefinition } from '../components/feature-card'
 import { fileUploadComponentDefinition } from '../components/file-upload'
 import { flowDiagramComponentDefinition } from '../components/flow-diagram'
 import { footerComponentDefinition } from '../components/footer'
 import { formDialogComponentDefinition } from '../components/form-dialog'
 import { formDrawerComponentDefinition } from '../components/form-drawer'
-import { formShellComponentDefinition } from '../components/form-shell'
 import { heatmapComponentDefinition } from '../components/heatmap'
 import { imageUploadComponentDefinition } from '../components/image-upload'
 import { lineChartComponentDefinition } from '../components/line-chart'
@@ -265,7 +263,6 @@ export const componentDefinitions = [
 	footerComponentDefinition,
 	commandMenuComponentDefinition,
 	searchBarComponentDefinition,
-	formShellComponentDefinition,
 	validationSummaryComponentDefinition,
 	settingsPanelComponentDefinition,
 	formDialogComponentDefinition,
@@ -288,7 +285,6 @@ export const componentDefinitions = [
 	donutChartComponentDefinition,
 	heatmapComponentDefinition,
 	chartComponentDefinition,
-	featureCardComponentDefinition,
 	dataTableComponentDefinition,
 	flowDiagramComponentDefinition,
 	diagramCanvasComponentDefinition,

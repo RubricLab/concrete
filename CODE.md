@@ -108,7 +108,7 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 ## Current Checkpoint
 
 - Foundations, primitives, and components are folder-owned item bundles.
-- Current public inventory is 12 foundations, 110 primitives, and 35 components after the latest `main` rebase.
+- Current public inventory is 12 foundations, 110 primitives, and 33 components after the latest component closure pass.
 - The public foundation set is now `colors`, `typography`, `spacing`, `sizing`, `layout`, `radii`, `elevation`, `motion`, `textures`, `iconography`, `state`, and `accessibility`.
 - Public registries are derived from item definitions.
 - Public foundation registry entries expose validated `tokens` so docs can explain foundation data without importing foundation-specific schema files.
@@ -120,7 +120,7 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - Phase 4B semantic prop discipline is complete for the control/status/feedback family. Use `purpose` for Concrete semantic jobs; reserve `role` for real ARIA roles.
 - Phase 4C dynamic data/geometry prop discipline is complete. Data, chart, table, and diagram item boundaries use `intent`, `kind`, `display`, `relation`, and `hierarchy`; foundation token families may still use `tone` when the concept is truly token-level color language.
 - Phase 4D remaining primitive vocabulary discipline is complete. Public primitive schemas no longer expose loose `tone`, `variant`, or `size`; use semantic prop names such as `intent`, `hierarchy`, `depth`, `measure`, `density`, `extent`, `scale`, `kind`, `display`, `purpose`, and `relation`.
-- Phase 5B component assembly hardening is complete for form, picker, search, validation, and settings workflows. Shared interaction payloads use `intent`, `FormShell` no longer exposes a dead presentation prop, and component schemas fail when they add loose `tone`, `variant`, or `size`.
+- Phase 5B component assembly hardening is complete for form, picker, search, validation, and settings workflows. Shared interaction payloads use `intent`, and component schemas fail when they add loose `tone`, `variant`, or `size`.
 - Phase 5C dense workflow ownership is complete. The duplicate `components/toolbar` wrapper is deleted; `toolbar-control` is the sole toolbar vocabulary. Upload workflow behavior lives in `components/file-upload` and `components/image-upload`; the `Dropzone` and `UploadField` primitives own the tiny action/list chrome. Message workflow behavior lives in `components/message`; `reasoning-message` and `tool-call-message` compose it through a declared component tier map. `DataTable` owns table filtering/sort/id helpers, `DiagramCanvas` and `FlowDiagram` assemble generic diagram primitives, and `Composer` keeps JSX-only subparts inside its component file while true editor, DOM, menu, formatting, serialization, and action engines remain in `utilities/`.
 - Deferred public primitives are intentional, not missing work: `trace-step` stays inside `TracePanel` until reused outside it, and `attachment-item`/`thumbnail` wait for a future slice that proves distinct vocabulary beyond `Token`, `TokenRail`, and `UploadItem`.
 - Breaking primitive cleanup is allowed when `PLAN.md` records the delete/demote decision. Deleted primitive names must leave registry, exports, styles, tests, docs smoke targets, class-name maps, and foundation token names in the same wave.
@@ -137,9 +137,11 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - Phase 7C primitive consistency is complete for the full primitive table. Label metadata now carries distinct roles, control metadata matches schema-owned semantics, media/support primitives do not expose arbitrary style escapes, and every remaining family is audited against the foundation/primitive/component ontology.
 - Phase 7D/7E foundation and primitive readiness is complete. Runtime primitive subpart exports are exact and documented, every foundation/primitive scope row is closed, and the full gate set passed.
 - `container`, `scale-frame`, and `tilt-frame` are retained from the docs-shell workstream. `row` remains retired.
-- Phase 8 component closure is active. Component implementations are structurally clean under the current tests, but `FormShell`, component `index.tsx` render adapters, component dependency tiers, and rich child/slot serialization still need explicit closure before components get the same A+ stamp as foundations and primitives.
-- `nav`, `footer`, and `feature-card` are retained from the docs-shell workstream and must be judged in Phase 8 as durable package components or demoted back into docs composition.
-- The next checkpoint should be Phase 8 component closure first, then aesthetic polish or component-specific product refinement. Do not reopen foundation/primitive ontology unless a concrete issue appears.
+- Phase 8 component closure is structurally complete. Component implementations are clean under the current tests, `form-shell` plus `feature-card` are retired, and component `index.tsx` render adapters are tightened around exact schema-to-JSX boundaries. Full recursive child/slot serialization is a future node-language pass, not current structural debt.
+- Component runtime export and dependency-tier contracts are enforced. Every component `component.tsx` exports one runtime JSX component unless `PLAN.md` names the exception, and only `reasoning-message` plus `tool-call-message` may import the lower-tier `message` implementation.
+- `nav` and `footer` are retained as durable app-shell components. `feature-card` was demoted because it was landing-page composition over `TiltFrame`, icon, and text primitives.
+- Component `index.tsx` files may contain public re-exports, the item definition, a schema-valid seed, and the `renderInput` adapter. Keep React slot assembly there when it is the serializable boundary. Do not add pass-through mappers that only remove `undefined` or reshape values into the same structure; align the component type or schema instead.
+- The next checkpoint can move into aesthetic polish or component-specific product refinement. Do not reopen foundation/primitive/component ontology unless a concrete issue appears.
 - `PLAN.md` is the live scope ledger, autonomous queue, and target foundation/primitive/component inventory. Every structural chunk must update it before stopping.
 - Composer remains whole. Do not split one interactive component file only to satisfy a LOC budget.
 
@@ -627,7 +629,7 @@ Current standardization checkpoint:
 1. Component implementations are guarded against owned class names, styled raw DOM, and component stylesheets.
 2. The recursive Concrete node schema is validation-only and registry-checked.
 3. Public export compatibility, raw CSS value policy, media-query exceptions, and browser/screenshot smoke coverage are guarded by tests.
-4. Foundation and primitive ontology are structurally closed. The active phase is Phase 8 component closure: runtime export contract, dependency tier ledger, `FormShell` decision, `index.tsx`/renderInput rules, and explicit rich-slot serialization deferral.
+4. Foundation and primitive ontology are structurally closed. The active phase is Phase 8 component closure: `index.tsx`/renderInput rules, docs-shell component decisions, and explicit rich-slot serialization deferral.
 
 When new structural debt appears, add it to `PLAN.md` first, then pull the first unblocked item into `## Active Work`.
 

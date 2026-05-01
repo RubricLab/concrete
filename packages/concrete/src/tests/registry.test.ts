@@ -16,7 +16,6 @@ import {
 	dateRangeValueSchema,
 	dateValueSchema,
 	fieldStatusSchema,
-	formShellConfigSchema,
 	formValidationItemSchema,
 	foundationDefinitions,
 	foundationRegistry,
@@ -159,10 +158,6 @@ describe('Concrete registry', () => {
 		).toMatchObject({
 			status: 'idle',
 			type: 'application/octet-stream'
-		})
-		expect(formShellConfigSchema.parse({ title: 'Workspace' })).toMatchObject({
-			compact: false,
-			status: 'default'
 		})
 		expect(
 			formValidationItemSchema.parse({
@@ -681,7 +676,6 @@ describe('Concrete registry', () => {
 			'footer',
 			'command-menu',
 			'search-bar',
-			'form-shell',
 			'validation-summary',
 			'settings-panel',
 			'form-dialog',
@@ -704,7 +698,6 @@ describe('Concrete registry', () => {
 			'donut-chart',
 			'heatmap',
 			'chart',
-			'feature-card',
 			'data-table',
 			'flow-diagram',
 			'diagram-canvas',

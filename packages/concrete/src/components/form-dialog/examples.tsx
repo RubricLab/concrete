@@ -1,8 +1,7 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Button, Input } from '../../primitives'
+import { Button, Grid, Input } from '../../primitives'
 import { DateRangePicker } from '../date-range-picker'
 import { FileUpload } from '../file-upload'
-import { FormGrid } from '../form-shell'
 import { MultiSelect } from '../multi-select'
 import { ValidationSummary } from '../validation-summary'
 import { FormDialog } from './component'
@@ -59,7 +58,7 @@ function renderFormDialogExample(state: 'default' | 'error' | 'wide') {
 					]}
 				/>
 			) : null}
-			<FormGrid columns={state === 'wide' ? 2 : 1}>
+			<Grid columns={state === 'wide' ? 'two' : 'one'}>
 				<Input
 					error={state === 'error' ? 'Add a short descriptive name.' : undefined}
 					id="run-name"
@@ -74,7 +73,7 @@ function renderFormDialogExample(state: 'default' | 'error' | 'wide') {
 				/>
 				<MultiSelect defaultValue={['design']} label="Tags" options={multiSelectOptions} />
 				<FileUpload defaultValue={[]} label="Artifacts" title="Attach packet" />
-			</FormGrid>
+			</Grid>
 		</FormDialog>
 	)
 }

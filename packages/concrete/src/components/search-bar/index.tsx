@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
 import { Button } from '../../primitives'
 import { CommandMenu, type CommandMenuItem } from '../command-menu'
-import { SearchBar, type SearchToken } from './component'
+import { SearchBar } from './component'
 import { searchBarExamples } from './examples'
 import { searchBarMeta } from './meta'
 import { type SearchBarValue, searchBarComponentSchema } from './schema'
@@ -49,15 +49,6 @@ export const searchBarComponentDefinition = createComponent({
 })
 
 function renderSearchBarInput(input: SearchBarValue) {
-	const tokens = input.tokens.map(token => {
-		const { leadingIcon, ...requiredToken } = token
-
-		return {
-			...requiredToken,
-			...(leadingIcon ? { leadingIcon } : {})
-		} satisfies SearchToken
-	})
-
 	return (
 		<SearchBar
 			actions={
@@ -67,7 +58,7 @@ function renderSearchBarInput(input: SearchBarValue) {
 			}
 			placeholder={input.placeholder}
 			query={input.query}
-			tokens={tokens}
+			tokens={input.tokens}
 			wrap={input.wrap}
 			{...(input.menu
 				? { menu: <CommandMenu items={searchBarCommandItems} query={input.query} searchable={false} /> }

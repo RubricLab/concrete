@@ -11,7 +11,7 @@ export type SearchToken = {
 	id: string
 	intent?: CommandItemIntent
 	label: ReactNode
-	leadingIcon?: IconName
+	leadingIcon?: IconName | undefined
 }
 
 export type SearchBarProps = Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
