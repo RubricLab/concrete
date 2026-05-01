@@ -56,7 +56,7 @@ import { foundationRegistry } from '@rubriclab/concrete/registry'
 
 This section is generated from `foundationRegistry`, `primitiveRegistry`, and `componentRegistry`. Run `bun run build:skill` after registry changes.
 
-Concrete currently exposes 12 foundations, 110 primitives, and 33 components.
+Concrete currently exposes 12 foundations, 111 primitives, and 33 components.
 
 ### Foundations
 
@@ -148,7 +148,7 @@ Quiet texture grounds for diagrams, editorial frames, and educational examples.
 - Category: `foundation`
 - Pressure: `editorial`, `educational`
 - Guidance: Use texture as structure, never as decorative noise.
-- Tokens: Tokens (4: `lattice`, `dots`, `lines`, `depth`)
+- Tokens: Tokens (6: `lattice`, `dots`, `lines`, `field`, `perspective`, `depth`)
 
 #### Iconography
 
@@ -186,7 +186,7 @@ Primitives are the Concrete HTML vocabulary. They own DOM, scoped classes, schem
 
 - **Control** (14): Button (`button`), Toolbar Control (`toolbar-control`), IconButton (`icon-button`), ControlGroup (`control-group`), Token (`token`), SearchInput (`search-input`), PickerButton (`picker-button`), Listbox (`listbox`), Option row (`option-row`), Caret (`caret`), Chip (`chip`), Composer Surface (`composer-surface`), Token Rail (`token-rail`), Diagram Controls (`diagram-controls`)
 - **Form** (15): Input (`input`), Field (`field`), FieldRow (`field-row`), Calendar panel (`calendar-grid`), Dropzone (`dropzone`), Upload field (`upload-field`), Textarea (`textarea`), Select (`select`), Checkbox (`checkbox`), Radio (`radio`), Stepper (`stepper`), Range (`range`), Switch (`switch`), Slider (`slider`), Time list (`time-list`)
-- **Layout** (12): Stack (`stack`), Inline (`inline`), Cluster (`cluster`), Container (`container`), Grid (`grid`), Split (`split`), Scroll Area (`scroll-area`), Dock (`dock`), Rail (`rail`), Section (`section`), Divider (`divider`), Frame (`frame`)
+- **Layout** (13): Stack (`stack`), Inline (`inline`), Cluster (`cluster`), Container (`container`), Grid (`grid`), Split (`split`), Scroll Area (`scroll-area`), Dock (`dock`), Rail (`rail`), PageSection (`page-section`), Section (`section`), Divider (`divider`), Frame (`frame`)
 - **Surface** (11): Surface (`surface`), Panel (`panel`), PickerSurface (`picker-surface`), Overlay (`overlay`), DialogSurface (`dialog-surface`), DrawerSurface (`drawer-surface`), DisclosurePanel (`disclosure-panel`), Message Bubble (`message-bubble`), Card (`card`), TiltFrame (`tilt-frame`), ScaleFrame (`scale-frame`)
 - **Typography** (6): Header (`header`), Text (`text`), Heading (`heading`), Label (`label`), Code (`code`), Kbd (`kbd`)
 - **Navigation** (3): MenuSurface (`menu-surface`), MenuGroup (`menu-group`), Link (`link`)

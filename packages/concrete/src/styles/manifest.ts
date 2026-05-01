@@ -101,6 +101,7 @@ export const primitiveStyleSources = [
 	{ kind: 'primitive', path: 'src/primitives/message-bubble/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/option-row/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/overlay/styles.css' },
+	{ kind: 'primitive', path: 'src/primitives/page-section/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/panel/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/pagination/styles.css' },
 	{ kind: 'primitive', path: 'src/primitives/picker-button/styles.css' },

@@ -1,10 +1,20 @@
 .concrete-frame {
+	--concrete-frame-body-min-block: var(--concrete-size-frame-standard-min-block);
+
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
 	border-radius: var(--concrete-radius-4);
 	background: var(--concrete-surface);
+}
+
+.concrete-frame[data-scale="compact"] {
+	--concrete-frame-body-min-block: var(--concrete-size-frame-compact-min-block);
+}
+
+.concrete-frame[data-scale="showcase"] {
+	--concrete-frame-body-min-block: var(--concrete-size-frame-showcase-min-block);
 }
 
 .concrete-frame-head,
@@ -48,8 +58,32 @@
 	align-items: center;
 	justify-content: center;
 	gap: var(--concrete-space-2);
-	min-height: var(--concrete-space-20);
+	min-height: var(--concrete-frame-body-min-block);
 	padding-block: var(--concrete-space-6);
 	padding-inline: var(--concrete-space-4);
 	flex-wrap: wrap;
+}
+
+.concrete-frame-body[data-align="start"] {
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.concrete-frame-body[data-align="stretch"] {
+	align-items: stretch;
+	justify-content: flex-start;
+}
+
+.concrete-frame-body[data-align="stretch"] > * {
+	inline-size: var(--concrete-size-full);
+}
+
+.concrete-frame[data-scale="compact"] .concrete-frame-body {
+	padding-block: var(--concrete-space-3);
+	padding-inline: var(--concrete-space-3);
+}
+
+.concrete-frame[data-scale="showcase"] .concrete-frame-body {
+	padding-block: var(--concrete-space-8);
+	padding-inline: var(--concrete-space-6);
 }

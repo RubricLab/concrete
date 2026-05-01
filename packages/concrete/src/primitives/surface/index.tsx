@@ -12,12 +12,14 @@ export type {
 	SurfaceElement,
 	SurfaceInput,
 	SurfaceIntent,
+	SurfacePlacement,
 	SurfaceValue
 } from './schema'
 export {
 	surfaceDepthSchema,
 	surfaceElementSchema,
 	surfaceIntentSchema,
+	surfacePlacementSchema,
 	surfacePropsSchema,
 	surfaceSchema
 } from './schema'
@@ -30,7 +32,7 @@ export const surfacePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderSurfaceInput(surfaceSchema.parse(input)),
 	schema: surfaceSchema,
 	slug: 'surface',
-	states: exampleStates(surfaceExamples, ['default', 'raised', 'inverse'])
+	states: exampleStates(surfaceExamples, ['default', 'raised', 'inverse', 'sticky'])
 })
 
 function renderSurfaceInput({
@@ -40,6 +42,7 @@ function renderSurfaceInput({
 	depth,
 	disabled,
 	interactive,
+	placement,
 	selected,
 	intent
 }: SurfaceValue) {
@@ -50,6 +53,7 @@ function renderSurfaceInput({
 			depth={depth}
 			disabled={disabled}
 			interactive={interactive}
+			placement={placement}
 			selected={selected}
 			intent={intent}
 		>

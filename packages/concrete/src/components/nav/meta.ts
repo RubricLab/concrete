@@ -29,6 +29,7 @@ export const navMeta = {
 			'Container and cluster density.',
 			'compact'
 		),
-		prop('label', 'string', 'Accessible nav landmark label.', 'Primary')
+		prop('label', 'string', 'Accessible nav landmark label.', 'Primary'),
+		prop('placement', "'static' | 'sticky'", 'Optional top-level sticky placement.', 'static')
 	]
 } as const satisfies NavMeta

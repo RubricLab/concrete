@@ -22,6 +22,7 @@ export const surfaceMeta = {
 		prop('depth', "'flat' | 'raised' | 'sunken'", 'Surface depth recipe.'),
 		prop('intent', "'default' | 'muted' | 'inverse' | signal", 'Semantic surface intent.'),
 		prop('density', "'compact' | 'comfortable' | 'editorial'", 'Surface padding density.'),
+		prop('placement', "'static' | 'sticky'", 'Optional sticky landmark placement.'),
 		prop('children', 'ReactNode', 'Surface content.')
 	]
 } as const satisfies SurfaceMeta

@@ -1,0 +1,82 @@
+.concrete-page-section {
+	--concrete-page-section-padding-block: var(--concrete-page-section-standard-padding-block);
+	--concrete-page-section-min-block: var(--concrete-space-0);
+
+	position: relative;
+	isolation: isolate;
+	min-block-size: var(--concrete-page-section-min-block);
+	padding-block: var(--concrete-page-section-padding-block);
+	overflow: hidden;
+	color: var(--concrete-foreground-body);
+}
+
+.concrete-page-section[data-density="compact"] {
+	--concrete-page-section-padding-block: var(--concrete-space-8);
+}
+
+.concrete-page-section[data-density="editorial"] {
+	--concrete-page-section-padding-block: var(--concrete-page-section-chapter-padding-block);
+}
+
+.concrete-page-section[data-rhythm="hero"] {
+	--concrete-page-section-padding-block: var(--concrete-page-section-hero-padding-block);
+	--concrete-page-section-min-block: var(--concrete-size-page-section-hero-min-block);
+}
+
+.concrete-page-section[data-rhythm="chapter"] {
+	--concrete-page-section-padding-block: var(--concrete-page-section-chapter-padding-block);
+}
+
+.concrete-page-section[data-separated="true"] {
+	border-block-end: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+}
+
+.concrete-page-section[data-intent="inverse"] {
+	background: var(--concrete-depth-background);
+	color: var(--concrete-inverse-foreground);
+}
+
+.concrete-page-section[data-ground="field"]::before,
+.concrete-page-section[data-ground="perspective"]::before,
+.concrete-page-section[data-ground="depth"]::before {
+	position: absolute;
+	z-index: var(--concrete-z-page-section-ground);
+	pointer-events: none;
+	content: "";
+}
+
+.concrete-page-section[data-ground="field"]::before {
+	inset: var(--concrete-space-0);
+	background-image: var(--concrete-texture-field-background-image);
+	background-size: var(--concrete-texture-field-background-size);
+	mask-image: var(--concrete-texture-field-mask);
+	opacity: var(--concrete-opacity-texture-field);
+}
+
+.concrete-page-section[data-ground="perspective"]::before {
+	inset-inline: var(--concrete-page-section-perspective-inset);
+	inset-block-end: var(--concrete-page-section-perspective-inset);
+	block-size: var(--concrete-size-page-section-perspective-ground);
+	background-image: var(--concrete-texture-perspective-background-image);
+	background-size: var(--concrete-texture-perspective-background-size);
+	opacity: var(--concrete-opacity-texture-perspective);
+	transform: var(--concrete-texture-perspective-transform);
+	transform-origin: var(--concrete-texture-perspective-origin);
+}
+
+.concrete-page-section[data-ground="depth"]::before {
+	inset: var(--concrete-space-0);
+	background-color: var(--concrete-depth-background);
+	background-image: var(--concrete-depth-background-image);
+	background-size:
+		var(--concrete-size-full) var(--concrete-size-full),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-size-full) var(--concrete-size-full);
+	opacity: var(--concrete-opacity-texture-depth);
+}
+
+.concrete-page-section > * {
+	position: relative;
+	z-index: var(--concrete-z-page-section-content);
+}

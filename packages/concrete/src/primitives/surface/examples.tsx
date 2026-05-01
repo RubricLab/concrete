@@ -42,5 +42,13 @@ export const surfaceExamples = defineExamples({
 				<Text intent="strong">Navigation surface</Text>
 			</Surface>
 		)
+	},
+	sticky: {
+		description: 'Sticky landmark surface for top-level chrome.',
+		render: () => (
+			<Surface as="nav" density="compact" placement="sticky">
+				<Text intent="strong">Sticky navigation</Text>
+			</Surface>
+		)
 	}
 })

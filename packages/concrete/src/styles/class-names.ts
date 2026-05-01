@@ -44,12 +44,12 @@ headerMeta heading heatmapCell heatmapCellValue grid heatmapChart heatmapColumnL
 indicatorDot indicatorError indicatorMuted indicatorSky indicatorTerminal indicatorUltra inlineCode input inputError inputHasIcon inputIcon inputWrap
 kbd kbdDark label labelError labelInk labelSky labelSunken labelTerminal inline
 labelUltra lattice legend legendValue lines link linkExternal linkMuted linkNav linkSky
-mark `,
+mark textureField texturePerspective textureDepth `,
 	`
 message messageActions messageAvatar messageBubble messageBubbleOutbound messageMeta messagePlain messageStack stepper
 optionRow optionRowAside panel panelBody panelFooter
 optionRowCopy optionRowIcon
-pill progressError progressFill progressLined progressRing progressRingCenter progressRingCompact progressRingEditorial progressRingFill progressRingTrack
+pageSection pill progressError progressFill progressLined progressRing progressRingCenter progressRingCompact progressRingEditorial progressRingFill progressRingTrack
 progressRingUnit progressShuttle progressSky progressTerminal progressThick progressThin progressTrack progressUltra
 radio radioChecked radioDot rail tokenRailItem range rangeTrack rangeValues root
 scaleFrame scaleFrameContent scaleFrameSurface

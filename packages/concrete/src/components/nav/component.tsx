@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import type { Density } from '../../foundations/state'
+import type { SurfacePlacement } from '../../primitives'
 import { BrandMark, Cluster, Container, Inline, Surface, Text, TextLink } from '../../primitives'
 
 type NavElementProps = Omit<HTMLAttributes<HTMLElement>, 'children' | 'style'>
@@ -20,6 +21,7 @@ export type NavProps = NavElementProps & {
 	density?: Density | undefined
 	items: readonly NavItem[]
 	label?: string | undefined
+	placement?: SurfacePlacement | undefined
 }
 
 export function Nav({
@@ -30,10 +32,19 @@ export function Nav({
 	density = 'compact',
 	items,
 	label = 'Primary',
+	placement = 'static',
 	...props
 }: NavProps) {
 	return (
-		<Surface aria-label={label} as="nav" density={density} depth="flat" intent="default" {...props}>
+		<Surface
+			aria-label={label}
+			as="nav"
+			density={density}
+			depth="flat"
+			intent="default"
+			placement={placement}
+			{...props}
+		>
 			<Container density={density} measure="wide">
 				<Cluster density={density} justify="between">
 					{renderBrand(brand, brandHref)}

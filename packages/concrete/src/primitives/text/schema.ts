@@ -1,7 +1,15 @@
 import { z } from 'zod/v4'
 
 export const textElementSchema = z.enum(['code', 'div', 'p', 'small', 'span', 'strong'])
-export const textPurposeSchema = z.enum(['body', 'caption', 'meta', 'mono', 'number', 'prose'])
+export const textPurposeSchema = z.enum([
+	'body',
+	'caption',
+	'lead',
+	'meta',
+	'mono',
+	'number',
+	'prose'
+])
 export const textIntentSchema = z.enum([
 	'default',
 	'muted',

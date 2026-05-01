@@ -94,6 +94,7 @@ import { menuSurfacePrimitiveDefinition } from '../primitives/menu-surface'
 import { messageBubblePrimitiveDefinition } from '../primitives/message-bubble'
 import { optionRowPrimitiveDefinition } from '../primitives/option-row'
 import { overlayPrimitiveDefinition } from '../primitives/overlay'
+import { pageSectionPrimitiveDefinition } from '../primitives/page-section'
 import { paginationPrimitiveDefinition } from '../primitives/pagination'
 import { panelPrimitiveDefinition } from '../primitives/panel'
 import { pickerButtonPrimitiveDefinition } from '../primitives/picker-button'
@@ -159,6 +160,7 @@ export const primitiveDefinitions = [
 	scrollAreaPrimitiveDefinition,
 	dockPrimitiveDefinition,
 	railPrimitiveDefinition,
+	pageSectionPrimitiveDefinition,
 	surfacePrimitiveDefinition,
 	panelPrimitiveDefinition,
 	sectionPrimitiveDefinition,

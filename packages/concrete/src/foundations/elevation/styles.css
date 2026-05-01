@@ -70,4 +70,10 @@
 	--concrete-filter-control-pressed: saturate(1.04);
 	--concrete-filter-concept-frame-selected: drop-shadow(0 0 0 var(--concrete-sky));
 	--concrete-filter-chart-bar: drop-shadow(0 1px 0 rgb(13 18 28 / 6%));
+	--concrete-filter-sticky-surface: saturate(1.4) blur(10px);
+	--concrete-sticky-surface-background: color-mix(
+		in oklab,
+		var(--concrete-surface) 94%,
+		transparent
+	);
 }

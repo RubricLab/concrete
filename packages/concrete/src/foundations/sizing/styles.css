@@ -3,6 +3,13 @@
 	--concrete-size-half: 50%;
 	--concrete-size-viewport-block: 100vh;
 	--concrete-size-layout-grid-min: 160px;
+	--concrete-size-page-section-hero-min-block: 660px;
+	--concrete-size-page-section-perspective-ground: 190px;
+	--concrete-size-frame-compact-min-block: 104px;
+	--concrete-size-frame-standard-min-block: 160px;
+	--concrete-size-frame-showcase-min-block: 318px;
+	--concrete-size-catalog-preview-min-block: 148px;
+	--concrete-size-catalog-preview-showcase-min-block: 260px;
 	--concrete-size-scroll-area-small: 160px;
 	--concrete-size-scroll-area-medium: 260px;
 	--concrete-size-scroll-area-large: 420px;

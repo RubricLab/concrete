@@ -78,6 +78,7 @@ export type PrimitiveSlug =
 	| 'message-bubble'
 	| 'option-row'
 	| 'overlay'
+	| 'page-section'
 	| 'panel'
 	| 'pagination'
 	| 'picker-button'

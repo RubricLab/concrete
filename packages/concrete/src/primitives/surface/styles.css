@@ -87,3 +87,11 @@
 	opacity: var(--concrete-opacity-disabled);
 	cursor: not-allowed;
 }
+
+.concrete-surface[data-placement="sticky"] {
+	position: sticky;
+	top: var(--concrete-space-0);
+	z-index: var(--concrete-z-sticky-surface);
+	background: var(--concrete-sticky-surface-background);
+	backdrop-filter: var(--concrete-filter-sticky-surface);
+}

@@ -1,5 +1,6 @@
 import { z } from 'zod/v4'
 import { densitySchema } from '../../foundations/state'
+import { surfacePlacementSchema } from '../../primitives/surface'
 
 export const navItemSchema = z
 	.object({
@@ -41,7 +42,8 @@ export const navComponentSchema = z
 				label: 'Components'
 			}
 		]),
-		label: z.string().default('Primary')
+		label: z.string().default('Primary'),
+		placement: surfacePlacementSchema.default('static')
 	})
 	.strict()
 

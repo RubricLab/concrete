@@ -13,7 +13,7 @@ This is the only actionable internal plan document for Concrete DX work.
 ## Current Baseline
 
 - Audit date: 2026-05-01.
-- Current public package inventory: 12 foundations, 110 primitives, 33 components.
+- Current public package inventory: 12 foundations, 111 primitives, 33 components.
 - Current private primitive inventory: 0 internal primitive folders.
 - Folder-per-item architecture exists for every public foundation, primitive, and component.
 - Public registry, docs, examples, playgrounds, render routes, and screenshot routes are item-definition driven.
@@ -21,7 +21,7 @@ This is the only actionable internal plan document for Concrete DX work.
 - Central primitive/component CSS layers are compatibility bundle substrate only. Active selectors belong in foundation or primitive item styles.
 - Phases 1-7 are structurally complete for foundations and primitives: foundation split, primitive ontology correction, destructive legacy primitive cleanup, prop discipline, component assembly hardening, foundation token nouns, primitive scope closure, primitive family consistency, runtime subpart export contracts, and final hardening gates have passed.
 - Phase 8 component structural closure is complete. Component implementations pass the current structural contract, docs-shell scope is decided, demo/renderInput sibling composition is ledgered, and component item indexes are tightened around exact schema-to-JSX boundaries. Rich React slot serialization is documented as a deliberate future node-language pass.
-- The current `main` rebase keeps the docs-shell additions `container`, `scale-frame`, `tilt-frame`, `nav`, and `footer`; `row`, `toolbar`, `form-shell`, and `feature-card` remain retired.
+- The current `main` rebase keeps the docs-shell additions `container`, `page-section`, `scale-frame`, `tilt-frame`, `nav`, and `footer`; `row`, `toolbar`, `form-shell`, and `feature-card` remain retired.
 
 ## Operating Loop
 
@@ -62,6 +62,7 @@ This is the only actionable internal plan document for Concrete DX work.
 - [x] Phase 8D: tighten heavy component `index.tsx` render adapters.
 - [x] Phase 8E: document the rich child/slot serialization boundary and keep it deferred unless it becomes current scope.
 - [x] Phase 8F: run full gates and mark components structurally closed.
+- [x] Docs beauty restoration: add `PageSection`, richer generic texture grounds, stronger frame rhythm, render-route chrome isolation, and a Concrete-only landing/catalog/detail polish pass.
 
 ## Completion Bar Before Aesthetic Polish
 
@@ -294,6 +295,7 @@ import "./.next/types/routes.d.ts";
 
 ## Recent Gate Log
 
+- 2026-05-01 docs beauty restoration checkpoint passed: added `page-section`, richer texture grounds including the perspective vanishing grid, semantic `Frame` scale/align, sticky `Nav`, isolated render routes from site chrome, restored landing/catalog/detail polish, and kept docs route composition Concrete-only while preserving the Phase 8 retirement of `feature-card`. Gates passed after final main reconciliation: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run check:skill`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run catalog:audit`, and `bun run visual:smoke`. Catalog audit passed 495 render routes.
 - 2026-05-01 Phase 8D/8E/8F component structural closure passed: tightened component `index.tsx` adapters, removed hidden default content from `settings-panel`, removed pass-through schema-output mappers from `command-menu`, `search-bar`, `nav`, and `footer`, aligned icon slot types with exact optional schema output, documented the remaining rich slot/node-language boundary, and marked components structurally ready for aesthetic polish. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 487 render routes.
 - 2026-05-01 Phase 8C component shell checkpoint passed: kept `nav` and `footer` as durable app-shell components, retired landing-page-only `feature-card`, added the sibling demo/renderInput composition ledger and enforcement test, regenerated `SKILL.md` to 33 components, and restored the production Next route type import after generated-file drift. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 487 render routes.
 - 2026-05-01 Phase 8A/8B component closure checkpoint passed: added the component runtime export contract and dependency-tier ledger enforcement, retired `form-shell`, replaced its consumers with `Section`, `Grid`, and `FieldRow`, removed stale registry/barrel/type/schema/test references, and regenerated `SKILL.md` to 34 components. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 489 render routes.

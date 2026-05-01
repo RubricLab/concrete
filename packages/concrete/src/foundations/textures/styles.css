@@ -40,6 +40,35 @@
 		linear-gradient(var(--concrete-depth-line) 1px, transparent 1px),
 		linear-gradient(90deg, var(--concrete-depth-line) 1px, transparent 1px),
 		linear-gradient(180deg, transparent 12%, var(--concrete-depth-glow) 54%, transparent);
+	--concrete-texture-field-background-image:
+		linear-gradient(
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		),
+		linear-gradient(
+			90deg,
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		);
+	--concrete-texture-field-background-size: var(--concrete-grid-unit) var(--concrete-grid-unit);
+	--concrete-texture-field-mask: linear-gradient(
+		90deg,
+		transparent,
+		black 8%,
+		black 92%,
+		transparent
+	);
+	--concrete-texture-perspective-background-image:
+		linear-gradient(color-mix(in oklab, var(--concrete-sky) 18%, transparent) 1px, transparent 1px),
+		linear-gradient(
+			90deg,
+			color-mix(in oklab, var(--concrete-sky) 18%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(180deg, transparent, color-mix(in oklab, var(--concrete-sky) 5%, transparent));
+	--concrete-texture-perspective-background-size: 32px 32px, 32px 32px, 100% 100%;
+	--concrete-texture-perspective-transform: perspective(680px) rotateX(66deg);
+	--concrete-texture-perspective-origin: bottom center;
 	--concrete-tilt-frame-glare-background: linear-gradient(
 		135deg,
 		rgb(255 255 255 / 12%),
@@ -84,4 +113,24 @@
 		var(--concrete-lines) var(--concrete-space-3)
 	);
 	background-size: var(--concrete-space-3) var(--concrete-space-3);
+}
+
+.concrete-texture-field {
+	background-image: var(--concrete-texture-field-background-image);
+	background-size: var(--concrete-texture-field-background-size);
+}
+
+.concrete-texture-perspective {
+	background-image: var(--concrete-texture-perspective-background-image);
+	background-size: var(--concrete-texture-perspective-background-size);
+}
+
+.concrete-texture-depth {
+	background-color: var(--concrete-depth-background);
+	background-image: var(--concrete-depth-background-image);
+	background-size:
+		var(--concrete-size-full) var(--concrete-size-full),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-size-full) var(--concrete-size-full);
 }

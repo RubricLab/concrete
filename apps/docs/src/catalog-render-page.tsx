@@ -3,6 +3,7 @@ import {
 	Cluster,
 	type ConcretePressure,
 	Container,
+	Frame,
 	Stack,
 	Surface
 } from '@rubriclab/concrete'
@@ -19,8 +20,10 @@ export function CatalogRenderPage({ definition, entry, pressure, state }: Catalo
 		<Surface as="main" data-pressure={pressure} data-state={state} intent="default">
 			<Container density="editorial" measure="wide">
 				<Stack align="stretch" density="editorial">
-					<Surface density="editorial" depth="sunken">
-						<Stack align="center">{definition.renderExample(state)}</Stack>
+					<Surface depth="sunken">
+						<Frame align="stretch" scale="showcase" texture="field">
+							<Stack align="center">{definition.renderExample(state)}</Stack>
+						</Frame>
 					</Surface>
 					{renderCatalogRenderMeta(entry.name, pressure)}
 				</Stack>

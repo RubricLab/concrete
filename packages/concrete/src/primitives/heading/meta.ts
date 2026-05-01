@@ -21,7 +21,7 @@ export const headingMeta = {
 		prop('level', "'1' | '2' | '3' | '4' | '5' | '6'", 'Semantic heading level.'),
 		prop(
 			'hierarchy',
-			"'display' | 'title' | 'section' | 'subsection' | 'label'",
+			"'hero' | 'display' | 'title' | 'section' | 'subsection' | 'label'",
 			'Visual hierarchy role.'
 		),
 		prop('intent', "'default' | 'muted' | 'inverse'", 'Heading intent.'),

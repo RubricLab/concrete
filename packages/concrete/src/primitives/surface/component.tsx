@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import type { Density } from '../../foundations/state'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { SurfaceDepth, SurfaceElement, SurfaceIntent } from './schema'
+import type { SurfaceDepth, SurfaceElement, SurfaceIntent, SurfacePlacement } from './schema'
 
 type SurfaceElementProps = Omit<HTMLAttributes<HTMLElement>, 'style'>
 
@@ -13,6 +13,7 @@ export type SurfaceProps = SurfaceElementProps & {
 	depth?: SurfaceDepth
 	disabled?: boolean
 	interactive?: boolean
+	placement?: SurfacePlacement
 	selected?: boolean
 	intent?: SurfaceIntent
 }
@@ -25,6 +26,7 @@ export function Surface({
 	depth = 'flat',
 	disabled = false,
 	interactive = false,
+	placement = 'static',
 	selected = false,
 	intent = 'default',
 	...props
@@ -39,6 +41,7 @@ export function Surface({
 			data-depth={depth}
 			data-disabled={disabled ? 'true' : undefined}
 			data-interactive={interactive ? 'true' : undefined}
+			data-placement={placement}
 			data-selected={selected ? 'true' : undefined}
 			data-intent={intent}
 			{...props}

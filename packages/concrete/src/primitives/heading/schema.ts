@@ -1,7 +1,14 @@
 import { z } from 'zod/v4'
 
 export const headingLevelSchema = z.enum(['1', '2', '3', '4', '5', '6'])
-export const headingHierarchySchema = z.enum(['display', 'title', 'section', 'subsection', 'label'])
+export const headingHierarchySchema = z.enum([
+	'hero',
+	'display',
+	'title',
+	'section',
+	'subsection',
+	'label'
+])
 export const headingIntentSchema = z.enum(['default', 'muted', 'inverse'])
 
 export const headingSchema = z

@@ -43,5 +43,9 @@ export const navExamples = defineExamples({
 				items={navItems}
 			/>
 		)
+	},
+	sticky: {
+		description: 'Sticky top-level navigation chrome.',
+		render: () => <Nav activeId="foundations" items={navItems} placement="sticky" />
 	}
 })

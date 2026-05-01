@@ -22,7 +22,13 @@ export const frameMeta = {
 		prop('headerMeta', 'ReactNode', 'Optional top-right meta slot.'),
 		prop('footer', 'ReactNode', 'Optional bottom eyebrow slot.'),
 		prop('footerMeta', 'ReactNode', 'Optional bottom-right meta slot.'),
-		prop('texture', "'lattice' | 'dots' | 'lines'", 'Optional tokenized body ground pattern.'),
+		prop('scale', "'compact' | 'standard' | 'showcase'", 'Token-backed body canvas scale.'),
+		prop('align', "'start' | 'center' | 'stretch'", 'Body alignment policy.'),
+		prop(
+			'texture',
+			"'lattice' | 'dots' | 'lines' | 'field' | 'perspective' | 'depth'",
+			'Optional tokenized body ground pattern.'
+		),
 		prop('children', 'ReactNode', 'Frame body content.')
 	]
 } as const satisfies FrameMeta

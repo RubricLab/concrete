@@ -1,11 +1,12 @@
 .concrete-grid {
 	--concrete-grid-gap: var(--concrete-space-3);
+	--concrete-grid-min: var(--concrete-size-layout-grid-min);
 
 	display: grid;
 	gap: var(--concrete-grid-gap);
 	grid-template-columns: repeat(
 			auto-fit,
-			minmax(var(--concrete-size-layout-grid-min), var(--concrete-grid-track-fill))
+			minmax(var(--concrete-grid-min), var(--concrete-grid-track-fill))
 		);
 	min-inline-size: var(--concrete-space-0);
 }
@@ -16,6 +17,7 @@
 
 .concrete-grid[data-density="editorial"] {
 	--concrete-grid-gap: var(--concrete-space-5);
+	--concrete-grid-min: var(--concrete-space-48);
 }
 
 .concrete-grid[data-columns="one"] {

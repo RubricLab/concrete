@@ -1,6 +1,6 @@
 'use client'
 
-import { type ControlDefinition, Panel, Split, Stack, Surface } from '@rubriclab/concrete'
+import { type ControlDefinition, Frame, Panel, Split, Stack } from '@rubriclab/concrete'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { PropControl } from '@/playground-controls'
@@ -65,9 +65,9 @@ export function CatalogPlayground({ controls, preview, states }: CatalogPlaygrou
 			}
 			ratio="sidebar"
 		>
-			<Surface depth="sunken" key={searchParams.toString()}>
+			<Frame align="center" key={searchParams.toString()} scale="showcase" texture="field">
 				<Stack align="center">{preview}</Stack>
-			</Surface>
+			</Frame>
 		</Split>
 	)
 }

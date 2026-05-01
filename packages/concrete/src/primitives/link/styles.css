@@ -52,6 +52,10 @@
 }
 
 .concrete-link-nav {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: var(--concrete-size-button-small);
+	padding-inline: var(--concrete-space-1);
 	color: var(--concrete-foreground-body);
 	font-weight: var(--concrete-weight-medium);
 	text-decoration: none;

@@ -575,7 +575,7 @@ describe('Import boundaries', () => {
 
 	test('docs expose registry-led foundation render and detail surfaces', () => {
 		const requiredFiles = [
-			'app/foundations/[slug]/page.tsx',
+			'app/(site)/foundations/[slug]/page.tsx',
 			'app/render/[kind]/[slug]/page.tsx',
 			'app/render/[kind]/[slug]/screenshot/route.ts',
 			'scripts/catalog-audit.ts',
@@ -1423,7 +1423,7 @@ describe('Import boundaries', () => {
 			([key, value]) => value !== toConcreteSelector(key)
 		)
 
-		expect(concreteClassNameEntries.length).toBe(511)
+		expect(concreteClassNameEntries.length).toBe(515)
 		expect(classNameRecord.button).toBe('concrete-button')
 		expect(classNameRecord.diagramEdgeSelected).toBe('concrete-diagram-edge-selected')
 		expect(classNameRecord.alertAction).toBe('concrete-alert-action')

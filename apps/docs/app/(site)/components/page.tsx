@@ -1,18 +1,17 @@
 import {
 	Badge,
 	Chip,
+	Cluster,
 	type ComponentRegistryEntry,
 	Container,
 	componentRegistry,
 	Grid,
-	Panel,
+	PageSection,
 	renderComponentExample,
 	Section,
-	Stack,
-	Surface,
-	Text,
-	TextLink
+	Stack
 } from '@rubriclab/concrete'
+import { CatalogCard, CatalogIntro } from '@/catalog-card'
 
 type ComponentCategory = ComponentRegistryEntry['category']
 
@@ -37,63 +36,55 @@ export default function ComponentsPage() {
 		.filter(group => group.components.length > 0)
 
 	return (
-		<Container as="main" density="editorial" measure="wide">
-			<Stack density="editorial">
-				<Panel
-					description="Components assemble primitives and approved lower-tier components. They can own deterministic local behavior, but they do not own CSS or app-specific product policy."
-					meta={<Badge intent="terminal">{componentRegistry.length} components</Badge>}
-					title="Compositions with contracts"
-				>
-					<Stack density="compact">
-						<Chip selected>registry backed</Chip>
-						<Chip>typed props</Chip>
-						<Chip>render routes</Chip>
+		<>
+			<PageSection ground="field" rhythm="chapter" separated>
+				<Container as="main" density="editorial" measure="wide">
+					<Stack density="editorial">
+						<CatalogIntro
+							count={componentRegistry.length}
+							description="Components assemble primitives and approved lower-tier components. They can own deterministic local behavior, but they do not own CSS or app-specific product policy."
+							eyebrow="Each component exposes typed props, examples, states, playground controls, and render routes."
+							title="Compositions with contracts"
+						/>
+						<Cluster density="compact">
+							<Badge intent="terminal">registry backed</Badge>
+							<Chip selected>typed props</Chip>
+							<Chip>render routes</Chip>
+						</Cluster>
 					</Stack>
-				</Panel>
+				</Container>
+			</PageSection>
 
-				{groupedComponents.map(group => (
-					<Section
-						description={getCategoryDescription(group.category)}
-						key={group.category}
-						title={getCategoryTitle(group.category)}
-					>
-						<Grid>
-							{group.components.map(component => (
-								<Panel
-									description={component.description}
-									footer={
-										<TextLink href={`/components/${component.slug}`} purpose="nav">
-											Open
-										</TextLink>
-									}
-									key={component.slug}
-									meta={
-										<Stack density="compact">
-											<Badge intent="terminal">{component.category}</Badge>
-											<Text purpose="caption" intent="muted">
-												{component.states.length} states / {component.props.length} props
-											</Text>
-										</Stack>
-									}
-									title={component.name}
-								>
-									<Stack density="compact">
-										<Surface depth="sunken">
+			<PageSection rhythm="chapter">
+				<Container density="editorial" measure="wide">
+					<Stack density="editorial">
+						{groupedComponents.map(group => (
+							<Section
+								description={getCategoryDescription(group.category)}
+								key={group.category}
+								title={getCategoryTitle(group.category)}
+							>
+								<Grid columns="three">
+									{group.components.map(component => (
+										<CatalogCard
+											category={component.category}
+											description={component.description}
+											href={`/components/${component.slug}`}
+											key={component.slug}
+											name={component.name}
+											pressure={component.pressure}
+											states={component.states.length}
+										>
 											<Stack align="center">{renderComponentExample(component.slug)}</Stack>
-										</Surface>
-										<Stack density="compact">
-											{component.pressure.map(pressure => (
-												<Chip key={pressure}>{pressure}</Chip>
-											))}
-										</Stack>
-									</Stack>
-								</Panel>
-							))}
-						</Grid>
-					</Section>
-				))}
-			</Stack>
-		</Container>
+										</CatalogCard>
+									))}
+								</Grid>
+							</Section>
+						))}
+					</Stack>
+				</Container>
+			</PageSection>
+		</>
 	)
 }
 

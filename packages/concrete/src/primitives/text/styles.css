@@ -18,6 +18,12 @@
 	letter-spacing: var(--concrete-tracking-meta);
 }
 
+.concrete-text[data-purpose="lead"] {
+	font:
+		var(--concrete-weight-regular) var(--concrete-type-17) / var(--concrete-line-loose)
+		var(--concrete-font-sans);
+}
+
 .concrete-text[data-purpose="mono"] {
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11-5) / var(--concrete-line-code)

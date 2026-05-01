@@ -71,6 +71,14 @@
 	--concrete-grid-columns-2: 2;
 	--concrete-grid-columns-3: 3;
 	--concrete-z-query-menu: 10;
+	--concrete-page-section-standard-padding-block: var(--concrete-space-12);
+	--concrete-page-section-hero-padding-block: var(--concrete-space-16);
+	--concrete-page-section-chapter-padding-block: var(--concrete-space-16);
+	--concrete-page-section-perspective-inset: -72px;
+	--concrete-page-section-perspective-offset: 54px;
+	--concrete-z-page-section-ground: 0;
+	--concrete-z-page-section-content: 1;
+	--concrete-z-sticky-surface: 20;
 	--concrete-z-picker-menu: 30;
 	--concrete-z-table-header: 1;
 	--concrete-z-table-frozen: 2;

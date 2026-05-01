@@ -108,7 +108,7 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 ## Current Checkpoint
 
 - Foundations, primitives, and components are folder-owned item bundles.
-- Current public inventory is 12 foundations, 110 primitives, and 33 components after the latest component closure pass.
+- Current public inventory is 12 foundations, 111 primitives, and 33 components after the latest docs polish pass.
 - The public foundation set is now `colors`, `typography`, `spacing`, `sizing`, `layout`, `radii`, `elevation`, `motion`, `textures`, `iconography`, `state`, and `accessibility`.
 - Public registries are derived from item definitions.
 - Public foundation registry entries expose validated `tokens` so docs can explain foundation data without importing foundation-specific schema files.
@@ -136,7 +136,7 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - Phase 7B primitive scope closure is complete for the remaining ambiguous primitives. `ProgressRing` and `SegmentedProgress` are standalone primitive bundles, `Progress` owns linear progress only, `TimeList` assembles `Listbox` and `OptionRow`, `row` is retired, diagram-domain primitives are documented as diagram vocabulary, and `ToolCallPanel` has an enforced item-owned subpart exception.
 - Phase 7C primitive consistency is complete for the full primitive table. Label metadata now carries distinct roles, control metadata matches schema-owned semantics, media/support primitives do not expose arbitrary style escapes, and every remaining family is audited against the foundation/primitive/component ontology.
 - Phase 7D/7E foundation and primitive readiness is complete. Runtime primitive subpart exports are exact and documented, every foundation/primitive scope row is closed, and the full gate set passed.
-- `container`, `scale-frame`, and `tilt-frame` are retained from the docs-shell workstream. `row` remains retired.
+- `container`, `page-section`, `scale-frame`, and `tilt-frame` are retained from the docs-shell workstream. `row` remains retired.
 - Phase 8 component closure is structurally complete. Component implementations are clean under the current tests, `form-shell` plus `feature-card` are retired, and component `index.tsx` render adapters are tightened around exact schema-to-JSX boundaries. Full recursive child/slot serialization is a future node-language pass, not current structural debt.
 - Component runtime export and dependency-tier contracts are enforced. Every component `component.tsx` exports one runtime JSX component unless `PLAN.md` names the exception, and only `reasoning-message` plus `tool-call-message` may import the lower-tier `message` implementation.
 - `nav` and `footer` are retained as durable app-shell components. `feature-card` was demoted because it was landing-page composition over `TiltFrame`, icon, and text primitives.

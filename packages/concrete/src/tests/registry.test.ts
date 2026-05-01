@@ -573,6 +573,7 @@ describe('Concrete registry', () => {
 			'scroll-area',
 			'dock',
 			'rail',
+			'page-section',
 			'surface',
 			'panel',
 			'section',

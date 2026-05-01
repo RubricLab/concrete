@@ -15,6 +15,14 @@ export const headingExamples = defineExamples({
 			</Heading>
 		)
 	},
+	hero: {
+		description: 'Hero heading for first-viewport editorial moments.',
+		render: () => (
+			<Heading hierarchy="hero" level="1">
+				The language layer for labs that ship.
+			</Heading>
+		)
+	},
 	scale: {
 		description: 'Title and subsection sizing together.',
 		render: () => (

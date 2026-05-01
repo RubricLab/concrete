@@ -7,6 +7,14 @@ export const textExamples = defineExamples({
 		description: 'Default body text.',
 		render: () => <Text>Concrete text stays compact and readable.</Text>
 	},
+	lead: {
+		description: 'Lead text for editorial intros and hero support copy.',
+		render: () => (
+			<Text as="p" intent="muted" purpose="lead">
+				Soft, powerful, compact UI vocabulary for AI-native software.
+			</Text>
+		)
+	},
 	meta: {
 		description: 'Small metadata and caption roles.',
 		render: () => (

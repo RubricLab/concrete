@@ -7,13 +7,16 @@ import {
 	Container,
 	type FoundationDefinition,
 	type FoundationRegistryEntry,
+	Frame,
 	Grid,
+	Heading,
+	PageSection,
 	Panel,
 	type PrimitiveDefinition,
 	type PrimitiveRegistryEntry,
 	Section,
+	Split,
 	Stack,
-	Surface,
 	Text,
 	TextLink
 } from '@rubriclab/concrete'
@@ -75,82 +78,108 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 	const configuration = catalogDetailConfigurations[kind]
 
 	return (
-		<Container as="main" density="editorial" measure="wide">
-			<Stack density="editorial">
-				<Panel
-					actions={
-						<Stack density="compact">
-							<TextLink href={`/render/${kind}/${entry.slug}`} purpose="nav">
-								DOM render
-							</TextLink>
-							<TextLink href={`/render/${kind}/${entry.slug}.jpg`} purpose="nav">
-								JPEG render
-							</TextLink>
-						</Stack>
-					}
-					description={entry.description}
-					meta={
-						<Stack density="compact">
-							<Badge intent="terminal">{configuration.label}</Badge>
-							<Badge intent="ultra">{entry.category}</Badge>
-							{entry.pressure.map(pressure => (
-								<Chip key={pressure}>{pressure}</Chip>
-							))}
-						</Stack>
-					}
-					title={entry.name}
-				>
-					<Stack density="editorial">
-						<Text intent="muted">{entry.guidance}</Text>
-						<Surface depth="sunken">
-							<Stack align="center">{definition.renderExample()}</Stack>
-						</Surface>
-					</Stack>
-				</Panel>
-
-				<Section description={configuration.playgroundDescription} title="Playground">
-					<Suspense fallback={<Panel title="Loading playground" />}>
-						{renderDetailPlayground(props)}
-					</Suspense>
-				</Section>
-
-				<Section
-					description={`Every state maps to the same ${kind} render route through the state query param.`}
-					title="Rendered matrix"
-				>
-					<Grid>
-						{entry.states.map(state => (
-							<Panel
-								description={state.description}
-								footer={
-									<TextLink href={`/render/${kind}/${entry.slug}?state=${state.query}`} purpose="nav">
-										Render state
-									</TextLink>
-								}
-								key={state.query}
-								title={state.name}
+		<>
+			<PageSection ground="field" rhythm="chapter" separated>
+				<Container as="main" density="editorial" measure="wide">
+					<Split
+						aside={
+							<Frame
+								align="center"
+								header={entry.name}
+								headerMeta="Default"
+								scale="showcase"
+								texture="field"
 							>
-								<Surface depth="sunken">
-									<Stack align="center">{definition.renderExample(state.query)}</Stack>
-								</Surface>
-							</Panel>
-						))}
-					</Grid>
-				</Section>
+								<Stack align="center">{definition.renderExample()}</Stack>
+							</Frame>
+						}
+						density="editorial"
+						ratio="even"
+					>
+						<Stack density="editorial">
+							<Stack density="compact">
+								<Badge intent="terminal">{configuration.label}</Badge>
+								<Heading hierarchy="display" level="1">
+									{entry.name}
+								</Heading>
+								<Text as="p" intent="muted" purpose="lead">
+									{entry.description}
+								</Text>
+								<Text intent="muted">{entry.guidance}</Text>
+							</Stack>
+							<Stack density="compact">
+								<Badge intent="ultra">{entry.category}</Badge>
+								{entry.pressure.map(pressure => (
+									<Chip key={pressure}>{pressure}</Chip>
+								))}
+							</Stack>
+							<Stack density="compact">
+								<TextLink href={`/render/${kind}/${entry.slug}`} purpose="nav">
+									DOM render
+								</TextLink>
+								<TextLink href={`/render/${kind}/${entry.slug}/screenshot`} purpose="nav">
+									Image render
+								</TextLink>
+							</Stack>
+						</Stack>
+					</Split>
+				</Container>
+			</PageSection>
 
-				<Section
-					description="The public prop table is generated from item metadata and schema-backed controls."
-					title="Public contract"
-				>
-					<Stack density="compact">
-						<Button trailingIcon="arrow-right" hierarchy="secondary">
-							{configuration.actionLabel}
-						</Button>
-						<CatalogPropsTable entry={entry} />
-					</Stack>
-				</Section>
-			</Stack>
-		</Container>
+			<PageSection rhythm="chapter" separated>
+				<Container density="editorial" measure="wide">
+					<Section description={configuration.playgroundDescription} title="Playground">
+						<Suspense fallback={<Panel title="Loading playground" />}>
+							{renderDetailPlayground(props)}
+						</Suspense>
+					</Section>
+				</Container>
+			</PageSection>
+
+			<PageSection rhythm="chapter" separated>
+				<Container density="editorial" measure="wide">
+					<Section
+						description={`Every state maps to the same ${kind} render route through the state query param.`}
+						title="Rendered matrix"
+					>
+						<Grid columns="three">
+							{entry.states.map(state => (
+								<Panel
+									description={state.description}
+									footer={
+										<TextLink href={`/render/${kind}/${entry.slug}?state=${state.query}`} purpose="nav">
+											Render state
+										</TextLink>
+									}
+									key={state.query}
+									title={state.name}
+								>
+									<Frame align="center" scale="standard" texture="field">
+										<Stack align="center">{definition.renderExample(state.query)}</Stack>
+									</Frame>
+								</Panel>
+							))}
+						</Grid>
+					</Section>
+				</Container>
+			</PageSection>
+
+			<PageSection rhythm="chapter">
+				<Container density="editorial" measure="wide">
+					<Section
+						description="The public prop table is generated from item metadata and schema-backed controls."
+						title="Public contract"
+					>
+						<Stack density="compact">
+							<Button hierarchy="secondary" trailingIcon="arrow-right">
+								{configuration.actionLabel}
+							</Button>
+							<CatalogPropsTable entry={entry} />
+						</Stack>
+					</Section>
+				</Container>
+			</PageSection>
+		</>
 	)
 }
 

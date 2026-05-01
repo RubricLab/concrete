@@ -24,7 +24,7 @@ export const textPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderTextInput(textSchema.parse(input)),
 	schema: textSchema,
 	slug: 'text',
-	states: exampleStates(textExamples, ['default', 'meta', 'numeric'])
+	states: exampleStates(textExamples, ['default', 'lead', 'meta', 'numeric'])
 })
 
 function renderTextInput({ as, content, purpose, intent }: TextValue) {

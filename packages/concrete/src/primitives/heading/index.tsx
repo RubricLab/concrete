@@ -30,7 +30,7 @@ export const headingPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderHeadingInput(headingSchema.parse(input)),
 	schema: headingSchema,
 	slug: 'heading',
-	states: exampleStates(headingExamples, ['default', 'display', 'scale'])
+	states: exampleStates(headingExamples, ['default', 'hero', 'display', 'scale'])
 })
 
 function renderHeadingInput({ content, level, hierarchy, intent }: HeadingValue) {

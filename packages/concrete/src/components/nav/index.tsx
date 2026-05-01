@@ -29,7 +29,7 @@ export const navComponentDefinition = createComponent({
 		label: 'Primary'
 	}),
 	slug: 'nav',
-	states: exampleStates(navExamples, ['default', 'actions', 'slot'])
+	states: exampleStates(navExamples, ['default', 'actions', 'slot', 'sticky'])
 })
 
 function renderNavInput(input: NavComponentValue) {
