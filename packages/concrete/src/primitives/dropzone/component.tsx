@@ -4,6 +4,8 @@ import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
 export type DropzoneProps = HTMLAttributes<HTMLDivElement> & {
+	actionFor?: string | undefined
+	actionLabel?: ReactNode | undefined
 	active?: boolean | undefined
 	description?: ReactNode | undefined
 	disabled?: boolean | undefined
@@ -12,6 +14,8 @@ export type DropzoneProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 export function Dropzone({
+	actionFor,
+	actionLabel,
 	active = false,
 	children,
 	className,
@@ -33,7 +37,20 @@ export function Dropzone({
 			</span>
 			<span className={concreteClassNames.dropzoneTitle}>{title}</span>
 			<span className={concreteClassNames.dropzoneDescription}>{description}</span>
+			{actionLabel ? renderDropzoneAction(actionLabel, actionFor) : null}
 			{children}
 		</div>
 	)
+}
+
+function renderDropzoneAction(actionLabel: ReactNode, actionFor: string | undefined) {
+	if (actionFor) {
+		return (
+			<label className={concreteClassNames.dropzoneAction} htmlFor={actionFor}>
+				{actionLabel}
+			</label>
+		)
+	}
+
+	return <span className={concreteClassNames.dropzoneAction}>{actionLabel}</span>
 }

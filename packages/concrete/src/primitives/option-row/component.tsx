@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { ConcreteIcon, type IconName } from '../../icons'
-import type { CommandItemTone } from '../../schemas'
+import type { CommandItemIntent } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import { Kbd } from '../kbd/component'
 import { cn } from '../utils'
@@ -17,7 +17,7 @@ export type OptionRowProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'chil
 	meta?: ReactNode
 	selected?: boolean | undefined
 	shortcuts?: readonly ReactNode[] | undefined
-	tone?: CommandItemTone | undefined
+	intent?: CommandItemIntent | undefined
 	trailing?: ReactNode
 }
 
@@ -32,7 +32,7 @@ export function OptionRow({
 	meta,
 	selected = false,
 	shortcuts = [],
-	tone = 'default',
+	intent = 'default',
 	trailing,
 	type = 'button',
 	...props
@@ -51,7 +51,7 @@ export function OptionRow({
 			data-active={active ? true : undefined}
 			data-kind={kind}
 			data-selected={selected ? true : undefined}
-			data-tone={tone}
+			data-intent={intent}
 			type={type}
 			{...props}
 		>

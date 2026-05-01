@@ -7,7 +7,7 @@ export const disclosurePanelExamples = defineExamples({
 		description: 'Closed disclosure state.',
 		render: () => (
 			<DisclosurePanel summary="Collapsed details">
-				<Text tone="muted">Hidden content</Text>
+				<Text intent="muted">Hidden content</Text>
 			</DisclosurePanel>
 		)
 	},
@@ -15,15 +15,15 @@ export const disclosurePanelExamples = defineExamples({
 		description: 'Generic disclosure panel for trace and details content.',
 		render: () => (
 			<DisclosurePanel open summary="Trace details">
-				<Text tone="muted">Loaded files, parsed registry metadata, and rendered examples.</Text>
+				<Text intent="muted">Loaded files, parsed registry metadata, and rendered examples.</Text>
 			</DisclosurePanel>
 		)
 	},
 	terminal: {
 		description: 'Terminal-toned disclosure for agent traces.',
 		render: () => (
-			<DisclosurePanel open summary="Agent trace" tone="terminal">
-				<Text tone="terminal">Tool call completed.</Text>
+			<DisclosurePanel open summary="Agent trace" intent="terminal">
+				<Text intent="terminal">Tool call completed.</Text>
 			</DisclosurePanel>
 		)
 	}

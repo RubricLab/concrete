@@ -2,57 +2,60 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type StatSize = 'large' | 'medium' | 'small' | 'xlarge' | 'xsmall'
-export type StatTone = 'default' | 'muted' | 'sky'
-export type StatVariant = 'display' | 'lockup' | 'numeric'
+export type StatDensity = 'compact' | 'comfortable' | 'display' | 'editorial' | 'micro'
+export type StatIntent = 'muted' | 'neutral' | 'sky'
+export type StatPurpose = 'display' | 'lockup' | 'numeric'
 
 export type StatProps = HTMLAttributes<HTMLDivElement> & {
+	density?: StatDensity
 	delta?: ReactNode
+	intent?: StatIntent
 	label?: ReactNode
 	meta?: ReactNode
-	size?: StatSize
-	tone?: StatTone
+	purpose?: StatPurpose
 	unit?: ReactNode
 	value: ReactNode
-	variant?: StatVariant
 }
 
-const statSizeClassNames = {
-	large: concreteClassNames.statLarge,
-	medium: undefined,
-	small: concreteClassNames.statSmall,
-	xlarge: concreteClassNames.statXlarge,
-	xsmall: concreteClassNames.statXsmall
-} satisfies Record<StatSize, string | undefined>
+const statDensityClassNames = {
+	comfortable: undefined,
+	compact: concreteClassNames.statSmall,
+	display: concreteClassNames.statXlarge,
+	editorial: concreteClassNames.statLarge,
+	micro: concreteClassNames.statXsmall
+} satisfies Record<StatDensity, string | undefined>
 
-const statToneClassNames = {
-	default: undefined,
+const statIntentClassNames = {
 	muted: concreteClassNames.statMuted,
+	neutral: undefined,
 	sky: concreteClassNames.statSky
-} satisfies Record<StatTone, string | undefined>
+} satisfies Record<StatIntent, string | undefined>
 
 export function Stat({
 	className,
+	density = 'comfortable',
 	delta,
+	intent = 'neutral',
 	label,
 	meta,
-	size = 'medium',
-	tone = 'default',
+	purpose = 'lockup',
 	unit,
 	value,
-	variant = 'lockup',
 	...props
 }: StatProps) {
-	if (variant === 'numeric' || variant === 'display') {
+	if (purpose === 'numeric' || purpose === 'display') {
 		return (
 			<div
 				className={cn(
 					concreteClassNames.statNumber,
-					variant === 'display' && concreteClassNames.statDisplay,
-					statSizeClassNames[size],
-					statToneClassNames[tone],
+					purpose === 'display' && concreteClassNames.statDisplay,
+					statDensityClassNames[density],
+					statIntentClassNames[intent],
 					className
 				)}
+				data-density={density}
+				data-intent={intent}
+				data-purpose={purpose}
 				{...props}
 			>
 				{value}
@@ -62,9 +65,15 @@ export function Stat({
 	}
 
 	return (
-		<div className={cn(concreteClassNames.stat, statToneClassNames[tone], className)} {...props}>
+		<div
+			className={cn(concreteClassNames.stat, statIntentClassNames[intent], className)}
+			data-density={density}
+			data-intent={intent}
+			data-purpose={purpose}
+			{...props}
+		>
 			{label ? <span className={concreteClassNames.statLabel}>{label}</span> : null}
-			<span className={cn(concreteClassNames.statValue, statSizeClassNames[size])}>
+			<span className={cn(concreteClassNames.statValue, statDensityClassNames[density])}>
 				{value}
 				{unit ? <span className={concreteClassNames.statUnit}>{unit}</span> : null}
 			</span>

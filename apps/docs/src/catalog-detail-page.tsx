@@ -80,10 +80,10 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 				<Panel
 					actions={
 						<Stack density="compact">
-							<TextLink href={`/render/${kind}/${entry.slug}`} variant="nav">
+							<TextLink href={`/render/${kind}/${entry.slug}`} purpose="nav">
 								DOM render
 							</TextLink>
-							<TextLink href={`/render/${kind}/${entry.slug}.jpg`} variant="nav">
+							<TextLink href={`/render/${kind}/${entry.slug}.jpg`} purpose="nav">
 								JPEG render
 							</TextLink>
 						</Stack>
@@ -91,8 +91,8 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 					description={entry.description}
 					meta={
 						<Stack density="compact">
-							<Badge signal="terminal">{configuration.label}</Badge>
-							<Badge signal="ultra">{entry.category}</Badge>
+							<Badge intent="terminal">{configuration.label}</Badge>
+							<Badge intent="ultra">{entry.category}</Badge>
 							{entry.pressure.map(pressure => (
 								<Chip key={pressure}>{pressure}</Chip>
 							))}
@@ -101,7 +101,7 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 					title={entry.name}
 				>
 					<Stack density="editorial">
-						<Text tone="muted">{entry.guidance}</Text>
+						<Text intent="muted">{entry.guidance}</Text>
 						<Surface depth="sunken">
 							<Stack align="center">{definition.renderExample()}</Stack>
 						</Surface>
@@ -123,7 +123,7 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 							<Panel
 								description={state.description}
 								footer={
-									<TextLink href={`/render/${kind}/${entry.slug}?state=${state.query}`} variant="nav">
+									<TextLink href={`/render/${kind}/${entry.slug}?state=${state.query}`} purpose="nav">
 										Render state
 									</TextLink>
 								}
@@ -143,7 +143,7 @@ export function CatalogDetailPage(props: CatalogDetailPageProps) {
 					title="Public contract"
 				>
 					<Stack density="compact">
-						<Button trailingIcon="arrow-right" variant="secondary">
+						<Button trailingIcon="arrow-right" hierarchy="secondary">
 							{configuration.actionLabel}
 						</Button>
 						<CatalogPropsTable entry={entry} />

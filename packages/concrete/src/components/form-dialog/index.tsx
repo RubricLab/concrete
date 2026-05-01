@@ -8,7 +8,7 @@ import { formDialogExamples } from './examples'
 import { formDialogMeta } from './meta'
 import { type FormDialogValue, formDialogComponentSchema } from './schema'
 
-export type { FormDialogPresentation, FormDialogProps, FormDialogSize } from './component'
+export type { FormDialogMeasure, FormDialogPresentation, FormDialogProps } from './component'
 export { FormDialog } from './component'
 export type { FormDialogInput, FormDialogValue } from './schema'
 export { formDialogComponentSchema } from './schema'
@@ -37,14 +37,14 @@ function renderFormDialogInput(input: FormDialogValue) {
 			{...(description ? { description } : {})}
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Cancel
 					</Button>
-					<Button size="small">Create run</Button>
+					<Button density="small">Create run</Button>
 				</>
 			}
 		>
-			<FormGrid columns={input.size === 'wide' ? 2 : 1}>
+			<FormGrid columns={input.measure === 'wide' ? 2 : 1}>
 				<Input label="Run name" placeholder="Router contract check" />
 				<DateRangePicker defaultValue={{ end: '2026-05-07', start: '2026-04-28' }} label="Window" />
 			</FormGrid>

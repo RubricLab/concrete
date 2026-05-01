@@ -10,8 +10,8 @@ export const surfaceExamples = defineExamples({
 		render: () => (
 			<Surface>
 				<Stack density="compact">
-					<Text tone="strong">Run summary</Text>
-					<Text tone="muted">3 files changed.</Text>
+					<Text intent="strong">Run summary</Text>
+					<Text intent="muted">3 files changed.</Text>
 				</Stack>
 			</Surface>
 		)
@@ -19,10 +19,10 @@ export const surfaceExamples = defineExamples({
 	inverse: {
 		description: 'Inverse surface for dark inspection regions.',
 		render: () => (
-			<Surface tone="inverse">
+			<Surface intent="inverse">
 				<Stack density="compact">
-					<Text tone="inverse">Agent trace</Text>
-					<Badge variant="ghost">live</Badge>
+					<Text intent="inverse">Agent trace</Text>
+					<Badge hierarchy="ghost">live</Badge>
 				</Stack>
 			</Surface>
 		)
@@ -31,15 +31,15 @@ export const surfaceExamples = defineExamples({
 		description: 'Raised treatment for floating or emphasized regions.',
 		render: () => (
 			<Surface depth="raised" interactive>
-				<Text tone="strong">Interactive surface</Text>
+				<Text intent="strong">Interactive surface</Text>
 			</Surface>
 		)
 	},
 	semantic: {
 		description: 'Semantic landmark surface without changing treatment.',
 		render: () => (
-			<Surface as="nav" density="compact" tone="muted">
-				<Text tone="strong">Navigation surface</Text>
+			<Surface as="nav" density="compact" intent="muted">
+				<Text intent="strong">Navigation surface</Text>
 			</Surface>
 		)
 	}

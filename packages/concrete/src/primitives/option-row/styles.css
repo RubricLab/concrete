@@ -17,12 +17,12 @@
 
 .concrete-option-row[data-kind="command"],
 .concrete-command-item {
-	grid-template-columns: var(--concrete-size-command-item-icon-track) minmax(
+	grid-template-columns: var(--concrete-size-menu-item-icon-track) minmax(
 			var(--concrete-space-0),
 			var(--concrete-flex-fill)
 		) auto;
 	gap: var(--concrete-space-2-5);
-	min-height: var(--concrete-size-command-item-min-block);
+	min-height: var(--concrete-size-menu-item-min-block);
 	padding-block: var(--concrete-space-1-75);
 	padding-inline: var(--concrete-space-2-5);
 	border-radius: var(--concrete-radius-3);
@@ -48,10 +48,10 @@
 	color: var(--concrete-foreground-strong);
 }
 
-.concrete-option-row[data-kind="command"][data-tone="error"]:hover,
-.concrete-option-row[data-kind="command"][data-tone="error"][data-active="true"],
-.concrete-command-item[data-tone="error"]:hover,
-.concrete-command-item[data-tone="error"][data-active="true"] {
+.concrete-option-row[data-kind="command"][data-intent="error"]:hover,
+.concrete-option-row[data-kind="command"][data-intent="error"][data-active="true"],
+.concrete-command-item[data-intent="error"]:hover,
+.concrete-command-item[data-intent="error"][data-active="true"] {
 	background: var(--concrete-error-1);
 	color: var(--concrete-error);
 }
@@ -86,14 +86,14 @@
 
 .concrete-option-row[data-kind="command"] .concrete-option-row-icon,
 .concrete-command-icon {
-	width: var(--concrete-size-command-icon);
-	height: var(--concrete-size-command-icon);
+	width: var(--concrete-size-menu-item-icon);
+	height: var(--concrete-size-menu-item-icon);
 }
 
 .concrete-option-row-icon svg,
 .concrete-command-icon svg {
-	width: var(--concrete-size-command-icon-glyph);
-	height: var(--concrete-size-command-icon-glyph);
+	width: var(--concrete-size-menu-item-icon-glyph);
+	height: var(--concrete-size-menu-item-icon-glyph);
 }
 
 .concrete-option-row-copy,

@@ -8,10 +8,10 @@ export const controlGroupExamples = defineExamples({
 		description: 'Attached segmented commands.',
 		render: () => (
 			<ControlGroup attached label="View mode">
-				<Button size="small" variant="secondary">
+				<Button density="small" hierarchy="secondary">
 					Preview
 				</Button>
-				<Button size="small" variant="secondary">
+				<Button density="small" hierarchy="secondary">
 					Code
 				</Button>
 			</ControlGroup>
@@ -21,8 +21,8 @@ export const controlGroupExamples = defineExamples({
 		description: 'Adjacent commands with controlled spacing.',
 		render: () => (
 			<ControlGroup label="Message commands">
-				<Button size="small">Accept</Button>
-				<Button size="small" variant="ghost">
+				<Button density="small">Accept</Button>
+				<Button density="small" hierarchy="ghost">
 					Reject
 				</Button>
 			</ControlGroup>
@@ -32,8 +32,8 @@ export const controlGroupExamples = defineExamples({
 		description: 'Vertical command group.',
 		render: () => (
 			<ControlGroup label="Canvas controls" orientation="vertical">
-				<IconButton icon="plus" label="Zoom in" size="small" variant="secondary" />
-				<IconButton icon="minus" label="Zoom out" size="small" variant="secondary" />
+				<IconButton icon="plus" label="Zoom in" density="small" hierarchy="secondary" />
+				<IconButton icon="minus" label="Zoom out" density="small" hierarchy="secondary" />
 			</ControlGroup>
 		)
 	}

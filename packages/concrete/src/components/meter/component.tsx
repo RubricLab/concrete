@@ -2,7 +2,7 @@ import { DataSurface, Progress, ProgressRing } from '../../primitives'
 import { Text } from '../../primitives/text'
 import { type MeterProps, meterSchema } from '../../schemas'
 import { normalizeRangeValue } from '../../utilities/data-geometry'
-import { toProgressTone } from '../../utilities/data-tone'
+import { toProgressIntent } from '../../utilities/data-intent'
 
 type ComponentShellProps = {
 	className?: string
@@ -24,12 +24,12 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 		parsedProps.description || parsedProps.target !== undefined ? (
 			<>
 				{parsedProps.target !== undefined ? (
-					<Text purpose="caption" tone="muted">
+					<Text purpose="caption" intent="muted">
 						Target {parsedProps.target}
 					</Text>
 				) : null}
 				{parsedProps.description ? (
-					<Text purpose="caption" tone="muted">
+					<Text purpose="caption" intent="muted">
 						{parsedProps.description}
 					</Text>
 				) : null}
@@ -41,17 +41,17 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 			className={className}
 			compact={parsedProps.compact}
 			footer={footer}
-			layout={parsedProps.variant === 'ring' ? 'media' : 'stack'}
+			layout={parsedProps.display === 'ring' ? 'media' : 'stack'}
 			meta={formattedValue}
 			purpose="meter"
 			title={parsedProps.label}
 		>
-			{parsedProps.variant === 'ring' ? (
-				<ProgressRing tone={toProgressTone(parsedProps.tone)} value={percent} />
+			{parsedProps.display === 'ring' ? (
+				<ProgressRing intent={toProgressIntent(parsedProps.intent)} value={percent} />
 			) : (
 				<Progress
-					size={parsedProps.compact ? 'thin' : 'medium'}
-					tone={toProgressTone(parsedProps.tone)}
+					density={parsedProps.compact ? 'compact' : 'comfortable'}
+					intent={toProgressIntent(parsedProps.intent)}
 					value={percent}
 				/>
 			)}

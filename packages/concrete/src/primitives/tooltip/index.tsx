@@ -30,7 +30,7 @@ function renderTooltipInput({ content, forceOpen, placement, title }: TooltipVal
 			placement={placement}
 			{...(title ? { title } : {})}
 		>
-			<Button variant="secondary">Anchor</Button>
+			<Button hierarchy="secondary">Anchor</Button>
 		</Tooltip>
 	)
 }

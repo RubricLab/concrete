@@ -7,8 +7,8 @@ export const pillExamples = defineExamples({
 		render: () => (
 			<>
 				<Pill>ink</Pill>
-				<Pill tone="sunken">queued</Pill>
-				<Pill tone="sky">pointer</Pill>
+				<Pill intent="subtle">queued</Pill>
+				<Pill intent="sky">pointer</Pill>
 			</>
 		)
 	},
@@ -17,10 +17,10 @@ export const pillExamples = defineExamples({
 		render: () => (
 			<>
 				<Pill leadingIcon="file-text">memo</Pill>
-				<Pill leadingIcon="sparkles" tone="ultra">
+				<Pill intent="ultra" leadingIcon="sparkles">
 					generated
 				</Pill>
-				<Pill leadingIcon="activity" tone="terminal">
+				<Pill intent="terminal" leadingIcon="activity">
 					running
 				</Pill>
 			</>
@@ -30,9 +30,9 @@ export const pillExamples = defineExamples({
 		description: 'Signal tone pills.',
 		render: () => (
 			<>
-				<Pill tone="terminal">live</Pill>
-				<Pill tone="ultra">pro</Pill>
-				<Pill tone="error">blocked</Pill>
+				<Pill intent="terminal">live</Pill>
+				<Pill intent="ultra">pro</Pill>
+				<Pill intent="danger">blocked</Pill>
 			</>
 		)
 	}

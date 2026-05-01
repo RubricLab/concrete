@@ -19,10 +19,10 @@ export const pillMeta = {
 	pressure: ['product', 'editorial'],
 	props: [
 		prop(
-			'tone',
-			"'default' | 'ink' | 'sky' | 'sunken' | 'terminal' | 'ultra' | 'error'",
-			'Inline label tone or quiet signal wash.',
-			'default'
+			'intent',
+			"'neutral' | 'strong' | 'subtle' | 'sky' | 'terminal' | 'ultra' | 'danger'",
+			'Inline label intent or quiet signal wash.',
+			'neutral'
 		),
 		prop('leadingIcon', 'IconName | ReactElement', 'Optional leading glyph.'),
 		prop('children', 'ReactNode', 'Pill label.')

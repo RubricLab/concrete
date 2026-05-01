@@ -1,6 +1,6 @@
 import { defineExamples } from '../../factories/createExamples'
 import { Badge } from '../badge'
-import { Row } from '../row'
+import { OptionRow } from '../option-row'
 import { Grid } from './component'
 
 export const gridExamples = defineExamples({
@@ -8,8 +8,8 @@ export const gridExamples = defineExamples({
 		description: 'Compact repeated controls.',
 		render: () => (
 			<Grid columns="two" density="compact">
-				<Row meta={<Badge signal="terminal">Active</Badge>}>Model</Row>
-				<Row meta={<Badge variant="count">4</Badge>}>Tools</Row>
+				<OptionRow meta={<Badge intent="terminal">Active</Badge>}>Model</OptionRow>
+				<OptionRow meta={<Badge purpose="count">4</Badge>}>Tools</OptionRow>
 			</Grid>
 		)
 	},
@@ -17,9 +17,9 @@ export const gridExamples = defineExamples({
 		description: 'Auto-fit repeated items.',
 		render: () => (
 			<Grid>
-				<Row meta="Foundation-backed">Tokens</Row>
-				<Row meta="Atomic vocabulary">Primitives</Row>
-				<Row meta="Workflow assembly">Components</Row>
+				<OptionRow meta="Foundation-backed">Tokens</OptionRow>
+				<OptionRow meta="Atomic vocabulary">Primitives</OptionRow>
+				<OptionRow meta="Workflow assembly">Components</OptionRow>
 			</Grid>
 		)
 	},
@@ -28,8 +28,8 @@ export const gridExamples = defineExamples({
 		render: () => (
 			<Grid columns="three">
 				<Badge>Input</Badge>
-				<Badge signal="ultra">Reason</Badge>
-				<Badge signal="terminal">Output</Badge>
+				<Badge intent="ultra">Reason</Badge>
+				<Badge intent="terminal">Output</Badge>
 			</Grid>
 		)
 	}

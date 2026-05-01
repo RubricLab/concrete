@@ -61,7 +61,7 @@ function renderDataTableExample(state = 'default'): ReactNode {
 			toolbarActions={
 				state === 'selected'
 					? [
-							{ icon: 'download', id: 'export', label: 'Export', tone: 'sky' },
+							{ icon: 'download', id: 'export', intent: 'sky', label: 'Export' },
 							{ icon: 'more', id: 'more', label: 'More' }
 						]
 					: [{ icon: 'inspect', id: 'inspect', label: 'Inspect' }]

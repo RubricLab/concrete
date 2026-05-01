@@ -32,8 +32,8 @@ describe('Concrete diagram language', () => {
 			selected: false
 		})
 		expect(diagramItemPropsSchema.parse({ title: 'Trace', value: '184ms' })).toMatchObject({
-			kind: 'note',
-			tone: 'ink'
+			intent: 'ink',
+			kind: 'note'
 		})
 	})
 
@@ -97,11 +97,11 @@ describe('Concrete diagram language', () => {
 			from: 'input',
 			fromAnchor: 'right',
 			id: 'edge',
+			intent: 'sky',
+			relation: 'solid',
 			selected: false,
 			to: 'model',
-			toAnchor: 'left',
-			tone: 'sky',
-			variant: 'solid'
+			toAnchor: 'left'
 		})
 
 		expect(route.path).toStartWith('M')

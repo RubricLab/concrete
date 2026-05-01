@@ -6,7 +6,7 @@ export const fieldRowExamples = defineExamples({
 	default: {
 		description: 'Dense setting row with copy, meta, and a control slot.',
 		render: () => (
-			<FieldRow control={<Badge variant="ghost">On</Badge>} description="Allow model tool calls.">
+			<FieldRow control={<Badge hierarchy="ghost">On</Badge>} description="Allow model tool calls.">
 				Agent tools
 			</FieldRow>
 		)

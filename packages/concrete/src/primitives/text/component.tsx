@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { TextElement, TextPurpose, TextTone } from './schema'
+import type { TextElement, TextIntent, TextPurpose } from './schema'
 
 type TextElementProps = Omit<HTMLAttributes<HTMLElement>, 'style'>
 
@@ -9,7 +9,7 @@ export type TextProps = TextElementProps & {
 	as?: TextElement
 	children?: ReactNode
 	purpose?: TextPurpose
-	tone?: TextTone
+	intent?: TextIntent
 }
 
 export function Text({
@@ -17,7 +17,7 @@ export function Text({
 	children,
 	className,
 	purpose = 'body',
-	tone = 'default',
+	intent = 'default',
 	...props
 }: TextProps) {
 	const TextTag = as
@@ -26,7 +26,7 @@ export function Text({
 		<TextTag
 			className={cn(concreteClassNames.text, className)}
 			data-purpose={purpose}
-			data-tone={tone}
+			data-intent={intent}
 			{...props}
 		>
 			{children}

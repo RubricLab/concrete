@@ -8,13 +8,13 @@ export const railExamples = defineExamples({
 		description: 'Vertical tool rail.',
 		render: () => (
 			<Rail>
-				<Button iconOnly leadingIcon="search" size="small" variant="secondary">
+				<Button iconOnly leadingIcon="search" density="small" hierarchy="secondary">
 					Search
 				</Button>
-				<Button iconOnly leadingIcon="settings" size="small" variant="secondary">
+				<Button iconOnly leadingIcon="settings" density="small" hierarchy="secondary">
 					Settings
 				</Button>
-				<Button iconOnly leadingIcon="sparkles" size="small" variant="secondary">
+				<Button iconOnly leadingIcon="sparkles" density="small" hierarchy="secondary">
 					Generate
 				</Button>
 			</Rail>
@@ -24,9 +24,9 @@ export const railExamples = defineExamples({
 		description: 'Horizontal rail for compact state or token strips.',
 		render: () => (
 			<Rail orientation="horizontal">
-				<Badge signal="terminal">Ingest</Badge>
-				<Badge signal="ultra">Reason</Badge>
-				<Badge signal="terminal">Render</Badge>
+				<Badge intent="terminal">Ingest</Badge>
+				<Badge intent="ultra">Reason</Badge>
+				<Badge intent="terminal">Render</Badge>
 			</Rail>
 		)
 	}

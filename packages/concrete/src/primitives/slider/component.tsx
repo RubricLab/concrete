@@ -2,10 +2,10 @@ import type { CSSProperties, InputHTMLAttributes } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { clampPercent, cn } from '../utils'
 
-export type SliderTone = 'default' | 'sky'
+export type SliderIntent = 'default' | 'sky'
 
 export type SliderProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
-	tone?: SliderTone
+	intent?: SliderIntent
 }
 
 type SliderStyle = CSSProperties & {
@@ -18,7 +18,7 @@ export function Slider({
 	max = 100,
 	min = 0,
 	style,
-	tone = 'default',
+	intent = 'default',
 	value,
 	...props
 }: SliderProps) {
@@ -33,7 +33,7 @@ export function Slider({
 		<input
 			className={cn(
 				concreteClassNames.slider,
-				tone === 'sky' && concreteClassNames.sliderSky,
+				intent === 'sky' && concreteClassNames.sliderSky,
 				className
 			)}
 			defaultValue={defaultValue}

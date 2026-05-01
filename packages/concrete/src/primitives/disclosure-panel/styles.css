@@ -8,12 +8,12 @@
 	color: var(--concrete-foreground-body);
 }
 
-.concrete-disclosure-panel[data-tone="terminal"] {
+.concrete-disclosure-panel[data-intent="terminal"] {
 	border-color: var(--concrete-terminal-border);
 	background: var(--concrete-terminal-wash);
 }
 
-.concrete-disclosure-panel[data-tone="error"] {
+.concrete-disclosure-panel[data-intent="error"] {
 	border-color: var(--concrete-validation-error-border);
 	background: var(--concrete-error-1);
 }

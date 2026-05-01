@@ -18,7 +18,7 @@ export const dialogSurfaceMeta = {
 	name: 'DialogSurface',
 	pressure: ['product', 'generative'],
 	props: [
-		prop('size', "'compact' | 'default' | 'wide'", 'Dialog width role.'),
+		prop('measure', "'compact' | 'default' | 'wide'", 'Dialog width role.'),
 		prop('modal', 'boolean', 'Whether to set aria-modal.'),
 		prop('children', 'ReactNode', 'Dialog content, usually Panel.')
 	]

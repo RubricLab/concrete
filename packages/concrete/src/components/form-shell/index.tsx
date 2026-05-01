@@ -13,8 +13,7 @@ export type {
 	FormRowAlign,
 	FormRowProps,
 	FormSectionProps,
-	FormShellProps,
-	FormShellVariant
+	FormShellProps
 } from './component'
 export { FormGrid, FormRow, FormSection, FormShell } from './component'
 export type { FormShellInput, FormShellValue } from './schema'

@@ -3,13 +3,14 @@ import { concreteClassNames } from '../../styles/class-names'
 import { Card, type CardProps } from '../card'
 import { cn } from '../utils'
 
+export type DiagramDisplay = 'canvas' | 'flow'
+
 type DiagramViewportCustomProperties = CSSProperties & {
-	'--diagram-canvas-height'?: string
-	'--diagram-canvas-transform'?: string
-	'--diagram-canvas-width'?: string
+	'--diagram-height'?: string
+	'--diagram-transform'?: string
+	'--diagram-width'?: string
 	'--diagram-element-height'?: string
 	'--diagram-element-width'?: string
-	'--diagram-height'?: string
 }
 
 type DiagramElementPlacement = {
@@ -19,36 +20,30 @@ type DiagramElementPlacement = {
 	y: number
 }
 
-export type DiagramCanvasShellProps = Omit<CardProps, 'variant'>
-
-export function DiagramCanvasShell({ className, ...props }: DiagramCanvasShellProps) {
-	return (
-		<Card
-			className={cn(concreteClassNames.diagramCanvasCard, className)}
-			variant="raised"
-			{...props}
-		/>
-	)
+export type DiagramShellProps = Omit<CardProps, 'depth'> & {
+	display?: DiagramDisplay | undefined
 }
 
-export type DiagramCanvasHeaderProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
+export function DiagramShell({ className, display = 'canvas', ...props }: DiagramShellProps) {
+	const shellClassName =
+		display === 'flow' ? concreteClassNames.diagramFlowShell : concreteClassNames.diagramShell
+
+	return <Card className={cn(shellClassName, className)} depth="raised" {...props} />
+}
+
+export type DiagramHeaderProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
 	description?: ReactNode
 	title: ReactNode
 }
 
-export function DiagramCanvasHeader({
-	className,
-	description,
-	title,
-	...props
-}: DiagramCanvasHeaderProps) {
+export function DiagramHeader({ className, description, title, ...props }: DiagramHeaderProps) {
 	return (
-		<header className={cn(concreteClassNames.diagramCanvasHeader, className)} {...props}>
-			<div className={concreteClassNames.diagramCanvasTitleBlock}>
+		<header className={cn(concreteClassNames.diagramHeader, className)} {...props}>
+			<div className={concreteClassNames.diagramTitleBlock}>
 				<h3>{title}</h3>
 			</div>
 			{description ? (
-				<p className={concreteClassNames.diagramCanvasStatus}>
+				<p className={concreteClassNames.diagramStatus}>
 					<span aria-hidden="true" />
 					{description}
 				</p>
@@ -57,53 +52,51 @@ export function DiagramCanvasHeader({
 	)
 }
 
-export type DiagramCanvasViewportProps = HTMLAttributes<HTMLDivElement> & {
+export type DiagramViewportProps = HTMLAttributes<HTMLDivElement> & {
+	display?: DiagramDisplay | undefined
 	panning?: boolean | undefined
 }
 
-export function DiagramCanvasViewport({
+export function DiagramViewport({
 	className,
+	display = 'canvas',
 	panning = false,
 	...props
-}: DiagramCanvasViewportProps) {
-	return (
-		<div
-			className={cn(
-				concreteClassNames.diagramCanvasViewport,
-				panning && concreteClassNames.diagramCanvasPanning,
-				className
-			)}
-			{...props}
-		/>
-	)
+}: DiagramViewportProps) {
+	const viewportClassName =
+		display === 'flow'
+			? concreteClassNames.diagramFlowViewport
+			: cn(concreteClassNames.diagramViewport, panning && concreteClassNames.diagramPanning)
+
+	return <div className={cn(viewportClassName, className)} {...props} />
 }
 
-export type DiagramCanvasStageProps = HTMLAttributes<HTMLDivElement> & {
+export type DiagramStageProps = HTMLAttributes<HTMLDivElement> & {
 	height: number | string
 	transform: string
 	width: number | string
 }
 
-export function DiagramCanvasStage({
+export function DiagramStage({
 	className,
 	height,
 	style,
 	transform,
 	width,
 	...props
-}: DiagramCanvasStageProps) {
+}: DiagramStageProps) {
 	return (
 		<div
-			className={cn(concreteClassNames.diagramCanvasStage, className)}
-			style={withDiagramCanvasStageStyle(style, { height, transform, width })}
+			className={cn(concreteClassNames.diagramStage, className)}
+			style={withDiagramStageStyle(style, { height, transform, width })}
 			{...props}
 		/>
 	)
 }
 
-export type DiagramCanvasElementProps = HTMLAttributes<HTMLDivElement> & DiagramElementPlacement
+export type DiagramElementProps = HTMLAttributes<HTMLDivElement> & DiagramElementPlacement
 
-export function DiagramCanvasElement({
+export function DiagramElement({
 	className,
 	height,
 	style,
@@ -111,21 +104,20 @@ export function DiagramCanvasElement({
 	x,
 	y,
 	...props
-}: DiagramCanvasElementProps) {
+}: DiagramElementProps) {
 	return (
 		<div
-			className={cn(concreteClassNames.diagramCanvasElement, className)}
+			className={cn(concreteClassNames.diagramElement, className)}
 			data-diagram-element
-			style={withDiagramCanvasElementStyle(style, { height, width, x, y })}
+			style={withDiagramElementStyle(style, { height, width, x, y })}
 			{...props}
 		/>
 	)
 }
 
-export type DiagramCanvasElementButtonProps = HTMLAttributes<HTMLButtonElement> &
-	DiagramElementPlacement
+export type DiagramElementButtonProps = HTMLAttributes<HTMLButtonElement> & DiagramElementPlacement
 
-export function DiagramCanvasElementButton({
+export function DiagramElementButton({
 	className,
 	height,
 	style,
@@ -133,43 +125,29 @@ export function DiagramCanvasElementButton({
 	x,
 	y,
 	...props
-}: DiagramCanvasElementButtonProps) {
+}: DiagramElementButtonProps) {
 	return (
 		<button
 			className={cn(
-				concreteClassNames.diagramCanvasElement,
-				concreteClassNames.diagramCanvasItemButton,
+				concreteClassNames.diagramElement,
+				concreteClassNames.diagramItemButton,
 				className
 			)}
 			data-diagram-element
-			style={withDiagramCanvasElementStyle(style, { height, width, x, y })}
+			style={withDiagramElementStyle(style, { height, width, x, y })}
 			type="button"
 			{...props}
 		/>
 	)
 }
 
-export type DiagramCanvasFooterProps = HTMLAttributes<HTMLElement>
+export type DiagramFooterProps = HTMLAttributes<HTMLElement>
 
-export function DiagramCanvasFooter({ className, ...props }: DiagramCanvasFooterProps) {
-	return <footer className={cn(concreteClassNames.diagramCanvasFooter, className)} {...props} />
+export function DiagramFooter({ className, ...props }: DiagramFooterProps) {
+	return <footer className={cn(concreteClassNames.diagramFooter, className)} {...props} />
 }
 
-export type FlowDiagramShellProps = Omit<CardProps, 'variant'>
-
-export function FlowDiagramShell({ className, ...props }: FlowDiagramShellProps) {
-	return (
-		<Card className={cn(concreteClassNames.flowDiagramCard, className)} variant="raised" {...props} />
-	)
-}
-
-export type FlowDiagramViewportProps = HTMLAttributes<HTMLDivElement>
-
-export function FlowDiagramViewport({ className, ...props }: FlowDiagramViewportProps) {
-	return <div className={cn(concreteClassNames.flowDiagramViewport, className)} {...props} />
-}
-
-export type FlowDiagramSvgProps = SVGAttributes<SVGSVGElement> & {
+export type DiagramSvgProps = SVGAttributes<SVGSVGElement> & {
 	gridId: string
 	height: number | string
 	panX: number
@@ -177,7 +155,7 @@ export type FlowDiagramSvgProps = SVGAttributes<SVGSVGElement> & {
 	title: string
 }
 
-export function FlowDiagramSvg({
+export function DiagramSvg({
 	children,
 	className,
 	gridId,
@@ -187,27 +165,27 @@ export function FlowDiagramSvg({
 	style,
 	title,
 	...props
-}: FlowDiagramSvgProps) {
+}: DiagramSvgProps) {
 	return (
 		<svg
 			aria-label={title}
-			className={cn(concreteClassNames.flowDiagramCanvas, className)}
+			className={cn(concreteClassNames.diagramFlowCanvas, className)}
 			role="img"
-			style={withFlowDiagramHeight(style, height)}
+			style={withDiagramSvgHeight(style, height)}
 			{...props}
 		>
 			<defs>
 				<pattern
-					height="var(--concrete-size-flow-diagram-grid)"
+					height="var(--concrete-size-diagram-flow-grid)"
 					id={gridId}
 					patternUnits="userSpaceOnUse"
-					width="var(--concrete-size-flow-diagram-grid)"
+					width="var(--concrete-size-diagram-flow-grid)"
 				>
 					<path d="M 18 0 L 0 0 0 18" fill="none" />
 				</pattern>
 			</defs>
 			<rect
-				className={concreteClassNames.flowDiagramGrid}
+				className={concreteClassNames.diagramFlowGrid}
 				height="100%"
 				style={{ fill: `url(#${gridId})` }}
 				width="100%"
@@ -219,7 +197,7 @@ export function FlowDiagramSvg({
 	)
 }
 
-function withDiagramCanvasStageStyle(
+function withDiagramStageStyle(
 	style: CSSProperties | undefined,
 	{
 		height,
@@ -233,13 +211,13 @@ function withDiagramCanvasStageStyle(
 ): CSSProperties {
 	return {
 		...style,
-		'--diagram-canvas-height': formatCssSize(height),
-		'--diagram-canvas-transform': transform,
-		'--diagram-canvas-width': formatCssSize(width)
+		'--diagram-height': formatCssSize(height),
+		'--diagram-transform': transform,
+		'--diagram-width': formatCssSize(width)
 	} as DiagramViewportCustomProperties
 }
 
-function withDiagramCanvasElementStyle(
+function withDiagramElementStyle(
 	style: CSSProperties | undefined,
 	{ height, width, x, y }: DiagramElementPlacement
 ): CSSProperties {
@@ -252,7 +230,7 @@ function withDiagramCanvasElementStyle(
 	} as DiagramViewportCustomProperties
 }
 
-function withFlowDiagramHeight(
+function withDiagramSvgHeight(
 	style: CSSProperties | undefined,
 	height: number | string
 ): CSSProperties {

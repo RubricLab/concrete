@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import type { IconName } from '../../icons'
 import { ToolCallPanel, ToolCodeBlock, ToolOutput } from '../../primitives'
-import { Message, type MessageProps } from '../../primitives/internal/message'
 import type { MessageStatus, ToolCallStatus } from '../../schemas'
+import { Message, type MessageProps } from '../message/component'
 
 export type ToolCallMessageProps = Omit<
 	MessageProps,

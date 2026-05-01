@@ -14,12 +14,12 @@ export const textMeta = {
 	category: 'typography',
 	description: 'Body, meta, caption, mono, numeric, and prose text primitive.',
 	guidance:
-		'Use Text before hard-coding font recipes. Purpose and tone map to typography and color foundations.',
+		'Use Text before hard-coding font recipes. Purpose and intent map to typography and color foundations.',
 	name: 'Text',
 	pressure: ['product', 'editorial', 'generative', 'educational'],
 	props: [
 		prop('purpose', "'body' | 'meta' | 'caption' | 'mono' | 'number' | 'prose'", 'Text role.'),
-		prop('tone', "'default' | 'muted' | 'soft' | signal", 'Text color tone.'),
+		prop('intent', "'default' | 'muted' | 'soft' | signal", 'Text color intent.'),
 		prop('as', "'span' | 'p' | 'div' | 'small' | 'strong' | 'code'", 'Rendered element.'),
 		prop('children', 'ReactNode', 'Text content.')
 	]

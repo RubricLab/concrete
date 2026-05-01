@@ -12,14 +12,16 @@ This is the only actionable internal plan document for Concrete DX work.
 
 ## Current Baseline
 
-- Audit date: 2026-04-30.
-- Current public package inventory: 12 foundations, 109 primitives, 36 components.
-- Current private primitive inventory: 2 internal primitive folders.
-- Folder-per-item architecture exists.
-- Public registry and docs are item-definition driven.
+- Audit date: 2026-05-01.
+- Current public package inventory: 12 foundations, 110 primitives, 35 components.
+- Current private primitive inventory: 0 internal primitive folders.
+- Folder-per-item architecture exists for every public foundation, primitive, and component.
+- Public registry, docs, examples, playgrounds, render routes, and screenshot routes are item-definition driven.
 - Active component CSS debt should remain zero. Any new component `styles.css` is a regression unless this file records a temporary exception.
 - Central primitive/component CSS layers are compatibility bundle substrate only. Active selectors belong in foundation or primitive item styles.
-- The primitive ontology correction pass is complete. The next phase is primitive prop tightening and component assembly hardening.
+- Phases 1-7 are structurally complete for foundations and primitives: foundation split, primitive ontology correction, destructive legacy primitive cleanup, prop discipline, component assembly hardening, foundation token nouns, primitive scope closure, primitive family consistency, runtime subpart export contracts, and final hardening gates have passed.
+- Phase 8 is the active component closure phase. Component implementations pass the current structural contract, but component item indexes, public multi-export surfaces, renderInput composition, and rich React slot serialization still need a deliberate closure pass before calling components uncompromising.
+- The current `main` rebase keeps the docs-shell additions `container`, `scale-frame`, `tilt-frame`, `nav`, `footer`, and `feature-card`; `row` and `toolbar` remain retired.
 
 ## Operating Loop
 
@@ -37,344 +39,218 @@ This is the only actionable internal plan document for Concrete DX work.
 - `keep`: correct concept; only tighten tokens, schemas, examples, or tests.
 - `refine`: correct folder exists; scope or props need tightening.
 - `add`: target concept does not exist yet.
-- `rename`: current folder exists under a migration-era or less correct name; add the target name and delete the old primitive in the same breaking wave when feasible.
 - `split`: current folder owns multiple target concepts.
 - `merge`: current folder should collapse into a broader primitive/foundation.
 - `demote`: current public item is docs-only, specimen-only, or migration-only; remove it from primitive registry/exports when the owning row is in scope.
 - `compat`: public component stays as compatibility/API surface while delegating to better primitives/components.
 - `audit`: source-level inspection is required before implementation.
+- `done`: source, docs/examples, tests, and gates are complete for the row.
 
 ## Active Work
 
-- [x] Audit current foundation, primitive, component, and internal primitive folders.
-- [x] Collapse DX planning harness to `CODE.md` plus `PLAN.md`.
-- [x] Phase 1A: add foundation `state` and move shared tone/status/hierarchy/density schemas there.
-- [x] Phase 1B: split `spacing` into `spacing`, `sizing`, and `layout` without changing public CSS output.
-- [x] Phase 1C: add `iconography` and `accessibility` foundation concepts while preserving `icons` and current utility exports.
-- [x] Foundation registry entries expose validated token records for docs and catalog explanation.
-- [x] Phase 2A: add layout primitives `Stack`, `Inline`, `Cluster`, `Grid`, `Split`, `ScrollArea`, `Dock`, and generic `Rail`.
-- [x] Phase 2B: add surface/typography/control primitives `Surface`, `Panel`, `Section`, `Header`, `Text`, `Heading`, `Label`, `IconButton`, and `ControlGroup`.
-- [x] Phase 3A: add target primitives for form, picker, menu, overlay, search, token, and feedback vocabulary.
-- [x] Phase 3A follow-up: delete legacy form, picker, menu, search, select, token, and feedback primitives after migrating consumers to target primitives.
-- [x] Phase 3B: rename/split data, table, chart, diagram, and agent migration primitives.
-- [ ] Phase 4: tighten public primitive prop schemas against role/state/density/hierarchy and remove visual override APIs where compatibility allows.
-- [ ] Phase 5: make component implementations assemble only target primitives, schemas, and utilities; keep component files whole when they own one controller.
-- [ ] Phase 6: add/adjust tests for target folder presence, demoted public registry entries, foundation noun policy, primitive prop policy, and component assembly boundaries.
+- [x] Phase 7 planning audit: replace stale migration-era rows with the current foundation/primitive perfection queue.
+- [x] Phase 7A: foundation token noun policy and token rename/allowlist pass.
+- [x] Phase 7B: primitive scope closure for the remaining ambiguous or multi-export primitives.
+- [x] Phase 7C: label/control/media primitive consistency sweep.
+- [x] Phase 7D: add enforcement tests for Phase 7 and run final gates.
+- [x] Phase 7E: mark foundation and primitive architecture ready for aesthetic polish only after every row below is `done` or explicitly deferred.
+- [x] Phase 8 audit: inspect the component layer against the current ontology and record the real remaining debt.
+- [ ] Phase 8A: add a component runtime export and dependency-tier contract.
+- [ ] Phase 8B: decide and execute the `FormShell` compatibility/recast/delete path.
+- [ ] Phase 8C: tighten component `index.tsx`, `renderInput`, and example composition rules.
+- [ ] Phase 8D: document the rich child/slot serialization boundary and keep it deferred unless it becomes current scope.
+- [ ] Phase 8E: run full gates and mark components structurally closed.
 
-## Gate Log
+## Completion Bar Before Aesthetic Polish
 
-- 2026-04-30 Phase 1A passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`.
-- 2026-04-30 Phase 1B/1C plus foundation registry token interface passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`.
-- 2026-04-30 Phase 2A layout primitives passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, `bun run catalog:audit`. First `catalog:audit` attempt collided with the simultaneous temporary visual-smoke Next server; isolated rerun passed 449 render routes.
-- 2026-04-30 Phase 2B surface/text/control primitives passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, `bun run catalog:audit`. Catalog audit passed 475 render routes.
-- 2026-04-30 Phase 3A target primitive vocabulary passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, `bun run catalog:audit`. Catalog audit passed 517 render routes. `Overlay` fixed mode and `PickerSurface` floating mode remain semantic/layout-safe primitives; components own actual viewport and popover positioning.
-- 2026-04-30 Phase 3A destructive contraction passed: removed public primitive folders `form-layout`, `form-overlay`, `picker-control`, `picker-shell`, `menu-shell`, `search-field`, `search-token`, `select-control`, `select-menu`, and `feedback-panel`; migrated form, picker, menu, search, select, token, and feedback component consumers to target primitives; pruned stale selector keys and renamed deleted-noun foundation tokens. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts`, `bun test packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, `bun run catalog:audit`. Catalog audit passed 490 render routes.
-- 2026-04-30 Phase 3B data-surface contraction passed: added `data-surface`, deleted public `metric-shell` and `data-card-header`, and migrated metric, meter, data-table, chart, and flow-diagram consumers to `DataSurface`/`Header`. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, `bun run catalog:audit`. Catalog audit passed 485 render routes.
-- 2026-04-30 Phase 3B final primitive correction passed: renamed/demoted migration-era message, table, range, stepper, composer, calendar, texture, preview, and suggestion primitives; split chart anatomy into `ChartFrame`, `Plot`, `ChartGrid`, `Axis`, `TargetLine`, `SeriesLine`, `SeriesPoint`, `SeriesBar`, `DonutRing`, and `HeatmapGrid`; kept trace steps inside `TracePanel` instead of adding a premature public `trace-step`; deferred attachment/thumbnail until upload slices need them. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun test`, `bun run check`, `bun run build`, `bun run visual:smoke`, `bun run catalog:audit`. Catalog audit passed 480 render routes.
-
-## Global Completion Definition
-
-- Every target foundation folder exists or has a documented compatibility reason.
-- Every primitive is public vocabulary, private internal implementation, or future-breaking demotion debt.
+- Every foundation token name is either a raw foundation scale, a semantic role, or an allowed cross-system domain noun.
+- No foundation token uses a component noun such as `form-shell`, `data-table`, `metric-card`, `file-upload`, `image-upload`, `command-menu`, `search-bar`, `number-stepper`, `range-slider`, `diagram-canvas`, `flow-diagram`, or `composer`.
+- Every primitive is reusable public Concrete vocabulary, not a component part disguised as a primitive.
 - Every public primitive schema exposes semantic props, not raw visual overrides.
+- Primitive subpart exports are either split into real primitives or documented and enforced as one item-owned scope.
 - Every component assembles primitives and approved lower-tier components; it does not own CSS or styled raw DOM.
-- Foundation tokens contain no component nouns unless the noun is a documented cross-system domain concept.
-- Public registry, docs, examples, controls, render routes, screenshot routes, catalog audit, visual smoke, and package exports all resolve from item definitions.
+- Every component public runtime export is either the single component for that folder or a documented compatibility/subpart exception.
+- Every component implementation dependency on another component is documented in an acyclic tier map and enforced by tests.
+- Component `index.tsx` files stay item-bundle focused: public re-exports, `createComponent`, seed, and renderInput adapter only.
+- Component examples and renderInput adapters may compose other public components only as serializable demo/render output, never as hidden implementation dependency.
+- Public registry, package exports, docs routes, examples, controls, render routes, screenshot routes, catalog audit, visual smoke, and package build all resolve from item definitions.
 
-## Foundation Folders
+## Phase 7A: Foundation Perfection
 
-Foundations own value systems, shared schema constants, reset-level utilities, and raw design tokens. They do not render product UI.
+Foundations own the language that primitives consume. This phase is not visual polish; it is a token vocabulary and enforcement pass.
 
-| Folder | Status | Owns | Specific todo |
+Allowed domain nouns for foundation token names:
+
+- Base roles: `control`, `control-strip`, `surface`, `panel`, `section`, `overlay`, `overlay-tip`, `field`, `menu`, `query`, `picker`, `rail`, `dock`, `track`, `interval`, `step-control`, `viewport`, `feedback`, `status`, `intent`, `tone`, `density`, `hierarchy`, `focus`, `hit-target`, `media`, `editor`, `trace`, `data`.
+- Data/display domains: `chart`, `table`, `diagram`, `message`, `tool`.
+
+Component-shaped nouns must be renamed to a role/domain token or deleted when unused. If a noun needs to stay, add it to the allowlist in the same commit as a test and a one-line rationale in this file.
+
+| Foundation | Status | Exact action | Done when |
 | --- | --- | --- | --- |
-| `foundations/colors` | `refine` | Palette, foreground/background/border roles, inverse roles, accents, status tones, data tones, diagram tones. | Audit component-named aliases; keep domain-wide `data`, `chart`, `diagram`, `message`, and `tool` concepts only when they are reused across layers. |
-| `foundations/typography` | `refine` | Font stacks, type scale, line heights, weights, text roles, mono/display/numeric recipes. | Move primitive-specific type aliases into generic roles such as `body`, `meta`, `label`, `heading`, `display`, `code`, and `number`. |
-| `foundations/spacing` | `refine` | Raw space scale and semantic gaps/insets/stacks only. | Split completed. Continue removing migration-era semantic gaps only when the consuming primitive row changes. |
-| `foundations/sizing` | `refine` | Control heights, icon sizes, avatar sizes, track sizes, rail sizes, hit targets, measure widths, viewport dimensions. | Added as public foundation. Size-like tokens moved from `spacing`; continue renaming component-sized aliases into generic roles as primitives migrate. |
-| `foundations/layout` | `refine` | Stack, inline, cluster, grid, split, rail, dock, scroll, overlay recipes, breakpoints, z-index layers. | Added as public foundation. Layout recipes/templates/z-index values moved from `spacing`; replace component-named templates as layout primitives land. |
-| `foundations/radii` | `refine` | Radius scale and shape roles. | Ensure primitives consume role aliases such as `control`, `surface`, `panel`, `overlay`, `token`, and `glyph`, not raw radius values. |
-| `foundations/elevation` | `refine` | Borders, shadows, focus rings, inset treatment, depth recipes. | Replace component-named effects with role effects such as `control`, `surface`, `overlay`, `focus`, `trace`, and `data`. |
-| `foundations/motion` | `refine` | Durations, easings, transitions, opacity roles, transforms, reduced-motion behavior. | Rename chart/table/composer-specific opacity and transform aliases into generic emphasis, reveal, drag, pressed, and visibility roles. |
-| `foundations/textures` | `refine` | Dot, lattice, line, grid grounds, stroke/dash patterns, educational/editorial texture recipes. | Keep pattern values here; move rendered texture specimens out of public primitive vocabulary if they are docs-only. |
-| `foundations/iconography` | `refine` | Icon names, aliases, semantic icon roles, icon sizes, stroke policy. | Added as public foundation while preserving top-level `icons` subpath; make `Icon` a stricter renderer over this foundation during the icon primitive row. |
-| `foundations/state` | `refine` | Shared statuses, tones, hierarchy, density, pressure metadata, data-attribute vocabulary. | Added as public foundation. Shared data, command, field, upload, message, tool-call, hierarchy, and density schemas now live here; continue migrating primitive-local tone/variant enums when their target primitive rows are touched. |
-| `foundations/accessibility` | `refine` | Visually hidden utility, focus target utility, hit-target minimums, reduced motion, forced colors. | Added as public foundation. `.concrete-visually-hidden` and `.concrete-focus-target` live here; continue demoting `focus-ring` from product primitive vocabulary unless it stays only as a docs specimen. |
+| `foundations/colors` | `done` | `range` track background became `interval` track background; component-shaped token names are now test-banned. | Token names pass the Phase 7A noun test; docs examples still parse from validated token records. |
+| `foundations/typography` | `done` | Existing type tokens describe roles and allowed domains such as `body`, `meta`, `label`, `heading`, `display`, `code`, `number`, `message`, or `diagram`. | No banned component-shaped type aliases remain. |
+| `foundations/spacing` | `done` | Kept raw space scale plus semantic gap/inset/stack roles only. | The file remains scale/spacing-only and has no component-shaped aliases. |
+| `foundations/sizing` | `done` | Renamed workflow/component-sized aliases into role/domain language: `media`, `menu`, `query`, `editor`, `control-strip`, `data`, `step-control`, `interval`, and `overlay-tip`; deleted the duplicate menu item token exposed by the rename. | The noun test fails on future component names; all renamed consumers build. |
+| `foundations/layout` | `done` | Renamed component layout templates and responsive aliases into `media`, `editor`, `data`, `step-control`, `overlay-tip`, `query`, `menu`, and `control-strip` recipes. | No token names encode one component workflow unless explicitly allowlisted as a cross-system domain. |
+| `foundations/radii` | `done` | Verified no Phase 7A component-shaped radius tokens exist. | Raw radii stay centralized and primitive CSS references foundation tokens. |
+| `foundations/elevation` | `done` | Renamed `stepper`, `range`, and `tooltip` effects to `step-control`, `interval`, and `overlay-tip` effects. | Future component-named shadow/filter tokens fail tests outside the allowlist. |
+| `foundations/motion` | `done` | Renamed `range`, `tooltip`, and `composer` motion aliases to `interval`, `overlay-tip`, and `editor` state aliases. | Motion tokens describe reusable state, not one component surface. |
+| `foundations/textures` | `done` | Kept texture values and recipe examples here; public `texture` primitive stays retired. | Texture docs render from foundation examples, and no docs-only primitive returns. |
+| `foundations/iconography` | `done` | Kept icon names, aliases, semantic icon roles, sizes, and stroke policy. | `Icon` schema and examples align with the foundation icon registry. |
+| `foundations/state` | `done` | Kept shared statuses, intents, hierarchy, density, pressure metadata, command/form/upload/message/tool schemas, and data-attribute vocabulary; these are schema language, not foundation token names. | Primitive schemas import shared state language where appropriate. |
+| `foundations/accessibility` | `done` | Kept visually hidden, focus target, hit-target, reduced-motion, and forced-colors policy. | Accessibility utilities remain foundation-level and focus visuals route through elevation/state tokens. |
 
-## Primitive Folders
+## Phase 7B: Primitive Scope Closure
 
-Primitives own reusable HTML/UI vocabulary: DOM anatomy, ARIA, data attributes, stable classes, schemas, examples, metadata, render input, and local styles. They do not own workflow orchestration or arbitrary visual overrides.
+Primitives own reusable HTML/UI vocabulary. This phase decides the last ambiguous primitives and prevents component-specific pieces from hiding in primitive folders.
 
-### Primitive Migration Ledger
-
-| Source/current folder | Status | Target | Specific todo |
+| Primitive or family | Status | Exact action | Done when |
 | --- | --- | --- | --- |
-| `primitives/alert` | `keep` | `alert` | Added in Phase 3A. Inline or panel-level status message; use before feedback-specific wrappers. |
-| `primitives/avatar` | `keep` | `avatar` | Align sizes with `sizing`; keep identity-only scope. |
-| `primitives/badge` | `refine` | `badge` over `label` | Build on future `Label`; source tones/status from `state`. |
-| `primitives/brand-mark` | `keep` | `brand-mark` | Keep brand renderer; move icon/stroke semantics toward `iconography`. |
-| `primitives/bubble` | `rename` | `message-bubble` | Rename/generalize as conversation content surface; preserve export compatibility. |
-| `primitives/button` | `refine` | `button` plus optional `icon-button` | Replace open `variant` thinking with hierarchy/intent/state; decide whether icon-only mode becomes `IconButton`. |
-| `primitives/calendar-panel` | `rename` | `calendar-grid` plus `picker-surface` | Keep day-grid anatomy; move popover/panel chrome to picker/overlay primitives. |
-| `primitives/card` | `refine` | `card` over `surface` | Keep repeated-item card scope; delegate base chrome to `Surface`. |
-| `primitives/caret` | `keep` | `caret` | Align size/direction states with `iconography` and `state`. |
-| `primitives/chart-legend` | `rename` | `legend` | Generalize beyond charts; preserve chart-specific examples as states. |
-| `primitives/chart-surface` | `split` | `chart-frame`, `plot`, `chart-grid`, `axis`, `series-*`, `donut-ring`, `heatmap-grid` | Split SVG/class vocabulary into chart atom primitives; keep geometry in utilities/components. |
-| `primitives/checkbox` | `refine` | `checkbox` plus `field-row`/`option-row` | Keep binary input atom; move row shell debt into `FieldRow` or `OptionRow`. |
-| `primitives/chip` | `refine` | `chip` | Keep selectable inline filter; source selected/tone schemas from `state`. |
-| `primitives/cluster` | `keep` | `cluster` | Added in Phase 2A. Wrapping inline group for chips, tags, actions, tokens, and compact tool sets. |
-| `primitives/code` | `refine` | `code` | Keep inline/block code; audit syntax tokens against `colors` and `typography`. |
-| `primitives/container` | `keep` | `container` | Added during docs refactor. Page-width and inline-padding primitive for app/document landmarks. |
-| `primitives/composer-rail` | `split` | `token-rail`, `attachment-item` | Generalize rail tokens; keep composer-specific behavior in `Composer`. |
-| `primitives/composer-shell` | `rename` | `composer-surface` | Keep editor shell anatomy; move dock/footer patterns to `Dock` where generic. |
-| `primitives/concept-connector` | `keep` | `concept-connector` | Keep educational relation glyph; source stroke/texture from foundations. |
-| `primitives/concept-frame` | `keep` | `concept-frame` | Keep educational frame; do not use as generic preview chrome. |
-| `primitives/control-group` | `keep` | `control-group` | Added in Phase 2B. Grouped control primitive for segmented commands and compact tool sets. |
-| `primitives/data-surface` | `keep` | `data-surface` | Added in Phase 3B. Data and generated-output surface for metrics, meters, charts, tables, and compact data panels. |
-| `primitives/data-table-control` | `rename` | `table-toolbar` or `control-group` | Move table search/filter/action shell to generic control/table primitives. |
-| `primitives/data-table-pagination` | `rename` | `pagination` | Generalize page navigation footer. |
-| `primitives/data-table-shell` | `split` | `table`, `data-surface`, `scroll-area` | Split card/surface, scroll, table, row, cell, selection, and sort anatomy. |
-| `primitives/delta` | `keep` | `delta` | Source positive/negative/neutral tones from `state`; keep numeric change scope. |
-| `primitives/dialog-surface` | `keep` | `dialog-surface` | Added in Phase 3A. Dialog sizing and semantics inside `Overlay`; behavior stays in components. |
-| `primitives/diagram-controls` | `refine` | `diagram-controls` over `control-group`/`icon-button` | Keep diagram-specific command set only after generic control primitives exist. |
-| `primitives/diagram-edge` | `refine` | `diagram-edge` | Keep SVG edge primitive; split flow/canvas differences only if they diverge. |
-| `primitives/diagram-item` | `keep` | `diagram-item` | Align item kind/tone schemas with `state`. |
-| `primitives/diagram-legend` | `audit` | `legend` or `diagram-legend` | Merge into generic `Legend` unless edge/node marks require domain-specific anatomy. |
-| `primitives/diagram-minimap` | `keep` | `diagram-minimap` | Align dimensions with `sizing`; keep passive minimap scope. |
-| `primitives/diagram-node` | `keep` | `diagram-node` | Align role/tone schemas with `state` and `colors`. |
-| `primitives/diagram-rail` | `audit` | `rail` or `diagram-rail` | Collapse into generic `Rail` unless diagram tools require unique anatomy. |
-| `primitives/diagram-viewport` | `refine` | `diagram-viewport` | Keep pan/zoom surface shell; remove flow/canvas component naming where generic viewport covers it. |
-| `primitives/distribution` | `keep` | `distribution` | Keep part-to-whole rows; source color/tone mapping from foundations. |
-| `primitives/divider` | `keep` | `divider` | Align with `layout` spacing and border-width tokens. |
-| `primitives/disclosure-panel` | `keep` | `disclosure-panel` | Added in Phase 3A. Generic details/summary panel for trace and inspection content. |
-| `primitives/dock` | `keep` | `dock` | Added in Phase 2A. Attached action/footer dock for panels, overlays, and composer-like surfaces. |
-| `primitives/drawer-surface` | `keep` | `drawer-surface` | Added in Phase 3A. Drawer sizing and semantics inside `Overlay`; behavior stays in components. |
-| `primitives/dropzone` | `keep` | `dropzone` | Keep upload target; align target dimensions with `sizing`. |
-| `primitives/empty-state` | `keep` | `empty-state` | Build on `Surface`, `Stack`, `Icon`, and `Text` once those exist. |
-| `primitives/field` | `keep` | `field` | Keep label/description/message/count chrome; source status from `state`. |
-| `primitives/field-row` | `keep` | `field-row` | Added in Phase 3A. Dense setting/form row with label, description, meta, and control slots. |
-| `primitives/flow-node` | `keep` | `flow-node` | Keep SVG flow node; align tone schemas with diagram state. |
-| `primitives/focus-ring` | `demote` | `accessibility` specimen | Move real focus language to `accessibility`/`elevation`; keep public export only as compatibility/docs specimen until breaking release. |
-| `primitives/frame` | `keep` | `frame` | Keep educational/editorial specimen frame; prevent use as generic item preview chrome. |
-| `primitives/grid` | `keep` | `grid` | Added in Phase 2A. Tokenized responsive grid for repeated content and dense product layouts. |
-| `primitives/header` | `keep` | `header` | Added in Phase 2B. Title, description, meta, and action header anatomy. |
-| `primitives/heading` | `keep` | `heading` | Added in Phase 2B. Semantic heading primitive with Concrete size roles. |
-| `primitives/icon` | `refine` | `icon` | Make renderer depend on `iconography` foundation; keep currentColor policy. |
-| `primitives/icon-button` | `keep` | `icon-button` | Added in Phase 2B. Square icon command backed by Button semantics. |
-| `primitives/indicator` | `keep` | `indicator` | Source tone/status schemas from `state` and `colors`. |
-| `primitives/inline` | `keep` | `inline` | Added in Phase 2A. One-line alignment primitive for labels, metadata, controls, and compact actions. |
-| `primitives/input` | `refine` | `input` | Keep text input/control wrapper; reduce legacy wrapper naming after `FieldRow` and `IconButton` exist. |
-| `primitives/kbd` | `keep` | `kbd` | Source size/tone from `sizing` and `state`. |
-| `primitives/label` | `keep` | `label` | Added in Phase 2B. Passive label grammar for compact metadata, field labels, and status text. |
-| `primitives/link` | `refine` | `link` | Align `tone`/`variant` with hierarchy and navigation state vocabulary. |
-| `primitives/listbox` | `keep` | `listbox` | Added in Phase 3A. Selectable option region for picker, select, menu, and generated control workflows. |
-| `primitives/menu-group` | `keep` | `menu-group` | Added in Phase 3A. Labeled menu/listbox grouping region. |
-| `primitives/menu-surface` | `keep` | `menu-surface` | Added in Phase 3A. Generic command, suggestion, and option menu shell. |
-| `primitives/message-shell` | `rename` | `transcript-item` | Make role-aware transcript row generic; keep role/status mapping in `Message`. |
-| `primitives/option-row` | `refine` | `option-row` | Keep selectable row; remove command-specific assumptions and source state from `state`. |
-| `primitives/overlay` | `keep` | `overlay` | Added in Phase 3A. Generic overlay stack, placement, and scrim primitive. |
-| `primitives/panel` | `keep` | `panel` | Added in Phase 2B. Grouped surface with header, body, and footer anatomy. |
-| `primitives/picker-button` | `keep` | `picker-button` | Added in Phase 3A. Generic disclosure button for picker workflows. |
-| `primitives/picker-surface` | `keep` | `picker-surface` | Added in Phase 3A. Relative or floating picker content surface. |
-| `primitives/pill` | `refine` | `pill` over `label` | Build on `Label`; source tone/status from `state`. |
-| `primitives/preview-stage` | `demote` | docs-only preview renderer | Remove from public primitive registry when compatibility allows; docs should own preview constraints. |
-| `primitives/progress` | `refine` | `progress` plus possible `progress-ring` | Decide whether circular ring should become separate public primitive or stay a subpart. |
-| `primitives/radio` | `refine` | `radio` plus `field-row`/`option-row` | Keep exclusive input atom; stop sharing checkbox row internals once row primitive exists. |
-| `primitives/range-control` | `rename` | `range` | Rename two-thumb range anatomy; keep `RangeSlider` workflow in component. |
-| `primitives/rail` | `keep` | `rail` | Added in Phase 2A. Generic vertical or horizontal rail for scoped tools, navigation, and compact status. |
-| `primitives/reasoning-panel` | `split` | `trace-panel`, `trace-step` | Extract generic trace disclosure and step anatomy. |
-| `primitives/row` | `audit` | `field-row`, `option-row`, or `stack`/`inline` | Decide if generic row is real vocabulary; otherwise merge into more specific primitives. |
-| `primitives/scale-frame` | `tech-debt` | preview/composition primitive TBD | Low-quality local landing/docs integration. Keep temporarily, but replace raw scale and inline-style adapter with tokenized preview composition vocabulary. |
-| `primitives/search-input` | `keep` | `search-input` | Added in Phase 3A. Search input chrome with icon, token, shortcut, action, and trailing slots. |
-| `primitives/section` | `keep` | `section` | Added in Phase 2B. Titled grouping primitive inside panels, pages, and docs. |
-| `primitives/select` | `keep` | `select` | Keep native select control; align with input/field anatomy. |
-| `primitives/scroll-area` | `keep` | `scroll-area` | Added in Phase 2A. Tokenized overflow primitive for tables, menus, uploads, and transcript regions. |
-| `primitives/skeleton` | `keep` | `skeleton` | Align animation with `motion`; keep loading placeholder scope. |
-| `primitives/slider` | `keep` | `slider` | Align native scalar track/thumb tokens with `sizing` and `elevation`. |
-| `primitives/sparkline` | `keep` | `sparkline` | Keep tiny trend SVG; keep geometry data-driven. |
-| `primitives/spinner` | `keep` | `spinner` | Align size/tone with `sizing` and `state`. |
-| `primitives/split` | `keep` | `split` | Added in Phase 2A. Body/aside layout primitive for inspectors, actions, and side metadata. |
-| `primitives/stack` | `keep` | `stack` | Added in Phase 2A. Vertical rhythm primitive with density, role, divided, and gap semantics. |
-| `primitives/stat` | `refine` | `stat` | Align size/tone/variant schemas with `typography` and `state`. |
-| `primitives/stepper-control` | `rename` | `stepper` | Rename numeric decrement/input/increment anatomy; keep clamping in component. |
-| `primitives/suggestion-menu` | `audit` | `suggestion-menu` or internal `menu-surface` use | Keep public only if broader than Composer; otherwise demote/internalize later. |
-| `primitives/surface` | `keep` | `surface` | Added in Phase 2B. Base surface primitive with depth, tone, density, and state. |
-| `primitives/switch` | `keep` | `switch` | Align hit target, disabled, and status states with foundations. |
-| `primitives/tag` | `refine` | `tag` plus `token` | Keep metadata/entity tag; move removable value-token cases to `Token`. |
-| `primitives/textarea` | `keep` | `textarea` | Share text-control policy with `Input`. |
-| `primitives/text` | `keep` | `text` | Added in Phase 2B. Body, meta, caption, mono, numeric, and prose text roles. |
-| `primitives/texture` | `demote` | `textures` foundation specimen | Keep rendered texture examples in docs/foundation examples unless product UI truly consumes `Texture`. |
-| `primitives/tilt-frame` | `tech-debt` | surface/motion primitive TBD | Low-quality local landing-page primitive. Cursor-driven visual depth is too aesthetic-specific for the core surface vocabulary and needs a stricter role contract or demotion. |
-| `primitives/time-list` | `refine` | `time-list` over `listbox` | Keep time-specific option formatting; align list behavior with `Listbox`. |
-| `primitives/token` | `keep` | `token` | Added in Phase 3A. Generic selected value, scope, mention, and attachment token. |
-| `primitives/tool-call-panel` | `refine` | `tool-call-panel` over `trace-panel` | Keep AI-native tool disclosure only if it builds on generic trace primitives. |
-| `primitives/toolbar-control` | `split` | `toolbar-surface`, `toolbar-button`, `control-group` | Keep toolbar component behavior; split stateless toolbar anatomy. |
-| `primitives/tooltip` | `keep` | `tooltip` | Align placement/open/disabled states with `state`. |
-| `primitives/upload-field` | `refine` | `upload-field` plus `scroll-area`/`thumbnail` | Keep upload stack only if reusable; extract thumbnail/scroll behaviors. |
-| `primitives/upload-item` | `refine` | `upload-item` plus `thumbnail` | Keep queue row; extract shared preview tile to `Thumbnail`. |
-| `primitives/validation-list` | `keep` | `validation-list` | Added in Phase 3A. Validation issue list anatomy for forms, settings, and generated workflows. |
-| `primitives/wordmark` | `keep` | `wordmark` | Keep brand typography; source sizing/type roles from foundations. |
+| `primitives/progress` | `done` | Split `ProgressRing` and `SegmentedProgress` into public primitives with schemas, examples, metadata, registry entries, stylesheet ownership, and subpath exports. `Progress` now owns only linear bounded/indeterminate progress. | Static examples cover every exported runtime part and the Phase 7B scope test keeps the split closed. |
+| `primitives/tool-call-panel` | `done` | Kept `ToolCallStatusChip`, `ToolCallBody`, `ToolOutput`, and `ToolCodeBlock` as item-owned anatomy because they only make sense inside the tool-call disclosure and one tool-call message workflow. | The Phase 7B scope test enforces the exact documented subpart list: `ToolCallStatusChip`, `ToolCallBody`, `ToolOutput`, and `ToolCodeBlock`. |
+| `primitives/time-list` | `done` | Rebuilt over `Listbox` and `OptionRow`; `TimeList` now owns only time-specific option formatting, placement, and selection callback wiring. | Time picker keeps rendering, and list behavior is shared with the menu/picker vocabulary. |
+| `primitives/row` | `done` | Demoted and deleted. It was preview filler only; examples now use `OptionRow`, while setting/form rows use `FieldRow` and layout remains `Stack`/`Inline`/`Grid`/`Split`. | `row` is retired from folder, barrel, registry, style manifest, class-name map, registry types, and examples. |
+| `primitives/diagram-rail` | `done` | Kept as diagram-domain grammar: passive canvas tool rail, active mark, and diagram viewport placement. It is not generic `Rail`. | Metadata records why it differs from `Rail`, and styles use `diagram-*` vocabulary only. |
+| `primitives/diagram-legend` | `done` | Kept as diagram-domain legend for node/edge marks. It is separate from data `Legend` because it owns diagram mark grammar. | Metadata records why it differs from `Legend`, examples show node/edge marks, and helpers are collapsed or justified. |
+| `primitives/diagram-controls`, `diagram-edge`, `diagram-viewport` | `done` | Verified names, selectors, and schemas stay generic diagram vocabulary, not `diagram-canvas` or `flow-diagram` component vocabulary. | Existing Phase 6 diagram style tests cover these primitives and no component-shaped names return. |
+| `primitives/icon` | `done` | Verified renderer is a strict iconography-foundation adapter: icon names from the foundation, `currentColor` policy, tokenized scale/stroke only. | Icon examples and schema parse against the foundation icon registry. |
+| `badge`, `pill`, `tag`, `chip`, `label`, `token` | `done` | Final label-family audit. Kept distinct jobs: passive metadata label, status badge, rounded pill, selectable chip, entity tag, and selected/removable token. Removed no valid items because the family already had separate schemas and examples. | Each item has a one-line role distinction in metadata and no two examples teach the same concept. |
+| `button`, `icon-button`, `toolbar-control`, `control-group` | `done` | Final control-family audit. Confirmed no duplicate toolbar button abstraction; synchronized `ControlGroup` metadata with schema-owned `density` and `content`; hierarchy/intent/density semantics remain consistent. | Control family schemas pass prop-policy tests and toolbar remains primitive vocabulary only. |
+| `input`, `textarea`, `select`, `checkbox`, `radio`, `switch`, `slider`, `range`, `stepper`, `field`, `field-row` | `done` | Final form-control audit passed. Controls own native input anatomy only, form layout lives in `Field`/`FieldRow`/layout primitives, and components own validation/state flow. | No control primitive owns component workflow or arbitrary layout overrides. |
+| `surface`, `panel`, `section`, `header`, `card`, `data-surface`, `frame`, `concept-frame` | `done` | Final surface-family audit passed. `Card` is repeated item surface, `DataSurface` is generated/data panel, and `Frame`/`ConceptFrame` are educational/editorial specimen grammar, not generic docs chrome. | Metadata and examples make scopes non-overlapping. |
+| `stack`, `inline`, `cluster`, `grid`, `split`, `scroll-area`, `dock`, `rail` | `done` | Final layout-family audit passed. Layout primitives provide the exhaustive layout answer before components add wrappers. | Component code uses these for layout and no component-local CSS appears. |
+| `listbox`, `option-row`, `menu-surface`, `menu-group`, `picker-button`, `picker-surface`, `overlay`, `dialog-surface`, `drawer-surface`, `tooltip` | `done` | Final interaction-shell audit passed. Picker/menu/overlay pieces are generic and components own open state, focus flow, and positioning behavior. | No picker/menu component requires a component-specific primitive. |
+| `table`, `pagination`, `distribution`, `stat`, `delta`, `indicator`, `sparkline`, `progress` | `done` | Final data-display audit passed. Data values and geometry are schema/data driven, while visual policy routes through state/foundation tokens. | Data primitives pass dynamic geometry allowlists and prop-policy tests. |
+| Chart atoms: `chart-frame`, `plot`, `chart-grid`, `axis`, `target-line`, `series-line`, `series-point`, `series-bar`, `donut-ring`, `heatmap-grid`, `legend` | `done` | Final chart-atom audit passed. SVG anatomy stays in primitives, math stays in utilities/components, and chart shell JSX stays in components. | Chart components render actual JSX shells and utilities stay algorithmic. |
+| Diagram atoms: `diagram-item`, `diagram-node`, `flow-node`, `diagram-minimap`, `concept-connector` | `done` | Final diagram/dataflow audit passed. SVG/dataflow anatomy stays as domain primitives; no component-specific canvas/flow names remain in foundations. | Diagram tests and catalog audit pass with generic names. |
+| AI/message atoms: `transcript-item`, `message-bubble`, `trace-panel`, `tool-call-panel`, `composer-surface`, `token-rail` | `done` | Final agent-workflow audit passed. Message, trace, and editor shell primitives are reusable AI-native vocabulary; component state and editor orchestration stay in components/utilities. | Message, reasoning, tool-call, and composer components compose primitives without private internal primitive folders. |
+| Media/upload atoms: `dropzone`, `upload-field`, `upload-item`, `avatar`, `empty-state`, `skeleton`, `spinner`, `alert`, `validation-list` | `done` | Final feedback/media audit. Kept upload queue chrome in primitives, file/image validation and preview state in components/utilities, and removed the remaining arbitrary `style` escape from `Skeleton`. | No premature `thumbnail` or `attachment-item` primitive exists without a second workflow proving it. |
+| Brand/editorial/education: `brand-mark`, `wordmark`, `text`, `heading`, `code`, `kbd`, `divider`, `caret` | `done` | Final support-vocabulary audit passed. These remain reusable text, brand, editorial, and education atoms rather than docs-only render helpers. | Catalog examples remain useful and no docs-only primitive reappears. |
 
-### Missing Target Primitive Add Queue
+## Phase 7C: Primitive Family Consistency
 
-These are target folders with no current public folder. Add them only when a component slice needs them or when they replace a migration-era primitive.
+This sweep closes the final non-structural primitive family audit before enforcement. It is intentionally narrow: do not turn it into visual polish or a new ontology phase.
 
-| Target folder | Priority | Specific todo |
+| Family | Status | Exact action | Done when |
+| --- | --- | --- | --- |
+| Label family | `done` | Audited `badge`, `pill`, `tag`, `chip`, `label`, and `token` for distinct public jobs, examples, schemas, and metadata. | Role distinctions are clear and no primitive is a duplicate label wrapper. |
+| Control family | `done` | Audited `button`, `icon-button`, `toolbar-control`, and `control-group`; synchronized `ControlGroup` metadata with schema semantics. | Control props remain semantic and toolbar vocabulary stays primitive-level. |
+| Media/support family | `done` | Audited `dropzone`, `upload-field`, `upload-item`, `avatar`, `empty-state`, `skeleton`, `spinner`, `alert`, and `validation-list`; removed `Skeleton` arbitrary `style` passthrough. | Media and feedback primitives stay rigid, and file/image workflow state remains in components/utilities. |
+
+## Phase 8: Component Closure
+
+Components are behavior and workflow surfaces. The audit found the implementation layer is strong, but the component layer is not yet as closed as foundations and primitives because a few public component bundles still carry compatibility wrappers, active render adapters, and rich slot examples that cannot be fully expressed by serializable Zod input.
+
+Current component audit result:
+
+- Implementation boundary: `A-`. Component implementations assemble primitives/utilities, do not own CSS, do not own Concrete class names, and do not style raw DOM.
+- Component ontology: `B+`. Most components are correctly scoped workflows, but `FormShell` still exports generic layout subparts that now overlap with primitives.
+- Item-bundle purity: `B`. Several `index.tsx` files own heavy renderInput/demo assembly and sibling component composition.
+- Aesthetic readiness: blocked only by Phase 8. Foundations/primitives are ready; components need this closure pass first.
+
+| Component scope | Status | Exact action | Done when |
+| --- | --- | --- | --- |
+| Component audit checkpoint | `done` | Inspected all 35 component folders, high-risk implementation files, utilities, indexes, and the import-boundary test contract. | `bun test packages/concrete/src/tests/import-boundaries.test.ts` passes and this phase records the remaining debt honestly. |
+| Docs shell components | `audit` | `nav`, `footer`, and `feature-card` were preserved from the docs refactor while rebasing. Decide whether they are durable package components or should collapse back into docs/app composition in Phase 8. | Each item is either defended as reusable component vocabulary or demoted with registry/export/style/test cleanup in one wave. |
+| Runtime export contract | `audit` | Add a component equivalent of the primitive runtime subpart ledger. `component.tsx` should export one runtime component unless `PLAN.md` names the exception. | The test fails on new multi-export component files unless the exception is documented. Current known pressure: `form-shell`. |
+| Component dependency tiers | `audit` | Promote the current message exception into a named acyclic component tier map. Keep all other component implementation imports banned. | `Message` may be a declared lower-tier component for `ReasoningMessage` and `ToolCallMessage`; no other component implementation dependency appears without a ledger row. |
+| `form-shell` | `audit` | Decide whether to keep it as public compatibility, delete it, or recast consumers directly onto `Panel`, `Section`, `Grid`, `FieldRow`, and `Dock`. Breaking change is allowed if this row records the decision. | No generic form layout wrapper remains as a component unless it is explicitly a compatibility API surface with a retirement plan. |
+| Component `index.tsx` files | `refine` | Keep indexes focused on public re-exports, item definition, seed, and renderInput adapter. Move durable fixtures to examples or schemas only when that improves ownership. Do not split one coherent adapter just for LOC. | Heavy indexes such as `settings-panel`, `form-shell`, `search-bar`, and `form-dialog` have an explicit rule: allowed render adapter, or simplified. |
+| RenderInput and examples | `refine` | Allow sibling component composition only inside examples/renderInput when it is demo output, not runtime implementation. Prefer primitive composition when the same UI could be assembled without component dependencies. | Tests distinguish implementation imports from example/renderInput composition, and examples remain serializable/server-renderable. |
+| Rich child and slot serialization | `deferred` | Do not implement the recursive Concrete node language in this phase. Record that `SettingsPanel`, form overlays, search menus, and similar slots still need JSX adapters until node serialization is greenlit. | Serializable own props stay schema-validated; rich React slots remain typed runtime props or renderInput adapters. |
+| Large controller components | `keep` | Keep `Composer`, `DataTable`, `CommandMenu`, and `DiagramCanvas` whole when each file owns one controller/event/render flow. Promote only reusable algorithms to utilities and reusable JSX to primitives/components. | No split is made solely for LOC. Large files are acceptable when the concern is singular and guarded by tests. |
+| Component schema locality | `deferred` | Central public schemas stay for compatibility. Item-local schema ownership can be revisited in a breaking schema pass. | No duplicate schema truth appears; item `schema.ts` files continue to expose the correct public schema boundary. |
+| Phase 8 gates | `pending` | After implementation, run `bun run format`, registry/import-boundary tests, `bun test`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. | The Recent Gate Log records a passing Phase 8E checkpoint and components are marked structurally closed. |
+
+## Phase 7D: Enforcement
+
+Add or tighten tests in this order:
+
+1. Foundation token noun policy: scan foundation `styles.css` files and fail on banned component nouns outside the explicit allowlist.
+2. Primitive subpart export policy: scan `component.tsx` and `index.tsx` exports; fail on multiple runtime component exports unless the primitive has a written exception in this file.
+3. Primitive registry truth: every public primitive folder appears in the registry/barrel, and every retired primitive slug stays deleted from folders, registry, exports, styles, and docs smoke targets.
+4. Primitive dependency flow: primitives may import foundations, schemas, icons, factories, utilities, and lower-level primitives only where the import-boundary test allows it; components must not import sibling components unless the declared tier map allows it.
+5. Foundation consumption: primitive CSS declarations resolve through foundation variables or documented non-visual scanner exceptions.
+6. Docs import boundary: docs import only public `@rubriclab/concrete` surfaces.
+7. Full item render contract: every registered example and seed renders to static markup.
+
+Runtime subpart ledger:
+
+These primitive component files intentionally export more than one runtime JSX part. Every other primitive `component.tsx` must export one runtime component only.
+
+| Primitive | Allowed runtime exports | Rationale |
 | --- | --- | --- |
-| `primitives/stack` | done | Added in Phase 2A; migrate layout wrappers to this primitive when touching their owning rows. |
-| `primitives/inline` | done | Added in Phase 2A; migrate one-line label/action/meta layouts to this primitive when touching their owning rows. |
-| `primitives/cluster` | done | Added in Phase 2A; migrate wrapping chip/tag/action/token groups to this primitive when touching their owning rows. |
-| `primitives/grid` | done | Added in Phase 2A; migrate form/data repeated layouts to this primitive when touching their owning rows. |
-| `primitives/split` | done | Added in Phase 2A; migrate body/aside and title/action layouts to this primitive when touching their owning rows. |
-| `primitives/rail` | done | Added in Phase 2A; use it to audit `diagram-rail` and `composer-rail` futures. |
-| `primitives/dock` | done | Added in Phase 2A; use it to audit composer, overlay, drawer, and panel footer shells. |
-| `primitives/scroll-area` | done | Added in Phase 2A; use it to audit table, menu, upload, and transcript overflow. |
-| `primitives/spacer` | defer | Do not add unless real gaps remain after `Stack`, `Inline`, and `Cluster` adoption. |
-| `primitives/surface` | done | Added in Phase 2B; migrate shell/chrome wrappers to this primitive when touching their owning rows. |
-| `primitives/panel` | done | Added in Phase 2B; migrate form/settings/panel shells to this primitive when touching their owning rows. |
-| `primitives/section` | done | Added in Phase 2B; migrate titled grouping anatomy to this primitive when touching their owning rows. |
-| `primitives/header` | done | Added in Phase 2B; migrate data-card/form/metric headers to this primitive when touching their owning rows. |
-| `primitives/text` | done | Added in Phase 2B; migrate raw type recipes to this primitive when touching their owning rows. |
-| `primitives/heading` | done | Added in Phase 2B; migrate raw heading recipes to this primitive when touching their owning rows. |
-| `primitives/label` | done | Added in Phase 2B; migrate passive label grammar under badge, pill, tag, and form labels when touching their owning rows. |
-| `primitives/icon-button` | done | Added in Phase 2B; migrate icon-only Button and toolbar actions to this primitive when touching their owning rows. |
-| `primitives/control-group` | done | Added in Phase 2B; migrate segmented and adjacent control shells to this primitive when touching their owning rows. |
-| `primitives/toolbar-surface` | defer | Add only if `toolbar-control` cannot collapse onto `ControlGroup`, `Dock`, and `IconButton`. |
-| `primitives/toolbar-button` | defer | Add only if `IconButton` and `Button` do not cover dense toolbar command semantics. |
-| `primitives/field-row` | done | Added in Phase 3A; migrate settings and form rows away from `form-layout` when touching components. |
-| `primitives/token` | done | Added in Phase 3A; migrate search, select, composer, mention, and attachment chips toward this primitive. |
-| `primitives/listbox` | done | Added in Phase 3A; migrate select/menu option regions toward this primitive. |
-| `primitives/overlay` | done | Added in Phase 3A; migrate form dialogs/drawers and future popovers through this stack primitive. |
-| `primitives/dialog-surface` | done | Added in Phase 3A; migrate dialog panel sizing out of form-specific primitives. |
-| `primitives/drawer-surface` | done | Added in Phase 3A; migrate drawer panel sizing out of form-specific primitives. |
-| `primitives/menu-group` | done | Added in Phase 3A; migrate command/menu group sections toward this primitive. |
-| `primitives/alert` | done | Added in Phase 3A; migrate inline feedback and status callouts toward this primitive. |
-| `primitives/validation-list` | done | Added in Phase 3A; migrate validation issue list anatomy toward this primitive. |
-| `primitives/disclosure-panel` | done | Added in Phase 3A; use as generic details panel before adding trace-specific panels. |
-| `primitives/data-surface` | done | Added in Phase 3B; `metric-shell` and `data-card-header` were deleted after consumers moved to `DataSurface` and `Header`. |
-| `primitives/chart-frame` | done | Chart shell, state message, variant marker, and surface height contract. |
-| `primitives/plot` | done | SVG plot root with accessibility title and Concrete sizing contract. |
-| `primitives/chart-grid` | done | Gridline group and plot background primitive. |
-| `primitives/axis` | done | Axis, baseline, tick, row, value, and endpoint label primitive. |
-| `primitives/series-line` | done | Line and area path primitive only. |
-| `primitives/series-bar` | done | Bar, track, comparison, and stack segment primitive. |
-| `primitives/series-point` | done | Point and endpoint circle primitive. |
-| `primitives/target-line` | done | Goal/threshold marker primitive. |
-| `primitives/donut-ring` | done | Donut plot, track, segment, and center value primitive. |
-| `primitives/heatmap-grid` | done | Heatmap label/cell grid primitive. |
-| `primitives/trace-panel` | done | Generic agent trace disclosure primitive with summary and step anatomy. |
-| `primitives/trace-step` | defer | Do not add until step anatomy is reused outside `TracePanel`; premature split would create fake vocabulary. |
-| `primitives/token-rail` | done | Horizontal token rail for mentions, attachments, scopes, and selected values. |
-| `primitives/attachment-item` | defer | Add only when upload/composer attachment rows need vocabulary beyond `Token`, `UploadItem`, or `TokenRail`. |
-| `primitives/thumbnail` | defer | Add only when file/image preview tiles need reusable anatomy beyond `UploadItem` and existing media components. |
+| `axis` | `ChartAxis`, `ChartBaseline`, `ChartTickLabel`, `ChartAxisLabel`, `ChartRowLabel`, `ChartValueLabel`, `ChartEndLabel` | One chart-axis anatomy family for SVG labels and axis marks. |
+| `chart-frame` | `ChartFrame`, `ChartMessage` | Chart shell plus its empty/loading/error message anatomy. |
+| `chart-grid` | `ChartGrid`, `ChartPlotBackground` | One SVG grid/background anatomy family. |
+| `checkbox` | `Checkbox`, `ChoiceRow` | Native choice input plus its label row anatomy shared with radio semantics. |
+| `code` | `CodeBlock`, `InlineCode` | One code vocabulary with block and inline display forms. |
+| `composer-surface` | `ComposerSurface`, `ComposerEditor`, `ComposerFooter`, `ComposerToolbar`, `ComposerMenuLayer`, `ComposerSubmitDock`, `ComposerSendButton` | Reusable AI editor surface anatomy; composer behavior remains in the component. |
+| `diagram-edge` | `DiagramEdges`, `DiagramEdgePath` | One diagram-edge SVG anatomy family. |
+| `diagram-viewport` | `DiagramShell`, `DiagramHeader`, `DiagramViewport`, `DiagramStage`, `DiagramElement`, `DiagramElementButton`, `DiagramFooter`, `DiagramSvg` | One diagram viewport anatomy family for canvas-like diagrams. |
+| `donut-ring` | `DonutPlot`, `DonutCenter`, `DonutTrack`, `DonutSegment` | One donut SVG anatomy family. |
+| `heatmap-grid` | `HeatmapGrid`, `HeatmapCorner`, `HeatmapColumnLabel`, `HeatmapRowLabel`, `HeatmapCell` | One heatmap grid anatomy family. |
+| `input` | `Input`, `InputControl` | Field-wrapped input plus bare input control. |
+| `legend` | `Legend`, `LegendItem` | Legend list plus item anatomy. |
+| `pagination` | `Pagination`, `PaginationButton` | Pagination nav plus item anatomy. |
+| `range` | `Range`, `RangeTrack`, `RangeInput`, `RangeValues` | One range-control anatomy family. |
+| `series-bar` | `ChartBar`, `ChartBarTrack`, `ChartBarComparison`, `ChartStackSegment` | One chart-bar SVG anatomy family. |
+| `series-line` | `ChartArea`, `ChartLine` | One chart-line SVG anatomy family. |
+| `series-point` | `ChartPoint`, `ChartEndpoint` | One chart-point SVG anatomy family. |
+| `stepper` | `Stepper`, `StepperAction`, `StepperInput` | One numeric step-control anatomy family. |
+| `table` | `TableViewport`, `Table`, `TableHead`, `TableBody`, `TableRow`, `TableHeaderCell`, `TableCell`, `TableSelectionHeaderCell`, `TableSelectionCell`, `TableSelectionInput`, `TableSortButton`, `TableEmpty`, `TableEmptyCell` | One table anatomy family; data behavior stays in components. |
+| `token-rail` | `TokenRail`, `TokenRailItem` | Token rail plus item anatomy. |
+| `tool-call-panel` | `ToolCallPanel`, `ToolCallStatusChip`, `ToolCallBody`, `ToolOutput`, `ToolCodeBlock` | One tool-call disclosure anatomy family. |
+| `toolbar-control` | `ToolbarControl`, `ToolbarControlGroup`, `ToolbarControlSeparator`, `ToolbarControlButton`, `ToolbarFormatGlyph` | One toolbar anatomy family. |
+| `trace-panel` | `TracePanel`, `TraceSteps`, `TraceStep` | One trace disclosure anatomy family. |
+| `transcript-item` | `TranscriptItem`, `TranscriptPlain`, `TranscriptMetaItem` | One transcript item anatomy family. |
 
-## Component Folders
+## Retired Primitive Names
 
-Components own orchestration, controlled state, schema-bound behavior, data mapping, keyboard flow, and workflow semantics. Components should assemble primitives and approved lower-tier components. They should not own CSS or styled raw DOM.
+These names must stay deleted from public primitive folders, registry, exports, styles, tests, docs smoke targets, and foundation token names:
 
-| Current folder | Status | Must assemble | Specific todo |
-| --- | --- | --- | --- |
-| `components/area-chart` | `refine` | Chart primitives and geometry utilities. | Rebuild on split chart atoms; keep area geometry/scales in utilities. |
-| `components/bar-chart` | `refine` | Chart primitives and geometry utilities. | Rebuild on `SeriesBar`, `Axis`, `ChartFrame`; keep categorical scaling in utilities. |
-| `components/chart` | `compat` | Focused chart components. | Keep discriminated-union router for compatibility; do not add new chart behavior here. |
-| `components/command-menu` | `refine` | `MenuSurface`, `MenuGroup`, `SearchInput`, `OptionRow`, `Kbd`, `EmptyState`, `Spinner`. | Keep filtering/keyboard behavior; remove command assumptions from primitives. |
-| `components/composer` | `refine` | `ComposerSurface`, `TokenRail`, `Toolbar`, `SuggestionMenu`, `AttachmentItem`, `Button`. | Keep file whole while it owns one editor/controller flow; replace composer-specific primitive anatomy with generic token/dock/surface vocabulary where possible. |
-| `components/data-table` | `refine` | `DataSurface`, `Header`, `Table`, `TableToolbar`, `Pagination`, `Checkbox`, `Button`, `EmptyState`. | Keep sort/filter/pagination state and row data mapping; retire data-table-specific primitive names. |
-| `components/date-picker` | `refine` | `Field`, `PickerButton`, `PickerSurface`, `CalendarGrid`, `Button`. | Keep date parsing/month behavior; rename picker/calendar primitives. |
-| `components/date-range-picker` | `refine` | `Field`, `PickerButton`, `PickerSurface`, `CalendarGrid`, `Button`. | Keep range selection behavior; share calendar primitives with date picker. |
-| `components/diagram-canvas` | `refine` | `DiagramViewport`, `DiagramNode`, `DiagramItem`, `DiagramEdge`, `Rail`, `DiagramControls`, `DiagramMinimap`, `Legend`. | Keep pan/zoom/fit/select behavior; remove remaining component nouns from foundation tokens. |
-| `components/donut-chart` | `refine` | `ChartFrame`, `DonutRing`, `Legend`, `Stat`. | Keep arc math in utilities; split donut anatomy out of `chart-surface`. |
-| `components/feature-card` | `tech-debt` | `Surface`, `Header`, `Icon`, `Text`, `Stack`. | Low-quality local landing-page integration. Either rebuild as a strict primitive assembly with no bespoke wrapper semantics or demote to docs/app composition. |
-| `components/file-upload` | `refine` | `Field`, `Dropzone`, `UploadItem`, `Progress`, `Button`, `ScrollArea`, `Thumbnail`. | Keep queue/validation behavior; add scroll/thumbnail primitives when needed. |
-| `components/footer` | `keep` | `Surface`, `Container`, `Stack`, `Grid`, `Header`, `Text`, `Label`, `TextLink`. | Added during docs refactor. Generic footer for brand copy, grouped links, actions, and aside slot. |
-| `components/flow-diagram` | `refine` | `DataSurface`, `Header`, `DiagramViewport`, `FlowNode`, `DiagramEdge`, `DiagramControls`, `Legend`. | Decide which diagram primitives stay domain-specific after generic surface/header/legend exist. |
-| `components/form-dialog` | `refine` | `Overlay`, `DialogSurface`, `Panel`, `Header`, `Dock`, `Button`. | Replace form-specific overlay primitives with generic overlay/surface primitives. |
-| `components/form-drawer` | `refine` | `Overlay`, `DrawerSurface`, `Panel`, `Header`, `Dock`, `Button`. | Replace form-specific drawer primitives with generic overlay/surface primitives. |
-| `components/form-shell` | `audit` | `Panel`, `Header`, `Stack`, `Grid`, `Dock`. | Decide whether it remains a component or becomes compatibility wrapper over primitives. |
-| `components/heatmap` | `refine` | `ChartFrame`, `HeatmapGrid`, `Legend`. | Keep intensity/data mapping in utilities; split heatmap anatomy. |
-| `components/image-upload` | `refine` | `Field`, `Dropzone`, `Thumbnail`, `UploadItem`, `Avatar`, `Progress`. | Extract shared image/file preview tile into `Thumbnail`. |
-| `components/line-chart` | `refine` | `ChartFrame`, `Plot`, `ChartGrid`, `Axis`, `SeriesLine`, `SeriesPoint`, `TargetLine`, `Legend`. | Keep geometry/scales in utilities; use chart atom primitives. |
-| `components/message` | `refine` | `TranscriptItem`, `Avatar`, `MessageBubble`, `Inline`, `Button`, `Tooltip`. | Keep role/status/avatar mapping; rename message primitives. |
-| `components/meter` | `refine` | `DataSurface`, `Progress`, `ProgressRing`, `Text`. | Now uses `DataSurface`; next pass should only tighten meter/ring visual semantics if visual QA is in scope. |
-| `components/metric-card` | `refine` | `DataSurface`, `Stat`, `Delta`, `Sparkline`, `Indicator`, `Text`. | Now uses `DataSurface`; keep trend/status derivation in component. |
-| `components/multi-select` | `refine` | `Field`, `PickerButton`, `PickerSurface`, `Token`, `Listbox`, `OptionRow`, `SearchInput`. | Keep selected/filter/max behavior; retire select-specific primitive names. |
-| `components/nav` | `keep` | `Surface`, `Container`, `Cluster`, `Inline`, `TextLink`, `BrandMark`, `Text`. | Added during docs refactor. Generic top-level navigation with current-link semantics. |
-| `components/number-stepper` | `refine` | `Field`, `Stepper`, `Input`, `ControlGroup`. | Keep controlled/uncontrolled value, clamping, min/max/step behavior. |
-| `components/password-input` | `refine` | `Field`, `Input`, `IconButton`, `Tooltip`. | Keep visibility state; ensure action anatomy comes from primitives. |
-| `components/range-slider` | `refine` | `Field`, `Range`, `Input`. | Keep tuple value ordering and clamping; rename range primitive. |
-| `components/reasoning-message` | `refine` | `TranscriptItem`, `TracePanel`, `TraceStep`, `Spinner`. | Keep reasoning data mapping; split reasoning primitive into generic trace primitives. |
-| `components/search-bar` | `refine` | `SearchInput`, `Token`, `Button`, `SuggestionMenu` or `MenuSurface`. | Keep query/tokens/submit/menu behavior; unify token primitive. |
-| `components/settings-panel` | `refine` | `Panel`, `Section`, `FieldRow`, `Switch`, `Select`, `Input`, `Button`. | Replace form-layout anatomy with generic panel/section/field-row primitives. |
-| `components/stacked-bar-chart` | `refine` | `ChartFrame`, `Plot`, `Axis`, `SeriesBar`, `Legend`. | Keep stack normalization in utilities; use chart atom primitives. |
-| `components/time-picker` | `refine` | `Field`, `PickerButton`, `PickerSurface`, `TimeList`, `Listbox`. | Keep interval generation; align `TimeList` with listbox behavior. |
-| `components/tool-call-message` | `refine` | `TranscriptItem`, `TracePanel`, `ToolCallPanel`, `Code`, `FeedbackPanel`. | Keep tool-to-message status mapping; build on trace primitives. |
-| `components/toolbar` | `refine` | `ToolbarSurface`, `ToolbarButton`, `ControlGroup`, `Tooltip`, `Kbd`, `Icon`. | Keep public API and keyboard behavior; split stateless toolbar anatomy. |
-| `components/validation-summary` | `refine` | `FeedbackPanel`, `ValidationList`, `Alert`, `Button`. | Move issue-list anatomy into primitives; keep validation mapping here. |
+`bubble`, `calendar-panel`, `chart-legend`, `chart-surface`, `composer-rail`, `data-card-header`, `data-table-control`, `data-table-pagination`, `data-table-shell`, `feedback-panel`, `focus-ring`, `form-layout`, `form-overlay`, `menu-shell`, `message-shell`, `metric-shell`, `picker-control`, `picker-shell`, `preview-stage`, `range-control`, `reasoning-panel`, `row`, `search-field`, `search-token`, `select-control`, `select-menu`, `stepper-control`, `suggestion-menu`, `texture`.
 
-## Internal Primitive Folders
+Deferred primitive names that should not be added until a second workflow proves them:
 
-| Folder | Status | Specific todo |
-| --- | --- | --- |
-| `primitives/internal/file-upload` | `keep` | Keep private workflow JSX until upload primitives fully cover file/image upload composition. Do not expose publicly without schema/examples/docs. |
-| `primitives/internal/message` | `audit` | Collapse after `TranscriptItem` and `MessageBubble` exist, or keep private if it remains message workflow glue. |
+`attachment-item`, `spacer`, `thumbnail`, `toolbar-button`, `toolbar-surface`, `trace-step`.
 
-## Implementation Phases
+## Phase 7D Gates
 
-### Phase 1: Foundation Concept Split
+Run narrow gates after each implementation chunk:
 
-- [x] Add `foundations/state`.
-- [x] Move shared tone/status/hierarchy/density/intent schemas into `state`.
-- [x] Add `foundations/sizing`.
-- [x] Move dimensions/measures/hit-targets/tracks/controls from `spacing` into `sizing`.
-- [x] Add `foundations/layout`.
-- [x] Move layout recipes/templates/z-index/breakpoint policy from `spacing` into `layout`.
-- [x] Add `foundations/iconography`.
-- [x] Preserve `icons` subpath while making icon semantics foundation-backed.
-- [x] Add `foundations/accessibility`.
-- [x] Move visually-hidden/focus-target/reduced-motion/forced-colors policy there.
-- [ ] Strengthen token-name tests for component noun bans beyond the current retired-token guard.
+- `bun run format`
+- `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`
+- Add focused tests for the files touched by the row.
+- `bun run typecheck`
+- `bun run check`
 
-### Phase 2: Generic Layout, Surface, And Text Vocabulary
+Run full gates before marking Phase 7 complete:
 
-- [x] Build `Stack`, `Inline`, `Cluster`, `Grid`, `Split`, `Rail`, `Dock`, `ScrollArea`.
-- [x] Build `Surface`, `Panel`, `Section`, `Header`.
-- [x] Build `Text`, `Heading`, `Label`.
-- [x] Build `IconButton` and `ControlGroup`.
-- [ ] Convert one meaty vertical slice before broad migration: `settings-panel` or `data-table`.
+- `bun run format`
+- `bun test`
+- `bun run typecheck`
+- `bun run check`
+- `bun run build`
+- `bun run visual:smoke`
+- `bun run catalog:audit`
 
-### Phase 3: Rename And Split Migration-Era Primitives
+After `bun run build` or `bun run catalog:audit`, restore `apps/docs/next-env.d.ts` to the production route import if Next rewrites it:
 
-- [x] Add target forms/overlays vocabulary: `FieldRow`, `Overlay`, `DialogSurface`, and `DrawerSurface`.
-- [x] Add target picker/menu/select vocabulary: `PickerButton`, `PickerSurface`, `SearchInput`, `MenuSurface`, `MenuGroup`, and `Listbox`.
-- [x] Add target feedback/token/disclosure vocabulary: `Alert`, `ValidationList`, `Token`, and `DisclosurePanel`.
-- [x] Delete legacy forms/overlays primitives: `form-layout` and `form-overlay`.
-- [x] Delete legacy picker/menu/search/select/token/feedback primitives: `picker-control`, `picker-shell`, `search-field`, `menu-shell`, `select-control`, `select-menu`, `search-token`, and `feedback-panel`.
-- [x] Data surfaces: add `data-surface`, delete `metric-shell` and `data-card-header`, and migrate metric/meter/chart/table headers.
-- [ ] Data/table/chart: split `data-table-*`, `chart-surface`, and `chart-legend`.
-- [ ] Agent/composer/message: rename `message-shell`, `bubble`, `composer-shell`; split `reasoning-panel`, `composer-rail`, and `toolbar-control`.
-- [ ] Docs/specimens: demote `preview-stage`, `focus-ring`, and `texture` from public primitive vocabulary when compatibility allows.
+```ts
+import "./.next/types/routes.d.ts";
+```
 
-### Phase 4: Prop Discipline
+## Recent Gate Log
 
-- [ ] Audit every primitive schema for raw visual override props.
-- [ ] Replace open visual `variant` props with role/hierarchy/intent/density/state where possible.
-- [ ] Keep `className` root-only for compatibility.
-- [ ] Ban arbitrary `style`, CSS variable bags, raw dimensions, raw colors, raw shadows, raw radii, and raw font values from public primitive schemas.
-
-### Phase 5: Component Assembly
-
-- [ ] Rebuild components touched by Phase 3 on target primitives.
-- [ ] Keep state, parsing, data mapping, keyboard flow, and controlled/uncontrolled behavior in components.
-- [ ] Do not split Composer only for LOC. Split only if a subpart becomes a real primitive or reusable algorithm.
-- [ ] Keep sibling component imports banned unless `CODE.md` adds a component tier map and tests.
-
-### Phase 6: Enforcement And Gates
-
-- [ ] Add tests for target foundation folder presence.
-- [ ] Add tests for public primitive classification/demotion policy.
-- [ ] Add tests for foundation token noun policy.
-- [ ] Add tests for primitive prop schema policy.
-- [ ] Add tests for component assembly boundaries.
-- [ ] Keep `bun run format`, `bun run check`, `bun run build`, `bun run catalog:audit`, `bun run visual:smoke`, and `bun run --cwd packages/concrete verify:publish` green after each cluster that changes runtime/package behavior.
+- 2026-05-01 DX refactor publish checkpoint passed: refreshed `CODE.md` and `PLAN.md` around Phase 8 component closure, restored the production Next route type import after build-generated drift, and prepared the structural refactor for `main`. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun test`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 476 render routes.
+- 2026-05-01 Phase 8 component audit checkpoint passed: inspected component folders, high-risk component implementations, utilities, indexes, renderInput adapters, and example composition. Current component implementations are structurally clean; remaining debt is `FormShell` compatibility/subparts, heavy `index.tsx` render adapters, component dependency tier documentation, and rich child/slot serialization. Gate passed: `bun test packages/concrete/src/tests/import-boundaries.test.ts`.
+- 2026-05-01 Phase 7D/7E readiness checkpoint passed: added the exact primitive runtime subpart export contract, documented the runtime subpart ledger, closed every remaining foundation/primitive scope row, restored the production Next route type import after generated-file drift, and marked foundation/primitive architecture ready for component closure. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun test`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 476 render routes.
+- 2026-05-01 Phase 7C primitive consistency checkpoint passed: audited the label, control, and media/support primitive families, synchronized `ControlGroup` metadata, removed the remaining `Skeleton` arbitrary style passthrough, and kept upload/media workflow scope out of new primitives. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, and `bun run build`.
+- 2026-05-01 Phase 7B primitive scope checkpoint passed: split `ProgressRing` and `SegmentedProgress` into standalone primitive bundles, retired public `row`, rebuilt `TimeList` on `Listbox` plus `OptionRow`, documented/enforced the `ToolCallPanel` subpart exception, and kept diagram-domain primitive decisions closed. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`, and `bun run catalog:audit`.
+- 2026-05-01 Phase 7A foundation token noun checkpoint passed: added a component-shaped foundation token name contract, renamed foundation CSS variables and consumers from workflow nouns to role/domain nouns, updated foundation token records/examples, and removed one duplicate menu sizing token exposed by the rename. Gates passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run check`, `bun run build`, and `bun run visual:smoke`.
+- 2026-04-30 Phase 6 final hardening checkpoint passed: `bun run format`, `bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/diagram.test.ts packages/concrete/src/tests/import-boundaries.test.ts`, `bun run typecheck`, `bun run check`, `bun run build`, `bun run visual:smoke`, and `bun run catalog:audit`. Catalog audit passed 476 render routes.
 
 ## Per-Item Audit Template
 

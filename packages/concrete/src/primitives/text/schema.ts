@@ -2,7 +2,7 @@ import { z } from 'zod/v4'
 
 export const textElementSchema = z.enum(['code', 'div', 'p', 'small', 'span', 'strong'])
 export const textPurposeSchema = z.enum(['body', 'caption', 'meta', 'mono', 'number', 'prose'])
-export const textToneSchema = z.enum([
+export const textIntentSchema = z.enum([
 	'default',
 	'muted',
 	'soft',
@@ -18,8 +18,8 @@ export const textSchema = z
 	.object({
 		as: textElementSchema.default('span'),
 		content: z.string().default('Concrete text'),
-		purpose: textPurposeSchema.default('body'),
-		tone: textToneSchema.default('default')
+		intent: textIntentSchema.default('default'),
+		purpose: textPurposeSchema.default('body')
 	})
 	.strict()
 
@@ -27,5 +27,5 @@ export { textSchema as textPropsSchema }
 export type TextElement = z.infer<typeof textElementSchema>
 export type TextInput = z.input<typeof textSchema>
 export type TextPurpose = z.infer<typeof textPurposeSchema>
-export type TextTone = z.infer<typeof textToneSchema>
+export type TextIntent = z.infer<typeof textIntentSchema>
 export type TextValue = z.output<typeof textSchema>

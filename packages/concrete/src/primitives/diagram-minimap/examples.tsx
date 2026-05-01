@@ -1,12 +1,12 @@
 import { defineExamples } from '../../factories/createExamples'
-import { DiagramCanvasViewport } from '../diagram-viewport'
+import { DiagramViewport } from '../diagram-viewport'
 import { DiagramMiniMap } from './component'
 
 export const diagramMiniMapExamples = defineExamples({
 	default: {
 		description: 'Minimap overlay inside a diagram viewport.',
 		render: () => (
-			<DiagramCanvasViewport>
+			<DiagramViewport>
 				<DiagramMiniMap
 					nodes={[
 						{ id: 'input', x: 18, y: 44 },
@@ -14,13 +14,13 @@ export const diagramMiniMapExamples = defineExamples({
 						{ id: 'output', x: 78, y: 58 }
 					]}
 				/>
-			</DiagramCanvasViewport>
+			</DiagramViewport>
 		)
 	},
 	selected: {
 		description: 'Minimap selected-id state across a larger graph.',
 		render: () => (
-			<DiagramCanvasViewport>
+			<DiagramViewport>
 				<DiagramMiniMap
 					nodes={[
 						{ id: 'input', x: 12, y: 42 },
@@ -31,7 +31,7 @@ export const diagramMiniMapExamples = defineExamples({
 					]}
 					selectedId="model"
 				/>
-			</DiagramCanvasViewport>
+			</DiagramViewport>
 		)
 	}
 })

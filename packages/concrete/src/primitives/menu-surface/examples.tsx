@@ -13,7 +13,7 @@ export const menuSurfaceExamples = defineExamples({
 					<OptionRow kind="command" leadingIcon="copy">
 						Copy
 					</OptionRow>
-					<OptionRow kind="command" leadingIcon="trash-2" tone="error">
+					<OptionRow kind="command" leadingIcon="trash-2" intent="error">
 						Delete
 					</OptionRow>
 				</MenuGroup>

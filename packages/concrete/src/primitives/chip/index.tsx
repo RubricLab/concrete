@@ -8,7 +8,7 @@ import { type ChipValue, chipSchema } from './schema'
 export type { ChipProps } from './component'
 export { Chip } from './component'
 export type { ChipInput, ChipValue } from './schema'
-export { chipPropsSchema, chipSchema, chipToneValues } from './schema'
+export { chipIntentValues, chipPropsSchema, chipSchema } from './schema'
 
 export const chipPrimitiveDefinition = createPrimitive({
 	...chipMeta,
@@ -18,7 +18,7 @@ export const chipPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderChipInput(chipSchema.parse(input)),
 	schema: chipSchema,
 	slug: 'chip',
-	states: exampleStates(chipExamples, ['default', 'tones', 'icons'])
+	states: exampleStates(chipExamples, ['default', 'intents', 'icons'])
 })
 
 function renderChipInput({ label, leadingIcon, ...input }: ChipValue) {

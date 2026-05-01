@@ -37,10 +37,10 @@ function renderFormDrawerInput(input: FormDrawerValue) {
 			{...(description ? { description } : {})}
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Discard
 					</Button>
-					<Button size="small">Apply</Button>
+					<Button density="small">Apply</Button>
 				</>
 			}
 		>

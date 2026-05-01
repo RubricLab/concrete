@@ -19,7 +19,12 @@ export const labelMeta = {
 	pressure: ['product', 'generative', 'educational'],
 	props: [
 		prop('purpose', "'compact' | 'field' | 'meta' | 'status'", 'Label role.'),
-		prop('tone', "'default' | 'ink' | 'sky' | signal", 'Label tone.'),
+		prop(
+			'intent',
+			"'neutral' | 'strong' | 'subtle' | 'sky' | 'terminal' | 'ultra' | 'danger'",
+			'Semantic label intent.',
+			'neutral'
+		),
 		prop('marker', 'boolean', 'Shows a passive tone marker.'),
 		prop('children', 'ReactNode', 'Label content.')
 	]

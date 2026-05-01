@@ -21,7 +21,7 @@ import {
 } from '../utilities/data-geometry'
 
 describe('Concrete data components', () => {
-	test('keeps warning out of the data tone model', () => {
+	test('keeps warning out of the data intent model', () => {
 		expect(dataToneSchema.safeParse('warning').success).toBe(false)
 		expect(dataToneSchema.parse('terminal')).toBe('terminal')
 	})
@@ -39,18 +39,18 @@ describe('Concrete data components', () => {
 			trend: []
 		})
 		expect(meterSchema.parse({ label: 'Usage', value: { value: 72 } })).toMatchObject({
-			tone: 'sky',
-			variant: 'bar'
+			display: 'bar',
+			intent: 'sky'
 		})
 		expect(
 			chartSchema.parse({
 				cells: [{ value: 42, x: 'Mon', y: 'AM' }],
-				title: 'Intensity',
-				variant: 'heatmap'
+				kind: 'heatmap',
+				title: 'Intensity'
 			})
 		).toMatchObject({
-			state: 'ready',
-			variant: 'heatmap'
+			kind: 'heatmap',
+			state: 'ready'
 		})
 		expect(
 			dataTableSchema.parse({
@@ -106,9 +106,27 @@ describe('Concrete data components', () => {
 
 	test('routes diagram edges from node bounds', () => {
 		const route = routeDiagramEdge(
-			{ height: 64, id: 'a', selected: false, title: 'A', tone: 'surface', width: 120, x: 10, y: 20 },
-			{ height: 64, id: 'b', selected: false, title: 'B', tone: 'surface', width: 120, x: 240, y: 84 },
-			{ from: 'a', id: 'edge', selected: false, to: 'b', tone: 'sky', variant: 'step' }
+			{
+				height: 64,
+				hierarchy: 'surface',
+				id: 'a',
+				selected: false,
+				title: 'A',
+				width: 120,
+				x: 10,
+				y: 20
+			},
+			{
+				height: 64,
+				hierarchy: 'surface',
+				id: 'b',
+				selected: false,
+				title: 'B',
+				width: 120,
+				x: 240,
+				y: 84
+			},
+			{ from: 'a', id: 'edge', intent: 'sky', relation: 'step', selected: false, to: 'b' }
 		)
 
 		expect(route.path).toContain('H')

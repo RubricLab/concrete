@@ -4,7 +4,6 @@ import { Dock, FieldRow, Grid, Panel, Section } from '../../primitives'
 import type { GridColumns } from '../../primitives/grid'
 import type { FieldStatus } from '../../schemas'
 
-export type FormShellVariant = 'drawer' | 'modal' | 'panel'
 export type FormGridColumns = 1 | 2 | 3
 export type FormRowAlign = 'center' | 'start'
 
@@ -18,7 +17,6 @@ export type FormShellProps = Omit<FormHTMLAttributes<HTMLFormElement>, 'title'> 
 	meta?: ReactNode | undefined
 	status?: FieldStatus | undefined
 	title: ReactNode
-	variant?: FormShellVariant | undefined
 }
 
 export function FormShell({
@@ -32,20 +30,19 @@ export function FormShell({
 	meta,
 	status = 'default',
 	title,
-	variant = 'panel',
 	...props
 }: FormShellProps) {
 	const density = getFormDensity(compact)
 
 	return (
-		<form className={className} data-variant={variant} {...props}>
+		<form className={className} {...props}>
 			<Panel
 				actions={actions}
 				density={density}
 				description={description}
 				meta={meta}
 				title={title}
-				tone={status === 'error' ? 'error' : 'default'}
+				intent={status === 'error' ? 'error' : 'default'}
 			>
 				{eyebrow ? <Section density="compact" title={eyebrow} /> : null}
 				{children}

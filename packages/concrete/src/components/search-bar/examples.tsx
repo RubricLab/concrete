@@ -41,7 +41,7 @@ function renderSearchBarExample(state: 'default' | 'menu' | 'scoped'): ReactNode
 	return (
 		<SearchBar
 			actions={
-				<Button shortcut={['enter']} size="small" variant="primary">
+				<Button shortcut={['enter']} density="small" hierarchy="primary">
 					Run
 				</Button>
 			}
@@ -50,8 +50,8 @@ function renderSearchBarExample(state: 'default' | 'menu' | 'scoped'): ReactNode
 			tokens={
 				state === 'scoped' || state === 'menu'
 					? [
-							{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
-							{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
+							{ id: 'workspace', intent: 'sky', label: 'Rubric', leadingIcon: 'folder' },
+							{ id: 'mode', intent: 'ultra', label: 'agent runs', leadingIcon: 'activity' }
 						]
 					: []
 			}

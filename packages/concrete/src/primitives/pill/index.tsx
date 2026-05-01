@@ -5,10 +5,10 @@ import { pillExamples } from './examples'
 import { pillMeta } from './meta'
 import { type PillValue, pillSchema } from './schema'
 
-export type { LabelProps } from './component'
+export type { PillProps } from './component'
 export { Pill } from './component'
 export type { PillInput, PillValue } from './schema'
-export { pillPropsSchema, pillSchema, pillToneValues } from './schema'
+export { pillIntentValues, pillPropsSchema, pillSchema } from './schema'
 
 export const pillPrimitiveDefinition = createPrimitive({
 	...pillMeta,

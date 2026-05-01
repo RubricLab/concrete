@@ -27,11 +27,7 @@ export function DiagramLegend({
 	...props
 }: DiagramLegendProps) {
 	return (
-		<div
-			aria-hidden="true"
-			className={cn(concreteClassNames.diagramCanvasLegend, className)}
-			{...props}
-		>
+		<div aria-hidden="true" className={cn(concreteClassNames.diagramLegend, className)} {...props}>
 			{items.map(item => (
 				<span key={`${item.kind}-${item.label}`}>
 					<DiagramLegendMark kind={item.kind} />
@@ -59,14 +55,14 @@ function DiagramLegendMark({ kind }: { kind: DiagramLegendKind }) {
 function getDiagramLegendMarkClass(kind: DiagramLegendKind): string | undefined {
 	switch (kind) {
 		case 'compute':
-			return concreteClassNames.diagramCanvasLegendCompute
+			return concreteClassNames.diagramLegendCompute
 		case 'data':
-			return concreteClassNames.diagramCanvasLegendData
+			return concreteClassNames.diagramLegendData
 		case 'event':
-			return concreteClassNames.diagramCanvasLegendEvent
+			return concreteClassNames.diagramLegendEvent
 		case 'flow':
-			return concreteClassNames.diagramCanvasLegendFlow
+			return concreteClassNames.diagramLegendFlow
 		case 'reference':
-			return concreteClassNames.diagramCanvasLegendReference
+			return concreteClassNames.diagramLegendReference
 	}
 }

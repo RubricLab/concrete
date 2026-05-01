@@ -17,8 +17,8 @@
 	display: inline-flex;
 	align-items: center;
 	gap: var(--concrete-space-1-5);
-	max-width: var(--concrete-measure-composer-token);
-	height: var(--concrete-size-composer-token-block);
+	max-width: var(--concrete-measure-editor-token);
+	height: var(--concrete-size-editor-token-block);
 	padding-block: var(--concrete-space-0);
 	padding-inline: var(--concrete-space-1-75);
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
@@ -49,8 +49,8 @@
 }
 
 .concrete-token-rail-item svg {
-	width: var(--concrete-size-toolbar-icon);
-	height: var(--concrete-size-toolbar-icon);
+	width: var(--concrete-size-control-strip-icon);
+	height: var(--concrete-size-control-strip-icon);
 	flex: none;
 }
 
@@ -62,8 +62,8 @@
 
 .concrete-token-rail-item button {
 	display: inline-grid;
-	width: var(--concrete-size-composer-token-remove);
-	height: var(--concrete-size-composer-token-remove);
+	width: var(--concrete-size-editor-token-remove);
+	height: var(--concrete-size-editor-token-remove);
 	place-items: center;
 	padding: var(--concrete-space-0);
 	border: var(--concrete-space-0);
@@ -81,8 +81,8 @@
 }
 
 .concrete-token-rail-item button svg {
-	width: var(--concrete-size-composer-token-remove-icon);
-	height: var(--concrete-size-composer-token-remove-icon);
+	width: var(--concrete-size-editor-token-remove-icon);
+	height: var(--concrete-size-editor-token-remove-icon);
 }
 
 .concrete-composer-token {

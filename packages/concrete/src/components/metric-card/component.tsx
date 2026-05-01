@@ -1,7 +1,11 @@
 import { DataSurface, Delta, Indicator, Sparkline, Stat } from '../../primitives'
 import { Text } from '../../primitives/text'
 import { type MetricCardProps, metricCardSchema } from '../../schemas'
-import { getMetricTrendTone, toIndicatorTone, toSparklineTone } from '../../utilities/data-tone'
+import {
+	getMetricTrendIntent,
+	toIndicatorIntent,
+	toSparklineIntent
+} from '../../utilities/data-intent'
 
 type ComponentShellProps = {
 	className?: string
@@ -9,13 +13,13 @@ type ComponentShellProps = {
 
 export function MetricCard({ className, ...props }: MetricCardProps & ComponentShellProps) {
 	const parsedProps = metricCardSchema.parse(props)
-	const trendTone = parsedProps.trendTone ?? getMetricTrendTone(parsedProps.delta?.intent)
+	const trendIntent = parsedProps.trendIntent ?? getMetricTrendIntent(parsedProps.delta?.intent)
 
 	return (
 		<DataSurface
 			actions={
 				parsedProps.status ? (
-					<Indicator tone={toIndicatorTone(parsedProps.status.tone)}>
+					<Indicator intent={toIndicatorIntent(parsedProps.status.intent)}>
 						{parsedProps.status.label}
 					</Indicator>
 				) : null
@@ -30,27 +34,27 @@ export function MetricCard({ className, ...props }: MetricCardProps & ComponentS
 					parsedProps.delta ? (
 						<Delta
 							basis={parsedProps.delta.basis}
+							density="compact"
 							intent={parsedProps.delta.intent}
-							size="small"
 							value={parsedProps.delta.value}
 						/>
 					) : undefined
 				}
-				size={parsedProps.compact ? 'large' : 'xlarge'}
+				density={parsedProps.compact ? 'editorial' : 'display'}
+				purpose="lockup"
 				unit={parsedProps.unit}
 				value={parsedProps.value}
-				variant="lockup"
 			/>
 			{parsedProps.trend.length > 0 ? (
 				<Sparkline
 					area
 					showEndpoint={false}
-					tone={toSparklineTone(trendTone)}
+					intent={toSparklineIntent(trendIntent)}
 					values={parsedProps.trend}
 				/>
 			) : null}
 			{parsedProps.description ? (
-				<Text as="p" purpose="caption" tone="muted">
+				<Text as="p" purpose="caption" intent="muted">
 					{parsedProps.description}
 				</Text>
 			) : null}

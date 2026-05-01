@@ -57,7 +57,7 @@ function renderComposerSurfaceInput({ disabled, placeholder, submitLabel }: Comp
 			<ComposerFooter>
 				<ComposerToolbar />
 				<ComposerSubmitDock>
-					<ComposerSendButton disabled={disabled} leadingIcon="send-horizontal" variant="primary">
+					<ComposerSendButton disabled={disabled} hierarchy="primary" leadingIcon="send-horizontal">
 						{submitLabel}
 					</ComposerSendButton>
 				</ComposerSubmitDock>

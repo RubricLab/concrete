@@ -14,7 +14,11 @@ export const dropzoneExamples = defineExamples({
 		description: 'Passive upload target.',
 		render: () => (
 			<>
-				<Dropzone description="Drag or choose a research artifact." title="Upload files" />
+				<Dropzone
+					actionLabel="Choose files"
+					description="Drag or choose a research artifact."
+					title="Upload files"
+				/>
 			</>
 		)
 	},
@@ -31,6 +35,7 @@ export const dropzoneExamples = defineExamples({
 		render: () => (
 			<>
 				<Dropzone
+					actionLabel="Choose images"
 					description="Drag or choose a research artifact."
 					icon="image"
 					title="Upload images"

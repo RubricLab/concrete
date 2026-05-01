@@ -12,7 +12,7 @@ export const textExamples = defineExamples({
 		render: () => (
 			<Stack density="compact">
 				<Text purpose="meta">Updated 2 minutes ago</Text>
-				<Text purpose="caption" tone="soft">
+				<Text purpose="caption" intent="soft">
 					Generated interface output
 				</Text>
 			</Stack>
@@ -22,7 +22,7 @@ export const textExamples = defineExamples({
 		description: 'Numeric and mono text roles.',
 		render: () => (
 			<Stack density="compact">
-				<Text purpose="number" tone="strong">
+				<Text purpose="number" intent="strong">
 					98.4%
 				</Text>
 				<Text as="code" purpose="mono">

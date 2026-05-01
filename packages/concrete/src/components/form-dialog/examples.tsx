@@ -40,13 +40,13 @@ function renderFormDialogExample(state: 'default' | 'error' | 'wide') {
 			description="Create a bounded experiment without leaving the current workspace."
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Cancel
 					</Button>
-					<Button size="small">Create run</Button>
+					<Button density="small">Create run</Button>
 				</>
 			}
-			size={state === 'wide' ? 'wide' : 'default'}
+			measure={state === 'wide' ? 'wide' : 'default'}
 			status={state === 'error' ? 'error' : 'default'}
 			title="New experiment"
 		>

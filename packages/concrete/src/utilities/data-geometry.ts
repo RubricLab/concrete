@@ -226,7 +226,7 @@ export function routeDiagramEdge(
 	return {
 		label,
 		path:
-			edge.variant === 'step'
+			edge.relation === 'step'
 				? `M${round(from.x)},${round(from.y)} H${middleX} V${round(to.y)} H${round(to.x)}`
 				: path
 	}

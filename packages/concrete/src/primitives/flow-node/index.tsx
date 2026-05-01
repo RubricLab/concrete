@@ -1,15 +1,15 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createPrimitive } from '../../factories/createItems'
-import { FlowDiagramSvg } from '../diagram-viewport'
+import { DiagramSvg } from '../diagram-viewport'
 import { FlowNode } from './component'
 import { flowNodeExamples } from './examples'
 import { flowNodeMeta } from './meta'
 import { type FlowNodeValue, flowNodeSchema } from './schema'
 
-export type { FlowNodeProps, FlowNodeTone } from './component'
+export type { FlowNodeHierarchy, FlowNodeProps } from './component'
 export { FlowNode } from './component'
 export type { FlowNodeInput, FlowNodeValue } from './schema'
-export { flowNodePropsSchema, flowNodeSchema, flowNodeToneValues } from './schema'
+export { flowNodeHierarchyValues, flowNodePropsSchema, flowNodeSchema } from './schema'
 
 export const flowNodePrimitiveDefinition = createPrimitive({
 	...flowNodeMeta,
@@ -19,7 +19,7 @@ export const flowNodePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderFlowNodeInput(flowNodeSchema.parse(input)),
 	schema: flowNodeSchema,
 	slug: 'flow-node',
-	states: exampleStates(flowNodeExamples, ['default', 'inverse', 'tones'])
+	states: exampleStates(flowNodeExamples, ['default', 'inverse', 'hierarchies'])
 })
 
 function renderFlowNodeInput({
@@ -27,13 +27,13 @@ function renderFlowNodeInput({
 	selected,
 	subtitle,
 	title,
-	tone,
+	hierarchy,
 	width,
 	x,
 	y
 }: FlowNodeValue) {
 	return (
-		<FlowDiagramSvg
+		<DiagramSvg
 			gridId="flow-node-input-grid"
 			height={height + y * 2}
 			panX={0}
@@ -46,11 +46,11 @@ function renderFlowNodeInput({
 				selected={selected}
 				subtitle={subtitle}
 				title={title}
-				tone={tone}
+				hierarchy={hierarchy}
 				width={width}
 				x={x}
 				y={y}
 			/>
-		</FlowDiagramSvg>
+		</DiagramSvg>
 	)
 }

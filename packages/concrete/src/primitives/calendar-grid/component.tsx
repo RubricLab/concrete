@@ -54,19 +54,19 @@ export function CalendarGrid({
 		<div className={concreteClassNames.calendarGrid} data-placement={placement}>
 			<header>
 				<Button
+					density="tiny"
+					hierarchy="ghost"
 					iconOnly
 					leadingIcon="chevron-left"
 					{...(onMonthChange ? { onClick: () => onMonthChange(addMonths(month, -1)) } : {})}
-					size="tiny"
-					variant="ghost"
 				/>
 				<b>{formatMonthLabel(month)}</b>
 				<Button
+					density="tiny"
+					hierarchy="ghost"
 					iconOnly
 					leadingIcon="chevron-right"
 					{...(onMonthChange ? { onClick: () => onMonthChange(addMonths(month, 1)) } : {})}
-					size="tiny"
-					variant="ghost"
 				/>
 			</header>
 			<div className={concreteClassNames.calendarWeekdays}>

@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 import { densitySchema } from '../../foundations/state'
-import { surfaceDepthSchema, surfaceToneSchema } from '../surface/schema'
+import { surfaceDepthSchema, surfaceIntentSchema } from '../surface/schema'
 
 export const panelSchema = z
 	.object({
@@ -9,8 +9,8 @@ export const panelSchema = z
 		depth: surfaceDepthSchema.default('flat'),
 		description: z.string().optional(),
 		footer: z.string().optional(),
-		title: z.string().default('Panel'),
-		tone: surfaceToneSchema.default('default')
+		intent: surfaceIntentSchema.default('default'),
+		title: z.string().default('Panel')
 	})
 	.strict()
 

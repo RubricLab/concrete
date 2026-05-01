@@ -7,13 +7,13 @@ import { type TextValue, textSchema } from './schema'
 
 export type { TextProps } from './component'
 export { Text } from './component'
-export type { TextElement, TextInput, TextPurpose, TextTone, TextValue } from './schema'
+export type { TextElement, TextInput, TextIntent, TextPurpose, TextValue } from './schema'
 export {
 	textElementSchema,
+	textIntentSchema,
 	textPropsSchema,
 	textPurposeSchema,
-	textSchema,
-	textToneSchema
+	textSchema
 } from './schema'
 
 export const textPrimitiveDefinition = createPrimitive({
@@ -27,9 +27,9 @@ export const textPrimitiveDefinition = createPrimitive({
 	states: exampleStates(textExamples, ['default', 'meta', 'numeric'])
 })
 
-function renderTextInput({ as, content, purpose, tone }: TextValue) {
+function renderTextInput({ as, content, purpose, intent }: TextValue) {
 	return (
-		<Text as={as} purpose={purpose} tone={tone}>
+		<Text as={as} purpose={purpose} intent={intent}>
 			{content}
 		</Text>
 	)

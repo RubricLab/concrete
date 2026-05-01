@@ -22,7 +22,7 @@ export const drawerSurfaceExamples = defineExamples({
 	wide: {
 		description: 'Wide drawer for dense generated interfaces.',
 		render: () => (
-			<DrawerSurface size="wide">
+			<DrawerSurface measure="wide">
 				<Panel title="Settings">Wide drawer body</Panel>
 			</DrawerSurface>
 		)

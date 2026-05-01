@@ -22,6 +22,6 @@ export const sliderMeta = {
 		prop('step', 'number', 'Native step.'),
 		prop('defaultValue', 'number', 'Uncontrolled value.'),
 		prop('value', 'number', 'Controlled value.'),
-		prop('tone', "'default' | 'sky'", 'Track and thumb tone.', 'default')
+		prop('intent', "'default' | 'sky'", 'Track and thumb intent.', 'default')
 	]
 } as const satisfies SliderMeta

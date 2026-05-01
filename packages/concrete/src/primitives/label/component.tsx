@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
-import type { LabelIconSlot, LabelTone } from '../label-helpers'
-import { getLabelToneClass, renderLabelIconSlot } from '../label-helpers'
+import type { LabelIconSlot, LabelIntent } from '../label-helpers'
+import { getLabelIntentClass, renderLabelIconSlot } from '../label-helpers'
 import { cn } from '../utils'
 import type { LabelPurpose } from './schema'
 
@@ -9,24 +9,25 @@ type LabelElementProps = Omit<HTMLAttributes<HTMLSpanElement>, 'style'>
 
 export type ConcreteLabelProps = LabelElementProps & {
 	children?: ReactNode
+	intent?: LabelIntent
 	leadingIcon?: LabelIconSlot
 	marker?: boolean
 	purpose?: LabelPurpose
-	tone?: LabelTone
 }
 
 export function Label({
 	children,
 	className,
+	intent = 'neutral',
 	leadingIcon,
 	marker = false,
 	purpose = 'compact',
-	tone = 'default',
 	...props
 }: ConcreteLabelProps) {
 	return (
 		<span
-			className={cn(concreteClassNames.label, getLabelToneClass(tone), className)}
+			className={cn(concreteClassNames.label, getLabelIntentClass(intent), className)}
+			data-intent={intent}
 			data-marker={marker ? 'true' : undefined}
 			data-purpose={purpose}
 			{...props}

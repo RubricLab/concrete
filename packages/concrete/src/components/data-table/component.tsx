@@ -28,21 +28,16 @@ import {
 	TableViewport
 } from '../../primitives'
 import {
+	type DataIntent,
 	type DataTableCellValue,
 	type DataTableRow as DataTableDataRow,
 	type DataTableProps,
 	type DataTableSort,
 	type DataTableToolbarAction,
-	type DataTone,
 	dataTableSchema
 } from '../../schemas'
 import { normalizeRangeValue, sortDataTableRows } from '../../utilities/data-geometry'
-import {
-	filterDataTableRows,
-	getNextSort,
-	getResolvedRowId
-} from '../../utilities/data-table-logic'
-import { toIndicatorTone, toProgressTone, toSparklineTone } from '../../utilities/data-tone'
+import { toIndicatorIntent, toProgressIntent, toSparklineIntent } from '../../utilities/data-intent'
 
 type ComponentShellProps = {
 	className?: string
@@ -316,20 +311,86 @@ function renderTableCell(value: DataTableCellValue | undefined): ReactNode {
 			const percent =
 				normalizeRangeValue(value.value.value, value.value.min ?? 0, value.value.max ?? 100) * 100
 
-			return <Progress size="thin" tone={toProgressTone(value.tone ?? 'sky')} value={percent} />
+			return (
+				<Progress density="compact" intent={toProgressIntent(value.intent ?? 'sky')} value={percent} />
+			)
 		}
 		case 'sparkline':
 			return (
 				<Sparkline
 					showEndpoint={false}
-					tone={toSparklineTone(value.tone ?? 'muted')}
+					intent={toSparklineIntent(value.intent ?? 'muted')}
 					values={value.values ?? []}
 				/>
 			)
 		case 'status':
-			return <Indicator tone={toIndicatorTone(value.tone ?? 'muted')}>{value.label}</Indicator>
+			return <Indicator intent={toIndicatorIntent(value.intent ?? 'muted')}>{value.label}</Indicator>
 		default:
 			return null
+	}
+}
+
+function getNextSort(activeSort: DataTableSort | null, key: string): DataTableSort | null {
+	if (activeSort?.key !== key) {
+		return { direction: 'ascending', key }
+	}
+
+	if (activeSort.direction === 'ascending') {
+		return { direction: 'descending', key }
+	}
+
+	return null
+}
+
+function getResolvedRowId<Row extends DataTableDataRow>(
+	row: Row,
+	rowIndex: number,
+	getRowId: ((row: Row, rowIndex: number) => string) | undefined
+): string {
+	return getRowId?.(row, rowIndex) ?? String(row.id ?? rowIndex)
+}
+
+function filterDataTableRows<Row extends DataTableDataRow>(
+	rows: readonly Row[],
+	searchValue: string,
+	filters: readonly { id: string; value?: string | undefined }[]
+): readonly Row[] {
+	const normalizedSearch = searchValue.trim().toLowerCase()
+
+	return rows.filter(row => {
+		const matchesSearch =
+			normalizedSearch.length === 0 ||
+			Object.values(row).some(value => getDataTableCellText(value).includes(normalizedSearch))
+		const matchesFilters = filters.every(filter => {
+			if (!filter.value) {
+				return true
+			}
+
+			return getDataTableCellText(row[filter.id]) === filter.value.toLowerCase()
+		})
+
+		return matchesSearch && matchesFilters
+	})
+}
+
+function getDataTableCellText(value: DataTableDataRow[string] | undefined): string {
+	if (value === null || value === undefined) {
+		return ''
+	}
+
+	if (typeof value === 'number' || typeof value === 'string' || typeof value === 'boolean') {
+		return String(value).toLowerCase()
+	}
+
+	switch (value.kind) {
+		case 'delta':
+			return `${value.delta.value} ${value.delta.basis ?? ''}`.toLowerCase()
+		case 'meter':
+			return String(value.value.value).toLowerCase()
+		case 'sparkline':
+			return (value.values ?? []).join(' ').toLowerCase()
+		case 'status':
+			return value.label.toLowerCase()
 	}
 }
 
@@ -339,14 +400,17 @@ function renderTableToolbarAction(
 	onToolbarAction: ((actionId: string, selectedRowIds: readonly string[]) => void) | undefined
 ): ReactNode {
 	const icon = getTableActionIcon(action.icon)
+	const hierarchy = getTableActionHierarchy(action.intent)
+	const intent = getTableActionIntent(action.intent)
 
 	return (
 		<Button
+			density="small"
 			disabled={action.disabled}
+			hierarchy={hierarchy}
+			intent={intent}
 			key={action.id}
 			onClick={() => onToolbarAction?.(action.id, selectedRowIds)}
-			size="small"
-			variant={getTableActionVariant(action.tone)}
 			{...(icon ? { leadingIcon: icon } : {})}
 		>
 			{action.label}
@@ -369,12 +433,12 @@ function getTableActionIcon(
 	}
 }
 
-function getTableActionVariant(tone: DataTone | undefined) {
-	switch (tone) {
+function getTableActionHierarchy(intent: DataIntent | undefined) {
+	switch (intent) {
 		case 'error':
-			return 'danger'
+			return 'primary'
 		case 'sky':
-			return 'sky-soft'
+			return 'soft'
 		case 'terminal':
 		case 'ultra':
 			return 'soft'
@@ -382,5 +446,20 @@ function getTableActionVariant(tone: DataTone | undefined) {
 		case 'muted':
 		case undefined:
 			return 'secondary'
+	}
+}
+
+function getTableActionIntent(intent: DataIntent | undefined) {
+	switch (intent) {
+		case 'error':
+			return 'danger'
+		case 'sky':
+			return 'sky'
+		case 'ink':
+		case 'muted':
+		case 'terminal':
+		case 'ultra':
+		case undefined:
+			return 'neutral'
 	}
 }

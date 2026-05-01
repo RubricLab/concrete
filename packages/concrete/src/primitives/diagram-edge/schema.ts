@@ -1,7 +1,7 @@
 import { z } from 'zod/v4'
 import { dataToneSchema } from '../../schemas'
 
-export const diagramEdgeVariantValues = [
+export const diagramEdgeRelationValues = [
 	'bidirectional',
 	'branch',
 	'control',
@@ -13,10 +13,10 @@ export const diagramEdgeVariantValues = [
 
 export const diagramEdgeSchema = z
 	.object({
+		intent: dataToneSchema.default('sky'),
 		label: z.string().default('routes'),
-		selected: z.boolean().default(false),
-		tone: dataToneSchema.default('sky'),
-		variant: z.enum(diagramEdgeVariantValues).default('solid')
+		relation: z.enum(diagramEdgeRelationValues).default('solid'),
+		selected: z.boolean().default(false)
 	})
 	.strict()
 

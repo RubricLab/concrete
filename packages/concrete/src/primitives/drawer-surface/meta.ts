@@ -19,7 +19,7 @@ export const drawerSurfaceMeta = {
 	pressure: ['product', 'generative'],
 	props: [
 		prop('side', "'left' | 'right'", 'Logical drawer side.'),
-		prop('size', "'compact' | 'default' | 'wide'", 'Drawer width role.'),
+		prop('measure', "'compact' | 'default' | 'wide'", 'Drawer width role.'),
 		prop('children', 'ReactNode', 'Drawer content, usually Panel.')
 	]
 } as const satisfies DrawerSurfaceMeta

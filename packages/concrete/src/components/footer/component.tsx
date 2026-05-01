@@ -50,11 +50,11 @@ export function Footer({
 	...props
 }: FooterProps) {
 	return (
-		<Surface as="footer" density={density} depth="flat" tone="muted" {...props}>
+		<Surface as="footer" density={density} depth="flat" intent="muted" {...props}>
 			<Container density={density} measure="wide">
 				<Stack density={density}>
 					<Stack density={density}>
-						{brand ? <Text tone="strong">{brand}</Text> : null}
+						{brand ? <Text intent="strong">{brand}</Text> : null}
 						<Header density={density} description={description} meta={meta} title={title} />
 					</Stack>
 					{aside ? <Surface depth="sunken">{aside}</Surface> : null}
@@ -62,13 +62,13 @@ export function Footer({
 						<Grid columns="three" density={density}>
 							{columns.map(column => (
 								<Stack density={density} key={column.id}>
-									<Label tone="sunken">{column.title}</Label>
+									<Label intent="subtle">{column.title}</Label>
 									<Stack density="compact">
 										{column.links.map(link => (
 											<TextLink
 												href={link.href}
 												key={link.id}
-												variant="nav"
+												purpose="nav"
 												{...(link.external ? { external: true } : {})}
 											>
 												{link.label}
@@ -85,7 +85,7 @@ export function Footer({
 								<TextLink
 									href={action.href}
 									key={action.id}
-									variant="nav"
+									purpose="nav"
 									{...(action.external ? { external: true } : {})}
 								>
 									{action.label}

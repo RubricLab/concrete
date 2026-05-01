@@ -12,20 +12,16 @@ type ButtonMeta = {
 
 export const buttonMeta = {
 	category: 'control',
-	description: 'Tight command control with loading, icon, shortcut, and variant states.',
+	description: 'Tight command control with loading, icon, shortcut, and semantic states.',
 	guidance:
-		'Buttons are short commands. Use primary for the one dominant action, sky for pointer moments, ultra for upgrade/pro moments, and danger only for destructive actions.',
+		'Buttons are short commands. Use hierarchy for priority, intent for semantic color, and density for rhythm.',
 	name: 'Button',
 	pressure: ['product', 'generative'],
 	props: [
+		prop('hierarchy', "'primary' | 'secondary' | 'soft' | 'ghost'", 'Command priority.', 'secondary'),
+		prop('intent', "'neutral' | 'sky' | 'ultra' | 'danger'", 'Command intent.', 'neutral'),
 		prop(
-			'variant',
-			"'primary' | 'secondary' | 'soft' | 'ghost' | 'sky' | 'sky-soft' | 'ultra' | 'danger'",
-			'Visual role of the command.',
-			'secondary'
-		),
-		prop(
-			'size',
+			'density',
 			"'tiny' | 'small' | 'medium' | 'large'",
 			'Control height and type rhythm.',
 			'medium'

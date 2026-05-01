@@ -1,13 +1,13 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { DrawerSurfaceSide, DrawerSurfaceSize } from './schema'
+import type { DrawerSurfaceMeasure, DrawerSurfaceSide } from './schema'
 
 export type DrawerSurfaceProps = Omit<HTMLAttributes<HTMLElement>, 'role' | 'style'> & {
 	children: ReactNode
 	modal?: boolean
 	side?: DrawerSurfaceSide
-	size?: DrawerSurfaceSize
+	measure?: DrawerSurfaceMeasure
 }
 
 export function DrawerSurface({
@@ -15,7 +15,7 @@ export function DrawerSurface({
 	className,
 	modal = false,
 	side = 'right',
-	size = 'default',
+	measure = 'default',
 	...props
 }: DrawerSurfaceProps) {
 	return (
@@ -23,7 +23,7 @@ export function DrawerSurface({
 			aria-modal={modal ? true : undefined}
 			className={cn(concreteClassNames.drawerSurface, className)}
 			data-side={side}
-			data-size={size}
+			data-measure={measure}
 			role="dialog"
 			{...props}
 		>

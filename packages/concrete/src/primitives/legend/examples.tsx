@@ -6,9 +6,9 @@ export const legendExamples = defineExamples({
 		description: 'Indicator legend with values.',
 		render: () => (
 			<Legend>
-				<LegendItem label="Accepted" tone="terminal" value="64" />
-				<LegendItem label="Review" tone="sky" value="18" />
-				<LegendItem label="Blocked" tone="error" value="4" />
+				<LegendItem intent="terminal" label="Accepted" value="64" />
+				<LegendItem intent="sky" label="Review" value="18" />
+				<LegendItem intent="danger" label="Blocked" value="4" />
 			</Legend>
 		)
 	},
@@ -16,9 +16,9 @@ export const legendExamples = defineExamples({
 		description: 'Legend without values for diagram keys.',
 		render: () => (
 			<Legend>
-				<LegendItem label="Input" tone="sky" />
-				<LegendItem label="Compute" tone="ultra" />
-				<LegendItem label="Output" tone="terminal" />
+				<LegendItem intent="sky" label="Input" />
+				<LegendItem intent="ultra" label="Compute" />
+				<LegendItem intent="terminal" label="Output" />
 			</Legend>
 		)
 	}

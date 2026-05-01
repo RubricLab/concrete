@@ -25,7 +25,7 @@ export const menuGroupExamples = defineExamples({
 		description: 'Group with destructive command state.',
 		render: () => (
 			<MenuGroup title="Danger">
-				<OptionRow kind="command" tone="error">
+				<OptionRow kind="command" intent="error">
 					Delete run
 				</OptionRow>
 			</MenuGroup>

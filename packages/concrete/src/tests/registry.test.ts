@@ -116,10 +116,10 @@ describe('Concrete registry', () => {
 			disabled: false,
 			group: 'Actions',
 			id: 'ask',
-			shortcut: [],
-			tone: 'default'
+			intent: 'default',
+			shortcut: []
 		})
-		expect(searchBarTokenSchema.parse({ id: 'workspace', label: 'Rubric' }).tone).toBe('default')
+		expect(searchBarTokenSchema.parse({ id: 'workspace', label: 'Rubric' }).intent).toBe('default')
 		expect(messageSchema.parse({ id: 'message-1' })).toMatchObject({
 			role: 'assistant',
 			surface: 'bubble'
@@ -162,8 +162,7 @@ describe('Concrete registry', () => {
 		})
 		expect(formShellConfigSchema.parse({ title: 'Workspace' })).toMatchObject({
 			compact: false,
-			status: 'default',
-			variant: 'panel'
+			status: 'default'
 		})
 		expect(
 			formValidationItemSchema.parse({
@@ -356,24 +355,26 @@ describe('Concrete registry', () => {
 			colorsDefinition && 'seed' in colorsDefinition ? colorsDefinition.seed : undefined
 
 		expect(buttonSeed).toMatchObject({
+			density: 'medium',
 			disabled: false,
+			hierarchy: 'secondary',
 			iconOnly: false,
+			intent: 'neutral',
 			label: 'Continue',
 			loading: false,
-			pressed: false,
-			size: 'medium',
-			variant: 'secondary'
+			pressed: false
 		})
 		expect(buttonDefinition?.controls.map(control => control.name)).toEqual([
+			'density',
 			'disabled',
+			'hierarchy',
 			'iconOnly',
+			'intent',
 			'label',
 			'leadingIcon',
 			'loading',
 			'pressed',
-			'size',
 			'trailingIcon',
-			'variant',
 			'props'
 		])
 		expect(metricCardDefinition?.controls.some(control => control.type === 'json')).toBe(true)
@@ -385,8 +386,9 @@ describe('Concrete registry', () => {
 		const buttonDefinition = primitiveDefinitions.find(definition => definition.slug === 'button')
 		const searchParams = new URLSearchParams({
 			props: JSON.stringify({
-				label: 'JSON action',
-				variant: 'primary'
+				hierarchy: 'primary',
+				intent: 'neutral',
+				label: 'JSON action'
 			})
 		})
 
@@ -409,14 +411,14 @@ describe('Concrete registry', () => {
 		const metricCardDefinition = componentDefinitions.find(
 			definition => definition.slug === 'metric-card'
 		)
-		const chartVariantControl = chartDefinition?.controls.find(control => control.name === 'variant')
+		const chartKindControl = chartDefinition?.controls.find(control => control.name === 'kind')
 
 		expect(metricCardDefinition?.controls.map(control => control.name)).toContain('delta.value')
 		expect(metricCardDefinition?.controls.map(control => control.name)).toContain('delta.intent')
 		expect(dataTableDefinition?.controls.map(control => control.name)).toContain('pagination.page')
 		expect(dataTableDefinition?.controls.map(control => control.name)).toContain('sort.direction')
-		expect(chartVariantControl?.type).toBe('select')
-		expect(chartVariantControl?.options?.map(option => option.value)).toEqual([
+		expect(chartKindControl?.type).toBe('select')
+		expect(chartKindControl?.options?.map(option => option.value)).toEqual([
 			'line',
 			'area',
 			'bar',
@@ -432,9 +434,9 @@ describe('Concrete registry', () => {
 			definition => definition.slug === 'metric-card'
 		)
 		const chartSearchParams = new URLSearchParams({
-			points: JSON.stringify([{ label: 'Proof', tone: 'sky', value: 12 }]),
-			title: 'Bar proof',
-			variant: 'bar'
+			kind: 'bar',
+			points: JSON.stringify([{ intent: 'sky', label: 'Proof', value: 12 }]),
+			title: 'Bar proof'
 		})
 		const metricSearchParams = new URLSearchParams({
 			'delta.value': '+99.9%',
@@ -480,7 +482,7 @@ describe('Concrete registry', () => {
 				{
 					children: [{ type: 'text', value: 'Run protocol' }],
 					item: { kind: 'primitive', slug: 'button' },
-					props: { label: 'Run protocol', variant: 'primary' },
+					props: { hierarchy: 'primary', label: 'Run protocol' },
 					slots: {
 						leading: [
 							{
@@ -503,7 +505,7 @@ describe('Concrete registry', () => {
 
 		expect(result.data.nodes[0]).toMatchObject({
 			item: { kind: 'primitive', slug: 'button' },
-			props: { label: 'Run protocol', variant: 'primary' }
+			props: { hierarchy: 'primary', label: 'Run protocol' }
 		})
 	})
 
@@ -636,7 +638,6 @@ describe('Concrete registry', () => {
 			'badge',
 			'tag',
 			'avatar',
-			'row',
 			'code',
 			'composer-surface',
 			'token-rail',
@@ -658,6 +659,8 @@ describe('Concrete registry', () => {
 			'empty-state',
 			'tooltip',
 			'progress',
+			'progress-ring',
+			'segmented-progress',
 			'stat',
 			'delta',
 			'sparkline',
@@ -676,7 +679,6 @@ describe('Concrete registry', () => {
 		expect(componentDefinitions.map(definition => definition.slug)).toEqual([
 			'nav',
 			'footer',
-			'toolbar',
 			'command-menu',
 			'search-bar',
 			'form-shell',

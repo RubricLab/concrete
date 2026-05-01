@@ -20,9 +20,9 @@ export const conceptConnectorMeta = {
 	props: [
 		prop('kind', 'ConceptConnectorKind', 'Connector grammar asset name.', 'straight'),
 		prop(
-			'tone',
+			'intent',
 			"'ink' | 'muted' | 'sky' | 'terminal' | 'ultra' | 'error'",
-			'Concrete-native connector tone.',
+			'Concrete-native connector intent.',
 			'muted'
 		),
 		prop('selected', 'boolean', 'Highlights the relation.', 'false'),

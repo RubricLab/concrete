@@ -18,7 +18,7 @@ export const listboxMeta = {
 	name: 'Listbox',
 	pressure: ['product', 'generative'],
 	props: [
-		prop('size', "'compact' | 'default' | 'loose'", 'Option density.'),
+		prop('density', "'compact' | 'default' | 'loose'", 'Option density.'),
 		prop('emptyLabel', 'ReactNode', 'Empty state label.'),
 		prop('children', 'ReactNode', 'Option rows or command rows.')
 	]

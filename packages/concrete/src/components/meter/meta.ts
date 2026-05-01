@@ -10,8 +10,8 @@ export const meterMeta = {
 	props: [
 		prop('label', 'string', 'Meter label shown in the card header.', undefined, true),
 		prop('value', 'DataProgressValue', 'Bounded value object parsed at runtime.', undefined, true),
-		prop('variant', "'bar' | 'ring'", 'Linear or circular meter rendering.', 'bar'),
-		prop('tone', 'DataTone', 'Progress tone mapped to Concrete signals.', 'sky'),
+		prop('display', "'bar' | 'ring'", 'Linear or circular meter rendering.', 'bar'),
+		prop('intent', 'DataIntent', 'Progress intent mapped to Concrete signals.', 'sky'),
 		prop('target', 'number', 'Optional target value called out in the footer.'),
 		prop('unit', 'string', 'Rendered value unit.', '%'),
 		prop('description', 'string', 'Optional supporting text in the footer.'),

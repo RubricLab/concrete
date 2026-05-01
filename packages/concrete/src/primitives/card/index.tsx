@@ -5,7 +5,7 @@ import { cardExamples } from './examples'
 import { cardMeta } from './meta'
 import { type CardValue, cardSchema } from './schema'
 
-export type { CardProps, CardVariant } from './component'
+export type { CardDepth, CardProps } from './component'
 export { Card } from './component'
 export type { CardInput, CardValue } from './schema'
 export { cardPropsSchema, cardSchema } from './schema'

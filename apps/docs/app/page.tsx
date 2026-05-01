@@ -27,12 +27,12 @@ export default function HomeRoute() {
 			<Stack density="editorial">
 				<Panel
 					actions={
-						<TextLink href="/components" variant="nav">
+						<TextLink href="/components" purpose="nav">
 							Open catalog
 						</TextLink>
 					}
 					description="Concrete is Rubric Labs' design system for research writing, dense product surfaces, generated interfaces, agent workflows, and educational explainers."
-					meta={<Badge signal="terminal">AI-native</Badge>}
+					meta={<Badge intent="terminal">AI-native</Badge>}
 					title="Soft, powerful, compact software."
 				>
 					<Stack density="editorial">
@@ -112,20 +112,20 @@ export default function HomeRoute() {
 					<Grid columns="three">
 						<Surface depth="sunken">
 							<Stack density="compact">
-								<Text tone="strong">Install</Text>
+								<Text intent="strong">Install</Text>
 								<CodeBlock code="npm install @rubriclab/concrete" language="Shell" mode="command" />
 							</Stack>
 						</Surface>
 						<Surface depth="sunken">
 							<Stack density="compact">
-								<Text tone="strong">Import</Text>
+								<Text intent="strong">Import</Text>
 								<InlineCode>@rubriclab/concrete</InlineCode>
 								<InlineCode>@rubriclab/concrete/styles.css</InlineCode>
 							</Stack>
 						</Surface>
 						<Surface depth="sunken">
 							<Stack density="compact">
-								<Text tone="strong">Render</Text>
+								<Text intent="strong">Render</Text>
 								<TextLink href="/render/primitive/button">/render/primitive/button</TextLink>
 								<TextLink href="/render/component/nav">/render/component/nav</TextLink>
 							</Stack>
@@ -160,14 +160,14 @@ function RegistryCard({
 		<Panel
 			description={description}
 			footer={
-				<TextLink href={href} variant="nav">
+				<TextLink href={href} purpose="nav">
 					Open
 				</TextLink>
 			}
 			meta={
 				<Stack density="compact">
-					<Badge signal="terminal">{category}</Badge>
-					<Text purpose="caption" tone="muted">
+					<Badge intent="terminal">{category}</Badge>
+					<Text purpose="caption" intent="muted">
 						{states} states
 					</Text>
 				</Stack>

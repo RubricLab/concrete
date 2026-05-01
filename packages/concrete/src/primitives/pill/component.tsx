@@ -1,21 +1,31 @@
 import type { HTMLAttributes } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import {
-	getLabelToneClass,
+	getLabelIntentClass,
 	type LabelIconSlot,
-	type LabelTone,
+	type LabelIntent,
 	renderLabelIconSlot
 } from '../label-helpers'
 import { cn } from '../utils'
 
-export type LabelProps = HTMLAttributes<HTMLSpanElement> & {
+export type PillProps = HTMLAttributes<HTMLSpanElement> & {
+	intent?: LabelIntent
 	leadingIcon?: LabelIconSlot
-	tone?: LabelTone
 }
 
-export function Pill({ children, className, leadingIcon, tone = 'default', ...props }: LabelProps) {
+export function Pill({
+	children,
+	className,
+	intent = 'neutral',
+	leadingIcon,
+	...props
+}: PillProps) {
 	return (
-		<span className={cn(concreteClassNames.pill, getLabelToneClass(tone), className)} {...props}>
+		<span
+			className={cn(concreteClassNames.pill, getLabelIntentClass(intent), className)}
+			data-intent={intent}
+			{...props}
+		>
 			{renderLabelIconSlot(leadingIcon)}
 			{children}
 		</span>

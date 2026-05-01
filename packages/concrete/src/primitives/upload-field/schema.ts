@@ -1,10 +1,12 @@
 import { z } from 'zod/v4'
 
-export const uploadFieldVariantValues = ['avatar', 'file', 'grid', 'single'] as const
+export const uploadFieldKindValues = ['avatar', 'file', 'grid', 'single'] as const
+export const uploadFieldDisplayValues = ['stack', 'grid'] as const
 
 export const uploadFieldSchema = z
 	.object({
-		variant: z.enum(uploadFieldVariantValues).default('file')
+		display: z.enum(uploadFieldDisplayValues).default('stack'),
+		kind: z.enum(uploadFieldKindValues).default('file')
 	})
 	.strict()
 

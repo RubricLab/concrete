@@ -30,9 +30,9 @@ function renderFlowDiagramExample(state = 'default'): ReactNode {
 			draggableNodes={state === 'interactive'}
 			flow={state === 'empty' ? { edges: [], nodes: [] } : flowDiagram}
 			legend={[
-				{ label: 'context', tone: 'sky' },
-				{ label: 'tool path', tone: 'terminal' },
-				{ label: 'selected', tone: 'ultra' }
+				{ intent: 'sky', label: 'context' },
+				{ intent: 'terminal', label: 'tool path' },
+				{ intent: 'ultra', label: 'selected' }
 			]}
 			selectedEdgeId={state === 'selected' ? 'edge-tools' : undefined}
 			selectedNodeId={state === 'selected' ? 'plan' : undefined}

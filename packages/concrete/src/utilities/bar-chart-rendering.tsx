@@ -19,7 +19,7 @@ import {
 	renderCartesianGrid
 } from './chart-core-rendering'
 import { createLinearScale } from './data-geometry'
-import { getDataToneClass } from './data-tone'
+import { getDataIntentClass } from './data-intent'
 
 export function renderBarChart(
 	points: readonly DataPoint[],
@@ -85,7 +85,7 @@ export function renderBarChart(
 				const rect = createChartBarRectangle(point.value, x, barWidth, scaleY, zero)
 
 				return (
-					<g className={getDataToneClass(point.tone)} key={point.label}>
+					<g className={getDataIntentClass(point.intent)} key={point.label}>
 						<ChartBar height={rect.height} rx="3" width={rect.width} x={rect.x} y={rect.y} />
 						{options.showValues ? (
 							<ChartValueLabel textAnchor="middle" x={x + barWidth / 2} y={rect.y - 7}>
@@ -133,7 +133,7 @@ function renderHorizontalBarChart(
 				const barWidth = Math.max(scaleX(point.value) - plotBox.left, 1)
 
 				return (
-					<g className={getDataToneClass(point.tone)} key={point.label}>
+					<g className={getDataIntentClass(point.intent)} key={point.label}>
 						<ChartRowLabel textAnchor="end" x={plotBox.left - 10} y={y + barHeight}>
 							{point.label}
 						</ChartRowLabel>

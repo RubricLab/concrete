@@ -58,19 +58,19 @@
 	box-shadow: var(--concrete-shadow-diagram-item-selected);
 }
 
-.concrete-diagram-item[data-diagram-tone="sky"] {
+.concrete-diagram-item[data-diagram-intent="sky"] {
 	border-color: var(--concrete-diagram-item-sky-border);
 }
 
-.concrete-diagram-item[data-diagram-tone="terminal"] {
+.concrete-diagram-item[data-diagram-intent="terminal"] {
 	border-color: var(--concrete-diagram-item-terminal-border);
 }
 
-.concrete-diagram-item[data-diagram-tone="ultra"] {
+.concrete-diagram-item[data-diagram-intent="ultra"] {
 	border-color: var(--concrete-diagram-item-ultra-border);
 }
 
-.concrete-diagram-item[data-diagram-tone="error"] {
+.concrete-diagram-item[data-diagram-intent="error"] {
 	border-color: var(--concrete-diagram-item-error-border);
 }
 

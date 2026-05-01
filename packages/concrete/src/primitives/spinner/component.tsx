@@ -2,21 +2,39 @@ import type { SVGProps } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type SpinnerProps = SVGProps<SVGSVGElement> & {
-	size?: number
-	tone?: 'default' | 'inverse' | 'sky'
+export type SpinnerDensity = 'compact' | 'comfortable' | 'editorial'
+export type SpinnerIntent = 'inverse' | 'neutral' | 'sky'
+
+export type SpinnerProps = Omit<SVGProps<SVGSVGElement>, 'height' | 'width'> & {
+	density?: SpinnerDensity
+	intent?: SpinnerIntent
 }
 
-export function Spinner({ className, size = 18, tone = 'default', ...props }: SpinnerProps) {
+const spinnerDensitySizes = {
+	comfortable: 'var(--concrete-size-spinner-comfortable)',
+	compact: 'var(--concrete-size-spinner-compact)',
+	editorial: 'var(--concrete-size-spinner-editorial)'
+} satisfies Record<SpinnerDensity, string>
+
+export function Spinner({
+	className,
+	density = 'comfortable',
+	intent = 'neutral',
+	...props
+}: SpinnerProps) {
+	const size = spinnerDensitySizes[density]
+
 	return (
 		<svg
 			aria-label="Loading"
 			className={cn(
 				concreteClassNames.spinnerSvg,
-				tone === 'sky' && concreteClassNames.spinnerSky,
-				tone === 'inverse' && concreteClassNames.spinnerInverse,
+				intent === 'sky' && concreteClassNames.spinnerSky,
+				intent === 'inverse' && concreteClassNames.spinnerInverse,
 				className
 			)}
+			data-density={density}
+			data-intent={intent}
 			height={size}
 			role="img"
 			viewBox="0 0 24 24"

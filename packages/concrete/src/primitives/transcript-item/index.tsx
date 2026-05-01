@@ -48,14 +48,14 @@ function renderTranscriptItemInput({
 
 	return (
 		<TranscriptItem
-			avatar={messageRole === 'assistant' ? <Avatar initials="A" size="small" /> : undefined}
+			avatar={messageRole === 'assistant' ? <Avatar density="compact" initials="A" /> : undefined}
 			grouped={grouped}
 			messageRole={messageRole}
 			meta={
 				<>
 					<TranscriptMetaItem>{author}</TranscriptMetaItem>
 					{meta ? <TranscriptMetaItem>{meta}</TranscriptMetaItem> : null}
-					{status !== 'complete' ? <Badge signal="ultra">{status}</Badge> : null}
+					{status !== 'complete' ? <Badge intent="ultra">{status}</Badge> : null}
 				</>
 			}
 			status={status}

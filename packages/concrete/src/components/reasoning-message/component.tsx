@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { TracePanel, TraceStep, TraceSteps } from '../../primitives'
-import { Message, type MessageProps } from '../../primitives/internal/message'
 import type { ReasoningStep as ReasoningStepData } from '../../schemas'
+import { Message, type MessageProps } from '../message/component'
 
 export type ReasoningMessageStep = ReasoningStepData & {
 	detail?: ReactNode

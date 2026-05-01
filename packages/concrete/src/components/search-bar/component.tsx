@@ -4,14 +4,14 @@ import type { ChangeEvent, FormEvent, HTMLAttributes, ReactNode } from 'react'
 import { useState } from 'react'
 import type { IconName } from '../../icons'
 import { PickerSurface, SearchInput, Token } from '../../primitives'
-import type { CommandItemTone } from '../../schemas'
+import type { CommandItemIntent } from '../../schemas'
 import { formatShortcutKey, stringifyReactNode } from '../../utilities/interaction-helpers'
 
 export type SearchToken = {
 	id: string
+	intent?: CommandItemIntent
 	label: ReactNode
 	leadingIcon?: IconName
-	tone?: CommandItemTone
 }
 
 export type SearchBarProps = Omit<HTMLAttributes<HTMLFormElement>, 'onSubmit'> & {
@@ -83,7 +83,7 @@ export function SearchBar({
 						leadingIcon={token.leadingIcon}
 						onRemove={onTokenRemove ? () => onTokenRemove(token) : undefined}
 						removeLabel={`Remove ${stringifyReactNode(token.label)}`}
-						tone={token.tone ?? 'default'}
+						intent={token.intent ?? 'default'}
 					>
 						{token.label}
 					</Token>

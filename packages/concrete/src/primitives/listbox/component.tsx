@@ -1,12 +1,12 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { ListboxSize } from './schema'
+import type { ListboxDensity } from './schema'
 
 export type ListboxProps = Omit<HTMLAttributes<HTMLDivElement>, 'style'> & {
 	children?: ReactNode
 	emptyLabel?: ReactNode
-	size?: ListboxSize
+	density?: ListboxDensity
 }
 
 export function Listbox({
@@ -14,13 +14,13 @@ export function Listbox({
 	className,
 	emptyLabel,
 	role = 'listbox',
-	size = 'default',
+	density = 'default',
 	...props
 }: ListboxProps) {
 	return (
 		<div
 			className={cn(concreteClassNames.listbox, className)}
-			data-size={size}
+			data-density={density}
 			role={role}
 			{...props}
 		>

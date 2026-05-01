@@ -1,11 +1,11 @@
 import { z } from 'zod/v4'
 
-export const kbdToneValues = ['default', 'dark'] as const
+export const kbdIntentValues = ['default', 'inverse'] as const
 
 export const kbdSchema = z
 	.object({
-		label: z.string().default('⌘'),
-		tone: z.enum(kbdToneValues).default('default')
+		intent: z.enum(kbdIntentValues).default('default'),
+		label: z.string().default('⌘')
 	})
 	.strict()
 

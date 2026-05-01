@@ -148,8 +148,8 @@ export function ToolbarControlButton({
 		Boolean(shortcut?.length) && (shortcutMode === 'inline' || shortcutMode === 'both')
 	const tooltipShortcut =
 		shortcutMode === 'tooltip' || shortcutMode === 'both' ? shortcut : undefined
-	const shortcutTone =
-		appearance === 'chip' && (currentSelected || currentPressed) ? 'dark' : 'default'
+	const shortcutIntent =
+		appearance === 'chip' && (currentSelected || currentPressed) ? 'inverse' : 'default'
 
 	useEffect(
 		() => () => {
@@ -239,7 +239,7 @@ export function ToolbarControlButton({
 							<Kbd
 								className={concreteClassNames.toolbarRootButtonKbd}
 								key={shortcutKey}
-								tone={shortcutTone}
+								intent={shortcutIntent}
 							>
 								{formatShortcutKey(shortcutKey)}
 							</Kbd>

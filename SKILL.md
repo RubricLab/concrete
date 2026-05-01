@@ -56,7 +56,7 @@ import { foundationRegistry } from '@rubriclab/concrete/registry'
 
 This section is generated from `foundationRegistry`, `primitiveRegistry`, and `componentRegistry`. Run `bun run build:skill` after registry changes.
 
-Concrete currently exposes 12 foundations, 109 primitives, and 36 components.
+Concrete currently exposes 12 foundations, 110 primitives, and 35 components.
 
 ### Foundations
 
@@ -98,7 +98,7 @@ Dimension tokens for controls, icons, tracks, media, viewports, and measures.
 - Category: `foundation`
 - Pressure: `product`, `generative`, `educational`
 - Guidance: Use sizing tokens for intrinsic dimensions. Use spacing tokens for rhythm and layout tokens for composition.
-- Tokens: Control (3: `field-control`, `button-medium`, `toolbar-control`); Measure (6: `layout-grid-min`, `layout-sidebar`, `container-content`, `container-wide`, `dialog-surface`, `trace-panel`); Viewport (2: `scroll-area-medium`, `diagram-canvas`); Icon (1: `icon-medium`); Avatar (1: `avatar-medium`); Track (2: `progress-track`, `slider-hit`); Data (1: `chart-height`); Media (1: `thumbnail`)
+- Tokens: Control (3: `field-control`, `button-medium`, `control-strip-action`); Measure (6: `layout-grid-min`, `layout-sidebar`, `container-content`, `container-wide`, `dialog-surface`, `trace-panel`); Viewport (2: `scroll-area-medium`, `diagram`); Icon (4: `icon-medium`, `spinner-compact`, `spinner-comfortable`, `spinner-editorial`); Avatar (1: `avatar-medium`); Track (5: `progress-track`, `progress-ring-compact`, `progress-ring`, `progress-ring-editorial`, `slider-hit`); Data (1: `chart-height`); Media (2: `thumbnail`, `media-field`)
 
 #### Layout
 
@@ -108,7 +108,7 @@ Composition recipes for grids, layers, offsets, responsive behavior, and templat
 - Category: `layout`
 - Pressure: `product`, `generative`, `educational`
 - Guidance: Use layout tokens through layout primitives. Components should not invent grid templates or z-index values.
-- Tokens: Template (8: `field-row`, `layout-split`, `layout-split-even`, `layout-split-sidebar`, `picker-button`, `calendar-grid`, `distribution-row`, `heatmap-grid`); Grid (3: `track-fill`, `track-sidebar`, `column-full`); Layer (2: `tooltip`, `overlay`); Offset (1: `tooltip-gap`); Responsive (1: `search-input-wrap`); Utility (1: `flex-fill`)
+- Tokens: Template (8: `field-row`, `layout-split`, `layout-split-even`, `layout-split-sidebar`, `picker-button`, `calendar-grid`, `distribution-row`, `heatmap-grid`); Grid (3: `track-fill`, `track-sidebar`, `column-full`); Layer (2: `overlay-tip`, `overlay`); Offset (1: `overlay-tip-gap`); Responsive (1: `query-control-wrap`); Utility (1: `flex-fill`)
 
 #### Radii
 
@@ -168,7 +168,7 @@ Shared semantic state schemas for tones, statuses, hierarchy, and density.
 - Category: `foundation`
 - Pressure: `product`, `generative`, `educational`
 - Guidance: Use state schemas to close primitive props around semantic intent instead of raw visual overrides.
-- Tokens: Tone (2: `signals`, `data-tones`); Status (5: `field-status`, `upload-status`, `data-component-state`, `message-status`, `tool-call-status`); Hierarchy (1: `hierarchy`); Density (1: `density`)
+- Tokens: Tone (2: `signals`, `data-tones`); Intent (1: `command-intents`); Status (5: `field-status`, `upload-status`, `data-component-state`, `message-status`, `tool-call-status`); Hierarchy (1: `hierarchy`); Density (1: `density`)
 
 #### Accessibility
 
@@ -186,12 +186,12 @@ Primitives are the Concrete HTML vocabulary. They own DOM, scoped classes, schem
 
 - **Control** (14): Button (`button`), Toolbar Control (`toolbar-control`), IconButton (`icon-button`), ControlGroup (`control-group`), Token (`token`), SearchInput (`search-input`), PickerButton (`picker-button`), Listbox (`listbox`), Option row (`option-row`), Caret (`caret`), Chip (`chip`), Composer Surface (`composer-surface`), Token Rail (`token-rail`), Diagram Controls (`diagram-controls`)
 - **Form** (15): Input (`input`), Field (`field`), FieldRow (`field-row`), Calendar panel (`calendar-grid`), Dropzone (`dropzone`), Upload field (`upload-field`), Textarea (`textarea`), Select (`select`), Checkbox (`checkbox`), Radio (`radio`), Stepper (`stepper`), Range (`range`), Switch (`switch`), Slider (`slider`), Time list (`time-list`)
-- **Layout** (13): Stack (`stack`), Inline (`inline`), Cluster (`cluster`), Container (`container`), Grid (`grid`), Split (`split`), Scroll Area (`scroll-area`), Dock (`dock`), Rail (`rail`), Section (`section`), Row (`row`), Divider (`divider`), Frame (`frame`)
+- **Layout** (12): Stack (`stack`), Inline (`inline`), Cluster (`cluster`), Container (`container`), Grid (`grid`), Split (`split`), Scroll Area (`scroll-area`), Dock (`dock`), Rail (`rail`), Section (`section`), Divider (`divider`), Frame (`frame`)
 - **Surface** (11): Surface (`surface`), Panel (`panel`), PickerSurface (`picker-surface`), Overlay (`overlay`), DialogSurface (`dialog-surface`), DrawerSurface (`drawer-surface`), DisclosurePanel (`disclosure-panel`), Message Bubble (`message-bubble`), Card (`card`), TiltFrame (`tilt-frame`), ScaleFrame (`scale-frame`)
 - **Typography** (6): Header (`header`), Text (`text`), Heading (`heading`), Label (`label`), Code (`code`), Kbd (`kbd`)
 - **Navigation** (3): MenuSurface (`menu-surface`), MenuGroup (`menu-group`), Link (`link`)
 - **Feedback** (9): Alert (`alert`), ValidationList (`validation-list`), Transcript item (`transcript-item`), Trace panel (`trace-panel`), Spinner (`spinner`), Empty state (`empty-state`), Tooltip (`tooltip`), Skeleton (`skeleton`), Tool-call panel (`tool-call-panel`)
-- **Data** (20): Data Surface (`data-surface`), Chart Frame (`chart-frame`), Plot (`plot`), Chart Grid (`chart-grid`), Axis (`axis`), Target Line (`target-line`), Series Line (`series-line`), Series Point (`series-point`), Series Bar (`series-bar`), Donut Ring (`donut-ring`), Heatmap Grid (`heatmap-grid`), Legend (`legend`), Table (`table`), Pagination (`pagination`), Progress (`progress`), Stat (`stat`), Delta (`delta`), Sparkline (`sparkline`), Distribution (`distribution`), Indicator (`indicator`)
+- **Data** (22): Data Surface (`data-surface`), Chart Frame (`chart-frame`), Plot (`plot`), Chart Grid (`chart-grid`), Axis (`axis`), Target Line (`target-line`), Series Line (`series-line`), Series Point (`series-point`), Series Bar (`series-bar`), Donut Ring (`donut-ring`), Heatmap Grid (`heatmap-grid`), Legend (`legend`), Table (`table`), Pagination (`pagination`), Progress (`progress`), ProgressRing (`progress-ring`), SegmentedProgress (`segmented-progress`), Stat (`stat`), Delta (`delta`), Sparkline (`sparkline`), Distribution (`distribution`), Indicator (`indicator`)
 - **Media** (2): Upload item (`upload-item`), Avatar (`avatar`)
 - **Status** (3): Pill (`pill`), Badge (`badge`), Tag (`tag`)
 - **Diagram** (10): Concept frame (`concept-frame`), Concept connector (`concept-connector`), Diagram Viewport (`diagram-viewport`), Diagram Rail (`diagram-rail`), Diagram Edge (`diagram-edge`), Diagram MiniMap (`diagram-minimap`), Diagram Legend (`diagram-legend`), Diagram node (`diagram-node`), Diagram item (`diagram-item`), Flow Node (`flow-node`)
@@ -203,7 +203,6 @@ Primitives are the Concrete HTML vocabulary. They own DOM, scoped classes, schem
 Components assemble primitives into reusable product behavior. They should not introduce bespoke styling when a primitive or foundation can own the concept.
 
 - **Navigation** (3): Nav (`nav`), Footer (`footer`), Command menu (`command-menu`)
-- **Control** (1): Toolbar (`toolbar`)
 - **Form** (9): Search bar (`search-bar`), Password input (`password-input`), Multi select (`multi-select`), Date picker (`date-picker`), Date range picker (`date-range-picker`), Time picker (`time-picker`), Number stepper (`number-stepper`), Range slider (`range-slider`), File upload (`file-upload`)
 - **Layout** (5): Form shell (`form-shell`), Settings panel (`settings-panel`), Form dialog (`form-dialog`), Form drawer (`form-drawer`), Composer (`composer`)
 - **Feedback** (3): Validation summary (`validation-summary`), Reasoning message (`reasoning-message`), Tool call message (`tool-call-message`)

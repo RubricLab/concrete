@@ -1,0 +1,84 @@
+.concrete-progress-ring {
+	position: relative;
+	display: inline-grid;
+	place-items: center;
+	width: var(--concrete-ring-size, var(--concrete-size-progress-ring));
+	height: var(--concrete-ring-size, var(--concrete-size-progress-ring));
+	color: var(--concrete-ink-9);
+}
+
+.concrete-progress-ring-compact {
+	--concrete-ring-size: var(--concrete-size-progress-ring-compact);
+	--concrete-ring-stroke: var(--concrete-size-progress-ring-stroke-compact);
+}
+
+.concrete-progress-ring-editorial {
+	--concrete-ring-size: var(--concrete-size-progress-ring-editorial);
+	--concrete-ring-stroke: var(--concrete-size-progress-ring-stroke-editorial);
+}
+
+.concrete-progress-ring svg {
+	display: block;
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-full);
+	transform: rotate(var(--concrete-rotate-negative-quarter));
+}
+
+.concrete-progress-ring-track,
+.concrete-progress-ring-fill {
+	fill: none;
+	stroke-width: var(--concrete-ring-stroke, var(--concrete-size-progress-ring-stroke));
+}
+
+.concrete-progress-ring-track {
+	stroke: var(--concrete-ink-1);
+}
+
+.concrete-progress-ring-fill {
+	stroke: currentcolor;
+	stroke-linecap: round;
+}
+
+.concrete-progress-ring-center {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-semibold) var(--concrete-type-22) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	font-variant-numeric: tabular-nums;
+	letter-spacing: var(--concrete-tracking-normal);
+}
+
+.concrete-progress-ring-unit {
+	margin-left: var(--concrete-border-width-hairline);
+	color: var(--concrete-foreground-soft);
+	font-size: var(--concrete-type-12);
+	font-weight: var(--concrete-weight-medium);
+}
+
+.concrete-progress-ring.concrete-progress-sky,
+.concrete-progress-ring.concrete-progress-terminal,
+.concrete-progress-ring.concrete-progress-ultra,
+.concrete-progress-ring.concrete-progress-error {
+	background: transparent;
+}
+
+.concrete-progress-ring.concrete-progress-sky {
+	color: var(--concrete-sky);
+}
+
+.concrete-progress-ring.concrete-progress-terminal {
+	color: var(--concrete-terminal);
+}
+
+.concrete-progress-ring.concrete-progress-ultra {
+	color: var(--concrete-ultra);
+}
+
+.concrete-progress-ring.concrete-progress-error {
+	color: var(--concrete-error);
+}

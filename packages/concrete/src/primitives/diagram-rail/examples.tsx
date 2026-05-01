@@ -1,30 +1,30 @@
 import { defineExamples } from '../../factories/createExamples'
-import { DiagramCanvasViewport } from '../diagram-viewport'
+import { DiagramViewport } from '../diagram-viewport'
 import { DiagramRail } from './component'
 
 export const diagramRailExamples = defineExamples({
 	active: {
 		description: 'Diagram rail with a later active tool.',
 		render: () => (
-			<DiagramCanvasViewport>
+			<DiagramViewport>
 				<DiagramRail activeIndex={3} />
-			</DiagramCanvasViewport>
+			</DiagramViewport>
 		)
 	},
 	default: {
 		description: 'Diagram rail inside a viewport.',
 		render: () => (
-			<DiagramCanvasViewport>
+			<DiagramViewport>
 				<DiagramRail />
-			</DiagramCanvasViewport>
+			</DiagramViewport>
 		)
 	},
 	tools: {
 		description: 'Diagram rail with a focused authoring tool set.',
 		render: () => (
-			<DiagramCanvasViewport>
+			<DiagramViewport>
 				<DiagramRail activeIndex={1} tools={['arrow-right', 'sparkles', 'bar-chart-3', 'file-text']} />
-			</DiagramCanvasViewport>
+			</DiagramViewport>
 		)
 	}
 })

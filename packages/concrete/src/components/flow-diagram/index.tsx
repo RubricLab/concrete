@@ -22,9 +22,9 @@ export const flowDiagramComponentDefinition = createComponent({
 		description: 'A compact map of context, planning, tool execution, and final synthesis.',
 		flow: flowDiagram,
 		legend: [
-			{ label: 'context', tone: 'sky' },
-			{ label: 'tool path', tone: 'terminal' },
-			{ label: 'selected', tone: 'ultra' }
+			{ intent: 'sky', label: 'context' },
+			{ intent: 'terminal', label: 'tool path' },
+			{ intent: 'ultra', label: 'selected' }
 		],
 		title: 'Agent execution flow',
 		width: 1020

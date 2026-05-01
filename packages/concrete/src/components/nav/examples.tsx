@@ -37,7 +37,7 @@ export const navExamples = defineExamples({
 				brand={
 					<Inline density="compact">
 						<BrandMark />
-						<Text tone="strong">Rubric OS</Text>
+						<Text intent="strong">Rubric OS</Text>
 					</Inline>
 				}
 				items={navItems}

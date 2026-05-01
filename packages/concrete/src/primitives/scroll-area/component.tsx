@@ -1,18 +1,18 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { ScrollAreaSize } from './schema'
+import type { ScrollAreaExtent } from './schema'
 
 type ScrollAreaElementProps = Omit<HTMLAttributes<HTMLDivElement>, 'style'>
 
 export type ScrollAreaProps = ScrollAreaElementProps & {
 	children?: ReactNode
-	size?: ScrollAreaSize
+	extent?: ScrollAreaExtent
 }
 
-export function ScrollArea({ children, className, size = 'medium', ...props }: ScrollAreaProps) {
+export function ScrollArea({ children, className, extent = 'medium', ...props }: ScrollAreaProps) {
 	return (
-		<div className={cn(concreteClassNames.scrollArea, className)} data-size={size} {...props}>
+		<div className={cn(concreteClassNames.scrollArea, className)} data-extent={extent} {...props}>
 			{children}
 		</div>
 	)

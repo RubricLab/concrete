@@ -1,5 +1,5 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Row } from '../row/component'
+import { OptionRow } from '../option-row'
 import { Caret } from './component'
 
 export const caretExamples = defineExamples({
@@ -7,15 +7,15 @@ export const caretExamples = defineExamples({
 		description: 'Closed disclosure affordance.',
 		render: () => (
 			<>
-				<Row leadingIcon={<Caret />} meta="closed">
+				<OptionRow meta="closed" trailing={<Caret />}>
 					Environment variables
-				</Row>
-				<Row leadingIcon={<Caret open />} meta="open">
+				</OptionRow>
+				<OptionRow meta="open" trailing={<Caret open />}>
 					Advanced settings
-				</Row>
-				<Row leadingIcon={<Caret direction="up" />} meta="up">
+				</OptionRow>
+				<OptionRow meta="up" trailing={<Caret direction="up" />}>
 					Tree branch
-				</Row>
+				</OptionRow>
 			</>
 		)
 	},

@@ -2,7 +2,7 @@ import type { DetailsHTMLAttributes, ReactNode } from 'react'
 import { ConcreteIcon } from '../../icons'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { DisclosurePanelTone } from './schema'
+import type { DisclosurePanelIntent } from './schema'
 
 export type DisclosurePanelProps = Omit<
 	DetailsHTMLAttributes<HTMLDetailsElement>,
@@ -10,7 +10,7 @@ export type DisclosurePanelProps = Omit<
 > & {
 	children: ReactNode
 	summary: ReactNode
-	tone?: DisclosurePanelTone
+	intent?: DisclosurePanelIntent
 }
 
 export function DisclosurePanel({
@@ -18,13 +18,13 @@ export function DisclosurePanel({
 	className,
 	open = false,
 	summary,
-	tone = 'default',
+	intent = 'default',
 	...props
 }: DisclosurePanelProps) {
 	return (
 		<details
 			className={cn(concreteClassNames.disclosurePanel, className)}
-			data-tone={tone}
+			data-intent={intent}
 			open={open}
 			{...props}
 		>

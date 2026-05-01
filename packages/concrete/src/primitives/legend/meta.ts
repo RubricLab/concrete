@@ -21,6 +21,11 @@ export const legendMeta = {
 		prop('children', 'ReactNode', 'LegendItem nodes or compatible indicator content.'),
 		prop('LegendItem.label', 'ReactNode', 'Legend label text.', undefined, true),
 		prop('LegendItem.value', 'ReactNode', 'Optional tabular value.'),
-		prop('LegendItem.tone', 'IndicatorTone', 'Signal tone passed through to Indicator.', 'default')
+		prop(
+			'LegendItem.intent',
+			'IndicatorIntent',
+			'Signal intent passed through to Indicator.',
+			'neutral'
+		)
 	]
 } as const satisfies LegendMeta

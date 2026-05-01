@@ -11,10 +11,10 @@ export const tokenExamples = defineExamples({
 		description: 'Mixed token set for filters, mentions, scopes, and attachments.',
 		render: () => (
 			<Cluster density="compact">
-				<Token kind="scope" leadingIcon="folder" removable tone="sky">
+				<Token kind="scope" leadingIcon="folder" removable intent="sky">
 					Research
 				</Token>
-				<Token kind="mention" leadingIcon="at-sign" tone="ultra">
+				<Token kind="mention" leadingIcon="at-sign" intent="ultra">
 					Arihan
 				</Token>
 				<Token kind="attachment" leadingIcon="paperclip" removable>
@@ -26,7 +26,7 @@ export const tokenExamples = defineExamples({
 	signal: {
 		description: 'High-signal token for generated agent scopes.',
 		render: () => (
-			<Token kind="value" leadingIcon="sparkles" tone="terminal">
+			<Token kind="value" leadingIcon="sparkles" intent="terminal">
 				Agent runs
 			</Token>
 		)

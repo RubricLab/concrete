@@ -1,6 +1,6 @@
 .concrete-upload-item {
 	display: grid;
-	grid-template-columns: var(--concrete-size-upload-item-thumb-track) minmax(
+	grid-template-columns: var(--concrete-size-media-item-thumb-track) minmax(
 			var(--concrete-space-0),
 			var(--concrete-flex-fill)
 		) auto;
@@ -22,8 +22,8 @@
 
 .concrete-upload-thumb {
 	display: inline-grid;
-	width: var(--concrete-size-upload-thumb);
-	height: var(--concrete-size-upload-thumb);
+	width: var(--concrete-size-media-thumb);
+	height: var(--concrete-size-media-thumb);
 	place-items: center;
 	overflow: hidden;
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
@@ -39,8 +39,8 @@
 }
 
 .concrete-upload-thumb svg {
-	width: var(--concrete-size-upload-thumb-glyph);
-	height: var(--concrete-size-upload-thumb-glyph);
+	width: var(--concrete-size-media-thumb-glyph);
+	height: var(--concrete-size-media-thumb-glyph);
 }
 
 .concrete-upload-copy {
@@ -78,14 +78,14 @@
 	display: block;
 	overflow: hidden;
 	width: var(--concrete-size-full);
-	height: var(--concrete-size-upload-progress);
+	height: var(--concrete-size-media-progress);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-sunken);
 }
 
 .concrete-upload-progress span {
 	display: block;
-	width: var(--concrete-upload-progress);
+	width: var(--concrete-media-progress-value);
 	height: var(--concrete-size-full);
 	border-radius: inherit;
 	background: var(--concrete-sky);
@@ -93,8 +93,8 @@
 
 .concrete-upload-remove {
 	display: inline-grid;
-	width: var(--concrete-size-upload-remove);
-	height: var(--concrete-size-upload-remove);
+	width: var(--concrete-size-media-remove);
+	height: var(--concrete-size-media-remove);
 	place-items: center;
 	padding: var(--concrete-space-0);
 	border: var(--concrete-space-0);
@@ -124,8 +124,8 @@
 }
 
 .concrete-upload-remove svg {
-	width: var(--concrete-size-upload-remove-glyph);
-	height: var(--concrete-size-upload-remove-glyph);
+	width: var(--concrete-size-media-remove-glyph);
+	height: var(--concrete-size-media-remove-glyph);
 }
 
 .concrete-upload-list {
@@ -134,5 +134,5 @@
 }
 
 .concrete-upload-list[data-layout="grid"] {
-	grid-template-columns: var(--concrete-template-upload-list-grid);
+	grid-template-columns: var(--concrete-template-media-list-grid);
 }

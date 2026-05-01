@@ -3,7 +3,7 @@ import type { FlowDiagramNode as FlowDiagramNodeShape } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type FlowNodeTone = FlowDiagramNodeShape['tone']
+export type FlowNodeHierarchy = FlowDiagramNodeShape['hierarchy']
 
 export type FlowNodeProps = Omit<SVGAttributes<SVGGElement>, 'height' | 'title' | 'width'> & {
 	height: number
@@ -11,7 +11,7 @@ export type FlowNodeProps = Omit<SVGAttributes<SVGGElement>, 'height' | 'title' 
 	selected?: boolean | undefined
 	subtitle?: string | undefined
 	title: string
-	tone?: FlowNodeTone | undefined
+	hierarchy?: FlowNodeHierarchy | undefined
 	width: number
 	x: number
 	y: number
@@ -24,7 +24,7 @@ export function FlowNode({
 	selected = false,
 	subtitle,
 	title,
-	tone = 'surface',
+	hierarchy = 'surface',
 	width,
 	x,
 	y,
@@ -33,10 +33,10 @@ export function FlowNode({
 	return (
 		<g
 			className={cn(
-				concreteClassNames.flowDiagramNode,
-				selected && concreteClassNames.flowDiagramNodeSelected,
-				tone === 'accent' && concreteClassNames.flowDiagramNodeAccent,
-				tone === 'inverse' && concreteClassNames.flowDiagramNodeInverse,
+				concreteClassNames.flowNode,
+				selected && concreteClassNames.flowNodeSelected,
+				hierarchy === 'accent' && concreteClassNames.flowNodeAccent,
+				hierarchy === 'inverse' && concreteClassNames.flowNodeInverse,
 				className
 			)}
 			onPointerMove={onPointerMove}
@@ -44,9 +44,9 @@ export function FlowNode({
 		>
 			<rect height={height} width={width} x={x} y={y} />
 			<text
-				className={concreteClassNames.flowDiagramNodeTitle}
-				dx="var(--concrete-offset-flow-diagram-node-text-x)"
-				dy="var(--concrete-offset-flow-diagram-node-title-y)"
+				className={concreteClassNames.flowNodeTitle}
+				dx="var(--concrete-offset-flow-node-text-x)"
+				dy="var(--concrete-offset-flow-node-title-y)"
 				x={x}
 				y={y}
 			>
@@ -54,9 +54,9 @@ export function FlowNode({
 			</text>
 			{subtitle ? (
 				<text
-					className={concreteClassNames.flowDiagramNodeSubtitle}
-					dx="var(--concrete-offset-flow-diagram-node-text-x)"
-					dy="var(--concrete-offset-flow-diagram-node-subtitle-y)"
+					className={concreteClassNames.flowNodeSubtitle}
+					dx="var(--concrete-offset-flow-node-text-x)"
+					dy="var(--concrete-offset-flow-node-subtitle-y)"
 					x={x}
 					y={y}
 				>

@@ -41,7 +41,7 @@ function renderNavInput(input: NavComponentValue) {
 			brand={
 				<Inline density="compact">
 					<BrandMark />
-					<Text tone="strong">{brandLabel}</Text>
+					<Text intent="strong">{brandLabel}</Text>
 				</Inline>
 			}
 			items={renderNavItems(input.items)}

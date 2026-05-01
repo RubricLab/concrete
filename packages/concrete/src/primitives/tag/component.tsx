@@ -1,55 +1,61 @@
 import type { HTMLAttributes } from 'react'
 import { ConcreteIcon } from '../../icons'
-import type { ConcreteSignal } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import {
-	getLabelToneClass,
+	getLabelIntentClass,
 	type LabelIconSlot,
-	type LabelTone,
+	type LabelIntent,
 	renderLabelIconSlot
 } from '../label-helpers'
 import { cn } from '../utils'
 
-export type TagSize = 'large' | 'medium' | 'small'
-export type TagTone = ConcreteSignal | LabelTone
-export type TagVariant = 'active' | 'default' | 'outline' | 'selected'
+export type TagDensity = 'compact' | 'comfortable' | 'editorial'
+export type TagHierarchy = 'outline' | 'soft'
+export type TagIntent = LabelIntent
 
 export type TagProps = HTMLAttributes<HTMLSpanElement> & {
+	active?: boolean
+	density?: TagDensity
 	dismissible?: boolean
+	hierarchy?: TagHierarchy
+	intent?: TagIntent
 	leadingIcon?: LabelIconSlot
 	onDismiss?: () => void
-	size?: TagSize
-	tone?: TagTone
-	variant?: TagVariant
+	selected?: boolean
 }
 
 export function Tag({
+	active = false,
 	children,
 	className,
+	density = 'comfortable',
 	dismissible = false,
+	hierarchy = 'soft',
+	intent = 'neutral',
 	leadingIcon,
 	onDismiss,
-	size = 'medium',
-	tone = 'default',
-	variant = 'default',
+	selected = false,
 	...props
 }: TagProps) {
 	return (
 		<span
 			className={cn(
 				concreteClassNames.tag,
-				getTagToneClass(tone),
-				getTagVariantClass(variant),
-				getTagSizeClass(size),
+				getTagIntentClass(intent),
+				getTagHierarchyClass(hierarchy),
+				getTagDensityClass(density),
+				active && concreteClassNames.tagActive,
+				selected && concreteClassNames.tagSelected,
 				className
 			)}
+			data-active={active ? 'true' : undefined}
+			data-density={density}
+			data-hierarchy={hierarchy}
+			data-intent={intent}
+			data-selected={selected ? 'true' : undefined}
 			{...props}
 		>
-			{variant === 'selected' && !leadingIcon ? (
-				<ConcreteIcon name="check" />
-			) : (
-				renderLabelIconSlot(leadingIcon)
-			)}
+			{selected && !leadingIcon ? <ConcreteIcon name="check" /> : renderLabelIconSlot(leadingIcon)}
 			{children}
 			{dismissible || onDismiss ? (
 				<button
@@ -65,9 +71,9 @@ export function Tag({
 	)
 }
 
-function getTagToneClass(tone: TagTone): string | undefined {
-	switch (tone) {
-		case 'error':
+function getTagIntentClass(intent: TagIntent): string | undefined {
+	switch (intent) {
+		case 'danger':
 			return concreteClassNames.tagError
 		case 'sky':
 			return concreteClassNames.tagSky
@@ -76,30 +82,26 @@ function getTagToneClass(tone: TagTone): string | undefined {
 		case 'ultra':
 			return concreteClassNames.tagUltra
 		default:
-			return getLabelToneClass(tone)
+			return getLabelIntentClass(intent)
 	}
 }
 
-function getTagVariantClass(variant: TagVariant): string | undefined {
-	switch (variant) {
-		case 'active':
-			return concreteClassNames.tagActive
-		case 'default':
-			return undefined
+function getTagHierarchyClass(hierarchy: TagHierarchy): string | undefined {
+	switch (hierarchy) {
 		case 'outline':
 			return concreteClassNames.tagOutline
-		case 'selected':
-			return concreteClassNames.tagSelected
+		case 'soft':
+			return undefined
 	}
 }
 
-function getTagSizeClass(size: TagSize): string | undefined {
-	switch (size) {
-		case 'large':
+function getTagDensityClass(density: TagDensity): string | undefined {
+	switch (density) {
+		case 'editorial':
 			return concreteClassNames.tagLarge
-		case 'medium':
+		case 'comfortable':
 			return undefined
-		case 'small':
+		case 'compact':
 			return concreteClassNames.tagSmall
 	}
 }

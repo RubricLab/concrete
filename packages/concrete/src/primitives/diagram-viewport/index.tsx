@@ -1,45 +1,37 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createPrimitive } from '../../factories/createItems'
-import {
-	DiagramCanvasHeader,
-	DiagramCanvasShell,
-	DiagramCanvasStage,
-	DiagramCanvasViewport
-} from './component'
+import { DiagramHeader, DiagramShell, DiagramStage, DiagramViewport } from './component'
 import { diagramViewportExamples } from './examples'
 import { diagramViewportMeta } from './meta'
 import { type DiagramViewportValue, diagramViewportSchema } from './schema'
 
 export type {
-	DiagramCanvasElementButtonProps,
-	DiagramCanvasElementProps,
-	DiagramCanvasFooterProps,
-	DiagramCanvasHeaderProps,
-	DiagramCanvasShellProps,
-	DiagramCanvasStageProps,
-	DiagramCanvasViewportProps,
-	FlowDiagramShellProps,
-	FlowDiagramSvgProps,
-	FlowDiagramViewportProps
+	DiagramDisplay,
+	DiagramElementButtonProps,
+	DiagramElementProps,
+	DiagramFooterProps,
+	DiagramHeaderProps,
+	DiagramShellProps,
+	DiagramStageProps,
+	DiagramSvgProps,
+	DiagramViewportProps
 } from './component'
 export {
-	DiagramCanvasElement,
-	DiagramCanvasElementButton,
-	DiagramCanvasFooter,
-	DiagramCanvasHeader,
-	DiagramCanvasShell,
-	DiagramCanvasStage,
-	DiagramCanvasViewport,
-	FlowDiagramShell,
-	FlowDiagramSvg,
-	FlowDiagramViewport
+	DiagramElement,
+	DiagramElementButton,
+	DiagramFooter,
+	DiagramHeader,
+	DiagramShell,
+	DiagramStage,
+	DiagramSvg,
+	DiagramViewport
 } from './component'
 export type { DiagramViewportInput, DiagramViewportValue } from './schema'
 export { diagramViewportPropsSchema, diagramViewportSchema } from './schema'
 
 export const diagramViewportPrimitiveDefinition = createPrimitive({
 	...diagramViewportMeta,
-	component: DiagramCanvasShell,
+	component: DiagramShell,
 	kind: 'primitive',
 	renderExample: (state?: string) => renderExample(diagramViewportExamples, state),
 	renderInput: input => renderDiagramViewportInput(diagramViewportSchema.parse(input)),
@@ -50,11 +42,11 @@ export const diagramViewportPrimitiveDefinition = createPrimitive({
 
 function renderDiagramViewportInput({ description, height, title, width }: DiagramViewportValue) {
 	return (
-		<DiagramCanvasShell>
-			<DiagramCanvasHeader description={description} title={title} />
-			<DiagramCanvasViewport>
-				<DiagramCanvasStage height={height} transform="translate(0px, 0px) scale(1)" width={width} />
-			</DiagramCanvasViewport>
-		</DiagramCanvasShell>
+		<DiagramShell>
+			<DiagramHeader description={description} title={title} />
+			<DiagramViewport>
+				<DiagramStage height={height} transform="translate(0px, 0px) scale(1)" width={width} />
+			</DiagramViewport>
+		</DiagramShell>
 	)
 }

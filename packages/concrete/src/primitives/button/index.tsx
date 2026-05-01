@@ -5,10 +5,21 @@ import { buttonExamples } from './examples'
 import { buttonMeta } from './meta'
 import { type ButtonValue, buttonSchema } from './schema'
 
-export type { ButtonProps, ButtonSize, ButtonVariant } from './component'
+export type {
+	ButtonDensity,
+	ButtonHierarchy,
+	ButtonIntent,
+	ButtonProps
+} from './component'
 export { Button } from './component'
 export type { ButtonInput, ButtonValue } from './schema'
-export { buttonPropsSchema, buttonSchema, buttonSizeSchema, buttonVariantSchema } from './schema'
+export {
+	buttonDensitySchema,
+	buttonHierarchySchema,
+	buttonIntentSchema,
+	buttonPropsSchema,
+	buttonSchema
+} from './schema'
 
 export const buttonPrimitiveDefinition = createPrimitive({
 	...buttonMeta,

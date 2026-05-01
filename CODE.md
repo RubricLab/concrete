@@ -27,7 +27,7 @@ When a file is opened, it should be obvious why that file exists, what it owns, 
 - Treat `PLAN.md` as the target item inventory and operating todo for ontology work. If the target changes, update that file before code.
 - Foundations must exhaust the reusable design language that primitives consume. Do not add primitive CSS values to compensate for missing foundation concepts.
 - Public primitives must be reusable UI vocabulary, not component selector buckets extracted to satisfy the component CSS rule.
-- Primitive props must express role, hierarchy, intent, density, placement, slot, and state. They must not expose arbitrary visual overrides.
+- Primitive props must express purpose, hierarchy, intent, density, placement, slot, and state. They must not expose arbitrary visual overrides.
 - Avoid `any`, hidden flows, and untyped escape hatches.
 - Treat LOC as a signal, not an architecture rule. Splitting one complete concern only to reduce line count makes the codebase worse.
 - Keep internal DX Markdown to two files: `CODE.md` for rules and `PLAN.md` for active work, target inventory, and migration memory.
@@ -52,18 +52,27 @@ Foundations are exhaustive. If two primitives need the same visual concept, the 
 
 Primitives are rigid grammar. A primitive should be the smallest named HTML concept that future components can assemble without inventing style. Good primitives are boring to use because the visual decisions are already encoded in foundations. A primitive may compose other primitives only when the result is still one reusable HTML-level concept, such as a field row, menu item, panel header, or trace panel.
 
-Components are behavior. They parse schemas, own state, map data, respond to events, run keyboard flow, and compose primitives. A component may compose another component only after the dependency is declared in an acyclic component tier map and the import-boundary test allows that tier. Until that map exists, the current stricter rule remains active: component implementations do not import sibling component implementations.
+Components are behavior. They parse schemas, own state, map data, respond to events, run keyboard flow, and compose primitives. A component may compose another component only after the dependency is declared in an acyclic component tier map and the import-boundary test allows that tier. The current tier map is intentionally tiny: message workflow components may depend on `Message`; every other sibling implementation import is banned.
 
 Public primitive status is earned. A private internal primitive can become public only when its name, schema, examples, docs, and styles describe reusable Concrete vocabulary. Docs-only render helpers, preview constraints, and migration shims do not belong in the public primitive registry.
 
+Primitive subpart status is earned too. A primitive may not quietly export a pile of sibling JSX components just because they live in one folder. If the subpart is reusable vocabulary, split it into its own primitive. If the subpart is one item-owned anatomy, keep it in the item and record the exception in `PLAN.md` so tests can enforce it.
+
 Primitive props are closed. Allowed prop categories are:
 
-- `role`: semantic job inside the composition.
+- `purpose`: semantic job inside the composition. Do not use the prop name `role` unless the value is a real ARIA role.
 - `hierarchy`: primary, secondary, tertiary, ghost, or another shared hierarchy.
 - `intent`: neutral, sky, terminal, ultra, danger, or another shared tone.
 - `density`: compact, comfortable, editorial, or another shared density.
 - `state`: open, selected, pressed, loading, disabled, error, success, pending.
 - `placement`: top, right, bottom, left, inline, overlay, start, end.
+- `kind`: structural discriminant, not visual styling.
+- `display`: rendering form for one semantic concept, not a visual escape hatch.
+- `relation`: edge, graph, or connection grammar.
+- `depth`: tokenized surface elevation role.
+- `measure`: tokenized overlay or surface width role.
+- `extent`: tokenized scroll or viewport block-size role.
+- `scale`: tokenized glyph or illustration scale.
 - `slot`: typed React slots or serializable Concrete node slots.
 
 Banned public primitive prop categories are:
@@ -91,6 +100,7 @@ When a chunk exposes missing vocabulary, promote by the narrowest durable bounda
 - Promote an internal primitive to public only when docs, examples, schemas, and naming can defend it as product vocabulary.
 - Keep logic in a component when the concern is orchestration, controlled state, schema parsing, data transformation, or multi-step workflow behavior.
 - Move calculations to `utilities/` only when they are pure, reusable, and easier to explain than the duplication they remove.
+- Keep JSX-only parts for one component inside that component. Do not put one-component menu items, buttons, table parts, chart shells, composer controls, or diagram chrome in `utilities/`; promote them to a primitive only when they are honest reusable vocabulary.
 - Re-scope foundations immediately when a migration needs a value that cannot be expressed with existing tokens. Do not hide the missing token in item CSS.
 
 Do not create a new primitive for a single wrapper whose only purpose is to bypass the component styling rule. First ask whether an existing layout, surface, text, control, field, overlay, menu, feedback, data, chart, diagram, agent, or media primitive should grow.
@@ -98,6 +108,7 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 ## Current Checkpoint
 
 - Foundations, primitives, and components are folder-owned item bundles.
+- Current public inventory is 12 foundations, 110 primitives, and 35 components after the latest `main` rebase.
 - The public foundation set is now `colors`, `typography`, `spacing`, `sizing`, `layout`, `radii`, `elevation`, `motion`, `textures`, `iconography`, `state`, and `accessibility`.
 - Public registries are derived from item definitions.
 - Public foundation registry entries expose validated `tokens` so docs can explain foundation data without importing foundation-specific schema files.
@@ -106,16 +117,29 @@ Do not create a new primitive for a single wrapper whose only purpose is to bypa
 - Phase 3A target primitives now exist for form, picker, menu, overlay, search, token, feedback, and disclosure vocabulary: `FieldRow`, `Token`, `SearchInput`, `PickerButton`, `PickerSurface`, `MenuSurface`, `MenuGroup`, `Listbox`, `Overlay`, `DialogSurface`, `DrawerSurface`, `Alert`, `ValidationList`, and `DisclosurePanel`.
 - `DataSurface` is the generic data/generative panel surface. Do not restore metric-specific or data-header wrapper primitives; use `DataSurface` plus `Header`, `Stat`, `Progress`, `Sparkline`, `Indicator`, and table/chart atoms.
 - Phase 3B primitive correction is complete. Data, table, chart, calendar, range, stepper, composer, message, trace, texture, preview, and suggestion migration primitives have been renamed, split, or demoted. Chart anatomy is now explicit: `ChartFrame`, `Plot`, `ChartGrid`, `Axis`, `TargetLine`, `SeriesLine`, `SeriesPoint`, `SeriesBar`, `DonutRing`, and `HeatmapGrid`.
-- Deferred public primitives are intentional, not missing work: `trace-step` stays inside `TracePanel` until reused outside it, and `attachment-item`/`thumbnail` wait for a file/upload slice that proves distinct vocabulary beyond `Token`, `TokenRail`, and `UploadItem`.
+- Phase 4B semantic prop discipline is complete for the control/status/feedback family. Use `purpose` for Concrete semantic jobs; reserve `role` for real ARIA roles.
+- Phase 4C dynamic data/geometry prop discipline is complete. Data, chart, table, and diagram item boundaries use `intent`, `kind`, `display`, `relation`, and `hierarchy`; foundation token families may still use `tone` when the concept is truly token-level color language.
+- Phase 4D remaining primitive vocabulary discipline is complete. Public primitive schemas no longer expose loose `tone`, `variant`, or `size`; use semantic prop names such as `intent`, `hierarchy`, `depth`, `measure`, `density`, `extent`, `scale`, `kind`, `display`, `purpose`, and `relation`.
+- Phase 5B component assembly hardening is complete for form, picker, search, validation, and settings workflows. Shared interaction payloads use `intent`, `FormShell` no longer exposes a dead presentation prop, and component schemas fail when they add loose `tone`, `variant`, or `size`.
+- Phase 5C dense workflow ownership is complete. The duplicate `components/toolbar` wrapper is deleted; `toolbar-control` is the sole toolbar vocabulary. Upload workflow behavior lives in `components/file-upload` and `components/image-upload`; the `Dropzone` and `UploadField` primitives own the tiny action/list chrome. Message workflow behavior lives in `components/message`; `reasoning-message` and `tool-call-message` compose it through a declared component tier map. `DataTable` owns table filtering/sort/id helpers, `DiagramCanvas` and `FlowDiagram` assemble generic diagram primitives, and `Composer` keeps JSX-only subparts inside its component file while true editor, DOM, menu, formatting, serialization, and action engines remain in `utilities/`.
+- Deferred public primitives are intentional, not missing work: `trace-step` stays inside `TracePanel` until reused outside it, and `attachment-item`/`thumbnail` wait for a future slice that proves distinct vocabulary beyond `Token`, `TokenRail`, and `UploadItem`.
 - Breaking primitive cleanup is allowed when `PLAN.md` records the delete/demote decision. Deleted primitive names must leave registry, exports, styles, tests, docs smoke targets, class-name maps, and foundation token names in the same wave.
 - Docs detail, render, playground, and catalog flows consume registry definitions.
 - `factories/` owns item, control, and example creation.
 - `utilities/` owns shared pure algorithms, render helpers, schema input helpers, and temporary shared engines.
 - `components/` root is a public barrel only. Shared component engines do not live there.
-- Shared JSX used by components lives in private `primitives/internal/*` folders until it becomes a public primitive or collapses back into one owner.
-- Component `component.tsx` files must not import sibling component folders.
+- No private internal primitive folders currently exist. Reintroduce `primitives/internal/*` only when a reusable JSX concept cannot honestly be public primitive vocabulary or a declared lower-tier component.
+- Component `component.tsx` files must not import sibling component folders unless `PLAN.md` declares the acyclic tier exception and tests enforce it.
 - Remaining centralized CSS is explicit migration debt for deferred primitive slices. Item `styles.css` files either own active selectors or do not exist for that item.
-- The next checkpoint is primitive prop tightening and component assembly hardening.
+- Phase 6 final hardening is complete for this run. Registry definitions now have to match actual public item folders, retired public item slugs have to stay deleted from folders/barrels/registry/styles, and generic diagram support styles must use primitive vocabulary such as `diagram-*`, `diagram-flow-*`, and `flow-node-*` instead of component-shaped `diagram-canvas-*` or `flow-diagram-*` names.
+- Phase 7A foundation noun policy is complete. Foundation tokens now use role/domain vocabulary and tests reject component-shaped token nouns.
+- Phase 7B primitive scope closure is complete for the remaining ambiguous primitives. `ProgressRing` and `SegmentedProgress` are standalone primitive bundles, `Progress` owns linear progress only, `TimeList` assembles `Listbox` and `OptionRow`, `row` is retired, diagram-domain primitives are documented as diagram vocabulary, and `ToolCallPanel` has an enforced item-owned subpart exception.
+- Phase 7C primitive consistency is complete for the full primitive table. Label metadata now carries distinct roles, control metadata matches schema-owned semantics, media/support primitives do not expose arbitrary style escapes, and every remaining family is audited against the foundation/primitive/component ontology.
+- Phase 7D/7E foundation and primitive readiness is complete. Runtime primitive subpart exports are exact and documented, every foundation/primitive scope row is closed, and the full gate set passed.
+- `container`, `scale-frame`, and `tilt-frame` are retained from the docs-shell workstream. `row` remains retired.
+- Phase 8 component closure is active. Component implementations are structurally clean under the current tests, but `FormShell`, component `index.tsx` render adapters, component dependency tiers, and rich child/slot serialization still need explicit closure before components get the same A+ stamp as foundations and primitives.
+- `nav`, `footer`, and `feature-card` are retained from the docs-shell workstream and must be judged in Phase 8 as durable package components or demoted back into docs composition.
+- The next checkpoint should be Phase 8 component closure first, then aesthetic polish or component-specific product refinement. Do not reopen foundation/primitive ontology unless a concrete issue appears.
 - `PLAN.md` is the live scope ledger, autonomous queue, and target foundation/primitive/component inventory. Every structural chunk must update it before stopping.
 - Composer remains whole. Do not split one interactive component file only to satisfy a LOC budget.
 
@@ -127,7 +151,7 @@ packages/concrete/src/
   factories/    createControls, createExamples, createItems, and barrel only
   foundations/  foundation item folders and foundation exports
   icons/        public icon subpath export
-  primitives/   public primitive item folders plus private internal primitives
+  primitives/   public primitive item folders; private internal primitives only with a written exception
   registry/     public registry projection over item definitions
   schemas/      public schema subpath export
   styles/       public stylesheet inputs, selector contract, and manifest
@@ -280,6 +304,15 @@ Component implementation rules:
 - A component may keep raw semantic DOM only while it is an explicit migration exception in `PLAN.md`; the exception must name the primitive boundary that should absorb it.
 
 Components should not need CSS in the current architecture. When a component appears to need layout styling, first ask which primitive is missing. A future component stylesheet is allowed only as a ledger-recorded migration exception with a `DX-TODO(component-name)` comment explaining the structural debt.
+
+Component item-bundle rules:
+
+- `components/<slug>/component.tsx` should export one public runtime component. Extra public runtime exports require a component subpart/compatibility ledger row in `PLAN.md` and an enforcement test.
+- Local JSX functions inside `component.tsx` are allowed when they serve one controller/event/render flow and are not reusable vocabulary. `ComposerTool`, table cell renderers, and command menu grouping are examples of component-owned implementation details, not automatic split targets.
+- `components/<slug>/index.tsx` may own public re-exports, the `createComponent` call, seed data, and the serializable `renderInput` adapter. It must not become a second implementation file or a docs-specific switchboard.
+- Sibling component imports inside `component.tsx` are banned unless the dependency is declared in an acyclic component tier map. The current message tier is the only accepted shape: `ReasoningMessage` and `ToolCallMessage` may compose `Message`.
+- Sibling component imports inside `examples.tsx` or `index.tsx` are allowed only when they are demo/renderInput output for docs, render routes, or screenshots. They are not evidence that runtime implementation dependencies are allowed.
+- Rich React slots remain TypeScript-owned runtime props until the recursive Concrete node schema is explicitly greenlit. For now, item schemas describe serializable own props, and `renderInput` adapters bridge those props into JSX slots.
 
 ## Foundations And Primitives
 
@@ -546,8 +579,8 @@ Keep tests narrow and contract-level:
 - docs imports only public package surfaces
 - package source does not import CSS modules unless the CSS decision changes
 - styles contain no banned raw values outside token files
-- component implementations do not import sibling components
-- any future component-to-component import is declared in an acyclic component tier map
+- component implementations do not import sibling components unless the dependency is declared in an acyclic component tier map
+- examples and renderInput adapters may compose sibling components only as demo/render output
 - foundation token names do not contain component slugs unless documented as domain vocabulary
 - public primitive schemas do not expose raw visual override props
 - public primitive registry does not contain docs-only or migration-only primitives
@@ -594,7 +627,7 @@ Current standardization checkpoint:
 1. Component implementations are guarded against owned class names, styled raw DOM, and component stylesheets.
 2. The recursive Concrete node schema is validation-only and registry-checked.
 3. Public export compatibility, raw CSS value policy, media-query exceptions, and browser/screenshot smoke coverage are guarded by tests.
-4. The foundation concept split, generic layout/surface/text/control vocabulary, first destructive primitive contraction, and data-surface cut are structurally complete. The next active phase is table/chart/diagram/agent primitive correction, primitive prop discipline, and component assembly over the target inventory in `PLAN.md`.
+4. Foundation and primitive ontology are structurally closed. The active phase is Phase 8 component closure: runtime export contract, dependency tier ledger, `FormShell` decision, `index.tsx`/renderInput rules, and explicit rich-slot serialization deferral.
 
 When new structural debt appears, add it to `PLAN.md` first, then pull the first unblocked item into `## Active Work`.
 

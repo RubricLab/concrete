@@ -8,8 +8,8 @@ export const dockExamples = defineExamples({
 		description: 'Status plus trailing actions.',
 		render: () => (
 			<Dock align="between">
-				<Badge signal="terminal">Autosaved</Badge>
-				<Button size="small" variant="primary">
+				<Badge intent="terminal">Autosaved</Badge>
+				<Button density="small" hierarchy="primary">
 					Publish
 				</Button>
 			</Dock>
@@ -19,10 +19,10 @@ export const dockExamples = defineExamples({
 		description: 'Footer command dock.',
 		render: () => (
 			<Dock>
-				<Button size="small" variant="ghost">
+				<Button density="small" hierarchy="ghost">
 					Cancel
 				</Button>
-				<Button size="small" variant="primary">
+				<Button density="small" hierarchy="primary">
 					Save
 				</Button>
 			</Dock>
@@ -32,10 +32,10 @@ export const dockExamples = defineExamples({
 		description: 'Top-attached control dock.',
 		render: () => (
 			<Dock placement="top">
-				<Button size="small" variant="secondary">
+				<Button density="small" hierarchy="secondary">
 					Filter
 				</Button>
-				<Button size="small" variant="secondary">
+				<Button density="small" hierarchy="secondary">
 					Export
 				</Button>
 			</Dock>

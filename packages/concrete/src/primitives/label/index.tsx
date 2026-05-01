@@ -7,8 +7,8 @@ import { type LabelValue, labelSchema } from './schema'
 
 export type { ConcreteLabelProps } from './component'
 export { Label } from './component'
-export type { LabelInput, LabelPurpose, LabelToneValue, LabelValue } from './schema'
-export { labelPropsSchema, labelPurposeSchema, labelSchema, labelToneSchema } from './schema'
+export type { LabelInput, LabelIntentValue, LabelPurpose, LabelValue } from './schema'
+export { labelIntentSchema, labelPropsSchema, labelPurposeSchema, labelSchema } from './schema'
 
 export const labelPrimitiveDefinition = createPrimitive({
 	...labelMeta,
@@ -18,12 +18,17 @@ export const labelPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderLabelInput(labelSchema.parse(input)),
 	schema: labelSchema,
 	slug: 'label',
-	states: exampleStates(labelExamples, ['default', 'field', 'tones'])
+	states: exampleStates(labelExamples, ['default', 'field', 'intents'])
 })
 
-function renderLabelInput({ content, leadingIcon, marker, purpose, tone }: LabelValue) {
+function renderLabelInput({ content, intent, leadingIcon, marker, purpose }: LabelValue) {
 	return (
-		<Label marker={marker} purpose={purpose} tone={tone} {...(leadingIcon ? { leadingIcon } : {})}>
+		<Label
+			intent={intent}
+			marker={marker}
+			purpose={purpose}
+			{...(leadingIcon ? { leadingIcon } : {})}
+		>
 			{content}
 		</Label>
 	)

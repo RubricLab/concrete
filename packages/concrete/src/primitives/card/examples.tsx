@@ -7,8 +7,8 @@ export const cardExamples = defineExamples({
 		render: () => (
 			<>
 				<Card description="Border only. The canonical surface." title="Default" />
-				<Card description="One step of elevation over canvas." title="Raised" variant="raised" />
-				<Card description="Recessed. Code, quotes, wells." title="Sunken" variant="sunken" />
+				<Card description="One step of elevation over canvas." title="Raised" depth="raised" />
+				<Card description="Recessed. Code, quotes, wells." title="Sunken" depth="sunken" />
 			</>
 		)
 	},
@@ -16,7 +16,7 @@ export const cardExamples = defineExamples({
 		description: 'One step of elevation above canvas.',
 		render: () => (
 			<>
-				<Card description="One step of elevation over canvas." title="Raised" variant="raised" />
+				<Card description="One step of elevation over canvas." title="Raised" depth="raised" />
 			</>
 		)
 	},
@@ -24,7 +24,7 @@ export const cardExamples = defineExamples({
 		description: 'Recessed surface for code, quotes, and wells.',
 		render: () => (
 			<>
-				<Card description="Recessed. Code, quotes, wells." title="Sunken" variant="sunken" />
+				<Card description="Recessed. Code, quotes, wells." title="Sunken" depth="sunken" />
 			</>
 		)
 	}

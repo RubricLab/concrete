@@ -8,11 +8,11 @@ import { type DialogSurfaceValue, dialogSurfaceSchema } from './schema'
 
 export type { DialogSurfaceProps } from './component'
 export { DialogSurface } from './component'
-export type { DialogSurfaceInput, DialogSurfaceSize, DialogSurfaceValue } from './schema'
+export type { DialogSurfaceInput, DialogSurfaceMeasure, DialogSurfaceValue } from './schema'
 export {
+	dialogSurfaceMeasureSchema,
 	dialogSurfacePropsSchema,
-	dialogSurfaceSchema,
-	dialogSurfaceSizeSchema
+	dialogSurfaceSchema
 } from './schema'
 
 export const dialogSurfacePrimitiveDefinition = createPrimitive({
@@ -26,9 +26,9 @@ export const dialogSurfacePrimitiveDefinition = createPrimitive({
 	states: exampleStates(dialogSurfaceExamples, ['default', 'compact', 'wide'])
 })
 
-function renderDialogSurfaceInput({ content, modal, size }: DialogSurfaceValue) {
+function renderDialogSurfaceInput({ content, modal, measure }: DialogSurfaceValue) {
 	return (
-		<DialogSurface modal={modal} size={size}>
+		<DialogSurface modal={modal} measure={measure}>
 			<Panel title="Dialog">{content}</Panel>
 		</DialogSurface>
 	)

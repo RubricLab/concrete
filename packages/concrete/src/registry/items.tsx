@@ -32,7 +32,6 @@ import { settingsPanelComponentDefinition } from '../components/settings-panel'
 import { stackedBarChartComponentDefinition } from '../components/stacked-bar-chart'
 import { timePickerComponentDefinition } from '../components/time-picker'
 import { toolCallMessageComponentDefinition } from '../components/tool-call-message'
-import { toolbarComponentDefinition } from '../components/toolbar'
 import { validationSummaryComponentDefinition } from '../components/validation-summary'
 import { foundationDefinitions } from '../foundations'
 import { alertPrimitiveDefinition } from '../primitives/alert'
@@ -104,14 +103,15 @@ import { pickerSurfacePrimitiveDefinition } from '../primitives/picker-surface'
 import { pillPrimitiveDefinition } from '../primitives/pill'
 import { plotPrimitiveDefinition } from '../primitives/plot'
 import { progressPrimitiveDefinition } from '../primitives/progress'
+import { progressRingPrimitiveDefinition } from '../primitives/progress-ring'
 import { radioPrimitiveDefinition } from '../primitives/radio'
 import { railPrimitiveDefinition } from '../primitives/rail'
 import { rangePrimitiveDefinition } from '../primitives/range'
-import { rowPrimitiveDefinition } from '../primitives/row'
 import { scaleFramePrimitiveDefinition } from '../primitives/scale-frame'
 import { scrollAreaPrimitiveDefinition } from '../primitives/scroll-area'
 import { searchInputPrimitiveDefinition } from '../primitives/search-input'
 import { sectionPrimitiveDefinition } from '../primitives/section'
+import { segmentedProgressPrimitiveDefinition } from '../primitives/segmented-progress'
 import { selectPrimitiveDefinition } from '../primitives/select'
 import { seriesBarPrimitiveDefinition } from '../primitives/series-bar'
 import { seriesLinePrimitiveDefinition } from '../primitives/series-line'
@@ -221,7 +221,6 @@ export const primitiveDefinitions = [
 	badgePrimitiveDefinition,
 	tagPrimitiveDefinition,
 	avatarPrimitiveDefinition,
-	rowPrimitiveDefinition,
 	codePrimitiveDefinition,
 	composerSurfacePrimitiveDefinition,
 	tokenRailPrimitiveDefinition,
@@ -243,6 +242,8 @@ export const primitiveDefinitions = [
 	emptyStatePrimitiveDefinition,
 	tooltipPrimitiveDefinition,
 	progressPrimitiveDefinition,
+	progressRingPrimitiveDefinition,
+	segmentedProgressPrimitiveDefinition,
 	statPrimitiveDefinition,
 	deltaPrimitiveDefinition,
 	sparklinePrimitiveDefinition,
@@ -262,7 +263,6 @@ export const primitiveDefinitions = [
 export const componentDefinitions = [
 	navComponentDefinition,
 	footerComponentDefinition,
-	toolbarComponentDefinition,
 	commandMenuComponentDefinition,
 	searchBarComponentDefinition,
 	formShellComponentDefinition,

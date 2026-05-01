@@ -5,7 +5,7 @@ import { conceptFrameExamples } from './examples'
 import { conceptFrameMeta } from './meta'
 import { type ConceptFrameValue, conceptFramePrimitiveSchema } from './schema'
 
-export type { ConceptFrameProps, ConceptFrameSize } from './component'
+export type { ConceptFrameProps, ConceptFrameScale } from './component'
 export { ConceptFrame } from './component'
 export type { ConceptFrameInput, ConceptFrameValue } from './schema'
 export { conceptFramePrimitivePropsSchema, conceptFramePrimitiveSchema } from './schema'

@@ -19,7 +19,7 @@ export const tokenMeta = {
 	pressure: ['product', 'generative'],
 	props: [
 		prop('kind', "'attachment' | 'entity' | 'mention' | 'scope' | 'value'", 'Semantic token kind.'),
-		prop('tone', 'CommandItemTone', 'Semantic tone from shared state.'),
+		prop('intent', 'CommandItemIntent', 'Semantic intent from shared state.'),
 		prop('leadingIcon', 'IconName', 'Optional semantic leading icon.'),
 		prop('removable', 'boolean', 'Whether to render the remove affordance.')
 	]

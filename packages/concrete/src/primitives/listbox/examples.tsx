@@ -6,7 +6,7 @@ export const listboxExamples = defineExamples({
 	compact: {
 		description: 'Compact listbox for dense popovers and generated controls.',
 		render: () => (
-			<Listbox size="compact">
+			<Listbox density="compact">
 				<OptionRow kind="command" leadingIcon="search">
 					Search docs
 				</OptionRow>

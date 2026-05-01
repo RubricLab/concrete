@@ -8,18 +8,18 @@ import { type HeadingValue, headingSchema } from './schema'
 export type { HeadingProps } from './component'
 export { Heading } from './component'
 export type {
+	HeadingHierarchy,
 	HeadingInput,
+	HeadingIntent,
 	HeadingLevel,
-	HeadingSize,
-	HeadingTone,
 	HeadingValue
 } from './schema'
 export {
+	headingHierarchySchema,
+	headingIntentSchema,
 	headingLevelSchema,
 	headingPropsSchema,
-	headingSchema,
-	headingSizeSchema,
-	headingToneSchema
+	headingSchema
 } from './schema'
 
 export const headingPrimitiveDefinition = createPrimitive({
@@ -33,9 +33,9 @@ export const headingPrimitiveDefinition = createPrimitive({
 	states: exampleStates(headingExamples, ['default', 'display', 'scale'])
 })
 
-function renderHeadingInput({ content, level, size, tone }: HeadingValue) {
+function renderHeadingInput({ content, level, hierarchy, intent }: HeadingValue) {
 	return (
-		<Heading level={level} size={size} tone={tone}>
+		<Heading level={level} hierarchy={hierarchy} intent={intent}>
 			{content}
 		</Heading>
 	)

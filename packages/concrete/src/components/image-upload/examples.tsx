@@ -65,6 +65,6 @@ export const imageUploadExamples = defineExamples({
 	}
 })
 
-function renderImageUploadExample(variant: 'avatar' | 'grid' | 'single'): ReactNode {
-	return <ImageUpload defaultValue={imageUploadItems} label="Reference image" variant={variant} />
+function renderImageUploadExample(kind: 'avatar' | 'grid' | 'single'): ReactNode {
+	return <ImageUpload defaultValue={imageUploadItems} kind={kind} label="Reference image" />
 }

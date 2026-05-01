@@ -11,7 +11,7 @@ export type DiagramItemProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
 	muted?: boolean
 	selected?: boolean
 	title: ReactNode
-	tone?: DiagramTone
+	intent?: DiagramTone
 	value?: ReactNode
 }
 
@@ -23,7 +23,7 @@ export function DiagramItem({
 	muted = false,
 	selected = false,
 	title,
-	tone = 'ink',
+	intent = 'ink',
 	value,
 	...props
 }: DiagramItemProps) {
@@ -32,13 +32,13 @@ export function DiagramItem({
 			className={cn(
 				concreteClassNames.diagramItem,
 				getDiagramItemClass(kind),
-				getDiagramToneClass(tone),
+				getDiagramToneClass(intent),
 				muted && concreteClassNames.diagramItemMuted,
 				selected && concreteClassNames.diagramItemSelected,
 				className
 			)}
 			data-diagram-kind={kind}
-			data-diagram-tone={tone}
+			data-diagram-intent={intent}
 			{...props}
 		>
 			<span className={concreteClassNames.diagramItemKind}>{kind}</span>

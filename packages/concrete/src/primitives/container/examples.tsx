@@ -34,8 +34,8 @@ export const containerExamples = defineExamples({
 		render: () => (
 			<Container measure="full">
 				<Stack density="compact">
-					<Text tone="strong">Full measure</Text>
-					<Text tone="muted">Useful for tool stages and wide generated UI.</Text>
+					<Text intent="strong">Full measure</Text>
+					<Text intent="muted">Useful for tool stages and wide generated UI.</Text>
 				</Stack>
 			</Container>
 		)

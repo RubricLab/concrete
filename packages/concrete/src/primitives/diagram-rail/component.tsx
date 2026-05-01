@@ -24,14 +24,10 @@ export function DiagramRail({
 	...props
 }: DiagramRailProps) {
 	return (
-		<div
-			aria-hidden="true"
-			className={cn(concreteClassNames.diagramCanvasRail, className)}
-			{...props}
-		>
+		<div aria-hidden="true" className={cn(concreteClassNames.diagramRail, className)} {...props}>
 			{tools.map((tool, index) => (
 				<span
-					className={index === activeIndex ? concreteClassNames.diagramCanvasRailActive : undefined}
+					className={index === activeIndex ? concreteClassNames.diagramRailActive : undefined}
 					key={`${tool}-${index}`}
 				>
 					<ConcreteIcon name={tool} />

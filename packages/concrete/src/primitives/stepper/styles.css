@@ -1,13 +1,13 @@
 .concrete-stepper {
 	display: grid;
-	grid-template-columns: var(--concrete-template-stepper);
-	width: min(var(--concrete-measure-stepper), var(--concrete-size-full));
+	grid-template-columns: var(--concrete-template-step-control);
+	width: min(var(--concrete-measure-step-control), var(--concrete-size-full));
 	height: var(--concrete-size-field-control);
 	overflow: hidden;
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
 	border-radius: var(--concrete-radius-3);
 	background: var(--concrete-surface);
-	box-shadow: var(--concrete-shadow-stepper);
+	box-shadow: var(--concrete-shadow-step-control);
 }
 
 .concrete-stepper button,

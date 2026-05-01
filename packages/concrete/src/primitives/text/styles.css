@@ -37,34 +37,34 @@
 		var(--concrete-font-sans);
 }
 
-.concrete-text[data-tone="strong"] {
+.concrete-text[data-intent="strong"] {
 	color: var(--concrete-foreground-strong);
 }
 
-.concrete-text[data-tone="muted"] {
+.concrete-text[data-intent="muted"] {
 	color: var(--concrete-foreground-muted);
 }
 
-.concrete-text[data-tone="soft"] {
+.concrete-text[data-intent="soft"] {
 	color: var(--concrete-foreground-soft);
 }
 
-.concrete-text[data-tone="inverse"] {
+.concrete-text[data-intent="inverse"] {
 	color: var(--concrete-inverse-foreground);
 }
 
-.concrete-text[data-tone="sky"] {
+.concrete-text[data-intent="sky"] {
 	color: var(--concrete-sky-strong);
 }
 
-.concrete-text[data-tone="terminal"] {
+.concrete-text[data-intent="terminal"] {
 	color: var(--concrete-terminal-strong);
 }
 
-.concrete-text[data-tone="ultra"] {
+.concrete-text[data-intent="ultra"] {
 	color: var(--concrete-ultra-strong);
 }
 
-.concrete-text[data-tone="error"] {
+.concrete-text[data-intent="error"] {
 	color: var(--concrete-error-strong);
 }

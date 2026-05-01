@@ -9,7 +9,7 @@ export const sectionExamples = defineExamples({
 		description: 'Titled group without a new surface.',
 		render: () => (
 			<Section description="Local grouping inside a panel." title="Inputs">
-				<Text tone="muted">The section owns hierarchy, not chrome.</Text>
+				<Text intent="muted">The section owns hierarchy, not chrome.</Text>
 			</Section>
 		)
 	},
@@ -18,7 +18,7 @@ export const sectionExamples = defineExamples({
 		render: () => (
 			<Section separated title="Status">
 				<Inline>
-					<Badge signal="terminal">Ready</Badge>
+					<Badge intent="terminal">Ready</Badge>
 					<Text purpose="meta">2 checks passed</Text>
 				</Inline>
 			</Section>

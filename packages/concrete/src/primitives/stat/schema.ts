@@ -2,13 +2,15 @@ import { z } from 'zod/v4'
 
 export const statSchema = z
 	.object({
+		density: z
+			.enum(['compact', 'comfortable', 'display', 'editorial', 'micro'])
+			.default('comfortable'),
+		intent: z.enum(['muted', 'neutral', 'sky']).default('neutral'),
 		label: z.string().optional(),
 		meta: z.string().optional(),
-		size: z.enum(['xsmall', 'small', 'medium', 'large', 'xlarge']).default('medium'),
-		tone: z.enum(['default', 'muted', 'sky']).default('default'),
+		purpose: z.enum(['display', 'lockup', 'numeric']).default('lockup'),
 		unit: z.string().optional(),
-		value: z.string().default('14.8k'),
-		variant: z.enum(['lockup', 'numeric', 'display']).default('lockup')
+		value: z.string().default('14.8k')
 	})
 	.strict()
 

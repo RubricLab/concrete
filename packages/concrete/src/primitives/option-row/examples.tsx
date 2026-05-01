@@ -10,7 +10,7 @@ export const optionRowExamples = defineExamples({
 		description: 'Destructive command treatment.',
 		render: () => (
 			<>
-				<OptionRow active kind="command" leadingIcon="trash-2" tone="error">
+				<OptionRow active kind="command" leadingIcon="trash-2" intent="error">
 					Delete thread
 				</OptionRow>
 			</>
@@ -32,7 +32,7 @@ export const optionRowExamples = defineExamples({
 				<OptionRow description="Research workspace" kind="select" meta="12" selected>
 					Rubric Labs
 				</OptionRow>
-				<OptionRow kind="command" leadingIcon="trash-2" tone="error">
+				<OptionRow kind="command" leadingIcon="trash-2" intent="error">
 					Delete thread
 				</OptionRow>
 			</>

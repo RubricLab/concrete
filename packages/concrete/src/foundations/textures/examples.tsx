@@ -136,7 +136,7 @@ const textureTileStyle = {
 const diagramGroundStyle = {
 	alignItems: 'center',
 	backgroundColor: 'var(--concrete-sunken)',
-	backgroundImage: 'var(--concrete-diagram-canvas-background)',
+	backgroundImage: 'var(--concrete-diagram-background)',
 	border: 'var(--concrete-border-width-hairline) solid var(--concrete-border)',
 	borderRadius: 'var(--concrete-radius-4)',
 	display: 'grid',

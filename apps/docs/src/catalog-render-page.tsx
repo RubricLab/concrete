@@ -16,7 +16,7 @@ type CatalogRenderPageProps = CatalogRenderItem & {
 
 export function CatalogRenderPage({ definition, entry, pressure, state }: CatalogRenderPageProps) {
 	return (
-		<Surface as="main" data-pressure={pressure} data-state={state} tone="default">
+		<Surface as="main" data-pressure={pressure} data-state={state} intent="default">
 			<Container density="editorial" measure="wide">
 				<Stack align="stretch" density="editorial">
 					<Surface density="editorial" depth="sunken">
@@ -32,8 +32,8 @@ export function CatalogRenderPage({ definition, entry, pressure, state }: Catalo
 function renderCatalogRenderMeta(name: string, pressure: ConcretePressure): ReactNode {
 	return (
 		<Cluster density="compact">
-			<Badge signal="terminal">{name}</Badge>
-			<Badge signal="ultra">{pressure}</Badge>
+			<Badge intent="terminal">{name}</Badge>
+			<Badge intent="ultra">{pressure}</Badge>
 		</Cluster>
 	)
 }

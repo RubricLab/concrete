@@ -40,8 +40,8 @@ export const searchBarComponentDefinition = createComponent({
 	seed: searchBarComponentSchema.parse({
 		query: 'triage sligo',
 		tokens: [
-			{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
-			{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
+			{ id: 'workspace', intent: 'sky', label: 'Rubric', leadingIcon: 'folder' },
+			{ id: 'mode', intent: 'ultra', label: 'agent runs', leadingIcon: 'activity' }
 		]
 	}),
 	slug: 'search-bar',
@@ -61,7 +61,7 @@ function renderSearchBarInput(input: SearchBarValue) {
 	return (
 		<SearchBar
 			actions={
-				<Button shortcut={['enter']} size="small" variant="primary">
+				<Button shortcut={['enter']} density="small" hierarchy="primary">
 					Run
 				</Button>
 			}

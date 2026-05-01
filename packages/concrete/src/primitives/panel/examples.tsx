@@ -9,7 +9,7 @@ export const panelExamples = defineExamples({
 		description: 'Grouped region with header and body.',
 		render: () => (
 			<Panel description="Connected workspace controls." title="Runtime">
-				<Text tone="muted">Tools, memory, and model routing are available.</Text>
+				<Text intent="muted">Tools, memory, and model routing are available.</Text>
 			</Panel>
 		)
 	},
@@ -17,11 +17,11 @@ export const panelExamples = defineExamples({
 		description: 'Footer dock for scoped actions.',
 		render: () => (
 			<Panel
-				footer={<Button size="small">Save</Button>}
+				footer={<Button density="small">Save</Button>}
 				meta={<Label marker>Ready</Label>}
 				title="Settings"
 			>
-				<Text tone="muted">Changes are staged locally.</Text>
+				<Text intent="muted">Changes are staged locally.</Text>
 			</Panel>
 		)
 	},

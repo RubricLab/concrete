@@ -7,11 +7,11 @@ import { type DisclosurePanelValue, disclosurePanelSchema } from './schema'
 
 export type { DisclosurePanelProps } from './component'
 export { DisclosurePanel } from './component'
-export type { DisclosurePanelInput, DisclosurePanelTone, DisclosurePanelValue } from './schema'
+export type { DisclosurePanelInput, DisclosurePanelIntent, DisclosurePanelValue } from './schema'
 export {
+	disclosurePanelIntentSchema,
 	disclosurePanelPropsSchema,
-	disclosurePanelSchema,
-	disclosurePanelToneSchema
+	disclosurePanelSchema
 } from './schema'
 
 export const disclosurePanelPrimitiveDefinition = createPrimitive({
@@ -25,9 +25,9 @@ export const disclosurePanelPrimitiveDefinition = createPrimitive({
 	states: exampleStates(disclosurePanelExamples, ['default', 'closed', 'terminal'])
 })
 
-function renderDisclosurePanelInput({ content, open, summary, tone }: DisclosurePanelValue) {
+function renderDisclosurePanelInput({ content, open, summary, intent }: DisclosurePanelValue) {
 	return (
-		<DisclosurePanel open={open} summary={summary} tone={tone}>
+		<DisclosurePanel open={open} summary={summary} intent={intent}>
 			{content}
 		</DisclosurePanel>
 	)

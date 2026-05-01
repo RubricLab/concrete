@@ -1,32 +1,32 @@
 .concrete-range {
-	--concrete-range-start: var(--concrete-range-start-default);
-	--concrete-range-end: var(--concrete-range-end-default);
+	--concrete-interval-start: var(--concrete-interval-start-default);
+	--concrete-interval-end: var(--concrete-interval-end-default);
 	position: relative;
 	display: grid;
 	gap: var(--concrete-space-2);
-	width: min(var(--concrete-measure-range), var(--concrete-size-full));
-	min-width: var(--concrete-size-range-min-inline);
+	width: min(var(--concrete-measure-interval-control), var(--concrete-size-full));
+	min-width: var(--concrete-size-interval-min-inline);
 	padding-top: var(--concrete-space-2-25);
 }
 
 .concrete-range-track {
 	position: absolute;
-	top: var(--concrete-size-range-track-offset);
+	top: var(--concrete-size-interval-track-offset);
 	right: var(--concrete-space-0);
 	left: var(--concrete-space-0);
 	height: var(--concrete-size-slider-track);
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-range-track-background);
+	background: var(--concrete-interval-track-background);
 	pointer-events: none;
 }
 
 .concrete-range input[type="range"] {
 	appearance: none;
 	position: absolute;
-	top: var(--concrete-size-range-input-offset);
+	top: var(--concrete-size-interval-input-offset);
 	left: var(--concrete-space-0);
 	width: var(--concrete-size-full);
-	height: var(--concrete-size-range-hit);
+	height: var(--concrete-size-interval-hit);
 	margin: var(--concrete-space-0);
 	background: transparent;
 	pointer-events: none;
@@ -39,13 +39,13 @@
 
 .concrete-range input[type="range"]::-webkit-slider-thumb {
 	appearance: none;
-	width: var(--concrete-size-range-thumb);
-	height: var(--concrete-size-range-thumb);
-	margin-top: var(--concrete-translate-range-thumb);
+	width: var(--concrete-size-interval-thumb);
+	height: var(--concrete-size-interval-thumb);
+	margin-top: var(--concrete-translate-interval-thumb);
 	border: var(--concrete-border-width-emphasis) solid var(--concrete-surface);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-sky);
-	box-shadow: var(--concrete-shadow-range-thumb);
+	box-shadow: var(--concrete-shadow-interval-thumb);
 	cursor: grab;
 	pointer-events: auto;
 	transition:
@@ -54,13 +54,13 @@
 }
 
 .concrete-range input[type="range"]::-webkit-slider-thumb:hover {
-	box-shadow: var(--concrete-shadow-range-thumb-hover);
-	transform: scale(var(--concrete-scale-range-thumb-hover));
+	box-shadow: var(--concrete-shadow-interval-thumb-hover);
+	transform: scale(var(--concrete-scale-interval-thumb-hover));
 }
 
 .concrete-range input[type="range"]::-webkit-slider-thumb:active {
 	cursor: grabbing;
-	transform: scale(var(--concrete-scale-range-thumb-active));
+	transform: scale(var(--concrete-scale-interval-thumb-active));
 }
 
 .concrete-range input[type="range"]:focus-visible {

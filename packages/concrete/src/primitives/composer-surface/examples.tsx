@@ -49,7 +49,7 @@ export const composerSurfaceExamples = defineExamples({
 						</ToolbarControlGroup>
 					</ComposerToolbar>
 					<ComposerSubmitDock>
-						<ComposerSendButton leadingIcon="send-horizontal" variant="primary">
+						<ComposerSendButton hierarchy="primary" leadingIcon="send-horizontal">
 							Run
 						</ComposerSendButton>
 					</ComposerSubmitDock>
@@ -84,7 +84,7 @@ function renderComposerSurfaceExample(disabled: boolean) {
 					</ToolbarControlGroup>
 				</ComposerToolbar>
 				<ComposerSubmitDock>
-					<ComposerSendButton disabled={disabled} leadingIcon="send-horizontal" variant="primary">
+					<ComposerSendButton disabled={disabled} hierarchy="primary" leadingIcon="send-horizontal">
 						Send
 					</ComposerSendButton>
 				</ComposerSubmitDock>

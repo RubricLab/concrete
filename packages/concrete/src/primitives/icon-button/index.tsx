@@ -21,15 +21,24 @@ export const iconButtonPrimitiveDefinition = createPrimitive({
 	states: exampleStates(iconButtonExamples, ['default', 'pressed', 'set'])
 })
 
-function renderIconButtonInput({ disabled, icon, label, pressed, size, variant }: IconButtonValue) {
+function renderIconButtonInput({
+	density,
+	disabled,
+	hierarchy,
+	icon,
+	intent,
+	label,
+	pressed
+}: IconButtonValue) {
 	return (
 		<IconButton
 			disabled={disabled}
 			icon={icon}
 			label={label}
 			pressed={pressed}
-			size={size}
-			variant={variant}
+			{...(density ? { density } : {})}
+			{...(hierarchy ? { hierarchy } : {})}
+			{...(intent ? { intent } : {})}
 		/>
 	)
 }

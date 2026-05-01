@@ -19,10 +19,10 @@ export default function PrimitivesPage() {
 			<Stack density="editorial">
 				<Panel
 					description="Primitives own reusable HTML/UI vocabulary: DOM anatomy, ARIA, data attributes, stable classes, schemas, examples, metadata, render input, and local token-backed styles."
-					meta={<Badge signal="terminal">{primitiveRegistry.length} primitives</Badge>}
+					meta={<Badge intent="terminal">{primitiveRegistry.length} primitives</Badge>}
 					title="Implemented atoms"
 				>
-					<Text tone="muted">
+					<Text intent="muted">
 						Every primitive preview below is rendered from the package registry, then linked into its
 						dedicated prop, state, playground, and render surface.
 					</Text>
@@ -34,15 +34,15 @@ export default function PrimitivesPage() {
 							<Panel
 								description={entry.description}
 								footer={
-									<TextLink href={`/primitives/${entry.slug}`} variant="nav">
+									<TextLink href={`/primitives/${entry.slug}`} purpose="nav">
 										Open
 									</TextLink>
 								}
 								key={entry.slug}
 								meta={
 									<Stack density="compact">
-										<Badge signal="terminal">{entry.category}</Badge>
-										<Text purpose="caption" tone="muted">
+										<Badge intent="terminal">{entry.category}</Badge>
+										<Text purpose="caption" intent="muted">
 											{entry.states.length} states
 										</Text>
 									</Stack>

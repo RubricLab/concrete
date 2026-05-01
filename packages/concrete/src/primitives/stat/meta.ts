@@ -22,13 +22,18 @@ export const statMeta = {
 		prop('value', 'ReactNode', 'Large numeric value.', '', true),
 		prop('unit', 'ReactNode', 'Baseline unit suffix.'),
 		prop(
-			'variant',
+			'purpose',
 			"'lockup' | 'numeric' | 'display'",
 			'Dashboard or editorial numeric treatment.',
 			'lockup'
 		),
-		prop('size', "'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'", 'Numeric scale.', 'medium'),
-		prop('tone', "'default' | 'muted' | 'sky'", 'Numeric color treatment.', 'default'),
+		prop(
+			'density',
+			"'micro' | 'compact' | 'comfortable' | 'editorial' | 'display'",
+			'Numeric rhythm.',
+			'comfortable'
+		),
+		prop('intent', "'neutral' | 'muted' | 'sky'", 'Numeric semantic intent.', 'neutral'),
 		prop('delta', 'ReactNode', 'Optional Delta slot.'),
 		prop('meta', 'ReactNode', 'Optional muted suffix.')
 	]

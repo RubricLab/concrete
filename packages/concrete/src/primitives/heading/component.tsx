@@ -1,15 +1,15 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { HeadingLevel, HeadingSize, HeadingTone } from './schema'
+import type { HeadingHierarchy, HeadingIntent, HeadingLevel } from './schema'
 
 type HeadingElementProps = Omit<HTMLAttributes<HTMLHeadingElement>, 'style'>
 
 export type HeadingProps = HeadingElementProps & {
 	children?: ReactNode
 	level?: HeadingLevel
-	size?: HeadingSize
-	tone?: HeadingTone
+	hierarchy?: HeadingHierarchy
+	intent?: HeadingIntent
 }
 
 const headingTagNames = {
@@ -25,8 +25,8 @@ export function Heading({
 	children,
 	className,
 	level = '2',
-	size = 'section',
-	tone = 'default',
+	hierarchy = 'section',
+	intent = 'default',
 	...props
 }: HeadingProps) {
 	const HeadingTag = headingTagNames[level]
@@ -34,8 +34,8 @@ export function Heading({
 	return (
 		<HeadingTag
 			className={cn(concreteClassNames.heading, className)}
-			data-size={size}
-			data-tone={tone}
+			data-hierarchy={hierarchy}
+			data-intent={intent}
 			{...props}
 		>
 			{children}

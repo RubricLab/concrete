@@ -19,10 +19,10 @@ import {
 	renderTarget
 } from './chart-core-rendering'
 import { clamp, createLinearScale, createSmoothAreaPath, createSmoothPath } from './data-geometry'
-import { getDataToneClass } from './data-tone'
+import { getDataIntentClass } from './data-intent'
 
 export function renderLineChart(
-	parsedProps: Extract<ReturnType<typeof chartSchema.parse>, { variant: 'area' | 'line' }>
+	parsedProps: Extract<ReturnType<typeof chartSchema.parse>, { kind: 'area' | 'line' }>
 ): ReactNode {
 	const width = 640
 	const height = parsedProps.height
@@ -53,8 +53,8 @@ export function renderLineChart(
 				const endpoint = points.at(-1)
 
 				return (
-					<g className={getDataToneClass(series.tone)} key={series.id}>
-						{parsedProps.variant === 'area' ? (
+					<g className={getDataIntentClass(series.intent)} key={series.id}>
+						{parsedProps.kind === 'area' ? (
 							<ChartArea d={createSmoothAreaPath(points, plotBox.bottom)} />
 						) : null}
 						<ChartLine d={createSmoothPath(points)} />

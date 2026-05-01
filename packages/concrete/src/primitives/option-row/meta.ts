@@ -26,9 +26,9 @@ export const optionRowMeta = {
 		prop('active', 'boolean', 'Command active highlight.', 'false'),
 		prop('selected', 'boolean', 'Selected option highlight.', 'false'),
 		prop(
-			'tone',
+			'intent',
 			"'default' | 'error' | 'sky' | 'terminal' | 'ultra'",
-			'Semantic command tone.',
+			'Semantic command intent.',
 			'default'
 		)
 	]

@@ -27,10 +27,10 @@ function renderFormShellExample(state: 'compact' | 'default' | 'validation') {
 			eyebrow="Workspace"
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Cancel
 					</Button>
-					<Button size="small">Save changes</Button>
+					<Button density="small">Save changes</Button>
 				</>
 			}
 			status={state === 'validation' ? 'error' : 'default'}

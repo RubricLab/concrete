@@ -2,15 +2,15 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type SparklineTone = 'error' | 'neutral' | 'sky' | 'terminal'
-export type SparklineVariant = 'bar' | 'dot' | 'line'
+export type SparklineIntent = 'error' | 'neutral' | 'sky' | 'terminal'
+export type SparklineDisplay = 'bar' | 'dot' | 'line'
 
 export type SparklineProps = HTMLAttributes<SVGSVGElement> & {
 	area?: boolean
 	showEndpoint?: boolean
-	tone?: SparklineTone
+	intent?: SparklineIntent
 	values: readonly number[]
-	variant?: SparklineVariant
+	display?: SparklineDisplay
 }
 
 type SparklineCoordinate = {
@@ -25,23 +25,23 @@ type RenderSparklineMarksInput = {
 	points: string
 	safeValues: readonly number[]
 	showEndpoint: boolean
-	variant: SparklineVariant
+	display: SparklineDisplay
 }
 
-const sparklineToneClassNames = {
+const sparklineIntentClassNames = {
 	error: concreteClassNames.sparklineError,
 	neutral: concreteClassNames.sparklineNeutral,
 	sky: undefined,
 	terminal: concreteClassNames.sparklineTerminal
-} satisfies Record<SparklineTone, string | undefined>
+} satisfies Record<SparklineIntent, string | undefined>
 
 export function Sparkline({
 	area = false,
 	className,
 	showEndpoint = true,
-	tone = 'sky',
+	intent = 'sky',
 	values,
-	variant = 'line',
+	display = 'line',
 	...props
 }: SparklineProps) {
 	const safeValues = values.length > 0 ? values : [0]
@@ -51,7 +51,7 @@ export function Sparkline({
 
 	return (
 		<svg
-			className={cn(concreteClassNames.sparkline, sparklineToneClassNames[tone], className)}
+			className={cn(concreteClassNames.sparkline, sparklineIntentClassNames[intent], className)}
 			preserveAspectRatio="none"
 			viewBox="0 0 100 28"
 			{...props}
@@ -60,11 +60,11 @@ export function Sparkline({
 			{renderSparklineMarks({
 				area,
 				coordinates,
+				display,
 				endpoint,
 				points,
 				safeValues,
-				showEndpoint,
-				variant
+				showEndpoint
 			})}
 		</svg>
 	)
@@ -101,9 +101,9 @@ function renderSparklineMarks({
 	points,
 	safeValues,
 	showEndpoint,
-	variant
+	display
 }: RenderSparklineMarksInput): ReactNode {
-	switch (variant) {
+	switch (display) {
 		case 'bar':
 			return renderBars(safeValues)
 		case 'dot':

@@ -9,15 +9,17 @@ export const iconButtonExamples = defineExamples({
 	},
 	pressed: {
 		description: 'Pressed icon command state.',
-		render: () => <IconButton icon="panel-left" label="Toggle sidebar" pressed variant="secondary" />
+		render: () => (
+			<IconButton hierarchy="secondary" icon="panel-left" label="Toggle sidebar" pressed />
+		)
 	},
 	set: {
 		description: 'Dense icon command set.',
 		render: () => (
 			<ControlGroup label="Editor commands">
-				<IconButton icon="pencil" label="Edit" size="small" variant="secondary" />
-				<IconButton icon="command" label="Command" size="small" variant="secondary" />
-				<IconButton icon="code" label="Code" size="small" variant="secondary" />
+				<IconButton density="small" hierarchy="secondary" icon="pencil" label="Edit" />
+				<IconButton density="small" hierarchy="secondary" icon="command" label="Command" />
+				<IconButton density="small" hierarchy="secondary" icon="code" label="Code" />
 			</ControlGroup>
 		)
 	}

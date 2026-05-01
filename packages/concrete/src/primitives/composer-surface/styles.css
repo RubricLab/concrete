@@ -15,14 +15,14 @@
 }
 
 .concrete-composer-surface[data-disabled="true"] {
-	opacity: var(--concrete-opacity-composer-disabled);
+	opacity: var(--concrete-opacity-editor-disabled);
 	pointer-events: none;
 }
 
 .concrete-composer-editor {
-	min-height: var(--concrete-size-composer-editor-min-block);
-	padding-block: var(--concrete-composer-editor-padding-block);
-	padding-inline: var(--concrete-composer-editor-padding-inline);
+	min-height: var(--concrete-size-editor-min-block);
+	padding-block: var(--concrete-editor-padding-block);
+	padding-inline: var(--concrete-editor-padding-inline);
 	outline: var(--concrete-space-0);
 	color: var(--concrete-foreground-strong);
 	font:
@@ -47,12 +47,12 @@
 
 .concrete-composer-footer {
 	display: grid;
-	grid-template-columns: var(--concrete-template-composer-footer);
+	grid-template-columns: var(--concrete-template-editor-footer);
 	align-items: center;
-	gap: var(--concrete-composer-footer-gap);
-	min-height: var(--concrete-size-composer-footer-min-block);
-	padding-block: var(--concrete-composer-footer-padding-block);
-	padding-inline: var(--concrete-composer-footer-padding-inline);
+	gap: var(--concrete-editor-footer-gap);
+	min-height: var(--concrete-size-editor-footer-min-block);
+	padding-block: var(--concrete-editor-footer-padding-block);
+	padding-inline: var(--concrete-editor-footer-padding-inline);
 	border-top: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
 	border-radius: var(--concrete-space-0) var(--concrete-space-0)
 		calc(var(--concrete-radius-5) - var(--concrete-border-width-hairline))

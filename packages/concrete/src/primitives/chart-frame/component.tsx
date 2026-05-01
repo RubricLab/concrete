@@ -3,7 +3,7 @@ import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
 export type ChartFrameSurface = 'raised' | 'sunken' | 'transparent'
-export type ChartFrameVariant = 'area' | 'bar' | 'donut' | 'heatmap' | 'line' | 'stacked-bar'
+export type ChartFrameKind = 'area' | 'bar' | 'donut' | 'heatmap' | 'line' | 'stacked-bar'
 
 type ChartFrameCustomProperties = CSSProperties & {
 	'--concrete-chart-height'?: string
@@ -11,23 +11,23 @@ type ChartFrameCustomProperties = CSSProperties & {
 
 export type ChartFrameProps = HTMLAttributes<HTMLDivElement> & {
 	height?: number | string | undefined
+	kind?: ChartFrameKind | undefined
 	surface?: ChartFrameSurface | undefined
-	variant?: ChartFrameVariant | undefined
 }
 
 export function ChartFrame({
 	className,
 	height,
+	kind = 'line',
 	style,
 	surface = 'raised',
-	variant = 'line',
 	...props
 }: ChartFrameProps) {
 	return (
 		<div
 			className={cn(concreteClassNames.chartFrame, className)}
+			data-kind={kind}
 			data-surface={surface}
-			data-variant={variant}
 			style={withChartHeight(style, height)}
 			{...props}
 		/>

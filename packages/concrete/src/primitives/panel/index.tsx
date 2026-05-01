@@ -28,7 +28,7 @@ function renderPanelInput({
 	description,
 	footer,
 	title,
-	tone
+	intent
 }: PanelValue) {
 	return (
 		<Panel
@@ -37,7 +37,7 @@ function renderPanelInput({
 			description={description}
 			footer={footer}
 			title={title}
-			tone={tone}
+			intent={intent}
 		>
 			{content}
 		</Panel>

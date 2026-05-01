@@ -6,19 +6,19 @@ import { chartFrameMeta } from './meta'
 import { type ChartFrameValue, chartFrameSchema } from './schema'
 
 export type {
+	ChartFrameKind,
 	ChartFrameProps,
 	ChartFrameSurface,
-	ChartFrameVariant,
 	ChartMessageProps
 } from './component'
 export { ChartFrame, ChartMessage } from './component'
 export type { ChartFrameInput, ChartFrameValue } from './schema'
 export {
+	chartFrameKindValues,
 	chartFramePropsSchema,
 	chartFrameSchema,
 	chartFrameStateValues,
-	chartFrameSurfaceValues,
-	chartFrameVariantValues
+	chartFrameSurfaceValues
 } from './schema'
 
 export const chartFramePrimitiveDefinition = createPrimitive({
@@ -32,15 +32,15 @@ export const chartFramePrimitiveDefinition = createPrimitive({
 	states: exampleStates(chartFrameExamples, ['default', 'message'])
 })
 
-function renderChartFrameInput({ message, state, surface, variant }: ChartFrameValue) {
+function renderChartFrameInput({ kind, message, state, surface }: ChartFrameValue) {
 	switch (state) {
 		case 'message':
 			return (
-				<ChartFrame surface={surface} variant={variant}>
+				<ChartFrame kind={kind} surface={surface}>
 					<ChartMessage>{message}</ChartMessage>
 				</ChartFrame>
 			)
 		case 'surface':
-			return <ChartFrame surface={surface} variant={variant} />
+			return <ChartFrame kind={kind} surface={surface} />
 	}
 }

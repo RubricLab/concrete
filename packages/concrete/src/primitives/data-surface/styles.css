@@ -11,7 +11,7 @@
 }
 
 .concrete-data-surface[data-layout="media"] {
-	grid-template-columns: var(--concrete-template-meter-ring-card);
+	grid-template-columns: var(--concrete-template-data-ring-card);
 	align-items: center;
 }
 

@@ -3,13 +3,13 @@ import type { ConceptFrameKind } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type ConceptFrameSize = 'large' | 'medium' | 'small'
+export type ConceptFrameScale = 'large' | 'medium' | 'small'
 
 export type ConceptFrameProps = Omit<SVGProps<SVGSVGElement>, 'title'> & {
 	kind?: ConceptFrameKind
 	muted?: boolean
 	selected?: boolean
-	size?: ConceptFrameSize
+	scale?: ConceptFrameScale
 	title?: string
 }
 
@@ -18,7 +18,7 @@ export function ConceptFrame({
 	kind = 'browser-window',
 	muted = false,
 	selected = false,
-	size = 'medium',
+	scale = 'medium',
 	title,
 	...props
 }: ConceptFrameProps) {
@@ -27,7 +27,7 @@ export function ConceptFrame({
 			aria-hidden={title ? undefined : true}
 			className={cn(
 				concreteClassNames.conceptFrame,
-				getConceptFrameSizeClass(size),
+				getConceptFrameScaleClass(scale),
 				muted && concreteClassNames.conceptFrameMuted,
 				selected && concreteClassNames.conceptFrameSelected,
 				className
@@ -182,8 +182,8 @@ function renderConceptFrameBody(kind: ConceptFrameKind): ReactNode {
 	}
 }
 
-function getConceptFrameSizeClass(size: ConceptFrameSize): string | undefined {
-	switch (size) {
+function getConceptFrameScaleClass(scale: ConceptFrameScale): string | undefined {
+	switch (scale) {
 		case 'large':
 			return concreteClassNames.conceptFrameLarge
 		case 'medium':

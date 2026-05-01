@@ -2,6 +2,7 @@
 
 import type { ClipboardEvent, HTMLAttributes, KeyboardEvent, ReactNode } from 'react'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import type { IconName } from '../../icons'
 import {
 	ComposerEditor,
 	ComposerFooter,
@@ -10,10 +11,16 @@ import {
 	ComposerSubmitDock,
 	ComposerSurface,
 	ComposerToolbar,
+	Listbox,
+	MenuGroup,
+	MenuSurface,
+	OptionRow,
 	TokenRail,
 	type TokenRailItemData,
+	ToolbarControlButton,
 	ToolbarControlGroup,
 	ToolbarControlSeparator,
+	ToolbarFormatGlyph,
 	Tooltip
 } from '../../primitives'
 import type {
@@ -32,8 +39,12 @@ import {
 	defaultMentions,
 	emptyValue,
 	getActiveFormats,
+	getFormatGlyph,
+	getFormatShortcut,
+	getFormatShortcutKeys,
 	getInitialHtml,
 	getMenuOptions,
+	getMenuTitle,
 	getMenuTrigger,
 	getShortcutFormat,
 	getTextBeforeCaret,
@@ -48,7 +59,6 @@ import {
 	shortcutPressDuration,
 	submitComposer
 } from '../../utilities/composer-engine'
-import { ComposerMenu, ComposerTool, FormatTool } from '../../utilities/composer-parts'
 
 export type {
 	ComposerAttachment,
@@ -501,6 +511,7 @@ export function Composer({
 						<ComposerSendButton
 							aria-label="Send"
 							disabled={disabled}
+							hierarchy="primary"
 							leadingIcon="send-horizontal"
 							onClick={() => {
 								flashShortcut('submit')
@@ -508,7 +519,6 @@ export function Composer({
 							}}
 							pressed={pressedShortcut === 'submit'}
 							shortcut={['cmd', 'enter']}
-							variant="primary"
 						>
 							{submitLabel}
 						</ComposerSendButton>
@@ -528,5 +538,99 @@ export function Composer({
 				</ComposerMenuLayer>
 			) : null}
 		</ComposerSurface>
+	)
+}
+
+function ComposerTool({
+	icon,
+	label,
+	onClick,
+	shortcut
+}: {
+	icon: IconName
+	label: string
+	onClick: () => void
+	shortcut?: readonly string[]
+}) {
+	return (
+		<ToolbarControlButton
+			icon={icon}
+			label={label}
+			onClick={onClick}
+			onMouseDown={event => event.preventDefault()}
+			showLabel={false}
+			{...(shortcut ? { shortcut } : {})}
+		/>
+	)
+}
+
+function FormatTool({
+	active,
+	format,
+	label,
+	onApply,
+	pressed
+}: {
+	active: boolean
+	format: ComposerFormat
+	label: string
+	onApply: () => void
+	pressed: boolean
+}) {
+	return (
+		<ToolbarControlButton
+			aria-keyshortcuts={getFormatShortcut(format)}
+			label={label}
+			onClick={onApply}
+			onMouseDown={event => event.preventDefault()}
+			appearance="subtle"
+			pressed={pressed}
+			selected={active}
+			showShortcut="tooltip"
+			shortcut={getFormatShortcutKeys(format)}
+		>
+			<ToolbarFormatGlyph format={format}>{getFormatGlyph(format)}</ToolbarFormatGlyph>
+		</ToolbarControlButton>
+	)
+}
+
+function ComposerMenu({
+	menu,
+	onCommit,
+	options
+}: {
+	menu: MenuState
+	onCommit: (suggestion: ComposerSuggestion) => void
+	options: readonly ComposerSuggestion[]
+}) {
+	return (
+		<MenuSurface density="compact" role="menu">
+			<MenuGroup
+				title={
+					<>
+						<span>{getMenuTitle(menu.kind)}</span>
+						<code>{getMenuTrigger(menu.kind)}</code>
+					</>
+				}
+			>
+				<Listbox emptyLabel="No matches" role="menu" density="compact">
+					{options.length > 0
+						? options.map((option, index) => (
+								<OptionRow
+									active={index === menu.activeIndex}
+									description={option.description}
+									disabled={option.disabled}
+									kind="command"
+									key={option.id}
+									label={option.label}
+									meta={option.meta}
+									onClick={() => onCommit(option)}
+									onMouseDown={event => event.preventDefault()}
+								/>
+							))
+						: null}
+				</Listbox>
+			</MenuGroup>
+		</MenuSurface>
 	)
 }

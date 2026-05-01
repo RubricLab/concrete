@@ -5,9 +5,9 @@ export const linkSchema = z
 		current: z.boolean().default(false),
 		external: z.boolean().default(false),
 		href: z.string().default('#'),
+		intent: z.enum(['default', 'sky', 'muted']).default('default'),
 		label: z.string().default('Open research note'),
-		tone: z.enum(['default', 'sky', 'muted']).default('default'),
-		variant: z.enum(['inline', 'nav']).default('inline')
+		purpose: z.enum(['inline', 'nav']).default('inline')
 	})
 	.strict()
 

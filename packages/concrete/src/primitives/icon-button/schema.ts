@@ -1,15 +1,16 @@
 import { z } from 'zod/v4'
 import { iconNames } from '../../icons'
-import { buttonSizeSchema, buttonVariantSchema } from '../button/schema'
+import { buttonDensitySchema, buttonHierarchySchema, buttonIntentSchema } from '../button/schema'
 
 export const iconButtonSchema = z
 	.object({
+		density: buttonDensitySchema.default('medium'),
 		disabled: z.boolean().default(false),
+		hierarchy: buttonHierarchySchema.default('ghost'),
 		icon: z.enum(iconNames).default('settings'),
+		intent: buttonIntentSchema.default('neutral'),
 		label: z.string().default('Open settings'),
-		pressed: z.boolean().default(false),
-		size: buttonSizeSchema.default('medium'),
-		variant: buttonVariantSchema.default('ghost')
+		pressed: z.boolean().default(false)
 	})
 	.strict()
 

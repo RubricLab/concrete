@@ -1,11 +1,11 @@
 .concrete-search-input-root {
 	display: flex;
 	align-items: center;
-	flex-wrap: var(--concrete-search-input-flex-wrap);
+	flex-wrap: var(--concrete-query-control-flex-wrap);
 	gap: var(--concrete-space-1-75);
 	min-width: var(--concrete-space-0);
 	max-width: var(--concrete-size-full);
-	min-height: var(--concrete-size-search-input-min-block);
+	min-height: var(--concrete-size-query-control-min-block);
 	padding-block: var(--concrete-space-1-25);
 	padding-inline: var(--concrete-space-1-75);
 	overflow: hidden;
@@ -28,21 +28,21 @@
 
 .concrete-search-input-icon {
 	display: inline-grid;
-	width: var(--concrete-size-search-leading);
-	height: var(--concrete-size-search-leading);
+	width: var(--concrete-size-query-leading);
+	height: var(--concrete-size-query-leading);
 	flex: none;
 	place-items: center;
 	color: var(--concrete-foreground-soft);
 }
 
 .concrete-search-input-icon svg {
-	width: var(--concrete-size-search-leading-glyph);
-	height: var(--concrete-size-search-leading-glyph);
+	width: var(--concrete-size-query-leading-glyph);
+	height: var(--concrete-size-query-leading-glyph);
 }
 
 .concrete-search-input-control {
-	min-width: var(--concrete-size-search-input-min);
-	flex: var(--concrete-flex-fill) var(--concrete-flex-fill) var(--concrete-size-search-input-basis);
+	min-width: var(--concrete-size-query-input-min);
+	flex: var(--concrete-flex-fill) var(--concrete-flex-fill) var(--concrete-size-query-input-basis);
 	border: var(--concrete-space-0);
 	outline: var(--concrete-space-0);
 	background: transparent;
@@ -65,8 +65,8 @@
 }
 
 .concrete-search-input-shortcut-key {
-	min-width: var(--concrete-size-search-shortcut-key-min);
-	height: var(--concrete-size-search-shortcut-key-block);
+	min-width: var(--concrete-size-query-shortcut-key-min);
+	height: var(--concrete-size-query-shortcut-key-block);
 	padding-block: var(--concrete-space-0);
 	padding-inline: var(--concrete-space-1-25);
 }

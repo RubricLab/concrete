@@ -10,7 +10,7 @@ export const alertExamples = defineExamples({
 	error: {
 		description: 'Error status message with action slot.',
 		render: () => (
-			<Alert action={<Button size="small">Review</Button>} status="error" title="Review required">
+			<Alert action={<Button density="small">Review</Button>} status="error" title="Review required">
 				Two fields need attention.
 			</Alert>
 		)

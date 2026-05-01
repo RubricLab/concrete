@@ -19,13 +19,20 @@ export const tagMeta = {
 	pressure: ['product'],
 	props: [
 		prop(
-			'tone',
-			"'default' | 'ink' | 'sky' | 'sunken' | 'terminal' | 'ultra' | 'error'",
-			'Inline label tone or signal wash.',
-			'default'
+			'intent',
+			"'neutral' | 'strong' | 'subtle' | 'sky' | 'terminal' | 'ultra' | 'danger'",
+			'Inline label intent or signal wash.',
+			'neutral'
 		),
-		prop('variant', "'default' | 'outline' | 'active' | 'selected'", 'Tag emphasis.', 'default'),
-		prop('size', "'small' | 'medium' | 'large'", 'Tag height and type rhythm.', 'medium'),
+		prop('hierarchy', "'soft' | 'outline'", 'Tag hierarchy.', 'soft'),
+		prop(
+			'density',
+			"'compact' | 'comfortable' | 'editorial'",
+			'Tag height and type rhythm.',
+			'comfortable'
+		),
+		prop('active', 'boolean', 'Promotes the tag as currently active.', 'false'),
+		prop('selected', 'boolean', 'Shows selected state and default check glyph.', 'false'),
 		prop('leadingIcon', 'IconName | ReactElement', 'Optional leading glyph.'),
 		prop('dismissible', 'boolean', 'Shows a passive dismiss affordance.', 'false'),
 		prop('onDismiss', '() => void', 'Interactive dismiss action.'),

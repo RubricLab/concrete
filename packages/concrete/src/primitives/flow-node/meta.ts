@@ -20,7 +20,7 @@ export const flowNodeMeta = {
 	props: [
 		prop('title', 'string', 'Primary node label.', undefined, true),
 		prop('subtitle', 'string', 'Optional secondary node label.'),
-		prop('tone', "'surface' | 'accent' | 'inverse'", 'Node surface tone.', 'surface'),
+		prop('hierarchy', "'surface' | 'accent' | 'inverse'", 'Node surface hierarchy.', 'surface'),
 		prop('selected', 'boolean', 'Selected node state.', 'false'),
 		prop('x, y, width, height', 'number', 'SVG node geometry.', undefined, true)
 	]

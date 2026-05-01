@@ -20,7 +20,7 @@ export const disclosurePanelMeta = {
 	props: [
 		prop('summary', 'ReactNode', 'Summary trigger content.'),
 		prop('open', 'boolean', 'Native details open state.'),
-		prop('tone', "'default' | 'terminal' | 'error'", 'Semantic disclosure tone.'),
+		prop('intent', "'default' | 'terminal' | 'error'", 'Semantic disclosure intent.'),
 		prop('children', 'ReactNode', 'Disclosure body.')
 	]
 } as const satisfies DisclosurePanelMeta

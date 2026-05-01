@@ -19,7 +19,9 @@ export const iconButtonMeta = {
 	props: [
 		prop('icon', 'IconName | ReactElement', 'Visible icon slot.'),
 		prop('label', 'string', 'Accessible command label.'),
-		prop('variant', 'ButtonVariant', 'Button hierarchy recipe.'),
+		prop('hierarchy', 'ButtonHierarchy', 'Button hierarchy recipe.'),
+		prop('intent', 'ButtonIntent', 'Button intent recipe.'),
+		prop('density', 'ButtonDensity', 'Square button rhythm.'),
 		prop('pressed', 'boolean', 'Pressed state.')
 	]
 } as const satisfies IconButtonMeta

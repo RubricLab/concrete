@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { ChartMessage, DonutCenter, DonutPlot, DonutSegment, DonutTrack } from '../primitives'
 import type { DataPoint } from '../schemas'
 import { createDonutSegments, formatPercent } from './data-geometry'
-import { getDataToneClass } from './data-tone'
+import { getDataIntentClass } from './data-intent'
 
 export function renderDonutChart(
 	segments: readonly DataPoint[],
@@ -23,7 +23,7 @@ export function renderDonutChart(
 				<DonutTrack cx="60" cy="60" r="42" />
 				{renderedSegments.map((segment, index) => (
 					<DonutSegment
-						className={getDataToneClass(segments[index]?.tone)}
+						className={getDataIntentClass(segments[index]?.intent)}
 						cx="60"
 						cy="60"
 						key={segment.label}

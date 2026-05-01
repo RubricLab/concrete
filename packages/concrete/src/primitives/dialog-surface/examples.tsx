@@ -6,7 +6,7 @@ export const dialogSurfaceExamples = defineExamples({
 	compact: {
 		description: 'Compact dialog width.',
 		render: () => (
-			<DialogSurface size="compact">
+			<DialogSurface measure="compact">
 				<Panel title="Confirm">Compact confirmation</Panel>
 			</DialogSurface>
 		)
@@ -24,7 +24,7 @@ export const dialogSurfaceExamples = defineExamples({
 	wide: {
 		description: 'Wide dialog width for complex generated interfaces.',
 		render: () => (
-			<DialogSurface size="wide">
+			<DialogSurface measure="wide">
 				<Panel title="Generated form">Wide workflow surface</Panel>
 			</DialogSurface>
 		)

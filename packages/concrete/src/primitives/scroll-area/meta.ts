@@ -14,11 +14,11 @@ export const scrollAreaMeta = {
 	category: 'layout',
 	description: 'Bounded overflow primitive for tables, menus, traces, and upload lists.',
 	guidance:
-		'Use ScrollArea before local max-height and overflow rules. Size is tokenized through the sizing foundation.',
+		'Use ScrollArea before local max-height and overflow rules. Extent is tokenized through the sizing foundation.',
 	name: 'Scroll Area',
 	pressure: ['product', 'generative'],
 	props: [
-		prop('size', "'small' | 'medium' | 'large' | 'viewport'", 'Maximum block-size recipe.'),
+		prop('extent', "'small' | 'medium' | 'large' | 'viewport'", 'Maximum block-extent recipe.'),
 		prop('children', 'ReactNode', 'Scrollable content.')
 	]
 } as const satisfies ScrollAreaMeta

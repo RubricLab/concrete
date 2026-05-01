@@ -3,17 +3,17 @@ import { ConcreteIcon } from '../../icons'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-const linkToneValues = ['default', 'sky', 'muted'] as const
-const linkVariantValues = ['inline', 'nav'] as const
+const linkIntentValues = ['default', 'sky', 'muted'] as const
+const linkPurposeValues = ['inline', 'nav'] as const
 
-export type TextLinkTone = (typeof linkToneValues)[number]
-export type TextLinkVariant = (typeof linkVariantValues)[number]
+export type TextLinkIntent = (typeof linkIntentValues)[number]
+export type TextLinkPurpose = (typeof linkPurposeValues)[number]
 
 export type TextLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 	current?: boolean
 	external?: boolean
-	tone?: TextLinkTone
-	variant?: TextLinkVariant
+	intent?: TextLinkIntent
+	purpose?: TextLinkPurpose
 }
 
 export function TextLink({
@@ -22,8 +22,8 @@ export function TextLink({
 	className,
 	current = false,
 	external = false,
-	tone = 'default',
-	variant = 'inline',
+	intent = 'default',
+	purpose = 'inline',
 	...props
 }: TextLinkProps) {
 	return (
@@ -31,10 +31,10 @@ export function TextLink({
 			aria-current={current ? 'page' : ariaCurrent}
 			className={cn(
 				concreteClassNames.link,
-				tone === 'sky' && concreteClassNames.linkSky,
-				tone === 'muted' && concreteClassNames.linkMuted,
+				intent === 'sky' && concreteClassNames.linkSky,
+				intent === 'muted' && concreteClassNames.linkMuted,
 				external && concreteClassNames.linkExternal,
-				variant === 'nav' && concreteClassNames.linkNav,
+				purpose === 'nav' && concreteClassNames.linkNav,
 				className
 			)}
 			{...props}

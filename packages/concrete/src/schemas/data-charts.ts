@@ -18,19 +18,20 @@ const chartBaseSchema = z
 
 export const lineChartSchema = chartBaseSchema
 	.extend({
+		kind: z.literal('line'),
 		series: z.array(dataSeriesSchema).default([]),
 		showDots: z.boolean().default(false),
 		showEndLabels: z.boolean().default(true),
 		showGrid: z.boolean().default(true),
 		showXAxis: z.boolean().default(true),
 		showYAxis: z.boolean().default(true),
-		target: finiteNumberSchema.optional(),
-		variant: z.literal('line')
+		target: finiteNumberSchema.optional()
 	})
 	.strict()
 
 export const areaChartSchema = chartBaseSchema
 	.extend({
+		kind: z.literal('area'),
 		series: z.array(dataSeriesSchema).default([]),
 		showDots: z.boolean().default(false),
 		showEndLabels: z.boolean().default(true),
@@ -38,8 +39,7 @@ export const areaChartSchema = chartBaseSchema
 		showXAxis: z.boolean().default(true),
 		showYAxis: z.boolean().default(true),
 		stacked: z.boolean().default(false),
-		target: finiteNumberSchema.optional(),
-		variant: z.literal('area')
+		target: finiteNumberSchema.optional()
 	})
 	.strict()
 
@@ -47,13 +47,13 @@ export const barChartSchema = chartBaseSchema
 	.extend({
 		baseline: finiteNumberSchema.default(0),
 		comparisonPoints: z.array(dataPointSchema).default([]),
+		kind: z.literal('bar'),
 		orientation: z.enum(['horizontal', 'vertical']).default('vertical'),
 		points: z.array(dataPointSchema).default([]),
 		showGrid: z.boolean().default(true),
 		showValues: z.boolean().default(true),
 		showXAxis: z.boolean().default(true),
-		showYAxis: z.boolean().default(true),
-		variant: z.literal('bar')
+		showYAxis: z.boolean().default(true)
 	})
 	.strict()
 
@@ -67,23 +67,23 @@ export const stackedBarGroupSchema = z
 export const stackedBarChartSchema = chartBaseSchema
 	.extend({
 		groups: z.array(stackedBarGroupSchema).default([]),
+		kind: z.literal('stacked-bar'),
 		normalized: z.boolean().default(false),
 		orientation: z.enum(['horizontal', 'vertical']).default('vertical'),
 		showGrid: z.boolean().default(true),
 		showValues: z.boolean().default(true),
 		showXAxis: z.boolean().default(true),
-		showYAxis: z.boolean().default(true),
-		variant: z.literal('stacked-bar')
+		showYAxis: z.boolean().default(true)
 	})
 	.strict()
 
 export const donutChartSchema = chartBaseSchema
 	.extend({
 		centerLabel: z.string().min(1).optional(),
+		kind: z.literal('donut'),
 		segments: z.array(dataPointSchema).default([]),
 		showCenterLabel: z.boolean().default(true),
-		thickness: z.enum(['thin', 'medium', 'thick']).default('medium'),
-		variant: z.literal('donut')
+		thickness: z.enum(['thin', 'medium', 'thick']).default('medium')
 	})
 	.strict()
 
@@ -99,12 +99,12 @@ export const heatmapCellSchema = z
 export const heatmapChartSchema = chartBaseSchema
 	.extend({
 		cells: z.array(heatmapCellSchema).default([]),
-		showValues: z.boolean().default(true),
-		variant: z.literal('heatmap')
+		kind: z.literal('heatmap'),
+		showValues: z.boolean().default(true)
 	})
 	.strict()
 
-export const chartSchema = z.discriminatedUnion('variant', [
+export const chartSchema = z.discriminatedUnion('kind', [
 	lineChartSchema,
 	areaChartSchema,
 	barChartSchema,
@@ -113,10 +113,10 @@ export const chartSchema = z.discriminatedUnion('variant', [
 	heatmapChartSchema
 ])
 
-export type AreaChartProps = Omit<z.input<typeof areaChartSchema>, 'variant'>
-export type BarChartProps = Omit<z.input<typeof barChartSchema>, 'variant'>
+export type AreaChartProps = Omit<z.input<typeof areaChartSchema>, 'kind'>
+export type BarChartProps = Omit<z.input<typeof barChartSchema>, 'kind'>
 export type ChartProps = z.input<typeof chartSchema>
-export type DonutChartProps = Omit<z.input<typeof donutChartSchema>, 'variant'>
-export type HeatmapProps = Omit<z.input<typeof heatmapChartSchema>, 'variant'>
-export type LineChartProps = Omit<z.input<typeof lineChartSchema>, 'variant'>
-export type StackedBarChartProps = Omit<z.input<typeof stackedBarChartSchema>, 'variant'>
+export type DonutChartProps = Omit<z.input<typeof donutChartSchema>, 'kind'>
+export type HeatmapProps = Omit<z.input<typeof heatmapChartSchema>, 'kind'>
+export type LineChartProps = Omit<z.input<typeof lineChartSchema>, 'kind'>
+export type StackedBarChartProps = Omit<z.input<typeof stackedBarChartSchema>, 'kind'>

@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, HTMLAttributes, ReactNode } from 'react'
 import { ConcreteIcon, type IconName } from '../../icons'
-import type { CommandItemTone } from '../../schemas'
+import type { CommandItemIntent } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 import type { TokenKind } from './schema'
@@ -12,7 +12,7 @@ export type ConcreteTokenProps = Omit<HTMLAttributes<HTMLSpanElement>, 'style'> 
 	onRemove?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'] | undefined
 	removable?: boolean | undefined
 	removeLabel?: string | undefined
-	tone?: CommandItemTone | undefined
+	intent?: CommandItemIntent | undefined
 }
 
 export function Token({
@@ -23,7 +23,7 @@ export function Token({
 	onRemove,
 	removable = false,
 	removeLabel = 'Remove token',
-	tone = 'default',
+	intent = 'default',
 	...props
 }: ConcreteTokenProps) {
 	const shouldRenderRemoveControl = removable || Boolean(onRemove)
@@ -32,7 +32,7 @@ export function Token({
 		<span
 			className={cn(concreteClassNames.token, className)}
 			data-kind={kind}
-			data-tone={tone}
+			data-intent={intent}
 			{...props}
 		>
 			{leadingIcon ? <ConcreteIcon name={leadingIcon} /> : null}

@@ -18,22 +18,22 @@
 	white-space: nowrap;
 }
 
-.concrete-token[data-tone="sky"] {
+.concrete-token[data-intent="sky"] {
 	background: var(--concrete-sky-1);
 	color: var(--concrete-sky);
 }
 
-.concrete-token[data-tone="terminal"] {
+.concrete-token[data-intent="terminal"] {
 	background: var(--concrete-terminal-wash);
 	color: var(--concrete-terminal-strong);
 }
 
-.concrete-token[data-tone="ultra"] {
+.concrete-token[data-intent="ultra"] {
 	background: var(--concrete-ultra-1);
 	color: var(--concrete-ultra);
 }
 
-.concrete-token[data-tone="error"] {
+.concrete-token[data-intent="error"] {
 	background: var(--concrete-error-1);
 	color: var(--concrete-error);
 }

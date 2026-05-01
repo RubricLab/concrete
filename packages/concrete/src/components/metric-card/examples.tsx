@@ -33,7 +33,7 @@ function renderMetricCardExample(state = 'default'): ReactNode {
 					state === 'compact' ? undefined : 'Accepted agent runs across production workspaces.'
 				}
 				label={state === 'status' ? 'Eval health' : 'Agent runs'}
-				status={state === 'status' ? { label: 'Live', tone: 'terminal' } : undefined}
+				status={state === 'status' ? { intent: 'terminal', label: 'Live' } : undefined}
 				trend={metricCardTrend}
 				value={state === 'compact' ? '14.8k' : '14,842'}
 			/>
@@ -41,9 +41,9 @@ function renderMetricCardExample(state = 'default'): ReactNode {
 				compact={state === 'compact'}
 				delta={{ basis: 'blocked', intent: 'negative', value: '-2.4%' }}
 				label="Intervention rate"
-				status={state === 'status' ? { label: 'Watch', tone: 'ultra' } : undefined}
+				status={state === 'status' ? { intent: 'ultra', label: 'Watch' } : undefined}
 				trend={[48, 44, 41, 39, 35, 32, 29]}
-				trendTone="error"
+				trendIntent="error"
 				value="4.2%"
 			/>
 		</>

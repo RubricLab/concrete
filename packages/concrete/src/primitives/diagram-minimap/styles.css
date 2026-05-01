@@ -1,27 +1,27 @@
-.concrete-diagram-canvas-minimap {
+.concrete-diagram-minimap {
 	position: absolute;
 	right: var(--concrete-space-3);
 	bottom: var(--concrete-space-3);
-	width: var(--concrete-size-diagram-canvas-minimap-inline);
-	height: var(--concrete-size-diagram-canvas-minimap-block);
+	width: var(--concrete-size-diagram-minimap-inline);
+	height: var(--concrete-size-diagram-minimap-block);
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-diagram-canvas-minimap-background);
+	background: var(--concrete-diagram-minimap-background);
 	box-shadow: var(--concrete-shadow-1);
 }
 
-.concrete-diagram-canvas-minimap-node {
+.concrete-diagram-minimap-node {
 	position: absolute;
 	top: var(--diagram-minimap-node-y, var(--concrete-space-0));
 	left: var(--diagram-minimap-node-x, var(--concrete-space-0));
-	width: var(--concrete-size-diagram-canvas-minimap-node);
-	height: var(--concrete-size-diagram-canvas-minimap-node);
+	width: var(--concrete-size-diagram-minimap-node);
+	height: var(--concrete-size-diagram-minimap-node);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-ink-4);
-	transform: var(--concrete-template-diagram-canvas-element);
+	transform: var(--concrete-template-diagram-element);
 }
 
-.concrete-diagram-canvas-minimap-selected {
+.concrete-diagram-minimap-selected {
 	background: var(--concrete-sky);
-	box-shadow: var(--concrete-shadow-diagram-canvas-minimap-selected);
+	box-shadow: var(--concrete-shadow-diagram-minimap-selected);
 }

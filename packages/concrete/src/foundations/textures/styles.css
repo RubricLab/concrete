@@ -1,22 +1,22 @@
 :root {
 	--concrete-texture-dot-fade-size: 1.2px;
 	--concrete-chart-target-dasharray: 4 4;
-	--concrete-flow-diagram-edge-dashed: 6 5;
-	--concrete-flow-diagram-edge-dotted: 2 5;
-	--concrete-diagram-canvas-edge-dashed: 7 5;
-	--concrete-diagram-canvas-edge-dotted: 2 6;
-	--concrete-diagram-canvas-edge-reference: 3 5;
-	--concrete-diagram-canvas-background:
+	--concrete-diagram-flow-edge-dashed: 6 5;
+	--concrete-diagram-flow-edge-dotted: 2 5;
+	--concrete-diagram-edge-dashed: 7 5;
+	--concrete-diagram-edge-dotted: 2 6;
+	--concrete-diagram-edge-reference: 3 5;
+	--concrete-diagram-background:
 		radial-gradient(circle, var(--concrete-border) 1px, transparent 1.35px) 0 0 / 18px 18px,
 		var(--concrete-sunken);
-	--concrete-diagram-canvas-legend-event-background: repeating-linear-gradient(
+	--concrete-diagram-legend-event-background: repeating-linear-gradient(
 		to right,
 		currentcolor 0,
 		currentcolor 5px,
 		transparent 5px,
 		transparent 9px
 	);
-	--concrete-diagram-canvas-legend-reference-background: repeating-linear-gradient(
+	--concrete-diagram-legend-reference-background: repeating-linear-gradient(
 		to right,
 		currentcolor 0,
 		currentcolor 2px,

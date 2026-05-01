@@ -1,10 +1,19 @@
 import type { ReactElement, ReactNode } from 'react'
 import { ConcreteIcon, type IconName } from '../icons'
-import type { ConcreteSignal } from '../schemas'
 import { concreteClassNames } from '../styles/class-names'
 
 export type LabelIconSlot = IconName | ReactElement
-export type LabelTone = 'default' | 'ink' | 'sky' | 'sunken' | ConcreteSignal
+export const labelIntentValues = [
+	'danger',
+	'neutral',
+	'sky',
+	'strong',
+	'subtle',
+	'terminal',
+	'ultra'
+] as const
+
+export type LabelIntent = (typeof labelIntentValues)[number]
 
 export function renderLabelIconSlot(icon: LabelIconSlot | undefined): ReactNode {
 	switch (typeof icon) {
@@ -15,17 +24,17 @@ export function renderLabelIconSlot(icon: LabelIconSlot | undefined): ReactNode 
 	}
 }
 
-export function getLabelToneClass(tone: LabelTone): string | undefined {
-	switch (tone) {
-		case 'default':
+export function getLabelIntentClass(intent: LabelIntent): string | undefined {
+	switch (intent) {
+		case 'neutral':
 			return undefined
-		case 'error':
+		case 'danger':
 			return concreteClassNames.labelError
-		case 'ink':
+		case 'strong':
 			return concreteClassNames.labelInk
 		case 'sky':
 			return concreteClassNames.labelSky
-		case 'sunken':
+		case 'subtle':
 			return concreteClassNames.labelSunken
 		case 'terminal':
 			return concreteClassNames.labelTerminal

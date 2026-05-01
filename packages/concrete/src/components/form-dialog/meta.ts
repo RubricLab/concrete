@@ -15,7 +15,7 @@ export const formDialogMeta = {
 			'Inline documentation stage or fixed viewport overlay.',
 			'inline'
 		),
-		prop('size', "'compact' | 'default' | 'wide'", 'Dialog max-width preset.', 'default'),
+		prop('measure', "'compact' | 'default' | 'wide'", 'Dialog max-width preset.', 'default'),
 		prop('onOpenChange', '(open: boolean) => void', 'Close affordance callback.'),
 		prop('title', 'ReactNode', 'Primary form title rendered in the shell header.', undefined, true),
 		prop('description', 'ReactNode', 'Supporting copy below the title.'),

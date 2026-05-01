@@ -41,7 +41,7 @@ export default function ComponentsPage() {
 			<Stack density="editorial">
 				<Panel
 					description="Components assemble primitives and approved lower-tier components. They can own deterministic local behavior, but they do not own CSS or app-specific product policy."
-					meta={<Badge signal="terminal">{componentRegistry.length} components</Badge>}
+					meta={<Badge intent="terminal">{componentRegistry.length} components</Badge>}
 					title="Compositions with contracts"
 				>
 					<Stack density="compact">
@@ -62,15 +62,15 @@ export default function ComponentsPage() {
 								<Panel
 									description={component.description}
 									footer={
-										<TextLink href={`/components/${component.slug}`} variant="nav">
+										<TextLink href={`/components/${component.slug}`} purpose="nav">
 											Open
 										</TextLink>
 									}
 									key={component.slug}
 									meta={
 										<Stack density="compact">
-											<Badge signal="terminal">{component.category}</Badge>
-											<Text purpose="caption" tone="muted">
+											<Badge intent="terminal">{component.category}</Badge>
+											<Text purpose="caption" intent="muted">
 												{component.states.length} states / {component.props.length} props
 											</Text>
 										</Stack>

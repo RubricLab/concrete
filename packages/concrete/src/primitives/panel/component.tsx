@@ -4,7 +4,7 @@ import { concreteClassNames } from '../../styles/class-names'
 import { Dock } from '../dock'
 import { Header } from '../header'
 import { Surface } from '../surface'
-import type { SurfaceDepth, SurfaceTone } from '../surface/schema'
+import type { SurfaceDepth, SurfaceIntent } from '../surface/schema'
 import { cn } from '../utils'
 
 type PanelElementProps = Omit<HTMLAttributes<HTMLElement>, 'style' | 'title'>
@@ -18,7 +18,7 @@ export type PanelProps = PanelElementProps & {
 	footer?: ReactNode
 	meta?: ReactNode
 	title?: ReactNode
-	tone?: SurfaceTone
+	intent?: SurfaceIntent
 }
 
 export function Panel({
@@ -31,7 +31,7 @@ export function Panel({
 	footer,
 	meta,
 	title,
-	tone = 'default',
+	intent = 'default',
 	...props
 }: PanelProps) {
 	return (
@@ -40,7 +40,7 @@ export function Panel({
 			className={cn(concreteClassNames.panel, className)}
 			density={density}
 			depth={depth}
-			tone={tone}
+			intent={intent}
 			{...props}
 		>
 			{title || description || meta || actions ? (

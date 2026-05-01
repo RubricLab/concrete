@@ -21,12 +21,12 @@ export const chartGridPrimitiveDefinition = createPrimitive({
 	states: exampleStates(chartGridExamples, ['default'])
 })
 
-function renderChartGridInput({ background, lines }: ChartGridValue) {
+function renderChartGridInput({ lines, showBackground }: ChartGridValue) {
 	return (
 		<svg aria-hidden viewBox="0 0 160 96">
 			<title>Chart grid</title>
 			<ChartGrid>
-				{background ? <ChartPlotBackground height="64" rx="8" width="128" x="16" y="12" /> : null}
+				{showBackground ? <ChartPlotBackground height="64" rx="8" width="128" x="16" y="12" /> : null}
 				{Array.from({ length: lines }).map((_, lineIndex) => {
 					const y = 28 + lineIndex * 18
 

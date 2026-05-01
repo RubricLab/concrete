@@ -1,13 +1,15 @@
 import { z } from 'zod/v4'
 
-export const badgeSignalValues = ['terminal', 'ultra', 'error'] as const
-export const badgeVariantValues = ['soft', 'solid', 'ghost', 'count'] as const
+export const badgeHierarchyValues = ['ghost', 'soft', 'solid'] as const
+export const badgeIntentValues = ['danger', 'terminal', 'ultra'] as const
+export const badgePurposeValues = ['count', 'status'] as const
 
 export const badgeSchema = z
 	.object({
+		hierarchy: z.enum(badgeHierarchyValues).default('soft'),
+		intent: z.enum(badgeIntentValues).default('terminal'),
 		label: z.string().default('Live'),
-		signal: z.enum(badgeSignalValues).default('terminal'),
-		variant: z.enum(badgeVariantValues).default('soft')
+		purpose: z.enum(badgePurposeValues).default('status')
 	})
 	.strict()
 

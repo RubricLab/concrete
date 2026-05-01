@@ -19,7 +19,7 @@ export const pickerSurfaceExamples = defineExamples({
 		description: 'Dense picker surface content.',
 		render: () => (
 			<PickerSurface open>
-				<Listbox size="compact">
+				<Listbox density="compact">
 					<OptionRow selected>Research</OptionRow>
 					<OptionRow>Agent traces</OptionRow>
 				</Listbox>
@@ -30,7 +30,7 @@ export const pickerSurfaceExamples = defineExamples({
 		description: 'Floating picker surface.',
 		render: () => (
 			<PickerSurface open placement="floating">
-				<Listbox size="compact">
+				<Listbox density="compact">
 					<OptionRow selected>14:30</OptionRow>
 					<OptionRow>15:00</OptionRow>
 				</Listbox>

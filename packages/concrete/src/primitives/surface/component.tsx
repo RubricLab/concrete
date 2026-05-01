@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import type { Density } from '../../foundations/state'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
-import type { SurfaceDepth, SurfaceElement, SurfaceTone } from './schema'
+import type { SurfaceDepth, SurfaceElement, SurfaceIntent } from './schema'
 
 type SurfaceElementProps = Omit<HTMLAttributes<HTMLElement>, 'style'>
 
@@ -14,7 +14,7 @@ export type SurfaceProps = SurfaceElementProps & {
 	disabled?: boolean
 	interactive?: boolean
 	selected?: boolean
-	tone?: SurfaceTone
+	intent?: SurfaceIntent
 }
 
 export function Surface({
@@ -26,7 +26,7 @@ export function Surface({
 	disabled = false,
 	interactive = false,
 	selected = false,
-	tone = 'default',
+	intent = 'default',
 	...props
 }: SurfaceProps) {
 	const SurfaceTag = as
@@ -40,7 +40,7 @@ export function Surface({
 			data-disabled={disabled ? 'true' : undefined}
 			data-interactive={interactive ? 'true' : undefined}
 			data-selected={selected ? 'true' : undefined}
-			data-tone={tone}
+			data-intent={intent}
 			{...props}
 		>
 			{children}

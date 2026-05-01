@@ -13,7 +13,7 @@ export const searchInputExamples = defineExamples({
 			<SearchInput
 				inputProps={{ placeholder: 'Filter...' }}
 				tokens={
-					<Token leadingIcon="folder" removable tone="sky">
+					<Token leadingIcon="folder" removable intent="sky">
 						Research
 					</Token>
 				}

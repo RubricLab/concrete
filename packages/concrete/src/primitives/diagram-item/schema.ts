@@ -2,6 +2,7 @@ import { z } from 'zod/v4'
 
 export const diagramItemPrimitiveSchema = z
 	.object({
+		intent: z.enum(['ink', 'muted', 'sky', 'terminal', 'ultra', 'error']).default('ink'),
 		kind: z
 			.enum(['metric', 'code', 'status', 'note', 'chart', 'table', 'document', 'card'])
 			.default('metric'),
@@ -9,7 +10,6 @@ export const diagramItemPrimitiveSchema = z
 		muted: z.boolean().default(false),
 		selected: z.boolean().default(false),
 		title: z.string().default('Trace'),
-		tone: z.enum(['ink', 'muted', 'sky', 'terminal', 'ultra', 'error']).default('ink'),
 		value: z.string().optional()
 	})
 	.strict()

@@ -15,7 +15,6 @@ export const formShellMeta = {
 		prop('meta', 'ReactNode', 'Small metadata beside the title.'),
 		prop('actions', 'ReactNode', 'Header action slot.'),
 		prop('footer', 'ReactNode', 'Footer action slot, usually cancel and submit buttons.'),
-		prop('variant', "'panel' | 'modal' | 'drawer'", 'Surface treatment for the shell.', 'panel'),
 		prop('status', "'default' | 'error' | 'success'", 'Outer status border treatment.', 'default'),
 		prop('compact', 'boolean', 'Tightens header/body spacing for dense settings.', 'false'),
 		prop('FormSection.title', 'ReactNode', 'Section title slot.'),

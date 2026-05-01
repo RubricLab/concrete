@@ -9,7 +9,7 @@ export const chartMeta = {
 	pressure: ['product', 'generative'],
 	props: [
 		prop(
-			'variant',
+			'kind',
 			"'line' | 'area' | 'bar' | 'stacked-bar' | 'donut' | 'heatmap'",
 			'Chart renderer selected by the discriminated schema.',
 			'line',

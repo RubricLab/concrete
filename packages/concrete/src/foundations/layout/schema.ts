@@ -43,10 +43,14 @@ export const layoutTokens = [
 	{ kind: 'grid', name: 'track-fill', value: 'var(--concrete-grid-track-fill)' },
 	{ kind: 'grid', name: 'track-sidebar', value: 'var(--concrete-grid-track-sidebar)' },
 	{ kind: 'grid', name: 'column-full', value: 'var(--concrete-grid-column-full)' },
-	{ kind: 'layer', name: 'tooltip', value: 'var(--concrete-z-tooltip)' },
+	{ kind: 'layer', name: 'overlay-tip', value: 'var(--concrete-z-overlay-tip)' },
 	{ kind: 'layer', name: 'overlay', value: 'var(--concrete-z-overlay)' },
-	{ kind: 'offset', name: 'tooltip-gap', value: 'var(--concrete-offset-tooltip-gap)' },
-	{ kind: 'responsive', name: 'search-input-wrap', value: 'var(--concrete-search-input-flex-wrap)' },
+	{ kind: 'offset', name: 'overlay-tip-gap', value: 'var(--concrete-offset-overlay-tip-gap)' },
+	{
+		kind: 'responsive',
+		name: 'query-control-wrap',
+		value: 'var(--concrete-query-control-flex-wrap)'
+	},
 	{ kind: 'utility', name: 'flex-fill', value: 'var(--concrete-flex-fill)' }
 ] as const
 

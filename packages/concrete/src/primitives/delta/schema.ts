@@ -3,10 +3,10 @@ import { z } from 'zod/v4'
 export const deltaSchema = z
 	.object({
 		basis: z.string().optional(),
+		density: z.enum(['compact', 'comfortable', 'display', 'editorial']).default('comfortable'),
+		hierarchy: z.enum(['plain', 'wash']).default('plain'),
 		intent: z.enum(['positive', 'negative', 'neutral']).default('neutral'),
-		size: z.enum(['small', 'medium', 'large', 'xlarge']).default('medium'),
-		value: z.string().default('18.6%'),
-		variant: z.enum(['bare', 'wash']).default('bare')
+		value: z.string().default('18.6%')
 	})
 	.strict()
 

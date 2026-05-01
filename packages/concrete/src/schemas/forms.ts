@@ -3,7 +3,6 @@ import { fieldStatusSchema, uploadItemStatusSchema } from '../foundations/state/
 
 export const dateValueSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
 export const timeValueSchema = z.string().regex(/^\d{2}:\d{2}$/)
-export const formShellVariantSchema = z.enum(['panel', 'modal', 'drawer'])
 export const formGridColumnsSchema = z.union([z.literal(1), z.literal(2), z.literal(3)])
 export const formOverlayPresentationSchema = z.enum(['fixed', 'inline'])
 
@@ -44,8 +43,7 @@ export const formShellConfigSchema = z
 		compact: z.boolean().default(false),
 		description: z.string().min(1).optional(),
 		status: fieldStatusSchema.default('default'),
-		title: z.string().min(1),
-		variant: formShellVariantSchema.default('panel')
+		title: z.string().min(1)
 	})
 	.strict()
 
@@ -94,7 +92,6 @@ export type FormGridColumnCount = z.infer<typeof formGridColumnsSchema>
 export type FormOverlayPresentation = z.infer<typeof formOverlayPresentationSchema>
 export type FormSectionConfig = z.infer<typeof formSectionConfigSchema>
 export type FormShellConfig = z.infer<typeof formShellConfigSchema>
-export type FormShellVariantValue = z.infer<typeof formShellVariantSchema>
 export type FormValidationItem = z.infer<typeof formValidationItemSchema>
 export type MultiSelectOption = z.input<typeof multiSelectOptionSchema>
 export type SettingsPanelRowShape = z.infer<typeof settingsPanelRowSchema>

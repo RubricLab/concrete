@@ -51,7 +51,7 @@ export function SettingsPanel({
 			footer={footer}
 			meta={meta}
 			title={title}
-			tone={status === 'error' ? 'error' : 'default'}
+			intent={status === 'error' ? 'error' : 'default'}
 			{...props}
 		>
 			{sections.map(section => (

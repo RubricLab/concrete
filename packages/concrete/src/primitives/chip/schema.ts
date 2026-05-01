@@ -1,14 +1,15 @@
 import { z } from 'zod/v4'
 import { iconNames } from '../../icons'
+import { labelIntentValues } from '../label-helpers'
 
-export const chipToneValues = ['default', 'ink', 'sky', 'sunken'] as const
+export const chipIntentValues = labelIntentValues
 
 export const chipSchema = z
 	.object({
+		intent: z.enum(chipIntentValues).default('neutral'),
 		label: z.string().default('Filter'),
 		leadingIcon: z.enum(iconNames).optional(),
-		selected: z.boolean().default(false),
-		tone: z.enum(chipToneValues).default('default')
+		selected: z.boolean().default(false)
 	})
 	.strict()
 

@@ -5,15 +5,17 @@ import { useEffect, useMemo, useState } from 'react'
 import type { IconName } from '../../icons'
 import {
 	Dock,
+	Inline,
 	Kbd,
 	Listbox,
 	MenuGroup,
 	MenuSurface,
 	OptionRow,
 	SearchInput,
-	Spinner
+	Spinner,
+	Text
 } from '../../primitives'
-import type { CommandItemTone } from '../../schemas'
+import type { CommandItemIntent } from '../../schemas'
 import { formatShortcutKey, stringifyReactNode } from '../../utilities/interaction-helpers'
 
 export type CommandMenuItem = {
@@ -21,11 +23,11 @@ export type CommandMenuItem = {
 	disabled?: boolean
 	group?: string
 	id: string
+	intent?: CommandItemIntent
 	label: ReactNode
 	leadingIcon?: IconName
 	meta?: ReactNode
 	shortcut?: readonly string[]
-	tone?: CommandItemTone
 }
 
 export type CommandMenuProps = Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'role'> & {
@@ -166,7 +168,7 @@ export function CommandMenu({
 				<Listbox
 					emptyLabel={
 						<>
-							<Spinner size={14} tone="sky" />
+							<Spinner density="compact" intent="sky" />
 							Searching
 						</>
 					}
@@ -191,7 +193,7 @@ export function CommandMenu({
 									onMouseEnter={() => setCommandMenuActiveId(item.id, setInternalActiveId, onActiveIdChange)}
 									role="option"
 									shortcuts={item.shortcut?.map(formatShortcutKey)}
-									tone={item.tone ?? 'default'}
+									intent={item.intent ?? 'default'}
 								/>
 							))}
 						</MenuGroup>
@@ -201,10 +203,14 @@ export function CommandMenu({
 			{footer ? <Dock>{footer}</Dock> : null}
 			{!footer && heading ? (
 				<Dock align="between" density="compact">
-					<span>{heading}</span>
-					<span>
-						<Kbd>↑</Kbd> <Kbd>↓</Kbd> navigate <Kbd>↵</Kbd> open
-					</span>
+					<Text purpose="meta">{heading}</Text>
+					<Inline density="compact">
+						<Kbd>↑</Kbd>
+						<Kbd>↓</Kbd>
+						<Text purpose="meta">navigate</Text>
+						<Kbd>↵</Kbd>
+						<Text purpose="meta">open</Text>
+					</Inline>
 				</Dock>
 			) : null}
 		</MenuSurface>

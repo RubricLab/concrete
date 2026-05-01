@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 import { densitySchema } from '../../foundations/state'
-import { surfaceDepthSchema, surfaceToneSchema } from '../surface/schema'
+import { surfaceDepthSchema, surfaceIntentSchema } from '../surface/schema'
 
 export const dataSurfacePurposeSchema = z.enum(['chart', 'generic', 'meter', 'metric', 'table'])
 export const dataSurfaceLayoutSchema = z.enum(['media', 'stack'])
@@ -13,11 +13,11 @@ export const dataSurfaceSchema = z
 		depth: surfaceDepthSchema.default('raised'),
 		description: z.string().optional(),
 		footer: z.string().optional(),
+		intent: surfaceIntentSchema.default('default'),
 		layout: dataSurfaceLayoutSchema.default('stack'),
 		meta: z.string().optional(),
 		purpose: dataSurfacePurposeSchema.default('generic'),
-		title: z.string().default('Data surface'),
-		tone: surfaceToneSchema.default('default')
+		title: z.string().default('Data surface')
 	})
 	.strict()
 

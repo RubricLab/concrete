@@ -24,10 +24,10 @@ function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
 			description="Dense settings rows keep labels, explanatory copy, metadata, and controls aligned."
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Reset
 					</Button>
-					<Button size="small">Save</Button>
+					<Button density="small">Save</Button>
 				</>
 			}
 			sections={[
@@ -77,7 +77,7 @@ function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
 								rows: [
 									{
 										control: (
-											<Button leadingIcon="paperclip" size="small" variant="secondary">
+											<Button leadingIcon="paperclip" density="small" hierarchy="secondary">
 												Attach
 											</Button>
 										),

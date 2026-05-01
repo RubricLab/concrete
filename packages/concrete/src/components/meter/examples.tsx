@@ -22,16 +22,16 @@ export const meterExamples = defineExamples({
 					description="Workspace command budget"
 					label="Usage"
 					target={80}
-					tone="sky"
+					intent="sky"
 					value={{ max: 100, min: 0, value: 72 }}
-					variant="ring"
+					display="ring"
 				/>
 				<Meter
 					description="Policy confidence"
 					label="Review"
-					tone="ultra"
+					intent="ultra"
 					value={{ max: 100, min: 0, value: 58 }}
-					variant="ring"
+					display="ring"
 				/>
 			</>
 		)
@@ -44,15 +44,15 @@ export const meterExamples = defineExamples({
 					description="Workspace command budget"
 					label="Usage"
 					target={80}
-					tone="terminal"
+					intent="terminal"
 					value={{ max: 100, min: 0, value: 72 }}
 				/>
 				<Meter
 					description="Policy confidence"
 					label="Review"
-					tone="error"
+					intent="error"
 					value={{ max: 100, min: 0, value: 34 }}
-					variant="ring"
+					display="ring"
 				/>
 			</>
 		)
@@ -66,14 +66,14 @@ function renderBarMeterExample() {
 				description="Workspace command budget"
 				label="Usage"
 				target={80}
-				tone="sky"
+				intent="sky"
 				value={{ max: 100, min: 0, value: 72 }}
 			/>
 			<Meter
 				description="Tool budget remaining"
 				label="Tools"
 				target={65}
-				tone="terminal"
+				intent="terminal"
 				value={{ max: 100, min: 0, value: 61 }}
 			/>
 		</>
@@ -88,16 +88,16 @@ function renderCompactMeterExample() {
 				description="Daily command budget"
 				label="Usage"
 				target={80}
-				tone="sky"
+				intent="sky"
 				value={{ max: 100, min: 0, value: 72 }}
 			/>
 			<Meter
 				compact
 				description="Policy confidence"
 				label="Review"
-				tone="ultra"
+				intent="ultra"
 				value={{ max: 100, min: 0, value: 58 }}
-				variant="ring"
+				display="ring"
 			/>
 		</>
 	)
@@ -110,15 +110,15 @@ function renderMeterExample() {
 				description="Workspace command budget"
 				label="Usage"
 				target={80}
-				tone="sky"
+				intent="sky"
 				value={{ max: 100, min: 0, value: 72 }}
 			/>
 			<Meter
 				description="Policy confidence"
 				label="Review"
-				tone="ultra"
+				intent="ultra"
 				value={{ max: 100, min: 0, value: 58 }}
-				variant="ring"
+				display="ring"
 			/>
 		</>
 	)

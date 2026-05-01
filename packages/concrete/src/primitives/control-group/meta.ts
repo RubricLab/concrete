@@ -20,7 +20,14 @@ export const controlGroupMeta = {
 	props: [
 		prop('orientation', "'horizontal' | 'vertical'", 'Control flow direction.'),
 		prop('attached', 'boolean', 'Removes internal gaps for segmented controls.'),
+		prop(
+			'density',
+			"'compact' | 'comfortable' | 'editorial'",
+			'Foundation-backed group rhythm.',
+			'comfortable'
+		),
 		prop('label', 'string', 'Accessible group label.'),
+		prop('content', 'ReactNode', 'Fallback render-input content.'),
 		prop('children', 'ReactNode', 'Grouped controls.')
 	]
 } as const satisfies ControlGroupMeta

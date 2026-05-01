@@ -1,12 +1,12 @@
 import { z } from 'zod/v4'
 
-export const avatarSizeValues = ['small', 'medium', 'large'] as const
+export const avatarDensityValues = ['compact', 'comfortable', 'editorial'] as const
 
 export const avatarSchema = z
 	.object({
 		alt: z.string().default(''),
+		density: z.enum(avatarDensityValues).default('comfortable'),
 		initials: z.string().default('AK'),
-		size: z.enum(avatarSizeValues).default('medium'),
 		src: z.string().optional()
 	})
 	.strict()

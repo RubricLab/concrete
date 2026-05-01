@@ -1,12 +1,16 @@
 import { defineExamples } from '../../factories/createExamples'
 import { DiagramItem } from './component'
 
-const diagramItemTones = ['sky', 'ink', 'terminal', 'ultra'] as const
+const diagramItemIntents = ['sky', 'ink', 'terminal', 'ultra'] as const
 
 export const diagramItemExamples = defineExamples({
 	default: {
 		description: 'Supporting evidence item atlas.',
 		render: () => renderDiagramItemExample()
+	},
+	intents: {
+		description: 'Metric, code, status, and note intents.',
+		render: () => renderDiagramItemExample('intents')
 	},
 	muted: {
 		description: 'Muted supporting item state.',
@@ -15,10 +19,6 @@ export const diagramItemExamples = defineExamples({
 	selected: {
 		description: 'Selected item state.',
 		render: () => renderDiagramItemExample('selected')
-	},
-	tones: {
-		description: 'Metric, code, status, and note tones.',
-		render: () => renderDiagramItemExample('tones')
 	}
 })
 
@@ -40,7 +40,7 @@ function renderDiagramItemExample(state = 'default') {
 					muted={state === 'muted' && index !== 0}
 					selected={state === 'selected' && index === 0}
 					title={title}
-					tone={state === 'tones' ? (diagramItemTones[index] ?? 'ink') : 'ink'}
+					intent={state === 'intents' ? (diagramItemIntents[index] ?? 'ink') : 'ink'}
 					{...(value ? { value } : {})}
 				/>
 			))}

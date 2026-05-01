@@ -47,11 +47,11 @@ export function FormDrawer({
 				{onOpenChange ? (
 					<Button
 						aria-label="Close drawer"
+						density="small"
+						hierarchy="ghost"
 						leadingIcon="x"
 						onClick={() => onOpenChange(false)}
-						size="small"
 						type="button"
-						variant="ghost"
 					/>
 				) : null}
 			</>
@@ -73,7 +73,7 @@ export function FormDrawer({
 					footer={footer}
 					meta={meta}
 					title={title}
-					tone={status === 'error' ? 'error' : 'default'}
+					intent={status === 'error' ? 'error' : 'default'}
 				>
 					{children}
 				</Panel>

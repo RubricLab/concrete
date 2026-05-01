@@ -8,7 +8,7 @@ export const headerExamples = defineExamples({
 		description: 'Header with trailing command region.',
 		render: () => (
 			<Header
-				actions={<Button size="small">Run</Button>}
+				actions={<Button density="small">Run</Button>}
 				description="2 pending edits."
 				title="Diff"
 			/>

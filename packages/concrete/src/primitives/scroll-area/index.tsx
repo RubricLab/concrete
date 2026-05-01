@@ -7,8 +7,8 @@ import { type ScrollAreaValue, scrollAreaSchema } from './schema'
 
 export type { ScrollAreaProps } from './component'
 export { ScrollArea } from './component'
-export type { ScrollAreaInput, ScrollAreaSize, ScrollAreaValue } from './schema'
-export { scrollAreaPropsSchema, scrollAreaSchema, scrollAreaSizeSchema } from './schema'
+export type { ScrollAreaExtent, ScrollAreaInput, ScrollAreaValue } from './schema'
+export { scrollAreaExtentSchema, scrollAreaPropsSchema, scrollAreaSchema } from './schema'
 
 export const scrollAreaPrimitiveDefinition = createPrimitive({
 	...scrollAreaMeta,
@@ -21,6 +21,6 @@ export const scrollAreaPrimitiveDefinition = createPrimitive({
 	states: exampleStates(scrollAreaExamples, ['default', 'large'])
 })
 
-function renderScrollAreaInput({ content, size }: ScrollAreaValue) {
-	return <ScrollArea size={size}>{content}</ScrollArea>
+function renderScrollAreaInput({ content, extent }: ScrollAreaValue) {
+	return <ScrollArea extent={extent}>{content}</ScrollArea>
 }

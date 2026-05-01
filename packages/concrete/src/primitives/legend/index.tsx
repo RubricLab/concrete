@@ -8,7 +8,7 @@ import { type LegendValue, legendSchema } from './schema'
 export type { LegendItemProps, LegendProps } from './component'
 export { Legend, LegendItem } from './component'
 export type { LegendInput, LegendValue } from './schema'
-export { legendItemSchema, legendPropsSchema, legendSchema, legendToneValues } from './schema'
+export { legendIntentValues, legendItemSchema, legendPropsSchema, legendSchema } from './schema'
 
 export const legendPrimitiveDefinition = createPrimitive({
 	...legendMeta,
@@ -27,8 +27,8 @@ function renderLegendInput({ items }: LegendValue) {
 			{items.map(item => (
 				<LegendItem
 					key={`${item.label}-${item.value ?? 'none'}`}
+					intent={item.intent}
 					label={item.label}
-					tone={item.tone}
 					value={item.value}
 				/>
 			))}

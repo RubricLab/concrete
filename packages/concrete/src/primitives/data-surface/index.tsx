@@ -42,7 +42,7 @@ function renderDataSurfaceInput({
 	meta,
 	purpose,
 	title,
-	tone
+	intent
 }: DataSurfaceValue) {
 	return (
 		<DataSurface
@@ -55,7 +55,7 @@ function renderDataSurfaceInput({
 			meta={meta}
 			purpose={purpose}
 			title={title}
-			tone={tone}
+			intent={intent}
 		>
 			{content}
 		</DataSurface>

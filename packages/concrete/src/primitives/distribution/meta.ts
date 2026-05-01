@@ -20,7 +20,7 @@ export const distributionMeta = {
 	props: [
 		prop(
 			'data',
-			'readonly { label: string; value: number; tone?: ProgressTone }[]',
+			'readonly { label: string; value: number; intent?: ProgressIntent }[]',
 			'Part-to-whole rows.',
 			'',
 			true

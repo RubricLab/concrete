@@ -3,11 +3,11 @@
 import type { PointerEvent } from 'react'
 import { useId, useState } from 'react'
 import {
-	FlowDiagramControls,
-	FlowDiagramEdgePath,
-	FlowDiagramShell,
-	FlowDiagramSvg,
-	FlowDiagramViewport,
+	DiagramControls,
+	DiagramEdgePath,
+	DiagramShell,
+	DiagramSvg,
+	DiagramViewport,
 	FlowNode,
 	Header,
 	Legend,
@@ -15,7 +15,7 @@ import {
 } from '../../primitives'
 import { type FlowDiagramNode, type FlowDiagramProps, flowDiagramPropsSchema } from '../../schemas'
 import { clamp, routeDiagramEdge } from '../../utilities/data-geometry'
-import { toIndicatorTone } from '../../utilities/data-tone'
+import { toIndicatorIntent } from '../../utilities/data-intent'
 
 type ComponentShellProps = {
 	className?: string
@@ -64,25 +64,26 @@ export function FlowDiagram({
 	}
 
 	return (
-		<FlowDiagramShell className={className}>
+		<DiagramShell className={className} display="flow">
 			<Header
 				actions={
 					parsedProps.controls ? (
-						<FlowDiagramControls
+						<DiagramControls
 							onReset={() => {
 								setPan({ x: 0, y: 0 })
 								updateZoom(1)
 							}}
 							onZoomIn={() => updateZoom(zoom + 0.1)}
 							onZoomOut={() => updateZoom(zoom - 0.1)}
+							zoomLabel={`${zoom.toFixed(1)}x`}
 						/>
 					) : null
 				}
 				description={parsedProps.description}
 				title={parsedProps.title}
 			/>
-			<FlowDiagramViewport>
-				<FlowDiagramSvg
+			<DiagramViewport display="flow">
+				<DiagramSvg
 					gridId={gridId}
 					height={parsedProps.height}
 					panX={pan.x}
@@ -102,14 +103,15 @@ export function FlowDiagram({
 						const selected = edge.selected || parsedProps.selectedEdgeId === edge.id
 
 						return (
-							<FlowDiagramEdgePath
+							<DiagramEdgePath
+								display="flow"
 								key={edge.id}
 								label={edge.label}
 								labelPoint={route.label}
 								path={route.path}
 								selected={selected}
-								tone={edge.tone}
-								variant={edge.variant}
+								intent={edge.intent}
+								relation={edge.relation}
 							/>
 						)
 					})}
@@ -125,22 +127,22 @@ export function FlowDiagram({
 								selected={selected}
 								subtitle={node.subtitle}
 								title={node.title}
-								tone={node.tone}
+								hierarchy={node.hierarchy}
 								width={node.width}
 								x={node.x}
 								y={node.y}
 							/>
 						)
 					})}
-				</FlowDiagramSvg>
-			</FlowDiagramViewport>
+				</DiagramSvg>
+			</DiagramViewport>
 			{parsedProps.legend.length > 0 ? (
 				<Legend>
 					{parsedProps.legend.map(item => (
-						<LegendItem key={item.label} label={item.label} tone={toIndicatorTone(item.tone)} />
+						<LegendItem key={item.label} label={item.label} intent={toIndicatorIntent(item.intent)} />
 					))}
 				</Legend>
 			) : null}
-		</FlowDiagramShell>
+		</DiagramShell>
 	)
 }

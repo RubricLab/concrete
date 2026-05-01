@@ -1,7 +1,7 @@
 .concrete-listbox {
 	display: grid;
 	min-width: var(--concrete-space-0);
-	max-height: var(--concrete-size-listbox-options-max-block);
+	max-height: var(--concrete-density-listbox-options-max-block);
 	overflow: auto;
 	padding: var(--concrete-space-1);
 	border-radius: var(--concrete-radius-3);
@@ -9,11 +9,11 @@
 	color: var(--concrete-foreground-body);
 }
 
-.concrete-listbox[data-size="compact"] {
+.concrete-listbox[data-density="compact"] {
 	padding: var(--concrete-space-0-5);
 }
 
-.concrete-listbox[data-size="loose"] {
+.concrete-listbox[data-density="loose"] {
 	padding: var(--concrete-space-1-5);
 }
 

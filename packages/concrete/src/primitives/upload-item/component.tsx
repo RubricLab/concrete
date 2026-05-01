@@ -5,7 +5,7 @@ import { concreteClassNames } from '../../styles/class-names'
 import { clampPercent, cn } from '../utils'
 
 type UploadProgressStyle = CSSProperties & {
-	'--concrete-upload-progress'?: string
+	'--concrete-media-progress-value'?: string
 }
 
 export type UploadItemProps = HTMLAttributes<HTMLDivElement> & {
@@ -33,7 +33,7 @@ export function UploadItem({
 }: UploadItemProps) {
 	const percent = progress === undefined ? undefined : clampPercent(progress)
 	const progressStyle: UploadProgressStyle | undefined =
-		percent === undefined ? undefined : { '--concrete-upload-progress': `${percent}%` }
+		percent === undefined ? undefined : { '--concrete-media-progress-value': `${percent}%` }
 
 	return (
 		<div className={cn(concreteClassNames.uploadItem, className)} data-status={status} {...props}>

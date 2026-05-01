@@ -5,42 +5,44 @@ import { cn } from '../utils'
 
 type EmptyStateIconSlot = IconName | ReactElement
 
-export type EmptyStateSize = 'large' | 'medium' | 'small'
-export type EmptyStateTone = 'default' | 'sky'
+export type EmptyStateDensity = 'compact' | 'comfortable' | 'editorial'
+export type EmptyStateIntent = 'neutral' | 'sky'
 
 export type EmptyStateProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
 	action?: ReactNode
 	body?: ReactNode
+	density?: EmptyStateDensity
 	icon?: EmptyStateIconSlot
-	size?: EmptyStateSize
+	intent?: EmptyStateIntent
 	title: ReactNode
-	tone?: EmptyStateTone
 }
 
-const emptyStateSizeClassNames = {
-	large: concreteClassNames.emptyStateLarge,
-	medium: undefined,
-	small: concreteClassNames.emptyStateSmall
-} satisfies Record<EmptyStateSize, string | undefined>
+const emptyStateDensityClassNames = {
+	comfortable: undefined,
+	compact: concreteClassNames.emptyStateSmall,
+	editorial: concreteClassNames.emptyStateLarge
+} satisfies Record<EmptyStateDensity, string | undefined>
 
 export function EmptyState({
 	action,
 	body,
 	className,
+	density = 'comfortable',
 	icon = 'search',
-	size = 'medium',
+	intent = 'neutral',
 	title,
-	tone = 'default',
 	...props
 }: EmptyStateProps) {
 	return (
 		<div
 			className={cn(
 				concreteClassNames.emptyState,
-				emptyStateSizeClassNames[size],
-				tone === 'sky' && concreteClassNames.emptyStateSky,
+				emptyStateDensityClassNames[density],
+				intent === 'sky' && concreteClassNames.emptyStateSky,
 				className
 			)}
+			data-density={density}
+			data-intent={intent}
 			{...props}
 		>
 			<span className={concreteClassNames.mark}>{renderEmptyStateIconSlot(icon)}</span>

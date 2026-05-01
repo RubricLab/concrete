@@ -19,8 +19,8 @@ export const dataDeltaSchema = z
 export const dataPointSchema = z
 	.object({
 		id: z.string().min(1).optional(),
+		intent: dataToneSchema.default('ink'),
 		label: z.string().min(1),
-		tone: dataToneSchema.default('ink'),
 		value: finiteNumberSchema
 	})
 	.strict()
@@ -28,9 +28,9 @@ export const dataPointSchema = z
 export const dataSeriesSchema = z
 	.object({
 		id: z.string().min(1),
+		intent: dataToneSchema.default('sky'),
 		label: z.string().min(1),
-		points: z.array(dataPointSchema).default([]),
-		tone: dataToneSchema.default('sky')
+		points: z.array(dataPointSchema).default([])
 	})
 	.strict()
 
@@ -45,8 +45,8 @@ export const dataProgressValueSchema = z
 
 export const dataLegendItemSchema = z
 	.object({
+		intent: dataToneSchema.default('ink'),
 		label: z.string().min(1),
-		tone: dataToneSchema.default('ink'),
 		value: z.string().min(1).optional()
 	})
 	.strict()
@@ -59,7 +59,7 @@ export const metricCardSchema = z
 		label: z.string().min(1),
 		status: dataLegendItemSchema.optional(),
 		trend: z.array(finiteNumberSchema).default([]),
-		trendTone: dataToneSchema.optional(),
+		trendIntent: dataToneSchema.optional(),
 		unit: z.string().min(1).optional(),
 		value: z.string().min(1)
 	})
@@ -69,12 +69,12 @@ export const meterSchema = z
 	.object({
 		compact: z.boolean().default(false),
 		description: z.string().min(1).optional(),
+		display: z.enum(['bar', 'ring']).default('bar'),
+		intent: dataToneSchema.default('sky'),
 		label: z.string().min(1),
 		target: finiteNumberSchema.optional(),
-		tone: dataToneSchema.default('sky'),
 		unit: z.string().min(1).default('%'),
-		value: dataProgressValueSchema,
-		variant: z.enum(['bar', 'ring']).default('bar')
+		value: dataProgressValueSchema
 	})
 	.strict()
 
@@ -85,6 +85,7 @@ export type DataLegendItem = z.output<typeof dataLegendItemSchema>
 export type DataPoint = z.output<typeof dataPointSchema>
 export type DataProgressValue = z.output<typeof dataProgressValueSchema>
 export type DataSeries = z.output<typeof dataSeriesSchema>
+export type DataIntent = z.infer<typeof dataToneSchema>
 export type DataTone = z.infer<typeof dataToneSchema>
 export type MeterProps = z.input<typeof meterSchema>
 export type MetricCardProps = z.input<typeof metricCardSchema>

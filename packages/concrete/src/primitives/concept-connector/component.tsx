@@ -8,7 +8,7 @@ export type ConceptConnectorProps = SVGProps<SVGSVGElement> & {
 	kind?: ConceptConnectorKind
 	muted?: boolean
 	selected?: boolean
-	tone?: DiagramTone
+	intent?: DiagramTone
 }
 
 export function ConceptConnector({
@@ -16,7 +16,7 @@ export function ConceptConnector({
 	kind = 'straight',
 	muted = false,
 	selected = false,
-	tone = 'muted',
+	intent = 'muted',
 	...props
 }: ConceptConnectorProps) {
 	return (
@@ -24,7 +24,7 @@ export function ConceptConnector({
 			aria-hidden="true"
 			className={cn(
 				concreteClassNames.conceptConnector,
-				getDiagramToneClass(tone),
+				getDiagramToneClass(intent),
 				muted && concreteClassNames.conceptConnectorMuted,
 				selected && concreteClassNames.conceptConnectorSelected,
 				className

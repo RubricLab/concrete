@@ -16,9 +16,9 @@
 		0 1px 2px rgb(10 11 15 / 12%);
 	--concrete-shadow-control-inset: inset 0 1px 0 rgb(10 11 15 / 1.5%);
 	--concrete-shadow-control-focus-inset: inset 0 0 0 2px var(--concrete-sky);
-	--concrete-shadow-stepper: var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
-	--concrete-shadow-range-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
-	--concrete-shadow-range-thumb-hover:
+	--concrete-shadow-step-control: var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
+	--concrete-shadow-interval-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
+	--concrete-shadow-interval-thumb-hover:
 		0 0 0 1px rgb(24 102 220 / 38%), 0 0 0 4px var(--concrete-sky-ring);
 	--concrete-shadow-button-primary:
 		inset 0 1px 0 rgb(255 255 255 / 8%), 0 1px 0 rgb(0 0 0 / 20%), 0 1px 2px rgb(10 11 15 / 10%);
@@ -31,7 +31,7 @@
 	--concrete-shadow-button-ultra:
 		inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 0 rgb(40 24 120 / 22%),
 		0 1px 4px rgb(107 91 255 / 28%);
-	--concrete-shadow-tooltip: 0 4px 14px rgb(10 11 15 / 18%), 0 1px 0 rgb(0 0 0 / 25%);
+	--concrete-shadow-overlay-tip: 0 4px 14px rgb(10 11 15 / 18%), 0 1px 0 rgb(0 0 0 / 25%);
 	--concrete-shadow-validation-icon: inset 0 0 0 1px var(--concrete-border-soft);
 	--concrete-shadow-switch-thumb: 0 1px 1.5px rgb(10 11 15 / 25%);
 	--concrete-shadow-tool-code: 0 1px 0 rgb(10 11 15 / 3%), 0 1px 2px rgb(10 11 15 / 4%);
@@ -44,10 +44,10 @@
 		0 14px 30px rgb(10 11 15 / 18%), 0 2px 6px rgb(10 11 15 / 12%);
 	--concrete-shadow-diagram-item-selected: 0 0 0 3px
 		color-mix(in srgb, currentcolor 12%, transparent);
-	--concrete-shadow-diagram-canvas-status: 0 0 0 3px var(--concrete-ultra-wash);
-	--concrete-shadow-diagram-canvas-rail-active: 0 0 0 3px
+	--concrete-shadow-diagram-status: 0 0 0 3px var(--concrete-ultra-wash);
+	--concrete-shadow-diagram-rail-active: 0 0 0 3px
 		color-mix(in srgb, var(--concrete-ultra) 8%, transparent);
-	--concrete-shadow-diagram-canvas-minimap-selected: 0 0 0 3px var(--concrete-sky-1);
+	--concrete-shadow-diagram-minimap-selected: 0 0 0 3px var(--concrete-sky-1);
 	--concrete-shadow-none: none;
 	--concrete-ring-focus: 0 0 0 3px var(--concrete-sky-ring);
 	--concrete-ring-error: 0 0 0 3px var(--concrete-error-ring);

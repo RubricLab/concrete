@@ -33,17 +33,17 @@ export function Header({
 		<div className={cn(concreteClassNames.header, className)} data-density={density} {...props}>
 			<div className={concreteClassNames.headerContent}>
 				{eyebrow ? (
-					<Text purpose="caption" tone="soft">
+					<Text purpose="caption" intent="soft">
 						{eyebrow}
 					</Text>
 				) : null}
 				{title ? (
-					<Heading level={level} size="section">
+					<Heading level={level} hierarchy="section">
 						{title}
 					</Heading>
 				) : null}
 				{description ? (
-					<Text purpose="body" tone="muted">
+					<Text purpose="body" intent="muted">
 						{description}
 					</Text>
 				) : null}

@@ -1,7 +1,7 @@
 import { defineExamples } from '../../factories/createExamples'
 import { Badge } from '../badge'
 import { Divider } from '../divider'
-import { Row } from '../row'
+import { OptionRow } from '../option-row'
 import { Stack } from './component'
 
 export const stackExamples = defineExamples({
@@ -9,8 +9,8 @@ export const stackExamples = defineExamples({
 		description: 'Comfortable vertical rhythm for repeated content.',
 		render: () => (
 			<Stack>
-				<Row meta={<Badge variant="count">3</Badge>}>Research queue</Row>
-				<Row meta={<Badge signal="ultra">2 claims</Badge>}>Synthesis</Row>
+				<OptionRow meta={<Badge purpose="count">3</Badge>}>Research queue</OptionRow>
+				<OptionRow meta={<Badge intent="ultra">2 claims</Badge>}>Synthesis</OptionRow>
 			</Stack>
 		)
 	},
@@ -18,9 +18,9 @@ export const stackExamples = defineExamples({
 		description: 'Dense separated rows without a new surface.',
 		render: () => (
 			<Stack density="compact" divided>
-				<Badge signal="terminal">Ready</Badge>
-				<Badge signal="ultra">Generated</Badge>
-				<Badge signal="error">Blocked</Badge>
+				<Badge intent="terminal">Ready</Badge>
+				<Badge intent="ultra">Generated</Badge>
+				<Badge intent="danger">Blocked</Badge>
 			</Stack>
 		)
 	},
@@ -29,7 +29,7 @@ export const stackExamples = defineExamples({
 		render: () => (
 			<Stack density="editorial">
 				<Divider label="Context" />
-				<Row meta={<Badge signal="terminal">System</Badge>}>Concrete</Row>
+				<OptionRow meta={<Badge intent="terminal">System</Badge>}>Concrete</OptionRow>
 			</Stack>
 		)
 	}

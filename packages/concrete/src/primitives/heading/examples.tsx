@@ -10,7 +10,7 @@ export const headingExamples = defineExamples({
 	display: {
 		description: 'Display heading for editorial or hero-scale moments.',
 		render: () => (
-			<Heading level="1" size="display">
+			<Heading level="1" hierarchy="display">
 				Concrete
 			</Heading>
 		)
@@ -19,10 +19,10 @@ export const headingExamples = defineExamples({
 		description: 'Title and subsection sizing together.',
 		render: () => (
 			<Stack density="compact">
-				<Heading level="2" size="title">
+				<Heading level="2" hierarchy="title">
 					Agent workflow
 				</Heading>
-				<Heading level="3" size="subsection" tone="muted">
+				<Heading level="3" hierarchy="subsection" intent="muted">
 					Tool trace
 				</Heading>
 			</Stack>

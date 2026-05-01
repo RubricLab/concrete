@@ -1,9 +1,9 @@
-import type { DataTone } from '../schemas'
+import type { DataIntent } from '../schemas'
 import { concreteClassNames } from '../styles/class-names'
 
-export function getMetricTrendTone(
+export function getMetricTrendIntent(
 	intent: 'negative' | 'neutral' | 'positive' | undefined
-): DataTone {
+): DataIntent {
 	switch (intent) {
 		case 'negative':
 			return 'error'
@@ -15,10 +15,12 @@ export function getMetricTrendTone(
 	}
 }
 
-export function toProgressTone(tone: DataTone): 'default' | 'error' | 'sky' | 'terminal' | 'ultra' {
-	switch (tone) {
+export function toProgressIntent(
+	intent: DataIntent
+): 'danger' | 'neutral' | 'sky' | 'terminal' | 'ultra' {
+	switch (intent) {
 		case 'error':
-			return 'error'
+			return 'danger'
 		case 'sky':
 			return 'sky'
 		case 'terminal':
@@ -27,16 +29,16 @@ export function toProgressTone(tone: DataTone): 'default' | 'error' | 'sky' | 't
 			return 'ultra'
 		case 'ink':
 		case 'muted':
-			return 'default'
+			return 'neutral'
 	}
 }
 
-export function toIndicatorTone(
-	tone: DataTone
-): 'default' | 'error' | 'muted' | 'sky' | 'terminal' | 'ultra' {
-	switch (tone) {
+export function toIndicatorIntent(
+	intent: DataIntent
+): 'danger' | 'muted' | 'neutral' | 'sky' | 'terminal' | 'ultra' {
+	switch (intent) {
 		case 'error':
-			return 'error'
+			return 'danger'
 		case 'muted':
 			return 'muted'
 		case 'sky':
@@ -46,12 +48,12 @@ export function toIndicatorTone(
 		case 'ultra':
 			return 'ultra'
 		case 'ink':
-			return 'default'
+			return 'neutral'
 	}
 }
 
-export function toSparklineTone(tone: DataTone): 'error' | 'neutral' | 'sky' | 'terminal' {
-	switch (tone) {
+export function toSparklineIntent(intent: DataIntent): 'error' | 'neutral' | 'sky' | 'terminal' {
+	switch (intent) {
 		case 'error':
 			return 'error'
 		case 'terminal':
@@ -65,8 +67,8 @@ export function toSparklineTone(tone: DataTone): 'error' | 'neutral' | 'sky' | '
 	}
 }
 
-export function getDataToneClass(tone: DataTone | undefined): string | undefined {
-	switch (tone) {
+export function getDataIntentClass(intent: DataIntent | undefined): string | undefined {
+	switch (intent) {
 		case 'error':
 			return concreteClassNames.dataToneError
 		case 'muted':

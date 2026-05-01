@@ -21,14 +21,14 @@ export const tokenPrimitiveDefinition = createPrimitive({
 	states: exampleStates(tokenExamples, ['default', 'group', 'signal'])
 })
 
-function renderTokenInput({ kind, label, leadingIcon, removable, tone }: TokenValue) {
+function renderTokenInput({ kind, label, leadingIcon, removable, intent }: TokenValue) {
 	return (
 		<Token
 			kind={kind}
 			leadingIcon={leadingIcon}
 			removable={removable}
 			removeLabel={`Remove ${label}`}
-			tone={tone}
+			intent={intent}
 		>
 			{label}
 		</Token>

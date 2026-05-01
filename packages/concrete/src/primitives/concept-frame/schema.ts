@@ -15,8 +15,8 @@ export const conceptFramePrimitiveSchema = z
 			])
 			.default('browser-window'),
 		muted: z.boolean().default(false),
-		selected: z.boolean().default(false),
-		size: z.enum(['small', 'medium', 'large']).default('medium')
+		scale: z.enum(['small', 'medium', 'large']).default('medium'),
+		selected: z.boolean().default(false)
 	})
 	.strict()
 

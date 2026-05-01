@@ -125,7 +125,7 @@ function renderSettingsControl(rowIndex: number) {
 	}
 
 	return (
-		<Button leadingIcon="paperclip" size="small" variant="secondary">
+		<Button leadingIcon="paperclip" density="small" hierarchy="secondary">
 			Attach
 		</Button>
 	)

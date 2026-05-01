@@ -2,37 +2,41 @@ import type { HTMLAttributes } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type AvatarSize = 'large' | 'medium' | 'small'
+export type AvatarDensity = 'compact' | 'comfortable' | 'editorial'
 
 export type AvatarProps = HTMLAttributes<HTMLSpanElement> & {
 	alt?: string
+	density?: AvatarDensity
 	initials?: string
-	size?: AvatarSize
 	src?: string
 }
 
 export function Avatar({
 	alt = '',
 	className,
+	density = 'comfortable',
 	initials = 'C',
-	size = 'medium',
 	src,
 	...props
 }: AvatarProps) {
 	return (
-		<span className={cn(concreteClassNames.avatar, getAvatarSizeClass(size), className)} {...props}>
+		<span
+			className={cn(concreteClassNames.avatar, getAvatarDensityClass(density), className)}
+			data-density={density}
+			{...props}
+		>
 			{src ? <img alt={alt} src={src} /> : initials}
 		</span>
 	)
 }
 
-function getAvatarSizeClass(size: AvatarSize): string | undefined {
-	switch (size) {
-		case 'large':
+function getAvatarDensityClass(density: AvatarDensity): string | undefined {
+	switch (density) {
+		case 'editorial':
 			return concreteClassNames.avatarLarge
-		case 'medium':
+		case 'comfortable':
 			return undefined
-		case 'small':
+		case 'compact':
 			return concreteClassNames.avatarSmall
 	}
 }

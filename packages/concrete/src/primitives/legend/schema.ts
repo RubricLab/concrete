@@ -1,11 +1,18 @@
 import { z } from 'zod/v4'
 
-export const legendToneValues = ['default', 'error', 'muted', 'sky', 'terminal', 'ultra'] as const
+export const legendIntentValues = [
+	'danger',
+	'muted',
+	'neutral',
+	'sky',
+	'terminal',
+	'ultra'
+] as const
 
 export const legendItemSchema = z
 	.object({
+		intent: z.enum(legendIntentValues).default('terminal'),
 		label: z.string().default('Accepted'),
-		tone: z.enum(legendToneValues).default('terminal'),
 		value: z.string().optional()
 	})
 	.strict()
@@ -13,9 +20,9 @@ export const legendItemSchema = z
 export const legendSchema = z
 	.object({
 		items: z.array(legendItemSchema).default([
-			{ label: 'Accepted', tone: 'terminal', value: '64' },
-			{ label: 'Review', tone: 'sky', value: '18' },
-			{ label: 'Blocked', tone: 'error', value: '4' }
+			{ intent: 'terminal', label: 'Accepted', value: '64' },
+			{ intent: 'sky', label: 'Review', value: '18' },
+			{ intent: 'danger', label: 'Blocked', value: '4' }
 		])
 	})
 	.strict()

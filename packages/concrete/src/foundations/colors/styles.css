@@ -202,28 +202,24 @@
 		var(--concrete-error) 28%,
 		var(--concrete-border)
 	);
-	--concrete-diagram-canvas-rail-background: color-mix(
-		in srgb,
-		var(--concrete-surface) 94%,
-		transparent
-	);
-	--concrete-diagram-canvas-minimap-background: color-mix(
+	--concrete-diagram-rail-background: color-mix(in srgb, var(--concrete-surface) 94%, transparent);
+	--concrete-diagram-minimap-background: color-mix(
 		in srgb,
 		var(--concrete-surface) 92%,
 		transparent
 	);
-	--concrete-diagram-canvas-legend-data-border: color-mix(
+	--concrete-diagram-legend-data-border: color-mix(
 		in srgb,
 		var(--concrete-sky) 34%,
 		var(--concrete-border)
 	);
-	--concrete-range-track-background: linear-gradient(
+	--concrete-interval-track-background: linear-gradient(
 		to right,
 		var(--concrete-ink-1) var(--concrete-progress-start),
-		var(--concrete-ink-1) var(--concrete-range-start),
-		var(--concrete-sky) var(--concrete-range-start),
-		var(--concrete-sky) var(--concrete-range-end),
-		var(--concrete-ink-1) var(--concrete-range-end),
+		var(--concrete-ink-1) var(--concrete-interval-start),
+		var(--concrete-sky) var(--concrete-interval-start),
+		var(--concrete-sky) var(--concrete-interval-end),
+		var(--concrete-ink-1) var(--concrete-interval-end),
 		var(--concrete-ink-1) var(--concrete-progress-end)
 	);
 }

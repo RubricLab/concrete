@@ -12,19 +12,19 @@ export const transcriptItemExamples = defineExamples({
 			<TranscriptItem
 				actions={
 					<>
-						<Button size="tiny" variant="secondary">
+						<Button density="tiny" hierarchy="secondary">
 							Copy
 						</Button>
-						<Button size="tiny" variant="secondary">
+						<Button density="tiny" hierarchy="secondary">
 							Retry
 						</Button>
 					</>
 				}
-				avatar={<Avatar initials="A" size="small" />}
+				avatar={<Avatar density="compact" initials="A" />}
 				meta={
 					<>
 						<TranscriptMetaItem>Assistant</TranscriptMetaItem>
-						<Badge signal="terminal">complete</Badge>
+						<Badge intent="terminal">complete</Badge>
 					</>
 				}
 			>
@@ -36,11 +36,11 @@ export const transcriptItemExamples = defineExamples({
 		description: 'Assistant message with avatar, meta, and bubble surface.',
 		render: () => (
 			<TranscriptItem
-				avatar={<Avatar initials="A" size="small" />}
+				avatar={<Avatar density="compact" initials="A" />}
 				meta={
 					<>
 						<TranscriptMetaItem>Assistant</TranscriptMetaItem>
-						<Badge signal="terminal">complete</Badge>
+						<Badge intent="terminal">complete</Badge>
 					</>
 				}
 			>
@@ -53,7 +53,7 @@ export const transcriptItemExamples = defineExamples({
 		render: () => (
 			<>
 				<TranscriptItem
-					avatar={<Avatar initials="A" size="small" />}
+					avatar={<Avatar density="compact" initials="A" />}
 					meta={
 						<>
 							<TranscriptMetaItem>Assistant</TranscriptMetaItem>
@@ -87,7 +87,7 @@ export const transcriptItemExamples = defineExamples({
 					meta={
 						<>
 							<TranscriptMetaItem>Assistant</TranscriptMetaItem>
-							<Badge signal="ultra">streaming</Badge>
+							<Badge intent="ultra">streaming</Badge>
 						</>
 					}
 					status="streaming"
@@ -98,7 +98,7 @@ export const transcriptItemExamples = defineExamples({
 					meta={
 						<>
 							<TranscriptMetaItem>Tool</TranscriptMetaItem>
-							<Badge signal="error">error</Badge>
+							<Badge intent="danger">error</Badge>
 						</>
 					}
 					messageRole="tool"

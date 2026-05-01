@@ -21,7 +21,7 @@ export const conceptConnectorPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderConceptConnectorInput(conceptConnectorPrimitiveSchema.parse(input)),
 	schema: conceptConnectorPrimitiveSchema,
 	slug: 'concept-connector',
-	states: exampleStates(conceptConnectorExamples, ['default', 'selected', 'tones'])
+	states: exampleStates(conceptConnectorExamples, ['default', 'selected', 'intents'])
 })
 
 function renderConceptConnectorInput(input: ConceptConnectorValue) {

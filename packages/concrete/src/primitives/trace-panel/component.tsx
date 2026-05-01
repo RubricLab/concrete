@@ -91,6 +91,6 @@ function TraceStatusMark({ status }: { status: MessageStatus }) {
 			return <ConcreteIcon name="circle-alert" />
 		case 'pending':
 		case 'streaming':
-			return <Spinner size={11} tone="default" />
+			return <Spinner density="compact" />
 	}
 }

@@ -9,7 +9,7 @@ export const inlineExamples = defineExamples({
 		render: () => (
 			<Inline align="baseline">
 				<strong>Latency</strong>
-				<Badge signal="terminal">42ms</Badge>
+				<Badge intent="terminal">42ms</Badge>
 			</Inline>
 		)
 	},
@@ -17,8 +17,8 @@ export const inlineExamples = defineExamples({
 		description: 'Title/action distribution.',
 		render: () => (
 			<Inline justify="between">
-				<Badge signal="ultra">Draft</Badge>
-				<Button size="small" variant="secondary">
+				<Badge intent="ultra">Draft</Badge>
+				<Button density="small" hierarchy="secondary">
 					Review
 				</Button>
 			</Inline>
@@ -28,9 +28,9 @@ export const inlineExamples = defineExamples({
 		description: 'Non-wrapping inline group.',
 		render: () => (
 			<Inline>
-				<Badge signal="terminal">Live</Badge>
-				<Badge signal="ultra">Agent</Badge>
-				<Badge signal="error">Needs review</Badge>
+				<Badge intent="terminal">Live</Badge>
+				<Badge intent="ultra">Agent</Badge>
+				<Badge intent="danger">Needs review</Badge>
 			</Inline>
 		)
 	}

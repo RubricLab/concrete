@@ -100,7 +100,7 @@ export function MultiSelect({
 				>
 					{selectedOptions.length > 0
 						? selectedOptions.map(option => (
-								<Token key={option.value} tone="default">
+								<Token key={option.value} intent="default">
 									{option.label}
 								</Token>
 							))

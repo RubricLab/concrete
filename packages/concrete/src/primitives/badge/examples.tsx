@@ -6,13 +6,13 @@ export const badgeExamples = defineExamples({
 		description: 'Notification count treatment.',
 		render: () => (
 			<>
-				<Badge signal="terminal" variant="count">
+				<Badge intent="terminal" purpose="count">
 					24
 				</Badge>
-				<Badge signal="error" variant="count">
+				<Badge intent="danger" purpose="count">
 					3
 				</Badge>
-				<Badge signal="ultra" variant="ghost">
+				<Badge hierarchy="ghost" intent="ultra">
 					v2.4.1
 				</Badge>
 			</>
@@ -22,9 +22,9 @@ export const badgeExamples = defineExamples({
 		description: 'Soft signal badges.',
 		render: () => (
 			<>
-				<Badge signal="terminal">Live</Badge>
-				<Badge signal="ultra">Featured</Badge>
-				<Badge signal="error">Blocked</Badge>
+				<Badge intent="terminal">Live</Badge>
+				<Badge intent="ultra">Featured</Badge>
+				<Badge intent="danger">Blocked</Badge>
 			</>
 		)
 	},
@@ -32,13 +32,13 @@ export const badgeExamples = defineExamples({
 		description: 'Reserved high-emphasis badges.',
 		render: () => (
 			<>
-				<Badge signal="terminal" variant="solid">
+				<Badge hierarchy="solid" intent="terminal">
 					Live
 				</Badge>
-				<Badge signal="ultra" variant="solid">
+				<Badge hierarchy="solid" intent="ultra">
 					Pro
 				</Badge>
-				<Badge signal="error" variant="solid">
+				<Badge hierarchy="solid" intent="danger">
 					Delete
 				</Badge>
 			</>

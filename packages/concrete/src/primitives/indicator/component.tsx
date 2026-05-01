@@ -1,26 +1,25 @@
 import type { HTMLAttributes } from 'react'
-import type { ConcreteSignal } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type IndicatorTone = 'default' | ConcreteSignal | 'muted' | 'sky'
+export type IndicatorIntent = 'danger' | 'muted' | 'neutral' | 'sky' | 'terminal' | 'ultra'
 
 export type IndicatorProps = HTMLAttributes<HTMLSpanElement> & {
-	tone?: IndicatorTone
+	intent?: IndicatorIntent
 }
 
-export function Indicator({ children, className, tone = 'default', ...props }: IndicatorProps) {
+export function Indicator({ children, className, intent = 'neutral', ...props }: IndicatorProps) {
 	return (
-		<span className={cn(concreteClassNames.indicator, className)} {...props}>
-			<span className={cn(concreteClassNames.indicatorDot, getIndicatorToneClass(tone))} />
+		<span className={cn(concreteClassNames.indicator, className)} data-intent={intent} {...props}>
+			<span className={cn(concreteClassNames.indicatorDot, getIndicatorIntentClass(intent))} />
 			{children}
 		</span>
 	)
 }
 
-function getIndicatorToneClass(tone: IndicatorTone | undefined): string | undefined {
-	switch (tone) {
-		case 'error':
+function getIndicatorIntentClass(intent: IndicatorIntent | undefined): string | undefined {
+	switch (intent) {
+		case 'danger':
 			return concreteClassNames.indicatorError
 		case 'muted':
 			return concreteClassNames.indicatorMuted
@@ -30,7 +29,7 @@ function getIndicatorToneClass(tone: IndicatorTone | undefined): string | undefi
 			return concreteClassNames.indicatorTerminal
 		case 'ultra':
 			return concreteClassNames.indicatorUltra
-		case 'default':
+		case 'neutral':
 		case undefined:
 			return undefined
 	}

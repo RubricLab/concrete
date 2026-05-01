@@ -11,20 +11,20 @@ export const labelExamples = defineExamples({
 		description: 'Field label text role.',
 		render: () => <Label purpose="field">Workspace name</Label>
 	},
-	tones: {
-		description: 'Semantic label tones.',
+	intents: {
+		description: 'Semantic label intents.',
 		render: () => (
 			<Cluster density="compact">
-				<Label marker tone="sky">
+				<Label intent="sky" marker>
 					Search
 				</Label>
-				<Label marker tone="terminal">
+				<Label intent="terminal" marker>
 					Valid
 				</Label>
-				<Label marker tone="ultra">
+				<Label intent="ultra" marker>
 					AI
 				</Label>
-				<Label marker tone="error">
+				<Label intent="danger" marker>
 					Error
 				</Label>
 			</Cluster>

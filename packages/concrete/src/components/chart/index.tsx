@@ -20,10 +20,10 @@ export const chartComponentDefinition = createComponent({
 	schema: chartComponentSchema,
 	seed: chartComponentSchema.parse({
 		description: 'Agent run volume with accepted output overlay.',
+		kind: 'line',
 		series: chartSeries,
 		target: 58,
-		title: 'Agent runs',
-		variant: 'line'
+		title: 'Agent runs'
 	}),
 	slug: 'chart',
 	states: exampleStates(chartExamples, [

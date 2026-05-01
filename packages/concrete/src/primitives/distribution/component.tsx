@@ -1,11 +1,11 @@
 import type { HTMLAttributes } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
-import { Progress, type ProgressTone } from '../progress/component'
+import { Progress, type ProgressIntent } from '../progress/component'
 import { cn } from '../utils'
 
 export type DistributionDatum = {
+	intent?: ProgressIntent | undefined
 	label: string
-	tone?: ProgressTone | undefined
 	value: number
 }
 
@@ -19,7 +19,7 @@ export function Distribution({ className, data, ...props }: DistributionProps) {
 			{data.map(datum => (
 				<div className={concreteClassNames.distributionRow} key={datum.label}>
 					<span>{datum.label}</span>
-					<Progress tone={datum.tone ?? 'default'} value={datum.value} />
+					<Progress intent={datum.intent ?? 'neutral'} value={datum.value} />
 					<span className={concreteClassNames.distributionValue}>{datum.value}%</span>
 				</div>
 			))}

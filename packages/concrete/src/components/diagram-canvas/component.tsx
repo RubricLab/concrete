@@ -3,30 +3,32 @@
 import type { PointerEvent, WheelEvent } from 'react'
 import { useId, useMemo, useState } from 'react'
 import {
-	DiagramCanvasControls,
-	DiagramCanvasEdgePath,
-	DiagramCanvasEdges,
-	DiagramCanvasElement,
-	DiagramCanvasElementButton,
-	DiagramCanvasFooter,
-	DiagramCanvasHeader,
-	DiagramCanvasShell,
-	DiagramCanvasStage,
-	DiagramCanvasViewport,
+	DiagramControls,
+	DiagramEdgePath,
+	DiagramEdges,
+	DiagramElement,
+	DiagramElementButton,
+	DiagramFooter,
+	DiagramHeader,
 	DiagramItem,
 	DiagramLegend,
 	DiagramMiniMap,
 	DiagramNode,
-	DiagramRail
+	DiagramRail,
+	DiagramShell,
+	DiagramStage,
+	DiagramViewport
 } from '../../primitives'
-import { type DiagramCanvasProps, diagramCanvasPropsSchema } from '../../schemas'
 import {
-	getDiagramCanvasGraphBoxes,
-	getDiagramCanvasTransform
-} from '../../utilities/diagram-canvas-logic'
+	type DiagramCanvasGraph,
+	type DiagramCanvasProps,
+	diagramCanvasPropsSchema
+} from '../../schemas'
 import {
 	clampDiagramViewport,
-	type DiagramViewport,
+	createDiagramCanvasBox,
+	type DiagramCanvasBox,
+	type DiagramViewport as DiagramViewportState,
 	routeDiagramCanvasEdge
 } from '../../utilities/diagram-geometry'
 
@@ -43,13 +45,13 @@ export function DiagramCanvas({
 	const parsedProps = diagramCanvasPropsSchema.parse(props)
 	const markerId = `concrete-diagram-arrow-${useId().replace(/:/g, '')}`
 	const reverseMarkerId = `${markerId}-reverse`
-	const [viewport, setViewport] = useState<DiagramViewport>({ x: 0, y: 0, zoom: 1 })
+	const [viewport, setViewport] = useState<DiagramViewportState>({ x: 0, y: 0, zoom: 1 })
 	const [selectedId, setSelectedId] = useState(parsedProps.selectedId)
 	const [panOrigin, setPanOrigin] = useState<{
 		pointerId: number
 		startX: number
 		startY: number
-		viewport: DiagramViewport
+		viewport: DiagramViewportState
 	} | null>(null)
 	const activeSelectedId = parsedProps.selectedId ?? selectedId
 	const graphBoxes = useMemo(
@@ -58,7 +60,7 @@ export function DiagramCanvas({
 	)
 	const transform = getDiagramCanvasTransform(viewport)
 
-	function commitViewport(nextViewport: DiagramViewport) {
+	function commitViewport(nextViewport: DiagramViewportState) {
 		const clampedViewport = clampDiagramViewport(nextViewport, parsedProps.width, parsedProps.height)
 		setViewport(clampedViewport)
 		onViewportChange?.(clampedViewport)
@@ -131,9 +133,9 @@ export function DiagramCanvas({
 	}
 
 	return (
-		<DiagramCanvasShell className={className}>
-			<DiagramCanvasHeader description={parsedProps.description} title={parsedProps.title} />
-			<DiagramCanvasViewport
+		<DiagramShell className={className}>
+			<DiagramHeader description={parsedProps.description} title={parsedProps.title} />
+			<DiagramViewport
 				onPointerCancel={handlePointerEnd}
 				onPointerDown={handlePointerDown}
 				onPointerMove={handlePointerMove}
@@ -142,8 +144,8 @@ export function DiagramCanvas({
 				panning={Boolean(panOrigin)}
 			>
 				<DiagramRail />
-				<DiagramCanvasStage height={parsedProps.height} transform={transform} width={parsedProps.width}>
-					<DiagramCanvasEdges
+				<DiagramStage height={parsedProps.height} transform={transform} width={parsedProps.width}>
+					<DiagramEdges
 						height={parsedProps.height}
 						markerId={markerId}
 						reverseMarkerId={reverseMarkerId}
@@ -161,28 +163,22 @@ export function DiagramCanvas({
 							const selected = edge.selected || activeSelectedId === edge.id
 
 							return (
-								<DiagramCanvasEdgePath
+								<DiagramEdgePath
 									key={edge.id}
 									label={edge.label}
 									labelPoint={route.label}
 									markerEnd={`url(#${markerId})`}
-									markerStart={edge.variant === 'bidirectional' ? `url(#${reverseMarkerId})` : undefined}
+									markerStart={edge.relation === 'bidirectional' ? `url(#${reverseMarkerId})` : undefined}
 									path={route.path}
 									selected={selected}
-									tone={edge.tone}
-									variant={edge.variant}
+									intent={edge.intent}
+									relation={edge.relation}
 								/>
 							)
 						})}
-					</DiagramCanvasEdges>
+					</DiagramEdges>
 					{parsedProps.graph.nodes.map(node => (
-						<DiagramCanvasElement
-							height={node.height}
-							key={node.id}
-							width={node.width}
-							x={node.x}
-							y={node.y}
-						>
+						<DiagramElement height={node.height} key={node.id} width={node.width} x={node.x} y={node.y}>
 							<DiagramNode
 								meta={node.meta}
 								muted={node.muted}
@@ -191,10 +187,10 @@ export function DiagramCanvas({
 								selected={node.selected || activeSelectedId === node.id}
 								title={node.title}
 							/>
-						</DiagramCanvasElement>
+						</DiagramElement>
 					))}
 					{parsedProps.graph.items.map(item => (
-						<DiagramCanvasElementButton
+						<DiagramElementButton
 							height={item.height}
 							key={item.id}
 							onClick={() => selectElement(item.id)}
@@ -209,28 +205,45 @@ export function DiagramCanvas({
 								muted={item.muted}
 								selected={item.selected || activeSelectedId === item.id}
 								title={item.title}
-								tone={item.tone}
+								intent={item.intent}
 								value={item.value}
 							/>
-						</DiagramCanvasElementButton>
+						</DiagramElementButton>
 					))}
-				</DiagramCanvasStage>
+				</DiagramStage>
 				{parsedProps.minimap ? (
 					<DiagramMiniMap nodes={parsedProps.graph.nodes} selectedId={activeSelectedId} />
 				) : null}
-			</DiagramCanvasViewport>
-			<DiagramCanvasFooter>
+			</DiagramViewport>
+			<DiagramFooter>
 				<DiagramLegend />
 				{parsedProps.controls ? (
-					<DiagramCanvasControls
+					<DiagramControls
 						disabled={!parsedProps.zoomable}
-						onFit={() => commitViewport({ x: 0, y: 0, zoom: 1 })}
+						onReset={() => commitViewport({ x: 0, y: 0, zoom: 1 })}
 						onZoomIn={() => zoomFromCenter(1.14)}
 						onZoomOut={() => zoomFromCenter(1 / 1.14)}
 						zoom={viewport.zoom}
 					/>
 				) : null}
-			</DiagramCanvasFooter>
-		</DiagramCanvasShell>
+			</DiagramFooter>
+		</DiagramShell>
 	)
+}
+
+function getDiagramCanvasGraphBoxes(
+	graph: DiagramCanvasGraph,
+	width: number,
+	height: number
+): Map<string, DiagramCanvasBox> {
+	return new Map(
+		[...graph.nodes, ...graph.items].map(element => [
+			element.id,
+			createDiagramCanvasBox(element, width, height)
+		])
+	)
+}
+
+function getDiagramCanvasTransform(viewport: DiagramViewportState): string {
+	return `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`
 }

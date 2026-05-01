@@ -8,13 +8,13 @@ export const clusterExamples = defineExamples({
 		description: 'Wrapping action cluster.',
 		render: () => (
 			<Cluster>
-				<Button size="small" variant="primary">
+				<Button density="small" hierarchy="primary">
 					Accept
 				</Button>
-				<Button size="small" variant="secondary">
+				<Button density="small" hierarchy="secondary">
 					Comment
 				</Button>
-				<Button size="small" variant="ghost">
+				<Button density="small" hierarchy="ghost">
 					Archive
 				</Button>
 			</Cluster>
@@ -24,9 +24,9 @@ export const clusterExamples = defineExamples({
 		description: 'Wrapped group with edge distribution.',
 		render: () => (
 			<Cluster justify="between">
-				<Badge signal="terminal">Ready</Badge>
-				<Badge signal="ultra">12 traces</Badge>
-				<Badge signal="error">2 failed</Badge>
+				<Badge intent="terminal">Ready</Badge>
+				<Badge intent="ultra">12 traces</Badge>
+				<Badge intent="danger">2 failed</Badge>
 			</Cluster>
 		)
 	},
@@ -34,10 +34,10 @@ export const clusterExamples = defineExamples({
 		description: 'Wrapping token group.',
 		render: () => (
 			<Cluster density="compact">
-				<Badge signal="terminal">Product</Badge>
-				<Badge signal="terminal">Editorial</Badge>
-				<Badge signal="ultra">Generative</Badge>
-				<Badge signal="ultra">Educational</Badge>
+				<Badge intent="terminal">Product</Badge>
+				<Badge intent="terminal">Editorial</Badge>
+				<Badge intent="ultra">Generative</Badge>
+				<Badge intent="ultra">Educational</Badge>
 			</Cluster>
 		)
 	}

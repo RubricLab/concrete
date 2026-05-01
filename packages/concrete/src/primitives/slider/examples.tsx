@@ -28,7 +28,7 @@ export const sliderExamples = defineExamples({
 		render: () => (
 			<>
 				<Field label="Recall threshold">
-					<Slider defaultValue={62} tone="sky" />
+					<Slider defaultValue={62} intent="sky" />
 				</Field>
 			</>
 		)

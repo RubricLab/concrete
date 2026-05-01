@@ -3,7 +3,7 @@ import { Button, DialogSurface, Overlay, Panel } from '../../primitives'
 import type { FieldStatus } from '../../schemas'
 
 export type FormDialogPresentation = 'fixed' | 'inline'
-export type FormDialogSize = 'compact' | 'default' | 'wide'
+export type FormDialogMeasure = 'compact' | 'default' | 'wide'
 
 export type FormDialogProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
 	actions?: ReactNode | undefined
@@ -15,7 +15,7 @@ export type FormDialogProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
 	onOpenChange?: ((open: boolean) => void) | undefined
 	open?: boolean | undefined
 	presentation?: FormDialogPresentation | undefined
-	size?: FormDialogSize | undefined
+	measure?: FormDialogMeasure | undefined
 	status?: FieldStatus | undefined
 	title: ReactNode
 }
@@ -31,7 +31,7 @@ export function FormDialog({
 	onOpenChange,
 	open = true,
 	presentation = 'inline',
-	size = 'default',
+	measure = 'default',
 	status = 'default',
 	title,
 	...props
@@ -47,11 +47,11 @@ export function FormDialog({
 				{onOpenChange ? (
 					<Button
 						aria-label="Close dialog"
+						density="small"
+						hierarchy="ghost"
 						leadingIcon="x"
 						onClick={() => onOpenChange(false)}
-						size="small"
 						type="button"
-						variant="ghost"
 					/>
 				) : null}
 			</>
@@ -64,7 +64,7 @@ export function FormDialog({
 			scrim={presentation === 'fixed'}
 			{...props}
 		>
-			<DialogSurface modal={presentation === 'fixed'} size={size}>
+			<DialogSurface modal={presentation === 'fixed'} measure={measure}>
 				<Panel
 					actions={chromeActions}
 					className={className}
@@ -73,7 +73,7 @@ export function FormDialog({
 					footer={footer}
 					meta={meta}
 					title={title}
-					tone={status === 'error' ? 'error' : 'default'}
+					intent={status === 'error' ? 'error' : 'default'}
 				>
 					{children}
 				</Panel>

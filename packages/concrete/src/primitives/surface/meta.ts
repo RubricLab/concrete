@@ -12,7 +12,7 @@ type SurfaceMeta = {
 
 export const surfaceMeta = {
 	category: 'surface',
-	description: 'Base Concrete surface with tokenized depth, tone, density, and state.',
+	description: 'Base Concrete surface with tokenized depth, intent, density, and state.',
 	guidance:
 		'Use Surface before inventing item-local card chrome. It owns shell treatment, not layout orchestration.',
 	name: 'Surface',
@@ -20,7 +20,7 @@ export const surfaceMeta = {
 	props: [
 		prop('as', 'SurfaceElement', 'Semantic surface element.', 'div'),
 		prop('depth', "'flat' | 'raised' | 'sunken'", 'Surface depth recipe.'),
-		prop('tone', "'default' | 'muted' | 'inverse' | signal", 'Semantic surface tone.'),
+		prop('intent', "'default' | 'muted' | 'inverse' | signal", 'Semantic surface intent.'),
 		prop('density', "'compact' | 'comfortable' | 'editorial'", 'Surface padding density.'),
 		prop('children', 'ReactNode', 'Surface content.')
 	]

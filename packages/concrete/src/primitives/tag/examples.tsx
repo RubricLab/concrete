@@ -6,34 +6,34 @@ export const tagExamples = defineExamples({
 		description: 'Entity tag with icon.',
 		render: () => (
 			<>
-				<Tag leadingIcon="filter" tone="sky">
+				<Tag intent="sky" leadingIcon="filter">
 					Agents
 				</Tag>
-				<Tag tone="sunken">Docs</Tag>
+				<Tag intent="subtle">Docs</Tag>
 				<Tag dismissible>concrete</Tag>
 			</>
 		)
 	},
-	sizes: {
-		description: 'Small, medium, and large rhythm.',
+	density: {
+		description: 'Compact, comfortable, and editorial rhythm.',
 		render: () => (
 			<>
-				<Tag size="small">small</Tag>
-				<Tag size="medium">medium</Tag>
-				<Tag size="large">large</Tag>
+				<Tag density="compact">compact</Tag>
+				<Tag density="comfortable">comfortable</Tag>
+				<Tag density="editorial">editorial</Tag>
 			</>
 		)
 	},
-	variants: {
+	hierarchy: {
 		description: 'Outline, active, and selected treatments.',
 		render: () => (
 			<>
-				<Tag variant="outline">Outline</Tag>
-				<Tag tone="sky" variant="active">
+				<Tag hierarchy="outline">Outline</Tag>
+				<Tag active intent="sky">
 					Active
 				</Tag>
-				<Tag variant="selected">Selected</Tag>
-				<Tag dismissible tone="terminal">
+				<Tag selected>Selected</Tag>
+				<Tag dismissible intent="terminal">
 					Running
 				</Tag>
 			</>

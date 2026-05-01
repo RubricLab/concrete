@@ -3,7 +3,7 @@ import type { Density } from '../../foundations/state'
 import { concreteClassNames } from '../../styles/class-names'
 import { Heading } from '../heading'
 import { Surface } from '../surface'
-import type { SurfaceDepth, SurfaceTone } from '../surface/schema'
+import type { SurfaceDepth, SurfaceIntent } from '../surface/schema'
 import { Text } from '../text'
 import { cn } from '../utils'
 import type { DataSurfaceLayout, DataSurfacePurpose } from './schema'
@@ -22,7 +22,7 @@ export type DataSurfaceProps = DataSurfaceElementProps & {
 	meta?: ReactNode
 	purpose?: DataSurfacePurpose
 	title?: ReactNode
-	tone?: SurfaceTone
+	intent?: SurfaceIntent
 }
 
 export function DataSurface({
@@ -38,7 +38,7 @@ export function DataSurface({
 	meta,
 	purpose = 'generic',
 	title,
-	tone = 'default',
+	intent = 'default',
 	...props
 }: DataSurfaceProps) {
 	return (
@@ -50,19 +50,19 @@ export function DataSurface({
 			data-purpose={purpose}
 			density={density}
 			depth={depth}
-			tone={tone}
+			intent={intent}
 			{...props}
 		>
 			{title || description || meta || actions ? (
 				<header className={concreteClassNames.dataSurfaceHeader}>
 					<div className={concreteClassNames.dataSurfaceHeaderBody}>
 						{title ? (
-							<Heading level="3" size="subsection">
+							<Heading level="3" hierarchy="subsection">
 								{title}
 							</Heading>
 						) : null}
 						{description ? (
-							<Text as="p" purpose="caption" tone="muted">
+							<Text as="p" purpose="caption" intent="muted">
 								{description}
 							</Text>
 						) : null}

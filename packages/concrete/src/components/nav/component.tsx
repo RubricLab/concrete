@@ -33,7 +33,7 @@ export function Nav({
 	...props
 }: NavProps) {
 	return (
-		<Surface aria-label={label} as="nav" density={density} depth="flat" tone="default" {...props}>
+		<Surface aria-label={label} as="nav" density={density} depth="flat" intent="default" {...props}>
 			<Container density={density} measure="wide">
 				<Cluster density={density} justify="between">
 					{renderBrand(brand, brandHref)}
@@ -51,12 +51,12 @@ function renderBrand(brand: ReactNode | undefined, brandHref: string): ReactNode
 	const content = brand ?? (
 		<Inline density="compact">
 			<BrandMark />
-			<Text tone="strong">Concrete</Text>
+			<Text intent="strong">Concrete</Text>
 		</Inline>
 	)
 
 	return (
-		<TextLink href={brandHref} variant="nav">
+		<TextLink href={brandHref} purpose="nav">
 			{content}
 		</TextLink>
 	)
@@ -70,7 +70,7 @@ function renderNavItem(item: NavItem, activeId: string | undefined): ReactNode {
 			current={current}
 			href={item.href}
 			key={item.id}
-			variant="nav"
+			purpose="nav"
 			{...(item.external ? { external: true } : {})}
 		>
 			{item.label}

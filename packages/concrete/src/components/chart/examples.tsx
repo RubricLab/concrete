@@ -61,7 +61,7 @@ function renderChartExample(state = 'line'): ReactNode {
 				series={[]}
 				state={state}
 				title="Agent runs"
-				variant="line"
+				kind="line"
 			/>
 		)
 	}
@@ -75,7 +75,7 @@ function renderChartExample(state = 'line'): ReactNode {
 					series={chartSeries}
 					target={58}
 					title="Execution trend"
-					variant="area"
+					kind="area"
 				/>
 			)
 		case 'bar':
@@ -84,22 +84,22 @@ function renderChartExample(state = 'line'): ReactNode {
 					comparisonPoints={chartComparisonPoints}
 					points={chartPoints}
 					title="Capability score"
-					variant="bar"
+					kind="bar"
 				/>
 			)
 		case 'stacked':
-			return <Chart groups={stackedChartGroups} title="Run composition" variant="stacked-bar" />
+			return <Chart groups={stackedChartGroups} title="Run composition" kind="stacked-bar" />
 		case 'donut':
 			return (
 				<Chart
 					centerLabel="64%"
 					segments={chartPoints.slice(0, 4)}
 					title="Workload split"
-					variant="donut"
+					kind="donut"
 				/>
 			)
 		case 'heatmap':
-			return <Chart cells={heatmapCells} title="Run intensity" variant="heatmap" />
+			return <Chart cells={heatmapCells} title="Run intensity" kind="heatmap" />
 		default:
 			return (
 				<Chart
@@ -107,7 +107,7 @@ function renderChartExample(state = 'line'): ReactNode {
 					series={chartSeries}
 					target={58}
 					title="Agent runs"
-					variant="line"
+					kind="line"
 				/>
 			)
 	}

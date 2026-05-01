@@ -3,8 +3,8 @@ import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
 type RangeCustomProperties = CSSProperties & {
-	'--concrete-range-end'?: string
-	'--concrete-range-start'?: string
+	'--concrete-interval-end'?: string
+	'--concrete-interval-start'?: string
 }
 
 export type RangeProps = HTMLAttributes<HTMLDivElement> & {
@@ -57,8 +57,8 @@ function withRangeStyle(
 ): CSSProperties {
 	return {
 		...style,
-		'--concrete-range-end': formatRangePercent(end),
-		'--concrete-range-start': formatRangePercent(start)
+		'--concrete-interval-end': formatRangePercent(end),
+		'--concrete-interval-start': formatRangePercent(start)
 	} as RangeCustomProperties
 }
 

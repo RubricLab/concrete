@@ -10,15 +10,15 @@ export type { DrawerSurfaceProps } from './component'
 export { DrawerSurface } from './component'
 export type {
 	DrawerSurfaceInput,
+	DrawerSurfaceMeasure,
 	DrawerSurfaceSide,
-	DrawerSurfaceSize,
 	DrawerSurfaceValue
 } from './schema'
 export {
+	drawerSurfaceMeasureSchema,
 	drawerSurfacePropsSchema,
 	drawerSurfaceSchema,
-	drawerSurfaceSideSchema,
-	drawerSurfaceSizeSchema
+	drawerSurfaceSideSchema
 } from './schema'
 
 export const drawerSurfacePrimitiveDefinition = createPrimitive({
@@ -32,9 +32,9 @@ export const drawerSurfacePrimitiveDefinition = createPrimitive({
 	states: exampleStates(drawerSurfaceExamples, ['default', 'left', 'wide'])
 })
 
-function renderDrawerSurfaceInput({ content, modal, side, size }: DrawerSurfaceValue) {
+function renderDrawerSurfaceInput({ content, modal, side, measure }: DrawerSurfaceValue) {
 	return (
-		<DrawerSurface modal={modal} side={side} size={size}>
+		<DrawerSurface modal={modal} side={side} measure={measure}>
 			<Panel title="Drawer">{content}</Panel>
 		</DrawerSurface>
 	)

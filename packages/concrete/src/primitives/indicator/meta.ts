@@ -19,10 +19,10 @@ export const indicatorMeta = {
 	pressure: ['product', 'generative'],
 	props: [
 		prop(
-			'tone',
-			"'default' | 'muted' | 'sky' | 'terminal' | 'ultra' | 'error'",
-			'Dot color and semantic role.',
-			'default'
+			'intent',
+			"'neutral' | 'muted' | 'sky' | 'terminal' | 'ultra' | 'danger'",
+			'Dot semantic intent.',
+			'neutral'
 		),
 		prop('children', 'ReactNode', 'Indicator label.')
 	]

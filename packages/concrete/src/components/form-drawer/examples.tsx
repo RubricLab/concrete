@@ -12,7 +12,7 @@ export const formDrawerExamples = defineExamples({
 		render: () => renderFormDrawerExample('default')
 	},
 	left: {
-		description: 'Left-side drawer variant for navigation-adjacent forms.',
+		description: 'Left-side drawer placement for navigation-adjacent forms.',
 		render: () => renderFormDrawerExample('left')
 	},
 	review: {
@@ -27,10 +27,10 @@ function renderFormDrawerExample(state: 'default' | 'left' | 'review') {
 			description="Contextual edit surface for dense product screens."
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Discard
 					</Button>
-					<Button size="small">Apply</Button>
+					<Button density="small">Apply</Button>
 				</>
 			}
 			side={state === 'left' ? 'left' : 'right'}

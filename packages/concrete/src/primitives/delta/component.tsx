@@ -3,15 +3,15 @@ import { concreteClassNames, getConcreteClassName } from '../../styles/class-nam
 import { cn } from '../utils'
 
 export type DeltaIntent = 'negative' | 'neutral' | 'positive'
-export type DeltaSize = 'large' | 'medium' | 'small' | 'xlarge'
-export type DeltaVariant = 'bare' | 'wash'
+export type DeltaDensity = 'compact' | 'comfortable' | 'display' | 'editorial'
+export type DeltaHierarchy = 'plain' | 'wash'
 
 export type DeltaProps = HTMLAttributes<HTMLSpanElement> & {
 	basis?: ReactNode
+	density?: DeltaDensity
+	hierarchy?: DeltaHierarchy
 	intent?: DeltaIntent
-	size?: DeltaSize
 	value: string
-	variant?: DeltaVariant
 }
 
 const deltaIntentClassNames = {
@@ -20,20 +20,20 @@ const deltaIntentClassNames = {
 	positive: getConcreteClassName('deltaPositive')
 } satisfies Record<DeltaIntent, string>
 
-const deltaSizeClassNames = {
-	large: getConcreteClassName('deltaLarge'),
-	medium: undefined,
-	small: getConcreteClassName('deltaSmall'),
-	xlarge: getConcreteClassName('deltaXlarge')
-} satisfies Record<DeltaSize, string | undefined>
+const deltaDensityClassNames = {
+	comfortable: undefined,
+	compact: getConcreteClassName('deltaSmall'),
+	display: getConcreteClassName('deltaXlarge'),
+	editorial: getConcreteClassName('deltaLarge')
+} satisfies Record<DeltaDensity, string | undefined>
 
 export function Delta({
 	basis,
 	className,
+	density = 'comfortable',
+	hierarchy = 'plain',
 	intent = 'neutral',
-	size = 'medium',
 	value,
-	variant = 'bare',
 	...props
 }: DeltaProps) {
 	return (
@@ -41,10 +41,13 @@ export function Delta({
 			className={cn(
 				concreteClassNames.delta,
 				deltaIntentClassNames[intent],
-				deltaSizeClassNames[size],
-				variant === 'wash' && concreteClassNames.deltaWash,
+				deltaDensityClassNames[density],
+				hierarchy === 'wash' && concreteClassNames.deltaWash,
 				className
 			)}
+			data-density={density}
+			data-hierarchy={hierarchy}
+			data-intent={intent}
 			{...props}
 		>
 			<span aria-hidden className={concreteClassNames.deltaIcon}>

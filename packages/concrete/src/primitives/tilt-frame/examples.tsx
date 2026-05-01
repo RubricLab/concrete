@@ -10,11 +10,11 @@ export const tiltFrameExamples = defineExamples({
 		description: 'Stable container for live controls with subtle pointer depth.',
 		render: () => (
 			<TiltFrame>
-				<Button size="small" variant="sky">
+				<Button density="small" intent="sky">
 					Primary
 				</Button>
 				<Input aria-label="Tilt frame input" defaultValue="Composable control" />
-				<Slider aria-label="Tilt frame slider" defaultValue={58} tone="sky" />
+				<Slider aria-label="Tilt frame slider" defaultValue={58} intent="sky" />
 				<Switch checked label="Ready" readOnly />
 			</TiltFrame>
 		)

@@ -11,15 +11,15 @@ export type {
 	SurfaceDepth,
 	SurfaceElement,
 	SurfaceInput,
-	SurfaceTone,
+	SurfaceIntent,
 	SurfaceValue
 } from './schema'
 export {
 	surfaceDepthSchema,
 	surfaceElementSchema,
+	surfaceIntentSchema,
 	surfacePropsSchema,
-	surfaceSchema,
-	surfaceToneSchema
+	surfaceSchema
 } from './schema'
 
 export const surfacePrimitiveDefinition = createPrimitive({
@@ -41,7 +41,7 @@ function renderSurfaceInput({
 	disabled,
 	interactive,
 	selected,
-	tone
+	intent
 }: SurfaceValue) {
 	return (
 		<Surface
@@ -51,7 +51,7 @@ function renderSurfaceInput({
 			disabled={disabled}
 			interactive={interactive}
 			selected={selected}
-			tone={tone}
+			intent={intent}
 		>
 			{content}
 		</Surface>
