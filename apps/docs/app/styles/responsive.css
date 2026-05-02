@@ -42,6 +42,7 @@
 	.componentPlaygroundStageDataGrid,
 	.componentCatalogGrid,
 	.componentStateGrid,
+	.detailContractGrid,
 	.foundationCatalog,
 	.primitiveCatalog,
 	.foundationDataGrid {
@@ -179,6 +180,51 @@
 		width: min(100vw - 32px, 1120px);
 	}
 
+	.docsHeroV2,
+	.agentChapter,
+	.foundationPanelGrid,
+	.catalogHeader,
+	.readyPanel {
+		grid-template-columns: 1fr;
+	}
+
+	.docsHeroV2 {
+		min-height: auto;
+		gap: 28px;
+		padding-top: 32px;
+	}
+
+	.heroFeatureGrid,
+	.heroMiniGrid,
+	.systemLayerGrid,
+	.pressureGridV2,
+	.primitiveCatalogGrid,
+	.componentCatalogGridV2,
+	.applicationGrid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.systemLayerCard:nth-child(2n) {
+		border-right: 0;
+	}
+
+	.systemLayerCard {
+		border-bottom: 1px solid var(--concrete-border);
+	}
+
+	.systemLayerCard:nth-last-child(-n + 2) {
+		border-bottom: 0;
+	}
+
+	.agentChapter {
+		margin: 54px 0;
+	}
+
+	.catalogHeaderActions,
+	.readyPanel .readyActions {
+		justify-content: flex-start;
+	}
+
 	.docsChapter {
 		padding: 54px 0;
 	}
@@ -258,8 +304,69 @@
 		width: min(100vw - 28px, 1120px);
 	}
 
+	.docsHeroV2,
+	.agentChapter {
+		padding-right: 0;
+		padding-left: 0;
+		border-right: 0;
+		border-left: 0;
+		border-radius: 0;
+	}
+
+	.heroFeatureGrid,
+	.heroMiniGrid,
+	.systemLayerGrid,
+	.pressureGridV2,
+	.primitiveCatalogGrid,
+	.componentCatalogGridV2,
+	.applicationGrid,
+	.texturePreviewGrid,
+	.agentMiniPanels,
+	.signalGridV2 {
+		grid-template-columns: 1fr;
+	}
+
+	.sectionIntro {
+		grid-template-columns: 1fr;
+		gap: 14px;
+	}
+
+	.sectionIntro p {
+		grid-column: 1;
+	}
+
+	.heroEditorial h1 {
+		font-size: var(--concrete-type-56);
+	}
+
+	.heroCommandRow,
+	.readyPanel .readyActions {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.installSnippet,
+	.heroButton {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.systemLayerCard,
+	.systemLayerCard:nth-child(2n) {
+		border-right: 0;
+		border-bottom: 1px solid var(--concrete-border);
+	}
+
+	.systemLayerCard:last-child {
+		border-bottom: 0;
+	}
+
+	.spaceRadiusGrid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
 	.docsChapter {
-		padding: 42px 0;
+		padding: 34px 0;
 		scroll-margin-top: 96px;
 	}
 
@@ -326,4 +433,236 @@
 
 .siteShell:has(.renderShell) .topbar {
 	display: none;
+}
+
+@media (width <= 1240px) {
+	.systemLayerGrid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.systemLayerCard {
+		height: 238px;
+	}
+
+	.systemLayerCard::before,
+	.systemLayerCard::after {
+		display: none;
+	}
+}
+
+@media (width <= 1100px) {
+	.docsHeroV3,
+	.agentChapter,
+	.agentContractSurface,
+	.docsFooter,
+	.readyPanel {
+		grid-template-columns: 1fr;
+	}
+
+	.docsHeroV3 {
+		grid-template-areas:
+			"copy"
+			"features"
+			"preview";
+		min-height: auto;
+		gap: 24px;
+		padding-top: 34px;
+		padding-bottom: 44px;
+	}
+
+	.heroComponentMount {
+		max-width: 760px;
+	}
+
+	.pressureExplainer,
+	.footerRouteGrid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.systemLayerCard {
+		height: 238px;
+	}
+
+	.systemLayerCard::before,
+	.systemLayerCard::after {
+		display: none;
+	}
+
+	.pressureMode:nth-child(2n) {
+		border-right: 0;
+	}
+
+	.pressureMode:nth-child(-n + 2) {
+		border-bottom: 1px solid var(--concrete-border);
+	}
+
+	.footerInstall,
+	.readyPanel .readyActions {
+		justify-content: flex-start;
+	}
+
+	.systemLayerCard,
+	.systemLayerCard:nth-child(2n),
+	.systemLayerCard:nth-last-child(-n + 2) {
+		border: 1px solid var(--concrete-border);
+	}
+
+	.agentActionRow {
+		justify-content: flex-start;
+	}
+}
+
+@media (width <= 720px) {
+	.docsHome {
+		width: min(100vw - 20px, 1120px);
+	}
+
+	.nav {
+		gap: 2px 4px;
+	}
+
+	.nav a {
+		padding: 0 8px;
+	}
+
+	.nav .navLogoLink {
+		display: none;
+	}
+
+	.docsHeroV3 {
+		grid-template-columns: 1fr;
+		gap: 18px;
+		padding: 24px 0 32px;
+	}
+
+	.homeLatticeField {
+		opacity: 0.56;
+	}
+
+	.heroEditorial h1,
+	.docsChapter .sectionIntro h2,
+	.agentIntro h2,
+	.readyPanel h2 {
+		max-width: none;
+		font-size: var(--concrete-type-32);
+	}
+
+	.docsLead {
+		max-width: none;
+		margin-top: 14px;
+		font-size: var(--concrete-type-13);
+		line-height: var(--concrete-line-normal);
+	}
+
+	.heroFeatureGrid,
+	.systemLayerGrid,
+	.pressureExplainer,
+	.agentContractList {
+		grid-template-columns: 1fr;
+	}
+
+	.heroFeatureGrid {
+		gap: 14px;
+	}
+
+	.heroFeatureRail {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 8px 10px;
+	}
+
+	.heroFeatureGrid p {
+		max-width: none;
+	}
+
+	.sectionIntro {
+		grid-template-columns: 1fr;
+		margin-bottom: 16px;
+	}
+
+	.heroCommandRow,
+	.readyPanel .readyActions {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.copyCommand,
+	.installSnippet,
+	.heroButton {
+		width: 100%;
+		max-width: 100%;
+		justify-content: center;
+	}
+
+	.copyCommand span {
+		width: 34px;
+		justify-content: center;
+		padding: 0;
+		font-size: 0;
+	}
+
+	.systemShowcase {
+		padding: 14px 0 22px;
+	}
+
+	.systemLayerCard,
+	.systemLayerCard:nth-child(2n) {
+		height: auto;
+		min-height: 188px;
+		border: 1px solid var(--concrete-border);
+	}
+
+	.systemLayerPreview {
+		min-height: 76px;
+	}
+
+	.systemLayerCard footer {
+		justify-content: flex-end;
+	}
+
+	.systemLayerItems {
+		display: none;
+	}
+
+	.pressureMode,
+	.pressureMode:nth-child(2n),
+	.pressureMode:nth-child(-n + 2) {
+		border-right: 0;
+		border-bottom: 1px solid var(--concrete-border);
+	}
+
+	.pressureMode {
+		grid-template-rows: auto 118px auto;
+		gap: 10px;
+		padding: 14px;
+	}
+
+	.pressureDiagram {
+		height: 118px;
+	}
+
+	.pressureMode:last-child {
+		border-bottom: 0;
+	}
+
+	.agentChapter {
+		margin: 32px 0;
+		padding: 18px;
+	}
+
+	.docsFooter {
+		align-items: stretch;
+	}
+
+	.footerInstall {
+		justify-content: stretch;
+	}
+
+	.footerRouteGrid {
+		gap: 6px 12px;
+	}
+
+	.footerInstall a {
+		width: auto;
+		max-width: none;
+	}
 }

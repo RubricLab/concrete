@@ -246,6 +246,7 @@
 	--concrete-measure-preview-stage-composer: 860px;
 	--concrete-measure-preview-stage: var(--concrete-size-full);
 	--concrete-size-texture-preview: 96px;
+	--concrete-size-tilt-frame-perspective: 820px;
 	--concrete-size-brand-mark: var(--concrete-size-button-medium);
 	--concrete-size-brand-mark-glyph: 62%;
 	--concrete-size-wordmark-inline: 108px;

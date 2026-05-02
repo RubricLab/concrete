@@ -13,7 +13,8 @@ type RenderPageProps = {
 
 export default async function RenderPage({ params, searchParams }: RenderPageProps) {
 	const routeParams = await params
-	const query = parseRenderQuery(await searchParams)
+	const resolvedSearchParams = await searchParams
+	const query = parseRenderQuery(resolvedSearchParams)
 	const item = getCatalogRenderItem(routeParams.kind, routeParams.slug)
 
 	if (!item) {
@@ -24,8 +25,8 @@ export default async function RenderPage({ params, searchParams }: RenderPagePro
 		<CatalogRenderPage
 			definition={item.definition}
 			entry={item.entry}
-			pressure={query.pressure}
-			state={query.state}
+			query={query}
+			searchParams={resolvedSearchParams}
 		/>
 	)
 }

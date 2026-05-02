@@ -35,6 +35,16 @@
 	background-size: var(--concrete-space-4) var(--concrete-space-4);
 }
 
+.concrete-depth {
+	background-color: var(--concrete-depth-background);
+	background-image: var(--concrete-depth-background-image);
+	background-size:
+		var(--concrete-size-full) var(--concrete-size-full),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-size-full) var(--concrete-size-full);
+}
+
 .concrete-texture-preview {
 	width: var(--concrete-size-full);
 	height: var(--concrete-size-texture-preview);

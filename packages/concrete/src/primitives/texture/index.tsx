@@ -18,7 +18,7 @@ export const texturePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderTextureInput(textureSchema.parse(input)),
 	schema: textureSchema,
 	slug: 'texture',
-	states: exampleStates(textureExamples, ['default', 'lattice'])
+	states: exampleStates(textureExamples, ['default', 'lattice', 'depth'])
 })
 
 function renderTextureInput({ texture }: TextureValue) {

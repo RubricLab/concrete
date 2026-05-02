@@ -1,0 +1,43 @@
+.concrete-scale-frame {
+	display: grid;
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-scale-frame-surface {
+	display: grid;
+	width: var(--concrete-size-full);
+	min-width: var(--concrete-space-0);
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid transparent;
+	border-radius: var(--concrete-radius-4);
+}
+
+.concrete-scale-frame[data-surface="raised"] .concrete-scale-frame-surface {
+	border-color: var(--concrete-border);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-1);
+}
+
+.concrete-scale-frame[data-surface="sunken"] .concrete-scale-frame-surface {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-sunken);
+}
+
+.concrete-scale-frame-content {
+	display: grid;
+	gap: var(--concrete-space-2);
+	min-width: var(--concrete-space-0);
+	place-self: center;
+	transform: scale(var(--concrete-scale-frame-scale));
+	transform-origin: center;
+}
+
+.concrete-scale-frame[data-align="start"] .concrete-scale-frame-content {
+	place-self: start;
+	transform-origin: top left;
+}
+
+.concrete-scale-frame[data-align="end"] .concrete-scale-frame-content {
+	place-self: end;
+	transform-origin: right bottom;
+}
