@@ -12,9 +12,9 @@ export const toolCallMessageExamples = defineExamples({
 			<>
 				<ToolCallMessage
 					duration="420ms"
-					name="bun test"
+					name="test"
 					open
-					output="Schema fixture is missing commandOptions[0].id."
+					output="Missing commandOptions[0].id."
 					status="error"
 				/>
 			</>
@@ -24,12 +24,7 @@ export const toolCallMessageExamples = defineExamples({
 		description: 'Queued call waiting for the active shell slot.',
 		render: () => (
 			<>
-				<ToolCallMessage
-					input="bun run typecheck"
-					name="package typecheck"
-					status="queued"
-					toolIcon="clock"
-				/>
+				<ToolCallMessage input="bun run typecheck" name="tsc" status="queued" toolIcon="clock" />
 			</>
 		)
 	},
@@ -42,11 +37,10 @@ export const toolCallMessageExamples = defineExamples({
 		render: () => (
 			<>
 				<ToolCallMessage
-					duration="1.8s"
 					input="bun run check"
-					name="workspace check"
+					name="check"
 					open
-					output="7 tests passed. TypeScript clean."
+					output="Clean. 7 suites passed."
 					status="success"
 				/>
 			</>
@@ -55,5 +49,5 @@ export const toolCallMessageExamples = defineExamples({
 })
 
 function renderRunningToolCall() {
-	return <ToolCallMessage input={'rg -n "composer" @rubriclab/concrete'} name="search workspace" />
+	return <ToolCallMessage input={'rg -n "composer" src'} name="rg" />
 }

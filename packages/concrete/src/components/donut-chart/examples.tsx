@@ -4,6 +4,10 @@ import { chartPoints } from '../../utilities/data-fixtures'
 import { DonutChart } from './component'
 
 export const donutChartExamples = defineExamples({
+	compact: {
+		description: 'Compact ring for metric-adjacent dashboard tiles.',
+		render: () => renderDonutChartExample('compact')
+	},
 	default: {
 		description: 'Medium ring with center label.',
 		render: () => renderDonutChartExample('default')
@@ -41,6 +45,21 @@ function renderDonutChartExample(state = 'default'): ReactNode {
 				message={state === 'error' ? 'Could not load workload split.' : undefined}
 				segments={[]}
 				state={state}
+				title="Workload split"
+			/>
+		)
+	}
+
+	if (state === 'compact') {
+		return (
+			<DonutChart
+				centerLabel="64%"
+				compact
+				height={150}
+				legend={false}
+				segments={chartPoints.slice(0, 4)}
+				showHeader={false}
+				thickness="thin"
 				title="Workload split"
 			/>
 		)

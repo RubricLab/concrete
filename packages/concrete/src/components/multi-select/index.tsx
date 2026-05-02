@@ -19,7 +19,7 @@ export const multiSelectComponentDefinition = createComponent({
 	renderInput: input => renderMultiSelectInput(multiSelectComponentSchema.parse(input)),
 	schema: multiSelectComponentSchema,
 	slug: 'multi-select',
-	states: exampleStates(multiSelectExamples, ['default', 'open', 'empty'])
+	states: exampleStates(multiSelectExamples, ['default', 'open', 'limit', 'empty'])
 })
 
 function renderMultiSelectInput(input: MultiSelectValue) {

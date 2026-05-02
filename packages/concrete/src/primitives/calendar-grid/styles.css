@@ -2,7 +2,7 @@
 	position: absolute;
 	z-index: var(--concrete-z-picker-menu);
 	top: calc(var(--concrete-size-full) + var(--concrete-space-1-5));
-	left: var(--concrete-space-0);
+	left: var(--concrete-size-half);
 	display: grid;
 	gap: var(--concrete-space-2);
 	width: var(--concrete-size-calendar-grid-inline);
@@ -11,6 +11,7 @@
 	border-radius: var(--concrete-radius-4);
 	background: var(--concrete-control-background);
 	box-shadow: var(--concrete-shadow-3);
+	transform: translateX(var(--concrete-translate-half-negative));
 }
 
 .concrete-calendar-grid[data-placement="inline"] {
@@ -18,6 +19,7 @@
 	z-index: auto;
 	top: auto;
 	left: auto;
+	transform: none;
 }
 
 .concrete-calendar-grid header {

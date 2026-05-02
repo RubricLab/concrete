@@ -25,10 +25,16 @@ const footerColumns = [
 
 export const footerExamples = defineExamples({
 	actions: {
-		description: 'Footer with action links.',
+		description: 'Footer with package and source links.',
 		render: () => (
 			<Footer
 				actions={[
+					{
+						external: true,
+						href: 'https://www.npmjs.com/package/@rubriclab/concrete',
+						id: 'npm',
+						label: 'npm'
+					},
 					{
 						external: true,
 						href: 'https://github.com/RubricLab/concrete',
@@ -46,10 +52,10 @@ export const footerExamples = defineExamples({
 		description: 'Footer with a command aside.',
 		render: () => (
 			<Footer
-				aside={<CodeBlock code="npm install @rubriclab/concrete" language="Shell" mode="command" />}
+				aside={<CodeBlock code="npm i @rubriclab/concrete" language="Shell" mode="command" />}
 				columns={footerColumns}
 				description="A shared visual language for AI-native software."
-				title="Start with foundations."
+				title="Install Concrete."
 			/>
 		)
 	},
@@ -59,9 +65,33 @@ export const footerExamples = defineExamples({
 			<Footer
 				brand={<Inline density="compact">Concrete</Inline>}
 				columns={footerColumns}
-				description="Soft, powerful, compact primitives and components."
+				description="Dense primitives, compact components, calm docs."
 				meta="Rubric Labs"
-				title="Design system for AI-native software."
+				title="Concrete for AI-native software."
+			/>
+		)
+	},
+	minimal: {
+		description: 'Footer with a compact brand statement and actions only.',
+		render: () => (
+			<Footer
+				actions={[
+					{
+						external: true,
+						href: 'https://www.npmjs.com/package/@rubriclab/concrete',
+						id: 'npm',
+						label: 'npm'
+					},
+					{
+						external: true,
+						href: 'https://github.com/RubricLab/concrete',
+						id: 'github',
+						label: 'GitHub'
+					}
+				]}
+				description="Soft, powerful, compact UI for agent workflows."
+				meta="Rubric Labs"
+				title="Concrete"
 			/>
 		)
 	}

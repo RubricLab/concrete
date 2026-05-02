@@ -18,6 +18,10 @@ export const chartExamples = defineExamples({
 		description: 'Grouped bar comparison.',
 		render: () => renderChartExample('bar')
 	},
+	compact: {
+		description: 'Headerless compact chart surface.',
+		render: () => renderChartExample('compact')
+	},
 	default: {
 		description: 'Multi-series line chart with a target marker.',
 		render: () => renderChartExample('line')
@@ -67,6 +71,20 @@ function renderChartExample(state = 'line'): ReactNode {
 	}
 
 	switch (state) {
+		case 'compact':
+			return (
+				<Chart
+					compact
+					height={150}
+					legend={false}
+					series={chartSeries}
+					showHeader={false}
+					showYAxis={false}
+					surface="sunken"
+					title="Agent runs"
+					kind="line"
+				/>
+			)
 		case 'area':
 			return (
 				<Chart

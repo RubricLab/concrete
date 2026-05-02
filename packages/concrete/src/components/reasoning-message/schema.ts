@@ -6,12 +6,7 @@ export const reasoningMessageComponentSchema = z
 		open: z.boolean().default(false),
 		status: messageStatusSchema.default('streaming'),
 		steps: z.array(reasoningStepSchema).default([]),
-		summary: z
-			.string()
-			.min(1)
-			.default(
-				'Mapped failing logs to the evaluation fixture, checked schema boundaries, and isolated the change needed before rerunning.'
-			),
+		summary: z.string().min(1).default('Checking schema and render boundaries before patching.'),
 		title: z.string().min(1).default('Thinking')
 	})
 	.strict()

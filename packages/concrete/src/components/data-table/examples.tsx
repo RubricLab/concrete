@@ -1,11 +1,15 @@
 import type { ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
-import { dataTableColumns, dataTableRows } from '../../utilities/data-fixtures'
+import {
+	dataTableColumns,
+	dataTablePreviewColumns,
+	dataTableRows
+} from '../../utilities/data-fixtures'
 import { DataTable } from './component'
 
 export const dataTableExamples = defineExamples({
 	default: {
-		description: 'Dense table with status, delta, sparkline, and meter cells.',
+		description: 'Readable preview table with status, delta, and meter cells.',
 		render: () => renderDataTableExample('default')
 	},
 	empty: {
@@ -23,6 +27,10 @@ export const dataTableExamples = defineExamples({
 	selected: {
 		description: 'Selectable rows with toolbar actions.',
 		render: () => renderDataTableExample('selected')
+	},
+	wide: {
+		description: 'Full-width table with owner, trend, and cost cells.',
+		render: () => renderDataTableExample('wide')
 	}
 })
 
@@ -30,7 +38,7 @@ function renderDataTableExample(state = 'default'): ReactNode {
 	return (
 		<DataTable
 			caption="Typed cells stay compact while still supporting signals and microvisuals."
-			columns={dataTableColumns}
+			columns={state === 'wide' ? dataTableColumns : dataTablePreviewColumns}
 			filters={
 				state === 'filtered'
 					? [
@@ -56,7 +64,7 @@ function renderDataTableExample(state = 'default'): ReactNode {
 			searchPlaceholder="Search runs"
 			selectable={state === 'selected'}
 			selectedRowIds={state === 'selected' ? ['router-contract', 'tool-router'] : []}
-			sort={state === 'default' ? { direction: 'descending', key: 'cost' } : undefined}
+			sort={state === 'default' ? { direction: 'descending', key: 'score' } : undefined}
 			title="Evaluation runs"
 			toolbarActions={
 				state === 'selected'

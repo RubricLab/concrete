@@ -25,9 +25,9 @@ export const footerComponentSchema = z
 		brandLabel: z.string().default('Concrete'),
 		columns: z.array(footerColumnSchema).default([]),
 		density: densitySchema.default('compact'),
-		description: z.string().default('AI-native software primitives from Rubric Labs.'),
+		description: z.string().default('Dense primitives, compact components, calm docs.'),
 		meta: z.string().optional(),
-		title: z.string().default('Build compact, powerful interfaces.')
+		title: z.string().default('Concrete for AI-native software.')
 	})
 	.strict()
 

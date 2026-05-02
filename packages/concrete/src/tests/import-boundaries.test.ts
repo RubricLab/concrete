@@ -139,12 +139,18 @@ const allowedComponentDemoImports = new Map<string, readonly string[]>([
 		'packages/concrete/src/components/form-dialog/examples.tsx',
 		['date-range-picker', 'file-upload', 'multi-select', 'validation-summary']
 	],
-	['packages/concrete/src/components/form-dialog/index.tsx', ['date-range-picker']],
+	[
+		'packages/concrete/src/components/form-dialog/index.tsx',
+		['date-range-picker', 'file-upload', 'multi-select', 'validation-summary']
+	],
 	[
 		'packages/concrete/src/components/form-drawer/examples.tsx',
-		['date-picker', 'number-stepper', 'validation-summary']
+		['date-picker', 'file-upload', 'multi-select', 'number-stepper', 'validation-summary']
 	],
-	['packages/concrete/src/components/form-drawer/index.tsx', ['number-stepper']],
+	[
+		'packages/concrete/src/components/form-drawer/index.tsx',
+		['date-picker', 'file-upload', 'multi-select', 'number-stepper', 'validation-summary']
+	],
 	['packages/concrete/src/components/search-bar/examples.tsx', ['command-menu']],
 	['packages/concrete/src/components/search-bar/index.tsx', ['command-menu']],
 	['packages/concrete/src/components/settings-panel/examples.tsx', ['number-stepper']],

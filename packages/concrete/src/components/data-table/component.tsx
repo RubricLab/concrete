@@ -195,6 +195,7 @@ export function DataTable<Row extends DataTableDataRow>({
 				) : undefined
 			}
 			className={className}
+			compact={parsedProps.compact}
 			description={parsedProps.caption}
 			footer={
 				pagination ? (

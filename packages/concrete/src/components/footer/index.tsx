@@ -24,7 +24,7 @@ export const footerComponentDefinition = createComponent({
 	renderInput: input => renderFooterInput(footerComponentSchema.parse(input)),
 	schema: footerComponentSchema,
 	seed: footerComponentSchema.parse({
-		asideCode: 'npm install @rubriclab/concrete',
+		asideCode: 'npm i @rubriclab/concrete',
 		brandLabel: 'Concrete',
 		columns: [
 			{
@@ -37,11 +37,11 @@ export const footerComponentDefinition = createComponent({
 				title: 'System'
 			}
 		],
-		description: 'AI-native software primitives from Rubric Labs.',
-		title: 'Build compact, powerful interfaces.'
+		description: 'Dense primitives, compact components, calm docs.',
+		title: 'Concrete for AI-native software.'
 	}),
 	slug: 'footer',
-	states: exampleStates(footerExamples, ['default', 'actions', 'command'])
+	states: exampleStates(footerExamples, ['default', 'actions', 'command', 'minimal'])
 })
 
 function renderFooterInput(input: FooterComponentValue) {

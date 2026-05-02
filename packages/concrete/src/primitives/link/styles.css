@@ -55,22 +55,25 @@
 	display: inline-flex;
 	align-items: center;
 	min-block-size: var(--concrete-size-button-small);
-	padding-inline: var(--concrete-space-1);
+	padding-inline: var(--concrete-space-1-5);
+	border-radius: var(--concrete-radius-2);
 	color: var(--concrete-foreground-body);
 	font-weight: var(--concrete-weight-medium);
 	text-decoration: none;
+	transition:
+		background-color var(--concrete-duration-control) var(--concrete-ease),
+		color var(--concrete-duration-control) var(--concrete-ease),
+		opacity var(--concrete-duration-control) var(--concrete-ease);
 }
 
 .concrete-link-nav:hover {
+	background: var(--concrete-control-background-hover);
 	color: var(--concrete-foreground-strong);
 	opacity: var(--concrete-opacity-visible);
 }
 
 .concrete-link-nav[aria-current="page"] {
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-sky-1);
+	color: var(--concrete-sky-strong);
 	font-weight: var(--concrete-weight-bold);
-	text-decoration: underline;
-	text-decoration-color: var(--concrete-sky);
-	text-decoration-thickness: var(--concrete-border-width-emphasis);
-	text-underline-offset: var(--concrete-offset-link-underline);
 }

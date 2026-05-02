@@ -26,7 +26,13 @@ export const diagramCanvasComponentDefinition = createComponent({
 		width: 820
 	}),
 	slug: 'diagram-canvas',
-	states: exampleStates(diagramCanvasExamples, ['default', 'selected', 'interactive', 'compact'])
+	states: exampleStates(diagramCanvasExamples, [
+		'default',
+		'selected',
+		'interactive',
+		'compact',
+		'wide'
+	])
 })
 
 function renderDiagramCanvasInput(input: DiagramCanvasValue) {

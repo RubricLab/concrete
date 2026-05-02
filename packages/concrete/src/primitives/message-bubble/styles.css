@@ -6,6 +6,7 @@
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
 	border-radius: var(--concrete-radius-5);
 	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-surface-raised);
 	color: var(--concrete-foreground-body);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-13) / var(--concrete-line-prose-compact)
@@ -17,5 +18,6 @@
 	border-color: var(--concrete-ink-9);
 	border-radius: var(--concrete-radius-5) var(--concrete-radius-5) var(--concrete-radius-2);
 	background: var(--concrete-ink-9);
+	box-shadow: var(--concrete-shadow-button-primary);
 	color: var(--concrete-inverse-foreground-strong);
 }

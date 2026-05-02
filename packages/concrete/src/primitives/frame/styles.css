@@ -16,6 +16,8 @@
 
 .concrete-frame[data-scale="showcase"] {
 	--concrete-frame-body-min-block: var(--concrete-size-frame-showcase-min-block);
+
+	overflow: visible;
 }
 
 .concrete-frame-head,

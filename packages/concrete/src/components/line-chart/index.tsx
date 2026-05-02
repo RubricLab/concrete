@@ -29,6 +29,7 @@ export const lineChartComponentDefinition = createComponent({
 		'default',
 		'target',
 		'inspect',
+		'compact',
 		'loading',
 		'empty',
 		'error'

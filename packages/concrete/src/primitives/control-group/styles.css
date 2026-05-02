@@ -3,7 +3,9 @@
 
 	display: inline-flex;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: var(--concrete-control-group-gap);
+	max-inline-size: var(--concrete-size-full);
 	min-inline-size: var(--concrete-space-0);
 	padding: var(--concrete-space-0);
 	border: var(--concrete-space-0);
@@ -24,6 +26,7 @@
 }
 
 .concrete-control-group[data-attached="true"] {
+	flex-wrap: nowrap;
 	gap: var(--concrete-space-0);
 }
 

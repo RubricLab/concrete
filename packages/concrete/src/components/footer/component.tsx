@@ -57,7 +57,11 @@ export function Footer({
 						{brand ? <Text intent="strong">{brand}</Text> : null}
 						<Header density={density} description={description} meta={meta} title={title} />
 					</Stack>
-					{aside ? <Surface depth="sunken">{aside}</Surface> : null}
+					{aside ? (
+						<Surface density={density} depth="sunken">
+							{aside}
+						</Surface>
+					) : null}
 					{columns.length > 0 ? (
 						<Grid columns="three" density={density}>
 							{columns.map(column => (

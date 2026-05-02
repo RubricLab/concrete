@@ -295,6 +295,79 @@ describe('Concrete registry', () => {
 		}
 	})
 
+	test('keeps polished component examples state-rich and registered', () => {
+		const requiredComponentStates = {
+			'area-chart': ['default', 'quiet', 'dots', 'compact', 'loading', 'empty', 'error'],
+			'bar-chart': [
+				'default',
+				'comparison',
+				'horizontal',
+				'quiet',
+				'compact',
+				'loading',
+				'empty',
+				'error'
+			],
+			chart: [
+				'default',
+				'line',
+				'area',
+				'bar',
+				'stacked',
+				'donut',
+				'heatmap',
+				'compact',
+				'loading',
+				'empty',
+				'error'
+			],
+			'command-menu': ['default', 'empty', 'loading'],
+			composer: ['default', 'empty', 'mention', 'command', 'suggestions', 'formatting', 'disabled'],
+			'data-table': ['default', 'wide', 'selected', 'filtered', 'paginated', 'empty'],
+			'date-picker': ['default', 'open', 'bounded', 'success'],
+			'date-range-picker': ['default', 'open', 'partial', 'bounded'],
+			'diagram-canvas': ['default', 'selected', 'interactive', 'compact', 'wide'],
+			'donut-chart': ['default', 'thin', 'thick', 'plain', 'compact', 'loading', 'empty', 'error'],
+			'file-upload': ['default', 'uploading', 'success', 'grid', 'empty', 'error'],
+			'flow-diagram': ['default', 'selected', 'interactive', 'empty', 'wide'],
+			footer: ['default', 'actions', 'command', 'minimal'],
+			'form-dialog': ['default', 'wide', 'error', 'compact', 'success'],
+			'form-drawer': ['default', 'review', 'left', 'compact', 'success'],
+			heatmap: ['default', 'quiet', 'sunken', 'compact', 'loading', 'empty', 'error'],
+			'image-upload': ['default', 'single', 'avatar', 'grid', 'uploading', 'empty', 'error'],
+			'line-chart': ['default', 'target', 'inspect', 'compact', 'loading', 'empty', 'error'],
+			message: ['default', 'assistant', 'user', 'system', 'grouped', 'statuses'],
+			meter: ['default', 'bar', 'ring', 'compact', 'signal', 'danger'],
+			'metric-card': ['default', 'status', 'compact', 'critical', 'trendless'],
+			'multi-select': ['default', 'open', 'limit', 'empty'],
+			nav: ['default', 'actions', 'slot', 'sticky'],
+			'number-stepper': ['default', 'small', 'success', 'disabled', 'error'],
+			'password-input': ['default', 'success', 'disabled', 'error'],
+			'range-slider': ['default', 'narrow', 'wide', 'stepped', 'error'],
+			'reasoning-message': ['default', 'streaming', 'complete', 'collapsed', 'pending', 'error'],
+			'search-bar': ['default', 'scoped', 'menu', 'wrapped'],
+			'settings-panel': ['default', 'error', 'compact', 'success'],
+			'stacked-bar-chart': [
+				'default',
+				'normalized',
+				'horizontal',
+				'compact',
+				'loading',
+				'empty',
+				'error'
+			],
+			'time-picker': ['default', 'open', 'dense', 'success'],
+			'tool-call-message': ['default', 'queued', 'running', 'success', 'error'],
+			'validation-summary': ['default', 'error', 'success', 'mixed']
+		} satisfies Record<string, readonly string[]>
+
+		for (const [slug, requiredStates] of Object.entries(requiredComponentStates)) {
+			const definition = componentDefinitions.find(definition => definition.slug === slug)
+
+			expect(definition?.states.map(state => state.query)).toEqual(requiredStates)
+		}
+	})
+
 	test('renders every playground definition input from its schema seed', () => {
 		const searchParams = new URLSearchParams()
 

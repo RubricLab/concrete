@@ -6,18 +6,37 @@
 		) auto;
 	align-items: center;
 	gap: var(--concrete-space-2-5);
+	box-sizing: border-box;
+	inline-size: var(--concrete-measure-media-field);
+	max-inline-size: var(--concrete-size-full);
 	min-width: var(--concrete-space-0);
 	padding-block: var(--concrete-space-2);
 	padding-inline: var(--concrete-space-2-25);
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-surface-border);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-surface);
-	color: var(--concrete-foreground-body);
+	background: var(--concrete-surface-background);
+	box-shadow: var(--concrete-shadow-control-rest);
+	color: var(--concrete-surface-foreground);
+	transition:
+		background var(--concrete-duration-control) var(--concrete-ease),
+		border-color var(--concrete-duration-control) var(--concrete-ease),
+		box-shadow var(--concrete-duration-control) var(--concrete-ease);
+}
+
+.concrete-upload-item[data-status="uploading"] {
+	border-color: var(--concrete-control-border-selected-soft);
+	background: var(--concrete-control-background-selected-soft);
+	box-shadow: var(--concrete-shadow-control-selected-soft);
+}
+
+.concrete-upload-item[data-status="success"] {
+	border-color: var(--concrete-feedback-success-border);
 }
 
 .concrete-upload-item[data-status="error"] {
-	border-color: var(--concrete-error-wash);
-	background: var(--concrete-error-1);
+	border-color: var(--concrete-feedback-error-border);
+	background: var(--concrete-feedback-error-background);
+	box-shadow: var(--concrete-shadow-control-error);
 }
 
 .concrete-upload-thumb {
@@ -26,10 +45,28 @@
 	height: var(--concrete-size-media-thumb);
 	place-items: center;
 	overflow: hidden;
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-surface-border-soft);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-muted);
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-icon);
+}
+
+.concrete-upload-item[data-status="uploading"] .concrete-upload-thumb {
+	border-color: var(--concrete-control-border-selected-soft);
+	background: var(--concrete-control-background);
+	color: var(--concrete-control-icon-selected);
+}
+
+.concrete-upload-item[data-status="success"] .concrete-upload-thumb {
+	border-color: var(--concrete-feedback-success-border);
+	background: var(--concrete-feedback-success-background);
+	color: var(--concrete-feedback-success-foreground);
+}
+
+.concrete-upload-item[data-status="error"] .concrete-upload-thumb {
+	border-color: var(--concrete-feedback-error-border);
+	background: var(--concrete-control-background);
+	color: var(--concrete-feedback-error-foreground);
 }
 
 .concrete-upload-thumb img {
@@ -57,21 +94,21 @@
 }
 
 .concrete-upload-copy b {
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-surface-foreground-strong);
 	font:
 		var(--concrete-weight-bold) var(--concrete-type-12) / var(--concrete-line-control)
 		var(--concrete-font-sans);
 }
 
 .concrete-upload-copy small {
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-surface-foreground-soft);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11) / var(--concrete-line-control)
 		var(--concrete-font-sans);
 }
 
 .concrete-upload-copy small[data-status="error"] {
-	color: var(--concrete-error);
+	color: var(--concrete-feedback-error-foreground);
 }
 
 .concrete-upload-progress {
@@ -80,7 +117,7 @@
 	width: var(--concrete-size-full);
 	height: var(--concrete-size-media-progress);
 	border-radius: var(--concrete-radius-pill);
-	background: var(--concrete-sunken);
+	background: var(--concrete-data-track-background);
 }
 
 .concrete-upload-progress span {
@@ -91,8 +128,17 @@
 	background: var(--concrete-sky);
 }
 
+.concrete-upload-item[data-status="success"] .concrete-upload-progress span {
+	background: var(--concrete-data-positive);
+}
+
+.concrete-upload-item[data-status="error"] .concrete-upload-progress span {
+	background: var(--concrete-data-negative);
+}
+
 .concrete-upload-remove {
 	display: inline-grid;
+	align-self: start;
 	width: var(--concrete-size-media-remove);
 	height: var(--concrete-size-media-remove);
 	place-items: center;
@@ -100,7 +146,7 @@
 	border: var(--concrete-space-0);
 	border-radius: var(--concrete-radius-pill);
 	background: transparent;
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-icon);
 	cursor: pointer;
 	transition:
 		background var(--concrete-duration-fast) var(--concrete-ease),
@@ -109,8 +155,8 @@
 }
 
 .concrete-upload-remove:hover {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-hover);
+	color: var(--concrete-control-icon-hover);
 }
 
 .concrete-upload-remove:active {
@@ -126,13 +172,4 @@
 .concrete-upload-remove svg {
 	width: var(--concrete-size-media-remove-glyph);
 	height: var(--concrete-size-media-remove-glyph);
-}
-
-.concrete-upload-list {
-	display: grid;
-	gap: var(--concrete-space-1-5);
-}
-
-.concrete-upload-list[data-layout="grid"] {
-	grid-template-columns: var(--concrete-template-media-list-grid);
 }

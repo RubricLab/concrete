@@ -3,8 +3,18 @@
 	gap: var(--concrete-space-2);
 	min-width: var(--concrete-space-0);
 	max-width: min(var(--concrete-measure-trace-panel), var(--concrete-size-full));
+	padding: var(--concrete-space-2-25);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-surface-rest);
 	color: var(--concrete-foreground-muted);
 	interpolate-size: allow-keywords;
+}
+
+.concrete-trace[open] {
+	border-color: var(--concrete-border);
+	box-shadow: var(--concrete-shadow-surface-raised);
 }
 
 .concrete-trace::details-content,
@@ -70,7 +80,7 @@
 	display: inline-flex;
 	align-items: baseline;
 	gap: var(--concrete-space-1-25);
-	min-width: max-content;
+	min-width: var(--concrete-space-0);
 }
 
 .concrete-trace-summary-main > span {

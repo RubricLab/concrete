@@ -1,6 +1,6 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
-import { dataTableColumns, dataTableRows } from '../../utilities/data-fixtures'
+import { dataTablePreviewColumns, dataTableRows } from '../../utilities/data-fixtures'
 import { DataTable } from './component'
 import { dataTableExamples } from './examples'
 import { dataTableMeta } from './meta'
@@ -20,7 +20,7 @@ export const dataTableComponentDefinition = createComponent({
 	schema: dataTableComponentSchema,
 	seed: dataTableComponentSchema.parse({
 		caption: 'Typed cells stay compact while still supporting signals and microvisuals.',
-		columns: dataTableColumns,
+		columns: dataTablePreviewColumns,
 		pagination: { page: 1, pageSize: 4, totalRows: dataTableRows.length },
 		rows: dataTableRows,
 		searchPlaceholder: 'Search runs',
@@ -28,7 +28,14 @@ export const dataTableComponentDefinition = createComponent({
 		toolbarActions: [{ icon: 'inspect', id: 'inspect', label: 'Inspect' }]
 	}),
 	slug: 'data-table',
-	states: exampleStates(dataTableExamples, ['default', 'selected', 'filtered', 'paginated', 'empty'])
+	states: exampleStates(dataTableExamples, [
+		'default',
+		'wide',
+		'selected',
+		'filtered',
+		'paginated',
+		'empty'
+	])
 })
 
 function renderDataTableInput(input: DataTableValue) {

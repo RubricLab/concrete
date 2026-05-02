@@ -41,6 +41,13 @@
 	);
 }
 
+.concrete-message[data-role="tool"] .concrete-message-stack {
+	min-width: min(
+		var(--concrete-measure-tool-call-panel-min),
+		calc(var(--concrete-size-full) - var(--concrete-message-stack-inline-offset))
+	);
+}
+
 .concrete-message[data-role="user"] .concrete-message-stack {
 	justify-items: end;
 	max-width: min(

@@ -18,7 +18,7 @@ export const uploadItemPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderUploadItemInput(uploadItemPropsSchema.parse(input)),
 	schema: uploadItemPropsSchema,
 	slug: 'upload-item',
-	states: exampleStates(uploadItemExamples, ['default', 'uploading', 'image', 'error'])
+	states: exampleStates(uploadItemExamples, ['default', 'uploading', 'success', 'image', 'error'])
 })
 
 function renderUploadItemInput(input: UploadItemPrimitiveValue) {

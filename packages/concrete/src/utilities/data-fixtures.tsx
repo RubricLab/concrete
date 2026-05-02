@@ -185,6 +185,13 @@ export const dataTableColumns = createDataTableColumns<DataTableFixtureRow>()([
 	{ align: 'right', header: 'Cost', key: 'cost', sortable: true, width: '84px' }
 ])
 
+export const dataTablePreviewColumns = createDataTableColumns<DataTableFixtureRow>()([
+	{ frozen: true, header: 'Run', key: 'run', sortable: true },
+	{ header: 'Status', key: 'status', sortable: true },
+	{ align: 'right', header: 'Score', key: 'score', sortable: true },
+	{ align: 'right', header: 'Change', key: 'change' }
+])
+
 export const flowDiagram: FlowDiagramProps['flow'] = {
 	edges: (
 		[

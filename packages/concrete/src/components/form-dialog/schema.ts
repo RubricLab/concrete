@@ -6,6 +6,7 @@ const overlayPresentationValues = ['inline', 'fixed'] as const
 
 export const formDialogComponentSchema = z
 	.object({
+		compact: z.boolean().default(false),
 		description: z.string().optional(),
 		measure: z.enum(formDialogMeasureValues).default('default'),
 		open: z.boolean().default(true),

@@ -45,7 +45,7 @@ export const searchBarComponentDefinition = createComponent({
 		]
 	}),
 	slug: 'search-bar',
-	states: exampleStates(searchBarExamples, ['default', 'scoped', 'menu'])
+	states: exampleStates(searchBarExamples, ['default', 'scoped', 'menu', 'wrapped'])
 })
 
 function renderSearchBarInput(input: SearchBarValue) {

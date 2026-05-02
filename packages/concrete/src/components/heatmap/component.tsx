@@ -20,6 +20,7 @@ export function Heatmap({ className, ...props }: HeatmapProps & ComponentShellPr
 				) : undefined
 			}
 			className={className}
+			compact={parsedProps.compact}
 			description={parsedProps.showHeader ? parsedProps.description : undefined}
 			purpose="chart"
 			title={parsedProps.showHeader ? parsedProps.title : undefined}

@@ -1,6 +1,6 @@
 import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
-import { Select, Switch } from '../../primitives'
+import { Badge, Button, Select, Switch } from '../../primitives'
 import { NumberStepper } from '../number-stepper'
 import { SettingsPanel, type SettingsPanelSection } from './component'
 import { settingsPanelExamples } from './examples'
@@ -41,24 +41,75 @@ export const settingsPanelComponentDefinition = createComponent({
 						id: 'workers',
 						label: 'Parallel workers',
 						meta: 'max 12'
+					},
+					{
+						description: 'Fallback model used when a prompt does not pin a route.',
+						id: 'model',
+						label: 'Default model',
+						meta: 'router'
 					}
 				],
 				title: 'Runtime'
+			},
+			{
+				description: 'Optional local context attached to every run.',
+				id: 'context',
+				rows: [
+					{
+						description: 'Research packet, spec, or evaluation fixture.',
+						id: 'packet',
+						label: 'Reference packet',
+						meta: '2 files'
+					},
+					{
+						description: 'Where generated interface updates are promoted.',
+						id: 'channel',
+						label: 'Release channel',
+						meta: 'preview'
+					}
+				],
+				title: 'Context'
 			}
 		],
 		title: 'Agent workspace'
 	}),
 	slug: 'settings-panel',
-	states: exampleStates(settingsPanelExamples, ['default', 'error', 'compact'])
+	states: exampleStates(settingsPanelExamples, ['default', 'error', 'compact', 'success'])
 })
 
 function renderSettingsPanelInput(input: SettingsPanelValue) {
 	const { description, sections, ...props } = input
+	const isSuccess = input.status === 'success'
 
 	return (
 		<SettingsPanel
 			{...props}
+			actions={
+				<>
+					<Button density="small" hierarchy="ghost" leadingIcon="settings">
+						Advanced
+					</Button>
+					<Button density="small" hierarchy="primary" intent={isSuccess ? 'sky' : 'neutral'}>
+						{isSuccess ? 'Synced' : 'Save'}
+					</Button>
+				</>
+			}
 			{...(description ? { description } : {})}
+			footer={
+				<>
+					<Button density="small" hierarchy="secondary">
+						Reset
+					</Button>
+					<Button density="small" hierarchy="primary">
+						Save changes
+					</Button>
+				</>
+			}
+			meta={
+				<Badge intent={input.status === 'error' ? 'danger' : isSuccess ? 'ultra' : 'terminal'}>
+					{input.status === 'error' ? 'Needs review' : isSuccess ? 'Synced' : 'Live'}
+				</Badge>
+			}
 			sections={renderSettingsSections(sections)}
 		/>
 	)
@@ -69,12 +120,55 @@ function renderSettingsSections(sections: SettingsPanelValue['sections']): Setti
 		...section,
 		rows: section.rows.map((row, rowIndex) => ({
 			...row,
-			control: renderSettingsControl(rowIndex)
+			control: renderSettingsControl(row, rowIndex)
 		}))
 	}))
 }
 
-function renderSettingsControl(rowIndex: number) {
+function renderSettingsControl(
+	row: SettingsPanelValue['sections'][number]['rows'][number],
+	rowIndex: number
+) {
+	switch (row.id) {
+		case 'tools':
+			return <Switch checked label="Enabled" readOnly />
+		case 'workers':
+			return <NumberStepper defaultValue={6} max={12} min={1} />
+		case 'model':
+			return (
+				<Select
+					aria-label="Default model"
+					defaultValue="router"
+					options={[
+						{ label: 'Router v2', value: 'router' },
+						{ label: 'Research agent', value: 'research' }
+					]}
+				/>
+			)
+		case 'packet':
+			return (
+				<Button density="small" hierarchy="secondary" leadingIcon="paperclip">
+					Attach
+				</Button>
+			)
+		case 'channel':
+			return (
+				<Select
+					aria-label="Release channel"
+					defaultValue="preview"
+					options={[
+						{ label: 'Preview', value: 'preview' },
+						{ label: 'Stable', value: 'stable' },
+						{ label: 'Internal only', value: 'internal' }
+					]}
+				/>
+			)
+		default:
+			return renderFallbackSettingsControl(rowIndex)
+	}
+}
+
+function renderFallbackSettingsControl(rowIndex: number) {
 	switch (rowIndex % 3) {
 		case 0:
 			return <Switch checked label="Enabled" readOnly />
@@ -83,10 +177,11 @@ function renderSettingsControl(rowIndex: number) {
 		default:
 			return (
 				<Select
-					defaultValue="router"
+					aria-label="Default setting"
+					defaultValue="enabled"
 					options={[
-						{ label: 'Router v2', value: 'router' },
-						{ label: 'Research agent', value: 'research' }
+						{ label: 'Enabled', value: 'enabled' },
+						{ label: 'Paused', value: 'paused' }
 					]}
 				/>
 			)

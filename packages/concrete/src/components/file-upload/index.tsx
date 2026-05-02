@@ -23,6 +23,24 @@ const fileUploadItemsByQueue = {
 			type: 'application/zip'
 		}
 	],
+	mixed: [
+		{
+			id: 'q2-report',
+			name: 'Q2_report.pdf',
+			progress: 100,
+			size: 2400000,
+			status: 'success',
+			type: 'application/pdf'
+		},
+		{
+			id: 'source-packet',
+			name: 'source_packet.csv',
+			progress: 64,
+			size: 920000,
+			status: 'uploading',
+			type: 'text/csv'
+		}
+	],
 	success: [
 		{
 			id: 'q2-report',
@@ -52,9 +70,16 @@ export const fileUploadComponentDefinition = createComponent({
 	renderExample: (state?: string) => renderExample(fileUploadExamples, state),
 	renderInput: input => renderFileUploadInput(fileUploadComponentSchema.parse(input)),
 	schema: fileUploadComponentSchema,
-	seed: fileUploadComponentSchema.parse({ defaultValue: fileUploadItemsByQueue.uploading }),
+	seed: fileUploadComponentSchema.parse({ defaultValue: fileUploadItemsByQueue.mixed }),
 	slug: 'file-upload',
-	states: exampleStates(fileUploadExamples, ['default', 'success', 'empty', 'error'])
+	states: exampleStates(fileUploadExamples, [
+		'default',
+		'uploading',
+		'success',
+		'grid',
+		'empty',
+		'error'
+	])
 })
 
 function renderFileUploadInput(input: FileUploadValue) {

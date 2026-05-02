@@ -18,7 +18,7 @@ export const timePickerComponentDefinition = createComponent({
 	renderInput: input => renderTimePickerInput(timePickerComponentSchema.parse(input)),
 	schema: timePickerComponentSchema,
 	slug: 'time-picker',
-	states: exampleStates(timePickerExamples, ['default', 'open', 'dense'])
+	states: exampleStates(timePickerExamples, ['default', 'open', 'dense', 'success'])
 })
 
 function renderTimePickerInput(input: TimePickerValue) {

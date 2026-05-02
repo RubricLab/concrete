@@ -130,7 +130,7 @@
 	--concrete-size-donut-stroke-thin: 7px;
 	--concrete-size-donut-stroke-medium: var(--concrete-size-donut-stroke);
 	--concrete-size-donut-stroke-thick: 14px;
-	--concrete-size-heatmap-axis-label: 76px;
+	--concrete-size-heatmap-axis-label: 34px;
 	--concrete-size-heatmap-cell-min: 24px;
 	--concrete-size-heatmap-cell-min-inline: 34px;
 	--concrete-size-table-sort-icon: 12px;
@@ -248,13 +248,14 @@
 	--concrete-measure-stat-min: 140px;
 	--concrete-measure-distribution-label: 72px;
 	--concrete-measure-distribution-value: 44px;
-	--concrete-measure-table-min: 760px;
+	--concrete-measure-table-min: var(--concrete-size-full);
 	--concrete-measure-table-svg-max: 116px;
 	--concrete-measure-diagram-status: 560px;
 	--concrete-measure-diagram-status-basis: 260px;
 	--concrete-measure-message-stack-assistant: 72ch;
 	--concrete-measure-message-stack-user: 58ch;
 	--concrete-measure-trace-panel: 680px;
+	--concrete-measure-tool-call-panel-min: 216px;
 	--concrete-measure-message-bubble: 68ch;
 	--concrete-measure-empty-state: 360px;
 	--concrete-measure-empty-body: 300px;

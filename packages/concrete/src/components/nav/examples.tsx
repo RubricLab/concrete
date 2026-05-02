@@ -10,7 +10,7 @@ const navItems = [
 
 export const navExamples = defineExamples({
 	actions: {
-		description: 'Navigation with external action links.',
+		description: 'Navigation with package and source links.',
 		render: () => (
 			<Nav
 				actions={[
@@ -19,6 +19,12 @@ export const navExamples = defineExamples({
 						href: 'https://www.npmjs.com/package/@rubriclab/concrete',
 						id: 'npm',
 						label: 'npm'
+					},
+					{
+						external: true,
+						href: 'https://github.com/RubricLab/concrete',
+						id: 'github',
+						label: 'GitHub'
 					}
 				]}
 				activeId="components"

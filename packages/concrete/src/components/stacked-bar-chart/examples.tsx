@@ -4,6 +4,10 @@ import { stackedChartGroups } from '../../utilities/data-fixtures'
 import { StackedBarChart } from './component'
 
 export const stackedBarChartExamples = defineExamples({
+	compact: {
+		description: 'Headerless normalized rails for dense summaries.',
+		render: () => renderStackedBarChartExample('compact')
+	},
 	default: {
 		description: 'Vertical stacked composition.',
 		render: () => renderStackedBarChartExample('default')
@@ -37,6 +41,23 @@ function renderStackedBarChartExample(state = 'default'): ReactNode {
 				groups={[]}
 				message={state === 'error' ? 'Could not load run composition.' : undefined}
 				state={state}
+				title="Run composition"
+			/>
+		)
+	}
+
+	if (state === 'compact') {
+		return (
+			<StackedBarChart
+				compact
+				groups={stackedChartGroups}
+				height={150}
+				legend={false}
+				normalized
+				orientation="horizontal"
+				showHeader={false}
+				showValues={false}
+				surface="sunken"
 				title="Run composition"
 			/>
 		)

@@ -4,6 +4,10 @@ import { chartSeries } from '../../utilities/data-fixtures'
 import { LineChart } from './component'
 
 export const lineChartExamples = defineExamples({
+	compact: {
+		description: 'Headerless compact trend for dashboard tiles.',
+		render: () => renderLineChartExample('compact')
+	},
 	default: {
 		description: 'Multi-series line chart with endpoint labels.',
 		render: () => renderLineChartExample('default')
@@ -38,6 +42,21 @@ function renderLineChartExample(state = 'default'): ReactNode {
 				message={state === 'error' ? 'Could not load the run summary.' : undefined}
 				series={[]}
 				state={state}
+				title="Agent runs"
+			/>
+		)
+	}
+
+	if (state === 'compact') {
+		return (
+			<LineChart
+				compact
+				height={150}
+				legend={false}
+				series={chartSeries}
+				showHeader={false}
+				showYAxis={false}
+				surface="sunken"
 				title="Agent runs"
 			/>
 		)

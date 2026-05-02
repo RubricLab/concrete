@@ -26,6 +26,25 @@ const imageUploadItemsByQueue = {
 			type: 'application/octet-stream'
 		}
 	],
+	mixed: [
+		{
+			id: 'reference',
+			name: 'interface-reference.png',
+			previewUrl: uploadPreview,
+			progress: 100,
+			size: 840000,
+			status: 'success',
+			type: 'image/png'
+		},
+		{
+			id: 'flow-detail',
+			name: 'flow-detail.png',
+			progress: 64,
+			size: 620000,
+			status: 'uploading',
+			type: 'image/png'
+		}
+	],
 	success: [
 		{
 			id: 'reference',
@@ -34,6 +53,16 @@ const imageUploadItemsByQueue = {
 			progress: 100,
 			size: 840000,
 			status: 'success',
+			type: 'image/png'
+		}
+	],
+	uploading: [
+		{
+			id: 'flow-detail',
+			name: 'flow-detail.png',
+			progress: 64,
+			size: 620000,
+			status: 'uploading',
 			type: 'image/png'
 		}
 	]
@@ -46,13 +75,14 @@ export const imageUploadComponentDefinition = createComponent({
 	renderExample: (state?: string) => renderExample(imageUploadExamples, state),
 	renderInput: input => renderImageUploadInput(imageUploadComponentSchema.parse(input)),
 	schema: imageUploadComponentSchema,
-	seed: imageUploadComponentSchema.parse({ defaultValue: imageUploadItemsByQueue.success }),
+	seed: imageUploadComponentSchema.parse({ defaultValue: imageUploadItemsByQueue.mixed }),
 	slug: 'image-upload',
 	states: exampleStates(imageUploadExamples, [
 		'default',
 		'single',
 		'avatar',
 		'grid',
+		'uploading',
 		'empty',
 		'error'
 	])

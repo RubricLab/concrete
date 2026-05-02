@@ -1,10 +1,20 @@
 .concrete-tool-call {
 	display: grid;
 	gap: var(--concrete-space-2);
-	min-width: var(--concrete-space-0);
+	min-width: min(var(--concrete-measure-tool-call-panel-min), var(--concrete-size-full));
 	max-width: min(var(--concrete-measure-trace-panel), var(--concrete-size-full));
+	padding: var(--concrete-space-2-25);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-4);
+	background: var(--concrete-surface);
+	box-shadow: var(--concrete-shadow-surface-rest);
 	color: var(--concrete-foreground-body);
 	interpolate-size: allow-keywords;
+}
+
+.concrete-tool-call[open] {
+	border-color: var(--concrete-border);
+	box-shadow: var(--concrete-shadow-surface-raised);
 }
 
 .concrete-tool-call::details-content {
@@ -25,7 +35,7 @@
 	display: grid;
 	grid-template-columns: var(--concrete-template-tool-summary);
 	align-items: center;
-	gap: var(--concrete-space-3);
+	gap: var(--concrete-space-2);
 	cursor: pointer;
 	list-style: none;
 }
@@ -42,6 +52,7 @@
 }
 
 .concrete-tool-call summary > span:last-child {
+	gap: var(--concrete-space-1);
 	justify-content: flex-end;
 }
 
@@ -70,14 +81,17 @@
 }
 
 .concrete-tool-call small {
+	overflow: hidden;
 	color: var(--concrete-foreground-soft);
 	font-size: var(--concrete-type-11);
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .concrete-tool-call-status {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--concrete-space-1);
+	gap: var(--concrete-space-0-75);
 	color: var(--concrete-foreground-muted);
 	font:
 		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-flat)

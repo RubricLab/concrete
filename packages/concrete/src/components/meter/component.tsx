@@ -18,14 +18,20 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 		parsedProps.value.max
 	)
 	const percent = Math.round(normalizedValue * 100)
-	const formattedValue =
-		parsedProps.unit === '%' ? `${percent}%` : `${parsedProps.value.value}${parsedProps.unit}`
+	const formattedTarget =
+		parsedProps.target === undefined
+			? undefined
+			: formatMeterValue(parsedProps.target, parsedProps.unit)
+	const formattedValue = formatMeterValue(
+		parsedProps.unit === '%' ? percent : parsedProps.value.value,
+		parsedProps.unit
+	)
 	const footer =
 		parsedProps.description || parsedProps.target !== undefined ? (
 			<>
-				{parsedProps.target !== undefined ? (
+				{formattedTarget ? (
 					<Text purpose="caption" intent="muted">
-						Target {parsedProps.target}
+						Target {formattedTarget}
 					</Text>
 				) : null}
 				{parsedProps.description ? (
@@ -47,7 +53,11 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 			title={parsedProps.label}
 		>
 			{parsedProps.display === 'ring' ? (
-				<ProgressRing intent={toProgressIntent(parsedProps.intent)} value={percent} />
+				<ProgressRing
+					density={parsedProps.compact ? 'compact' : 'comfortable'}
+					intent={toProgressIntent(parsedProps.intent)}
+					value={percent}
+				/>
 			) : (
 				<Progress
 					density={parsedProps.compact ? 'compact' : 'comfortable'}
@@ -57,4 +67,13 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 			)}
 		</DataSurface>
 	)
+}
+
+function formatMeterValue(value: number, unit: string): string {
+	switch (unit) {
+		case '%':
+			return `${value}%`
+		default:
+			return `${value}${unit}`
+	}
 }

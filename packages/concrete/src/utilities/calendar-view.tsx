@@ -124,5 +124,27 @@ export function formatRangeLabel(value: DateRangeValue): string {
 		return `${formatDateLabel(value.start)} -`
 	}
 
+	const startDate = parseIsoDate(value.start)
+	const endDate = parseIsoDate(value.end)
+	const sameYear = startDate.getUTCFullYear() === endDate.getUTCFullYear()
+	const sameMonth = sameYear && startDate.getUTCMonth() === endDate.getUTCMonth()
+
+	if (sameMonth) {
+		return `${formatDateLabelWithoutYear(value.start)} - ${endDate.getUTCDate()}, ${endDate.getUTCFullYear()}`
+	}
+
+	if (sameYear) {
+		return `${formatDateLabelWithoutYear(value.start)} - ${formatDateLabel(value.end)}`
+	}
+
 	return `${formatDateLabel(value.start)} - ${formatDateLabel(value.end)}`
+}
+
+function formatDateLabelWithoutYear(value: string): string {
+	const date = parseIsoDate(value)
+	return new Intl.DateTimeFormat('en-US', {
+		day: 'numeric',
+		month: 'short',
+		timeZone: 'UTC'
+	}).format(date)
 }

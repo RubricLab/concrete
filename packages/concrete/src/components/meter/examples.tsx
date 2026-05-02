@@ -10,6 +10,10 @@ export const meterExamples = defineExamples({
 		description: 'Compact meter cards for dense dashboard grids.',
 		render: () => renderCompactMeterExample()
 	},
+	danger: {
+		description: 'Error meters for budget and policy breach states.',
+		render: () => renderDangerMeterExample()
+	},
 	default: {
 		description: 'Mixed meter scorecards for generated dashboard summaries.',
 		render: () => renderMeterExample()
@@ -58,6 +62,28 @@ export const meterExamples = defineExamples({
 		)
 	}
 })
+
+function renderDangerMeterExample() {
+	return (
+		<>
+			<Meter
+				description="Policy review capacity"
+				label="Review queue"
+				target={20}
+				intent="error"
+				value={{ max: 100, min: 0, value: 34 }}
+			/>
+			<Meter
+				compact
+				description="Escalated runs"
+				label="Escalations"
+				intent="error"
+				value={{ max: 100, min: 0, value: 18 }}
+				display="ring"
+			/>
+		</>
+	)
+}
 
 function renderBarMeterExample() {
 	return (

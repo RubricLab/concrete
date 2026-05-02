@@ -1,9 +1,13 @@
 .concrete-table-viewport {
+	inline-size: var(--concrete-size-full);
+	max-inline-size: var(--concrete-size-full);
 	max-block-size: var(--concrete-table-max-block-size, none);
+	min-inline-size: var(--concrete-space-0);
 	overflow: auto;
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-surface-border-soft);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-surface);
+	background: var(--concrete-surface-background);
+	box-shadow: var(--concrete-shadow-surface-rest);
 }
 
 .concrete-table {
@@ -18,10 +22,10 @@
 .concrete-table td {
 	width: var(--concrete-table-column-width, auto);
 	min-width: var(--concrete-space-0);
-	padding-block: var(--concrete-space-2-25);
-	padding-inline: var(--concrete-space-2-5);
-	border-bottom: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
-	color: var(--concrete-foreground-body);
+	padding-block: var(--concrete-space-1-75);
+	padding-inline: var(--concrete-space-2);
+	border-bottom: var(--concrete-border-width-hairline) solid var(--concrete-surface-border-soft);
+	color: var(--concrete-data-foreground);
 	text-align: left;
 	vertical-align: middle;
 	white-space: nowrap;
@@ -31,8 +35,8 @@
 	position: sticky;
 	top: var(--concrete-space-0);
 	z-index: var(--concrete-z-table-header);
-	background: var(--concrete-raised);
-	color: var(--concrete-foreground-muted);
+	background: var(--concrete-surface-background-muted);
+	color: var(--concrete-data-foreground-muted);
 	font:
 		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
 		var(--concrete-font-mono);
@@ -42,7 +46,7 @@
 
 .concrete-table tbody tr:hover td,
 .concrete-table tr[data-selected="true"] td {
-	background: var(--concrete-sunken);
+	background: var(--concrete-control-background-selected-soft);
 }
 
 .concrete-table-sort {
@@ -57,10 +61,16 @@
 	font: inherit;
 	letter-spacing: inherit;
 	text-transform: inherit;
+	transition: color var(--concrete-duration-fast) var(--concrete-ease);
 }
 
 .concrete-table-sort:disabled {
+	color: var(--concrete-data-foreground-muted);
 	cursor: default;
+}
+
+.concrete-table-sort:not(:disabled):hover {
+	color: var(--concrete-data-foreground);
 }
 
 .concrete-table-sort svg {
@@ -85,7 +95,7 @@
 	width: var(--concrete-size-table-selection-input);
 	height: var(--concrete-size-table-selection-input);
 	margin: var(--concrete-space-0);
-	accent-color: var(--concrete-sky);
+	accent-color: var(--concrete-control-background-selected);
 }
 
 .concrete-table-frozen {
@@ -97,7 +107,7 @@
 
 .concrete-table-empty,
 .concrete-table-empty-cell {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-data-foreground-muted);
 }
 
 .concrete-table-empty {

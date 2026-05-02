@@ -27,6 +27,7 @@ export const stackedBarChartComponentDefinition = createComponent({
 		'default',
 		'normalized',
 		'horizontal',
+		'compact',
 		'loading',
 		'empty',
 		'error'

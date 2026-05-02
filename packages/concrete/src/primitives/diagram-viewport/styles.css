@@ -82,7 +82,11 @@
 	left: var(--concrete-size-half);
 	width: var(--diagram-width, var(--concrete-size-diagram-width));
 	height: var(--diagram-height, var(--concrete-size-diagram-height));
-	transform: var(--concrete-template-diagram-stage);
+	transform: translate(
+			var(--concrete-translate-half-negative),
+			var(--concrete-translate-half-negative)
+		)
+		var(--diagram-transform);
 	transform-origin: center;
 	transition: transform var(--concrete-duration-disclosure) var(--concrete-ease-disclosure);
 }

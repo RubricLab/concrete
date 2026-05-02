@@ -34,6 +34,7 @@ export const chartComponentDefinition = createComponent({
 		'stacked',
 		'donut',
 		'heatmap',
+		'compact',
 		'loading',
 		'empty',
 		'error'

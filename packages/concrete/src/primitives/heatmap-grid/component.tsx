@@ -69,9 +69,12 @@ function withHeatmapColumnCount(
 	style: CSSProperties | undefined,
 	columnCount: number
 ): CSSProperties {
+	const safeColumnCount = String(Math.max(Math.floor(columnCount), 1))
+
 	return {
 		...style,
-		'--heatmap-column-count': String(Math.max(Math.floor(columnCount), 1))
+		'--heatmap-column-count': safeColumnCount,
+		gridTemplateColumns: `var(--concrete-size-heatmap-axis-label) repeat(${safeColumnCount}, minmax(var(--concrete-size-heatmap-cell-min-inline), var(--concrete-grid-track-fill)))`
 	} as HeatmapCustomProperties
 }
 

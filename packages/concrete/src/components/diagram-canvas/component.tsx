@@ -143,7 +143,7 @@ export function DiagramCanvas({
 				onWheel={handleWheel}
 				panning={Boolean(panOrigin)}
 			>
-				<DiagramRail />
+				{parsedProps.controls ? <DiagramRail /> : null}
 				<DiagramStage height={parsedProps.height} transform={transform} width={parsedProps.width}>
 					<DiagramEdges
 						height={parsedProps.height}

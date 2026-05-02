@@ -1,7 +1,7 @@
 .concrete-search-input-root {
 	display: flex;
 	align-items: center;
-	flex-wrap: var(--concrete-query-control-flex-wrap);
+	flex-wrap: nowrap;
 	gap: var(--concrete-space-1-75);
 	min-width: var(--concrete-space-0);
 	max-width: var(--concrete-size-full);

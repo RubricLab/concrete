@@ -18,7 +18,7 @@ export function ReasoningMessage({
 	open = false,
 	status = 'streaming',
 	steps = defaultReasoningSteps,
-	summary = 'Inspecting context and selecting the next deterministic action.',
+	summary = 'Checking schema and render boundaries before patching.',
 	title = 'Thinking',
 	...props
 }: ReasoningMessageProps) {
@@ -37,22 +37,21 @@ export function ReasoningMessage({
 
 const defaultReasoningSteps = [
 	{
-		detail: 'Read the transcript, active scopes, and the command surface state before touching code.',
+		detail: 'Read the transcript, active scope, and current render route.',
 		id: 'context',
-		label: 'Context loaded',
+		label: 'Context',
 		status: 'complete'
 	},
 	{
-		detail:
-			'Selected the smallest local tools needed to verify behavior and avoid product policy drift.',
+		detail: 'Selected the smallest commands needed to verify the change.',
 		id: 'tools',
-		label: 'Tool plan selected',
+		label: 'Tools',
 		status: 'complete'
 	},
 	{
-		detail: 'Applying the focused interface change and keeping the final answer hierarchy stronger.',
+		detail: 'Applying the focused interface change.',
 		id: 'work',
-		label: 'Running focused action',
+		label: 'Patch',
 		status: 'streaming'
 	}
 ] as const satisfies readonly ReasoningMessageStep[]

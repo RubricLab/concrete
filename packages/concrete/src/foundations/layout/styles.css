@@ -40,11 +40,6 @@
 		minmax(var(--concrete-size-step-control-input-min), var(--concrete-grid-track-fill))
 		var(--concrete-size-step-control-action);
 	--concrete-template-diagram-node: var(--concrete-size-diagram-node-icon) minmax(0, 1fr);
-	--concrete-template-diagram-stage: translate(
-			var(--concrete-translate-half-negative),
-			var(--concrete-translate-half-negative)
-		)
-		var(--diagram-transform);
 	--concrete-template-diagram-element: translate(
 		var(--concrete-translate-half-negative),
 		var(--concrete-translate-half-negative)

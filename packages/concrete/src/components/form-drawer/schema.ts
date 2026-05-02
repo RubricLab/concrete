@@ -6,6 +6,7 @@ const formDrawerSideValues = ['left', 'right'] as const
 
 export const formDrawerComponentSchema = z
 	.object({
+		compact: z.boolean().default(false),
 		description: z.string().optional(),
 		open: z.boolean().default(true),
 		presentation: z.enum(overlayPresentationValues).default('inline'),

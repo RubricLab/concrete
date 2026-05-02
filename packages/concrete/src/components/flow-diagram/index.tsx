@@ -30,7 +30,7 @@ export const flowDiagramComponentDefinition = createComponent({
 		width: 1020
 	}),
 	slug: 'flow-diagram',
-	states: exampleStates(flowDiagramExamples, ['default', 'selected', 'interactive', 'empty'])
+	states: exampleStates(flowDiagramExamples, ['default', 'selected', 'interactive', 'empty', 'wide'])
 })
 
 function renderFlowDiagramInput(input: FlowDiagramValue) {

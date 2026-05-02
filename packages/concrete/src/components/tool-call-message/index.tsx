@@ -18,8 +18,8 @@ export const toolCallMessageComponentDefinition = createComponent({
 	renderInput: input => renderToolCallMessageInput(toolCallMessageComponentSchema.parse(input)),
 	schema: toolCallMessageComponentSchema,
 	seed: toolCallMessageComponentSchema.parse({
-		input: 'rg -n "composer" @rubriclab/concrete',
-		name: 'search workspace'
+		input: 'rg -n "composer" src',
+		name: 'rg'
 	}),
 	slug: 'tool-call-message',
 	states: exampleStates(toolCallMessageExamples, [
