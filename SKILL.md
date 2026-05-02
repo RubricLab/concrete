@@ -56,7 +56,7 @@ import { foundationRegistry } from '@rubriclab/concrete/registry'
 
 This section is generated from `foundationRegistry`, `primitiveRegistry`, and `componentRegistry`. Run `bun run build:skill` after registry changes.
 
-Concrete currently exposes 12 foundations, 106 primitives, and 33 components.
+Concrete currently exposes 12 foundations, 108 primitives, and 34 components.
 
 ### Foundations
 
@@ -148,7 +148,7 @@ Quiet texture grounds for diagrams, editorial frames, and educational examples.
 - Category: `foundation`
 - Pressure: `editorial`, `educational`
 - Guidance: Use texture as structure, never as decorative noise.
-- Tokens: Tokens (3: `lattice`, `dots`, `lines`)
+- Tokens: Tokens (4: `lattice`, `dots`, `lines`, `depth`)
 
 #### Iconography
 
@@ -187,7 +187,7 @@ Primitives are the Concrete HTML vocabulary. They own DOM, scoped classes, schem
 - **Control** (14): Button (`button`), Toolbar Control (`toolbar-control`), IconButton (`icon-button`), ControlGroup (`control-group`), Token (`token`), SearchInput (`search-input`), PickerButton (`picker-button`), Listbox (`listbox`), Option row (`option-row`), Caret (`caret`), Chip (`chip`), Composer Surface (`composer-surface`), Token Rail (`token-rail`), Diagram Controls (`diagram-controls`)
 - **Form** (15): Input (`input`), Field (`field`), FieldRow (`field-row`), Calendar panel (`calendar-grid`), Dropzone (`dropzone`), Upload field (`upload-field`), Textarea (`textarea`), Select (`select`), Checkbox (`checkbox`), Radio (`radio`), Stepper (`stepper`), Range (`range`), Switch (`switch`), Slider (`slider`), Time list (`time-list`)
 - **Layout** (12): Stack (`stack`), Inline (`inline`), Cluster (`cluster`), Grid (`grid`), Split (`split`), Scroll Area (`scroll-area`), Dock (`dock`), Rail (`rail`), Section (`section`), Row (`row`), Divider (`divider`), Frame (`frame`)
-- **Surface** (9): Surface (`surface`), Panel (`panel`), PickerSurface (`picker-surface`), Overlay (`overlay`), DialogSurface (`dialog-surface`), DrawerSurface (`drawer-surface`), DisclosurePanel (`disclosure-panel`), Message Bubble (`message-bubble`), Card (`card`)
+- **Surface** (11): Surface (`surface`), Panel (`panel`), PickerSurface (`picker-surface`), Overlay (`overlay`), DialogSurface (`dialog-surface`), DrawerSurface (`drawer-surface`), DisclosurePanel (`disclosure-panel`), Message Bubble (`message-bubble`), Card (`card`), TiltFrame (`tilt-frame`), ScaleFrame (`scale-frame`)
 - **Typography** (6): Header (`header`), Text (`text`), Heading (`heading`), Label (`label`), Code (`code`), Kbd (`kbd`)
 - **Navigation** (3): MenuSurface (`menu-surface`), MenuGroup (`menu-group`), Link (`link`)
 - **Feedback** (9): Alert (`alert`), ValidationList (`validation-list`), Transcript item (`transcript-item`), Trace panel (`trace-panel`), Spinner (`spinner`), Empty state (`empty-state`), Tooltip (`tooltip`), Skeleton (`skeleton`), Tool-call panel (`tool-call-panel`)
@@ -209,8 +209,8 @@ Components assemble primitives into reusable product behavior. They should not i
 - **Feedback** (3): Validation summary (`validation-summary`), Reasoning message (`reasoning-message`), Tool call message (`tool-call-message`)
 - **Media** (1): Image upload (`image-upload`)
 - **Data** (11): Metric card (`metric-card`), Meter (`meter`), Line chart (`line-chart`), Area chart (`area-chart`), Bar chart (`bar-chart`), Stacked bar chart (`stacked-bar-chart`), Donut chart (`donut-chart`), Heatmap (`heatmap`), Chart (`chart`), Data table (`data-table`), Flow diagram (`flow-diagram`)
+- **Surface** (2): FeatureCard (`feature-card`), Message (`message`)
 - **Diagram** (1): Diagram canvas (`diagram-canvas`)
-- **Surface** (1): Message (`message`)
 <!-- concrete-skill:generated:end -->
 
 ## Usage Guide

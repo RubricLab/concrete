@@ -500,7 +500,7 @@ describe('Import boundaries', () => {
 			([key, value]) => value !== toConcreteSelector(key)
 		)
 
-		expect(concreteClassNameEntries.length).toBe(513)
+		expect(concreteClassNameEntries.length).toBe(514)
 		expect(classNameRecord.button).toBe('concrete-button')
 		expect(classNameRecord.diagramCanvasEdgeSelected).toBe('concrete-diagram-canvas-edge-selected')
 		expect(classNameRecord.alertAction).toBe('concrete-alert-action')
