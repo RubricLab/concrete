@@ -10,7 +10,7 @@ export const reasoningMessageExamples = defineExamples({
 					open={false}
 					status="complete"
 					steps={completeReasoningSteps}
-					summary="Mapped failing logs to the evaluation fixture, checked schema boundaries, and isolated the change needed before rerunning."
+					summary="Schema boundary verified; rerun passed."
 				/>
 			</>
 		)
@@ -23,7 +23,7 @@ export const reasoningMessageExamples = defineExamples({
 					open
 					status="complete"
 					steps={completeReasoningSteps}
-					summary="Mapped failing logs to the evaluation fixture, checked schema boundaries, and isolated the change needed before rerunning."
+					summary="Schema boundary verified; rerun passed."
 				/>
 			</>
 		)
@@ -40,7 +40,7 @@ export const reasoningMessageExamples = defineExamples({
 					open
 					status="error"
 					steps={errorReasoningSteps}
-					summary="The catalog route failed after the generated input passed schema parsing."
+					summary="Render failed after schema parsing."
 				/>
 			</>
 		)
@@ -52,7 +52,7 @@ export const reasoningMessageExamples = defineExamples({
 				<ReasoningMessage
 					status="pending"
 					steps={pendingReasoningSteps}
-					summary="Waiting for the current build gate before continuing the audit."
+					summary="Waiting for the active build gate."
 				/>
 			</>
 		)
@@ -64,31 +64,26 @@ export const reasoningMessageExamples = defineExamples({
 })
 
 function renderStreamingReasoningMessage() {
-	return (
-		<ReasoningMessage
-			open
-			summary="Mapped failing logs to the evaluation fixture, checked schema boundaries, and isolated the change needed before rerunning."
-		/>
-	)
+	return <ReasoningMessage open summary="Checking schema and render boundaries before patching." />
 }
 
 const completeReasoningSteps = [
 	{
 		detail: 'Mapped the failing route to the generated example state.',
 		id: 'route',
-		label: 'Route identified',
+		label: 'Route',
 		status: 'complete'
 	},
 	{
 		detail: 'Checked the component schema, render input, and primitive assembly.',
 		id: 'schema',
-		label: 'Boundary verified',
+		label: 'Boundary',
 		status: 'complete'
 	},
 	{
 		detail: 'Patched the fixture and reran the catalog audit.',
 		id: 'audit',
-		label: 'Audit passed',
+		label: 'Audit',
 		status: 'complete'
 	}
 ] as const
@@ -97,13 +92,13 @@ const errorReasoningSteps = [
 	{
 		detail: 'Loaded the docs route and captured the failing render input.',
 		id: 'route',
-		label: 'Route identified',
+		label: 'Route',
 		status: 'complete'
 	},
 	{
 		detail: 'The example still passes a function prop into a server-rendered client component.',
 		id: 'serialize',
-		label: 'Serialization failed',
+		label: 'Serialize',
 		status: 'error'
 	}
 ] as const
@@ -112,7 +107,7 @@ const pendingReasoningSteps = [
 	{
 		detail: 'The build gate is still running, so no file changes have started for this slice.',
 		id: 'wait',
-		label: 'Waiting for gate',
+		label: 'Queued',
 		status: 'pending'
 	}
 ] as const

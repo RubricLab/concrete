@@ -16,10 +16,26 @@
 		0 1px 2px rgb(10 11 15 / 12%);
 	--concrete-shadow-control-inset: inset 0 1px 0 rgb(10 11 15 / 1.5%);
 	--concrete-shadow-control-focus-inset: inset 0 0 0 2px var(--concrete-sky);
-	--concrete-shadow-stepper-control:
-		var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
-	--concrete-shadow-range-control-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
-	--concrete-shadow-range-control-thumb-hover:
+	--concrete-shadow-control-rest: var(--concrete-shadow-control-inset), 0 1px 0 rgb(10 11 15 / 2%);
+	--concrete-shadow-control-hover:
+		var(--concrete-shadow-control-inset), 0 1px 0 rgb(10 11 15 / 4%), 0 1px 2px rgb(10 11 15 / 3%);
+	--concrete-shadow-control-pressed: var(--concrete-shadow-control-inset);
+	--concrete-shadow-control-focus: var(--concrete-ring-focus), var(--concrete-shadow-control-inset);
+	--concrete-shadow-control-error: var(--concrete-ring-error), var(--concrete-shadow-control-inset);
+	--concrete-shadow-control-selected:
+		inset 0 1px 0 rgb(255 255 255 / 8%), 0 1px 0 rgb(0 0 0 / 18%), 0 1px 2px rgb(10 11 15 / 10%);
+	--concrete-shadow-control-selected-soft:
+		inset 0 1px 0 rgb(255 255 255 / 36%), 0 1px 0 rgb(15 78 158 / 12%);
+	--concrete-shadow-control-action: inset 0 1px 0 rgb(255 255 255 / 28%);
+	--concrete-shadow-surface-rest: var(--concrete-shadow-border);
+	--concrete-shadow-surface-raised: var(--concrete-shadow-1);
+	--concrete-shadow-surface-hover: var(--concrete-shadow-2);
+	--concrete-shadow-surface-selected: var(--concrete-ring-focus), var(--concrete-shadow-1);
+	--concrete-shadow-feedback: var(--concrete-shadow-control-rest);
+	--concrete-shadow-data: var(--concrete-shadow-1);
+	--concrete-shadow-step-control: var(--concrete-shadow-control-inset), 0 1px 1px rgb(10 11 15 / 2%);
+	--concrete-shadow-interval-thumb: 0 0 0 1px rgb(24 102 220 / 28%);
+	--concrete-shadow-interval-thumb-hover:
 		0 0 0 1px rgb(24 102 220 / 38%), 0 0 0 4px var(--concrete-sky-ring);
 	--concrete-shadow-button-primary:
 		inset 0 1px 0 rgb(255 255 255 / 8%), 0 1px 0 rgb(0 0 0 / 20%), 0 1px 2px rgb(10 11 15 / 10%);
@@ -32,7 +48,7 @@
 	--concrete-shadow-button-ultra:
 		inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 0 rgb(40 24 120 / 22%),
 		0 1px 4px rgb(107 91 255 / 28%);
-	--concrete-shadow-tooltip: 0 4px 14px rgb(10 11 15 / 18%), 0 1px 0 rgb(0 0 0 / 25%);
+	--concrete-shadow-overlay-tip: 0 4px 14px rgb(10 11 15 / 18%), 0 1px 0 rgb(0 0 0 / 25%);
 	--concrete-shadow-validation-icon: inset 0 0 0 1px var(--concrete-border-soft);
 	--concrete-shadow-switch-thumb: 0 1px 1.5px rgb(10 11 15 / 25%);
 	--concrete-shadow-tool-code: 0 1px 0 rgb(10 11 15 / 3%), 0 1px 2px rgb(10 11 15 / 4%);
@@ -45,10 +61,10 @@
 		0 14px 30px rgb(10 11 15 / 18%), 0 2px 6px rgb(10 11 15 / 12%);
 	--concrete-shadow-diagram-item-selected: 0 0 0 3px
 		color-mix(in srgb, currentcolor 12%, transparent);
-	--concrete-shadow-diagram-canvas-status: 0 0 0 3px var(--concrete-ultra-wash);
-	--concrete-shadow-diagram-canvas-rail-active: 0 0 0 3px
+	--concrete-shadow-diagram-status: 0 0 0 3px var(--concrete-ultra-wash);
+	--concrete-shadow-diagram-rail-active: 0 0 0 3px
 		color-mix(in srgb, var(--concrete-ultra) 8%, transparent);
-	--concrete-shadow-diagram-canvas-minimap-selected: 0 0 0 3px var(--concrete-sky-1);
+	--concrete-shadow-diagram-minimap-selected: 0 0 0 3px var(--concrete-sky-1);
 	--concrete-shadow-none: none;
 	--concrete-ring-focus: 0 0 0 3px var(--concrete-sky-ring);
 	--concrete-ring-error: 0 0 0 3px var(--concrete-error-ring);
@@ -71,4 +87,10 @@
 	--concrete-filter-control-pressed: saturate(1.04);
 	--concrete-filter-concept-frame-selected: drop-shadow(0 0 0 var(--concrete-sky));
 	--concrete-filter-chart-bar: drop-shadow(0 1px 0 rgb(13 18 28 / 6%));
+	--concrete-filter-sticky-surface: saturate(1.4) blur(10px);
+	--concrete-sticky-surface-background: color-mix(
+		in oklab,
+		var(--concrete-surface) 94%,
+		transparent
+	);
 }

@@ -1,6 +1,6 @@
 import type { SVGAttributes } from 'react'
 import type {
-	DataTone,
+	DataIntent,
 	DiagramCanvasEdge as DiagramCanvasEdgeShape,
 	DiagramTone,
 	FlowDiagramEdge as FlowDiagramEdgeShape
@@ -8,19 +8,23 @@ import type {
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
+export type DiagramEdgeDisplay = 'canvas' | 'flow'
+
 type DiagramEdgeLabel = {
 	x: number
 	y: number
 }
 
-export type DiagramCanvasEdgesProps = SVGAttributes<SVGSVGElement> & {
+type DiagramEdgeRelation = DiagramCanvasEdgeShape['relation'] | FlowDiagramEdgeShape['relation']
+
+export type DiagramEdgesProps = SVGAttributes<SVGSVGElement> & {
 	height: number
 	markerId: string
 	reverseMarkerId: string
 	width: number
 }
 
-export function DiagramCanvasEdges({
+export function DiagramEdges({
 	children,
 	className,
 	height,
@@ -28,11 +32,11 @@ export function DiagramCanvasEdges({
 	reverseMarkerId,
 	width,
 	...props
-}: DiagramCanvasEdgesProps) {
+}: DiagramEdgesProps) {
 	return (
 		<svg
 			aria-hidden="true"
-			className={cn(concreteClassNames.diagramCanvasEdges, className)}
+			className={cn(concreteClassNames.diagramEdges, className)}
 			viewBox={`0 0 ${width} ${height}`}
 			{...props}
 		>
@@ -65,41 +69,50 @@ export function DiagramCanvasEdges({
 	)
 }
 
-export type DiagramCanvasEdgePathProps = SVGAttributes<SVGGElement> & {
+export type DiagramEdgePathProps = SVGAttributes<SVGGElement> & {
+	display?: DiagramEdgeDisplay | undefined
 	label?: string | undefined
 	labelPoint: DiagramEdgeLabel
 	markerEnd?: string | undefined
 	markerStart?: string | undefined
 	path: string
 	selected?: boolean | undefined
-	tone?: DiagramTone | undefined
-	variant?: DiagramCanvasEdgeShape['variant'] | undefined
+	intent?: DataIntent | DiagramTone | undefined
+	relation?: DiagramEdgeRelation | undefined
 }
 
-export function DiagramCanvasEdgePath({
+export function DiagramEdgePath({
 	className,
+	display = 'canvas',
 	label,
 	labelPoint,
 	markerEnd,
 	markerStart,
 	path,
 	selected = false,
-	tone = 'muted',
-	variant = 'solid',
+	intent = 'muted',
+	relation = 'solid',
 	...props
-}: DiagramCanvasEdgePathProps) {
+}: DiagramEdgePathProps) {
 	return (
 		<g
 			className={cn(
-				concreteClassNames.diagramCanvasEdge,
-				selected && concreteClassNames.diagramCanvasEdgeSelected,
-				getDiagramCanvasEdgeVariantClass(variant),
-				getDiagramCanvasToneClass(tone),
+				display === 'flow' ? concreteClassNames.diagramFlowEdge : concreteClassNames.diagramEdge,
+				selected &&
+					(display === 'flow'
+						? concreteClassNames.diagramFlowEdgeSelected
+						: concreteClassNames.diagramEdgeSelected),
+				getDiagramEdgeRelationClass(display, relation),
+				getDiagramIntentClass(display, intent),
 				className
 			)}
 			{...props}
 		>
-			<path d={path} markerEnd={markerEnd} markerStart={markerStart} />
+			<path
+				d={path}
+				markerEnd={display === 'canvas' ? markerEnd : undefined}
+				markerStart={display === 'canvas' ? markerStart : undefined}
+			/>
 			{label ? (
 				<text x={labelPoint.x} y={labelPoint.y}>
 					{label}
@@ -109,100 +122,84 @@ export function DiagramCanvasEdgePath({
 	)
 }
 
-export type FlowDiagramEdgePathProps = SVGAttributes<SVGGElement> & {
-	label?: string | undefined
-	labelPoint: DiagramEdgeLabel
-	path: string
-	selected?: boolean | undefined
-	tone?: DataTone | undefined
-	variant?: FlowDiagramEdgeShape['variant'] | undefined
-}
-
-export function FlowDiagramEdgePath({
-	className,
-	label,
-	labelPoint,
-	path,
-	selected = false,
-	tone = 'muted',
-	variant = 'solid',
-	...props
-}: FlowDiagramEdgePathProps) {
-	return (
-		<g
-			className={cn(
-				concreteClassNames.flowDiagramEdge,
-				selected && concreteClassNames.flowDiagramEdgeSelected,
-				getFlowDiagramEdgeVariantClass(variant),
-				getDataToneClass(tone),
-				className
-			)}
-			{...props}
-		>
-			<path d={path} />
-			{label ? (
-				<text x={labelPoint.x} y={labelPoint.y}>
-					{label}
-				</text>
-			) : null}
-		</g>
-	)
-}
-
-function getDiagramCanvasEdgeVariantClass(
-	variant: DiagramCanvasEdgeShape['variant']
+function getDiagramEdgeRelationClass(
+	display: DiagramEdgeDisplay,
+	relation: DiagramEdgeRelation
 ): string | undefined {
-	switch (variant) {
+	switch (display) {
+		case 'canvas':
+			return getCanvasDiagramEdgeRelationClass(relation as DiagramCanvasEdgeShape['relation'])
+		case 'flow':
+			return getFlowDiagramEdgeRelationClass(relation as FlowDiagramEdgeShape['relation'])
+	}
+}
+
+function getCanvasDiagramEdgeRelationClass(
+	relation: DiagramCanvasEdgeShape['relation']
+): string | undefined {
+	switch (relation) {
 		case 'bidirectional':
 		case 'solid':
 			return undefined
 		case 'branch':
 		case 'control':
-			return concreteClassNames.diagramCanvasEdgeStep
+			return concreteClassNames.diagramEdgeStep
 		case 'dashed':
-			return concreteClassNames.diagramCanvasEdgeDashed
+			return concreteClassNames.diagramEdgeDashed
 		case 'dotted':
-			return concreteClassNames.diagramCanvasEdgeDotted
+			return concreteClassNames.diagramEdgeDotted
 		case 'reference':
-			return concreteClassNames.diagramCanvasEdgeReference
+			return concreteClassNames.diagramEdgeReference
 	}
 }
 
-function getFlowDiagramEdgeVariantClass(
-	variant: FlowDiagramEdgeShape['variant']
+function getFlowDiagramEdgeRelationClass(
+	relation: FlowDiagramEdgeShape['relation']
 ): string | undefined {
-	switch (variant) {
+	switch (relation) {
 		case 'dashed':
-			return concreteClassNames.flowDiagramEdgeDashed
+			return concreteClassNames.diagramFlowEdgeDashed
 		case 'dotted':
-			return concreteClassNames.flowDiagramEdgeDotted
+			return concreteClassNames.diagramFlowEdgeDotted
 		case 'pulse':
-			return concreteClassNames.flowDiagramEdgePulse
+			return concreteClassNames.diagramFlowEdgePulse
 		case 'solid':
 		case 'step':
 			return undefined
 	}
 }
 
-function getDiagramCanvasToneClass(tone: DiagramTone): string | undefined {
-	switch (tone) {
-		case 'error':
-			return concreteClassNames.diagramCanvasToneError
-		case 'ink':
-			return concreteClassNames.diagramCanvasToneInk
-		case 'muted':
-			return undefined
-		case 'sky':
-			return concreteClassNames.diagramCanvasToneSky
-		case 'terminal':
-			return concreteClassNames.diagramCanvasToneTerminal
-		case 'ultra':
-			return concreteClassNames.diagramCanvasToneUltra
+function getDiagramIntentClass(
+	display: DiagramEdgeDisplay,
+	intent: DataIntent | DiagramTone
+): string | undefined {
+	switch (display) {
+		case 'canvas':
+			return getCanvasDiagramIntentClass(intent)
+		case 'flow':
+			return getDataIntentClass(intent)
 	}
 }
 
-function getDataToneClass(tone: DataTone): string | undefined {
-	switch (tone) {
+function getCanvasDiagramIntentClass(intent: DiagramTone): string | undefined {
+	switch (intent) {
+		case 'error':
+			return concreteClassNames.diagramEdgeToneError
+		case 'ink':
+			return concreteClassNames.diagramEdgeToneInk
+		case 'muted':
+			return undefined
+		case 'sky':
+			return concreteClassNames.diagramEdgeToneSky
+		case 'terminal':
+			return concreteClassNames.diagramEdgeToneTerminal
+		case 'ultra':
+			return concreteClassNames.diagramEdgeToneUltra
+	}
+}
+
+function getDataIntentClass(intent: DataIntent): string | undefined {
+	switch (intent) {
 		case 'error':
 			return concreteClassNames.dataToneError
 		case 'muted':

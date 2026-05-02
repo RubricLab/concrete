@@ -64,7 +64,7 @@ export const stateExamples = defineExamples({
 		render: () => (
 			<StateFrame meta="Signal and data tones" title="Tone contracts">
 				<div style={statusGridStyle}>
-					{['signals', 'data-tones'].map(name => {
+					{['signals', 'data-tones', 'command-intents'].map(name => {
 						const token = getStateToken(name)
 
 						return (

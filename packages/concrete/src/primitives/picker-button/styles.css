@@ -1,0 +1,71 @@
+.concrete-picker-button {
+	display: grid;
+	grid-template-columns: var(--concrete-template-picker-button);
+	align-items: center;
+	gap: var(--concrete-space-1-5);
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-picker-button);
+	padding-block: var(--concrete-space-0);
+	padding-right: var(--concrete-space-2-25);
+	padding-left: var(--concrete-space-2-5);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-rest);
+	color: var(--concrete-control-foreground);
+	cursor: pointer;
+	font:
+		var(--concrete-weight-accent) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+	text-align: left;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		box-shadow var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+}
+
+.concrete-picker-button:hover {
+	border-color: var(--concrete-control-border-hover);
+	background: var(--concrete-control-background-hover);
+	box-shadow: var(--concrete-shadow-control-hover);
+}
+
+.concrete-picker-button[data-open="true"] {
+	border-color: var(--concrete-control-border-selected-soft);
+	background: var(--concrete-control-background-selected-soft);
+	color: var(--concrete-control-foreground-selected-soft);
+	box-shadow: var(--concrete-shadow-control-selected-soft);
+}
+
+.concrete-picker-button:active {
+	transform: translateY(var(--concrete-translate-press-strong));
+}
+
+.concrete-picker-button:disabled {
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-control-background-disabled);
+	color: var(--concrete-control-foreground-disabled);
+	cursor: not-allowed;
+	transform: none;
+}
+
+.concrete-picker-button svg {
+	width: var(--concrete-size-picker-icon);
+	height: var(--concrete-size-picker-icon);
+	color: var(--concrete-control-icon);
+}
+
+.concrete-picker-button:focus-visible {
+	outline: var(--concrete-space-0);
+	border-color: var(--concrete-control-border-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
+}
+
+.concrete-picker-button-label {
+	min-width: var(--concrete-space-0);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

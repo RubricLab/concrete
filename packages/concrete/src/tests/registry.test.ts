@@ -16,7 +16,6 @@ import {
 	dateRangeValueSchema,
 	dateValueSchema,
 	fieldStatusSchema,
-	formShellConfigSchema,
 	formValidationItemSchema,
 	foundationDefinitions,
 	foundationRegistry,
@@ -116,10 +115,10 @@ describe('Concrete registry', () => {
 			disabled: false,
 			group: 'Actions',
 			id: 'ask',
-			shortcut: [],
-			tone: 'default'
+			intent: 'default',
+			shortcut: []
 		})
-		expect(searchBarTokenSchema.parse({ id: 'workspace', label: 'Rubric' }).tone).toBe('default')
+		expect(searchBarTokenSchema.parse({ id: 'workspace', label: 'Rubric' }).intent).toBe('default')
 		expect(messageSchema.parse({ id: 'message-1' })).toMatchObject({
 			role: 'assistant',
 			surface: 'bubble'
@@ -159,11 +158,6 @@ describe('Concrete registry', () => {
 		).toMatchObject({
 			status: 'idle',
 			type: 'application/octet-stream'
-		})
-		expect(formShellConfigSchema.parse({ title: 'Workspace' })).toMatchObject({
-			compact: false,
-			status: 'default',
-			variant: 'panel'
 		})
 		expect(
 			formValidationItemSchema.parse({
@@ -254,6 +248,123 @@ describe('Concrete registry', () => {
 
 				expect(markup.length).toBeGreaterThan(0)
 			}
+		}
+	})
+
+	test('keeps polished primitive examples state-rich and registered', () => {
+		const requiredPrimitiveStates = {
+			alert: ['default', 'error', 'success'],
+			card: ['default', 'interactive', 'raised', 'sunken'],
+			checkbox: ['default', 'disabled'],
+			'control-group': ['default', 'attached', 'vertical'],
+			'data-surface': ['default', 'compact', 'media', 'toolbar'],
+			delta: ['default', 'basis', 'density', 'wash'],
+			'empty-state': ['default', 'compact', 'sky', 'editorial'],
+			field: ['default', 'requirements', 'error', 'success', 'count'],
+			'field-row': ['default', 'meta', 'success', 'error'],
+			frame: ['default', 'compact', 'texture', 'showcase'],
+			input: ['default', 'filled', 'error', 'disabled', 'inlineControl'],
+			listbox: ['default', 'compact', 'empty'],
+			'menu-group': ['default', 'selection', 'status'],
+			'menu-surface': ['default', 'search', 'compact'],
+			'option-row': ['default', 'command', 'select', 'danger'],
+			panel: ['default', 'compact', 'footer', 'raised'],
+			'picker-button': ['default', 'open', 'time', 'disabled'],
+			progress: ['default', 'signals', 'indeterminate'],
+			'progress-ring': ['default', 'density', 'signals'],
+			radio: ['default', 'disabled'],
+			range: ['default', 'disabled', 'narrow'],
+			'search-input': ['default', 'tokens', 'value'],
+			'segmented-progress': ['default', 'empty', 'complete'],
+			select: ['default', 'filled', 'error', 'disabled'],
+			slider: ['default', 'sky', 'disabled'],
+			stat: ['default', 'numeric', 'display', 'intents'],
+			stepper: ['default', 'error', 'disabled'],
+			surface: ['default', 'raised', 'selected', 'inverse', 'sticky'],
+			switch: ['default', 'disabled'],
+			textarea: ['default', 'filled', 'error', 'disabled'],
+			'time-list': ['default', 'formatted', 'later'],
+			'toolbar-control': ['default', 'selected', 'compact', 'disabled'],
+			'validation-list': ['default', 'linked', 'success']
+		} satisfies Record<string, readonly string[]>
+
+		for (const [slug, requiredStates] of Object.entries(requiredPrimitiveStates)) {
+			const definition = primitiveDefinitions.find(definition => definition.slug === slug)
+
+			expect(definition?.states.map(state => state.query)).toEqual(requiredStates)
+		}
+	})
+
+	test('keeps polished component examples state-rich and registered', () => {
+		const requiredComponentStates = {
+			'area-chart': ['default', 'quiet', 'dots', 'compact', 'loading', 'empty', 'error'],
+			'bar-chart': [
+				'default',
+				'comparison',
+				'horizontal',
+				'quiet',
+				'compact',
+				'loading',
+				'empty',
+				'error'
+			],
+			chart: [
+				'default',
+				'line',
+				'area',
+				'bar',
+				'stacked',
+				'donut',
+				'heatmap',
+				'compact',
+				'loading',
+				'empty',
+				'error'
+			],
+			'command-menu': ['default', 'empty', 'loading'],
+			composer: ['default', 'empty', 'mention', 'command', 'suggestions', 'formatting', 'disabled'],
+			'data-table': ['default', 'wide', 'selected', 'filtered', 'paginated', 'empty'],
+			'date-picker': ['default', 'open', 'bounded', 'success'],
+			'date-range-picker': ['default', 'open', 'partial', 'bounded'],
+			'diagram-canvas': ['default', 'selected', 'interactive', 'compact', 'wide'],
+			'donut-chart': ['default', 'thin', 'thick', 'plain', 'compact', 'loading', 'empty', 'error'],
+			'file-upload': ['default', 'uploading', 'success', 'grid', 'empty', 'error'],
+			'flow-diagram': ['default', 'selected', 'interactive', 'empty', 'wide'],
+			footer: ['default', 'actions', 'command', 'minimal'],
+			'form-dialog': ['default', 'wide', 'error', 'compact', 'success'],
+			'form-drawer': ['default', 'review', 'left', 'compact', 'success'],
+			heatmap: ['default', 'quiet', 'sunken', 'compact', 'loading', 'empty', 'error'],
+			'image-upload': ['default', 'single', 'avatar', 'grid', 'uploading', 'empty', 'error'],
+			'line-chart': ['default', 'target', 'inspect', 'compact', 'loading', 'empty', 'error'],
+			message: ['default', 'assistant', 'user', 'system', 'grouped', 'statuses'],
+			meter: ['default', 'bar', 'ring', 'compact', 'signal', 'danger'],
+			'metric-card': ['default', 'status', 'compact', 'critical', 'trendless'],
+			'multi-select': ['default', 'open', 'limit', 'empty'],
+			nav: ['default', 'actions', 'slot', 'sticky'],
+			'number-stepper': ['default', 'small', 'success', 'disabled', 'error'],
+			'password-input': ['default', 'success', 'disabled', 'error'],
+			'range-slider': ['default', 'narrow', 'wide', 'stepped', 'error'],
+			'reasoning-message': ['default', 'streaming', 'complete', 'collapsed', 'pending', 'error'],
+			'search-bar': ['default', 'scoped', 'menu', 'wrapped'],
+			'settings-panel': ['default', 'error', 'compact', 'success'],
+			'stacked-bar-chart': [
+				'default',
+				'normalized',
+				'horizontal',
+				'compact',
+				'loading',
+				'empty',
+				'error'
+			],
+			'time-picker': ['default', 'open', 'dense', 'success'],
+			'tool-call-message': ['default', 'queued', 'running', 'success', 'error'],
+			'validation-summary': ['default', 'error', 'success', 'mixed']
+		} satisfies Record<string, readonly string[]>
+
+		for (const [slug, requiredStates] of Object.entries(requiredComponentStates)) {
+			const definition = componentDefinitions.find(definition => definition.slug === slug)
+
+			expect(definition?.states.map(state => state.query)).toEqual(requiredStates)
 		}
 	})
 
@@ -356,24 +467,26 @@ describe('Concrete registry', () => {
 			colorsDefinition && 'seed' in colorsDefinition ? colorsDefinition.seed : undefined
 
 		expect(buttonSeed).toMatchObject({
+			density: 'medium',
 			disabled: false,
+			hierarchy: 'secondary',
 			iconOnly: false,
+			intent: 'neutral',
 			label: 'Continue',
 			loading: false,
-			pressed: false,
-			size: 'medium',
-			variant: 'secondary'
+			pressed: false
 		})
 		expect(buttonDefinition?.controls.map(control => control.name)).toEqual([
+			'density',
 			'disabled',
+			'hierarchy',
 			'iconOnly',
+			'intent',
 			'label',
 			'leadingIcon',
 			'loading',
 			'pressed',
-			'size',
 			'trailingIcon',
-			'variant',
 			'props'
 		])
 		expect(metricCardDefinition?.controls.some(control => control.type === 'json')).toBe(true)
@@ -385,8 +498,9 @@ describe('Concrete registry', () => {
 		const buttonDefinition = primitiveDefinitions.find(definition => definition.slug === 'button')
 		const searchParams = new URLSearchParams({
 			props: JSON.stringify({
-				label: 'JSON action',
-				variant: 'primary'
+				hierarchy: 'primary',
+				intent: 'neutral',
+				label: 'JSON action'
 			})
 		})
 
@@ -409,14 +523,14 @@ describe('Concrete registry', () => {
 		const metricCardDefinition = componentDefinitions.find(
 			definition => definition.slug === 'metric-card'
 		)
-		const chartVariantControl = chartDefinition?.controls.find(control => control.name === 'variant')
+		const chartKindControl = chartDefinition?.controls.find(control => control.name === 'kind')
 
 		expect(metricCardDefinition?.controls.map(control => control.name)).toContain('delta.value')
 		expect(metricCardDefinition?.controls.map(control => control.name)).toContain('delta.intent')
 		expect(dataTableDefinition?.controls.map(control => control.name)).toContain('pagination.page')
 		expect(dataTableDefinition?.controls.map(control => control.name)).toContain('sort.direction')
-		expect(chartVariantControl?.type).toBe('select')
-		expect(chartVariantControl?.options?.map(option => option.value)).toEqual([
+		expect(chartKindControl?.type).toBe('select')
+		expect(chartKindControl?.options?.map(option => option.value)).toEqual([
 			'line',
 			'area',
 			'bar',
@@ -432,9 +546,9 @@ describe('Concrete registry', () => {
 			definition => definition.slug === 'metric-card'
 		)
 		const chartSearchParams = new URLSearchParams({
-			points: JSON.stringify([{ label: 'Proof', tone: 'sky', value: 12 }]),
-			title: 'Bar proof',
-			variant: 'bar'
+			kind: 'bar',
+			points: JSON.stringify([{ intent: 'sky', label: 'Proof', value: 12 }]),
+			title: 'Bar proof'
 		})
 		const metricSearchParams = new URLSearchParams({
 			'delta.value': '+99.9%',
@@ -480,7 +594,7 @@ describe('Concrete registry', () => {
 				{
 					children: [{ type: 'text', value: 'Run protocol' }],
 					item: { kind: 'primitive', slug: 'button' },
-					props: { label: 'Run protocol', variant: 'primary' },
+					props: { hierarchy: 'primary', label: 'Run protocol' },
 					slots: {
 						leading: [
 							{
@@ -503,7 +617,7 @@ describe('Concrete registry', () => {
 
 		expect(result.data.nodes[0]).toMatchObject({
 			item: { kind: 'primitive', slug: 'button' },
-			props: { label: 'Run protocol', variant: 'primary' }
+			props: { hierarchy: 'primary', label: 'Run protocol' }
 		})
 	})
 
@@ -567,16 +681,44 @@ describe('Concrete registry', () => {
 			'toolbar-control',
 			'input',
 			'field',
-			'search-field',
-			'search-token',
-			'menu-shell',
-			'message-shell',
-			'metric-shell',
-			'form-layout',
-			'form-overlay',
-			'feedback-panel',
+			'stack',
+			'inline',
+			'cluster',
+			'container',
+			'grid',
+			'split',
+			'scroll-area',
+			'dock',
+			'rail',
+			'page-section',
+			'surface',
+			'panel',
+			'section',
+			'header',
+			'text',
+			'heading',
+			'label',
+			'icon-button',
+			'control-group',
+			'field-row',
+			'token',
+			'search-input',
+			'picker-button',
+			'picker-surface',
+			'menu-surface',
+			'menu-group',
+			'listbox',
+			'overlay',
+			'dialog-surface',
+			'drawer-surface',
+			'alert',
+			'validation-list',
+			'disclosure-panel',
+			'data-surface',
+			'transcript-item',
+			'message-bubble',
 			'option-row',
-			'calendar-panel',
+			'calendar-grid',
 			'dropzone',
 			'upload-field',
 			'upload-item',
@@ -585,30 +727,33 @@ describe('Concrete registry', () => {
 			'select',
 			'checkbox',
 			'radio',
-			'stepper-control',
-			'range-control',
-			'reasoning-panel',
+			'stepper',
+			'range',
+			'trace-panel',
 			'switch',
 			'slider',
-			'select-control',
-			'select-menu',
 			'card',
-			'data-card-header',
-			'chart-surface',
-			'chart-legend',
-			'data-table-shell',
-			'data-table-control',
-			'data-table-pagination',
+			'chart-frame',
+			'plot',
+			'chart-grid',
+			'axis',
+			'target-line',
+			'series-line',
+			'series-point',
+			'series-bar',
+			'donut-ring',
+			'heatmap-grid',
+			'legend',
+			'table',
+			'pagination',
 			'pill',
 			'chip',
 			'badge',
 			'tag',
 			'avatar',
-			'row',
-			'bubble',
 			'code',
-			'composer-shell',
-			'composer-rail',
+			'composer-surface',
+			'token-rail',
 			'concept-frame',
 			'concept-connector',
 			'diagram-viewport',
@@ -623,13 +768,12 @@ describe('Concrete registry', () => {
 			'kbd',
 			'spinner',
 			'link',
-			'picker-control',
-			'picker-shell',
-			'preview-stage',
 			'divider',
 			'empty-state',
 			'tooltip',
 			'progress',
+			'progress-ring',
+			'segmented-progress',
 			'stat',
 			'delta',
 			'sparkline',
@@ -637,22 +781,19 @@ describe('Concrete registry', () => {
 			'indicator',
 			'skeleton',
 			'frame',
-			'suggestion-menu',
-			'texture',
 			'time-list',
 			'tool-call-panel',
 			'tilt-frame',
 			'scale-frame',
 			'brand-mark',
 			'wordmark',
-			'icon',
-			'focus-ring'
+			'icon'
 		])
 		expect(componentDefinitions.map(definition => definition.slug)).toEqual([
-			'toolbar',
+			'nav',
+			'footer',
 			'command-menu',
 			'search-bar',
-			'form-shell',
 			'validation-summary',
 			'settings-panel',
 			'form-dialog',
@@ -675,7 +816,6 @@ describe('Concrete registry', () => {
 			'donut-chart',
 			'heatmap',
 			'chart',
-			'feature-card',
 			'data-table',
 			'flow-diagram',
 			'diagram-canvas',

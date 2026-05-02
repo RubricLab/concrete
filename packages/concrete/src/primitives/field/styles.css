@@ -1,8 +1,8 @@
 .concrete-form-field {
 	display: grid;
-	gap: var(--concrete-space-1-5);
+	gap: var(--concrete-space-1-25);
 	min-width: var(--concrete-space-0);
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-control-foreground-body);
 }
 
 .concrete-form-field-head,
@@ -15,7 +15,7 @@
 }
 
 .concrete-form-field-label {
-	color: var(--concrete-foreground-strong);
+	color: var(--concrete-control-foreground);
 	font:
 		var(--concrete-weight-bold) var(--concrete-type-12) / var(--concrete-line-control)
 		var(--concrete-font-sans);
@@ -27,21 +27,21 @@
 
 .concrete-form-field-meta,
 .concrete-form-field-count {
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-foreground-soft);
 	font:
 		var(--concrete-weight-strong) var(--concrete-type-11) / var(--concrete-line-control)
 		var(--concrete-font-sans);
 }
 
 .concrete-form-field-description {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-12) / var(--concrete-line-normal)
 		var(--concrete-font-sans);
 }
 
 .concrete-form-field-message {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-compact)
 		var(--concrete-font-sans);

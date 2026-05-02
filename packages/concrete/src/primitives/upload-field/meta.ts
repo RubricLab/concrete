@@ -12,12 +12,13 @@ type UploadFieldMeta = {
 
 export const uploadFieldMeta = {
 	category: 'form',
-	description: 'Upload stack primitive for drop targets, queued rows, and media width variants.',
+	description: 'Upload stack primitive for drop targets, queued rows, and media width kinds.',
 	guidance:
 		'UploadField owns upload layout and sizing only. Dropzone owns the target, UploadItem owns rows, and higher-level components own file state.',
 	name: 'Upload field',
 	pressure: ['product', 'generative'],
 	props: [
-		prop('variant', "'file' | 'single' | 'grid' | 'avatar'", 'Upload layout width contract.', 'file')
+		prop('display', "'stack' | 'grid'", 'Queue display contract.', 'stack'),
+		prop('kind', "'file' | 'single' | 'grid' | 'avatar'", 'Upload layout width contract.', 'file')
 	]
 } as const satisfies UploadFieldMeta

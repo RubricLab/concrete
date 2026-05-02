@@ -1,10 +1,5 @@
-import type { ReactNode } from 'react'
-import {
-	FormLayoutRow,
-	FormLayoutSection,
-	FormLayoutShell,
-	type FormLayoutShellProps
-} from '../../primitives/form-layout'
+import type { HTMLAttributes, ReactNode } from 'react'
+import { FieldRow, Panel, Section } from '../../primitives'
 import type { FieldStatus } from '../../schemas'
 
 export type SettingsPanelRow = {
@@ -23,17 +18,46 @@ export type SettingsPanelSection = {
 	title: ReactNode
 }
 
-export type SettingsPanelProps = Omit<FormLayoutShellProps, 'children'> & {
+export type SettingsPanelProps = Omit<HTMLAttributes<HTMLElement>, 'title'> & {
+	actions?: ReactNode | undefined
+	className?: string | undefined
+	compact?: boolean | undefined
+	description?: ReactNode | undefined
+	footer?: ReactNode | undefined
+	meta?: ReactNode | undefined
 	sections: readonly SettingsPanelSection[]
+	status?: FieldStatus | undefined
+	title: ReactNode
 }
 
-export function SettingsPanel({ sections, ...props }: SettingsPanelProps) {
+export function SettingsPanel({
+	actions,
+	className,
+	compact = true,
+	description,
+	footer,
+	meta,
+	sections,
+	status = 'default',
+	title,
+	...props
+}: SettingsPanelProps) {
 	return (
-		<FormLayoutShell compact {...props}>
+		<Panel
+			actions={actions}
+			className={className}
+			density={compact ? 'compact' : 'comfortable'}
+			description={description}
+			footer={footer}
+			meta={meta}
+			title={title}
+			intent={status === 'error' ? 'error' : 'default'}
+			{...props}
+		>
 			{sections.map(section => (
-				<FormLayoutSection description={section.description} key={section.id} title={section.title}>
+				<Section description={section.description} key={section.id} separated title={section.title}>
 					{section.rows.map(row => (
-						<FormLayoutRow
+						<FieldRow
 							control={row.control}
 							description={row.description}
 							key={row.id}
@@ -42,8 +66,8 @@ export function SettingsPanel({ sections, ...props }: SettingsPanelProps) {
 							status={row.status}
 						/>
 					))}
-				</FormLayoutSection>
+				</Section>
 			))}
-		</FormLayoutShell>
+		</Panel>
 	)
 }

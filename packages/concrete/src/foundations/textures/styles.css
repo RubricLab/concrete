@@ -1,22 +1,22 @@
 :root {
 	--concrete-texture-dot-fade-size: 1.2px;
 	--concrete-chart-target-dasharray: 4 4;
-	--concrete-flow-diagram-edge-dashed: 6 5;
-	--concrete-flow-diagram-edge-dotted: 2 5;
-	--concrete-diagram-canvas-edge-dashed: 7 5;
-	--concrete-diagram-canvas-edge-dotted: 2 6;
-	--concrete-diagram-canvas-edge-reference: 3 5;
-	--concrete-diagram-canvas-background:
+	--concrete-diagram-flow-edge-dashed: 6 5;
+	--concrete-diagram-flow-edge-dotted: 2 5;
+	--concrete-diagram-edge-dashed: 7 5;
+	--concrete-diagram-edge-dotted: 2 6;
+	--concrete-diagram-edge-reference: 3 5;
+	--concrete-diagram-background:
 		radial-gradient(circle, var(--concrete-border) 1px, transparent 1.35px) 0 0 / 18px 18px,
 		var(--concrete-sunken);
-	--concrete-diagram-canvas-legend-event-background: repeating-linear-gradient(
+	--concrete-diagram-legend-event-background: repeating-linear-gradient(
 		to right,
 		currentcolor 0,
 		currentcolor 5px,
 		transparent 5px,
 		transparent 9px
 	);
-	--concrete-diagram-canvas-legend-reference-background: repeating-linear-gradient(
+	--concrete-diagram-legend-reference-background: repeating-linear-gradient(
 		to right,
 		currentcolor 0,
 		currentcolor 2px,
@@ -40,6 +40,35 @@
 		linear-gradient(var(--concrete-depth-line) 1px, transparent 1px),
 		linear-gradient(90deg, var(--concrete-depth-line) 1px, transparent 1px),
 		linear-gradient(180deg, transparent 12%, var(--concrete-depth-glow) 54%, transparent);
+	--concrete-texture-field-background-image:
+		linear-gradient(
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		),
+		linear-gradient(
+			90deg,
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		);
+	--concrete-texture-field-background-size: var(--concrete-grid-unit) var(--concrete-grid-unit);
+	--concrete-texture-field-mask: linear-gradient(
+		90deg,
+		transparent,
+		black 8%,
+		black 92%,
+		transparent
+	);
+	--concrete-texture-perspective-background-image:
+		linear-gradient(color-mix(in oklab, var(--concrete-sky) 18%, transparent) 1px, transparent 1px),
+		linear-gradient(
+			90deg,
+			color-mix(in oklab, var(--concrete-sky) 18%, transparent) 1px,
+			transparent 1px
+		),
+		linear-gradient(180deg, transparent, color-mix(in oklab, var(--concrete-sky) 5%, transparent));
+	--concrete-texture-perspective-background-size: 32px 32px, 32px 32px, 100% 100%;
+	--concrete-texture-perspective-transform: perspective(680px) rotateX(66deg);
+	--concrete-texture-perspective-origin: bottom center;
 	--concrete-tilt-frame-glare-background: linear-gradient(
 		135deg,
 		rgb(255 255 255 / 12%),
@@ -50,4 +79,58 @@
 		inset 0 0 0 1px rgb(78 139 222 / 14%),
 		inset 0 14px 24px -22px rgb(78 139 222 / 32%),
 		inset 0 -18px 28px -26px rgb(10 11 15 / 28%);
+}
+
+.concrete-lattice {
+	background-image:
+		linear-gradient(
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		),
+		linear-gradient(
+			90deg,
+			var(--concrete-lattice) var(--concrete-border-width-hairline),
+			transparent var(--concrete-border-width-hairline)
+		);
+	background-size: var(--concrete-space-4) var(--concrete-space-4);
+}
+
+.concrete-dots {
+	background-image: radial-gradient(
+		circle,
+		var(--concrete-dots) var(--concrete-border-width-hairline),
+		transparent var(--concrete-texture-dot-fade-size)
+	);
+	background-size: var(--concrete-space-3) var(--concrete-space-3);
+}
+
+.concrete-lines {
+	background-image: linear-gradient(
+		to bottom,
+		transparent,
+		transparent calc(var(--concrete-space-3) - var(--concrete-border-width-hairline)),
+		var(--concrete-lines) calc(var(--concrete-space-3) - var(--concrete-border-width-hairline)),
+		var(--concrete-lines) var(--concrete-space-3)
+	);
+	background-size: var(--concrete-space-3) var(--concrete-space-3);
+}
+
+.concrete-texture-field {
+	background-image: var(--concrete-texture-field-background-image);
+	background-size: var(--concrete-texture-field-background-size);
+}
+
+.concrete-texture-perspective {
+	background-image: var(--concrete-texture-perspective-background-image);
+	background-size: var(--concrete-texture-perspective-background-size);
+}
+
+.concrete-texture-depth {
+	background-color: var(--concrete-depth-background);
+	background-image: var(--concrete-depth-background-image);
+	background-size:
+		var(--concrete-size-full) var(--concrete-size-full),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-grid-unit) var(--concrete-grid-unit),
+		var(--concrete-size-full) var(--concrete-size-full);
 }

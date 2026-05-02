@@ -4,6 +4,10 @@ import { chartSeries } from '../../utilities/data-fixtures'
 import { AreaChart } from './component'
 
 export const areaChartExamples = defineExamples({
+	compact: {
+		description: 'Headerless compact area for generated panels.',
+		render: () => renderAreaChartExample('compact')
+	},
 	default: {
 		description: 'Soft area chart with endpoint labels.',
 		render: () => renderAreaChartExample('default')
@@ -37,6 +41,22 @@ function renderAreaChartExample(state = 'default'): ReactNode {
 				message={state === 'error' ? 'Could not load execution trend.' : undefined}
 				series={[]}
 				state={state}
+				title="Execution trend"
+			/>
+		)
+	}
+
+	if (state === 'compact') {
+		return (
+			<AreaChart
+				compact
+				height={150}
+				legend={false}
+				series={chartSeries}
+				showHeader={false}
+				showYAxis={false}
+				stacked
+				surface="sunken"
 				title="Execution trend"
 			/>
 		)

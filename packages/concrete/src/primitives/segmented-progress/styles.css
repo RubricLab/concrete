@@ -1,0 +1,18 @@
+.concrete-segmented-progress {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(var(--concrete-space-0), var(--concrete-grid-track-fill));
+	gap: var(--concrete-space-0-75);
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-segmented-progress);
+}
+
+.concrete-segmented-progress i {
+	display: block;
+	border-radius: var(--concrete-radius-pill);
+	background: var(--concrete-data-track-background);
+}
+
+.concrete-segmented-progress i[data-active="true"] {
+	background: var(--concrete-data-fill);
+}

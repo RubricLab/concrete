@@ -18,7 +18,7 @@ export const cardMeta = {
 	name: 'Card',
 	pressure: ['product', 'editorial', 'generative', 'educational'],
 	props: [
-		prop('variant', "'default' | 'raised' | 'sunken'", 'Surface depth treatment.', 'default'),
+		prop('depth', "'default' | 'raised' | 'sunken'", 'Surface depth treatment.', 'default'),
 		prop('interactive', 'boolean', 'Adds hover affordance for clickable card compositions.', 'false'),
 		prop('title', 'ReactNode', 'Optional compact title.'),
 		prop('description', 'ReactNode', 'Optional supporting copy.'),

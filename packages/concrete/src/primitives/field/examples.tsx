@@ -1,5 +1,6 @@
 import { defineExamples } from '../../factories/createExamples'
 import { Input } from '../input'
+import { Stack } from '../stack'
 import { Field } from './component'
 
 export const fieldExamples = defineExamples({
@@ -49,7 +50,7 @@ export const fieldExamples = defineExamples({
 	requirements: {
 		description: 'Required and optional metadata placement.',
 		render: () => (
-			<>
+			<Stack density="compact">
 				<Field
 					description="Required configuration for production agents."
 					label="Primary model"
@@ -60,7 +61,7 @@ export const fieldExamples = defineExamples({
 				<Field description="Optional routing hint for generated drafts." label="Fallback tag" optional>
 					<Input placeholder="nightly" />
 				</Field>
-			</>
+			</Stack>
 		)
 	},
 	success: {

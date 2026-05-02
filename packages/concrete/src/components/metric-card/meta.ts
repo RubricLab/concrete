@@ -24,7 +24,7 @@ export const metricCardMeta = {
 		prop('unit', 'string', 'Optional unit suffix beside the value.'),
 		prop('delta', 'DataDelta', 'Optional terminal/error/neutral change indicator.'),
 		prop('trend', 'readonly number[]', 'Optional inline sparkline values.', '[]'),
-		prop('trendTone', 'DataTone', 'Overrides the sparkline tone derived from delta intent.'),
+		prop('trendIntent', 'DataIntent', 'Overrides the sparkline intent derived from delta intent.'),
 		prop('status', 'DataLegendItem', 'Small status indicator in the header.'),
 		prop('compact', 'boolean', 'Tight metric card rhythm for dense dashboards.', 'false')
 	]

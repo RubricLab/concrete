@@ -1,0 +1,6 @@
+.concrete-chart-svg {
+	width: var(--concrete-size-full);
+	height: var(--concrete-size-full);
+	min-height: var(--concrete-chart-height, var(--concrete-size-chart-height));
+	overflow: visible;
+}

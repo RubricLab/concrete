@@ -5,7 +5,7 @@ import { statExamples } from './examples'
 import { statMeta } from './meta'
 import { type StatValue, statSchema } from './schema'
 
-export type { StatProps, StatSize, StatTone, StatVariant } from './component'
+export type { StatDensity, StatIntent, StatProps, StatPurpose } from './component'
 export { Stat } from './component'
 export type { StatInput, StatValue } from './schema'
 export { statPropsSchema, statSchema } from './schema'
@@ -18,7 +18,7 @@ export const statPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderStatInput(statSchema.parse(input)),
 	schema: statSchema,
 	slug: 'stat',
-	states: exampleStates(statExamples, ['default', 'numeric', 'display', 'tones'])
+	states: exampleStates(statExamples, ['default', 'numeric', 'display', 'intents'])
 })
 
 function renderStatInput({ label, meta, unit, ...props }: StatValue) {

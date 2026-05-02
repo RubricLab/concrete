@@ -1,0 +1,20 @@
+.concrete-scroll-area {
+	max-block-size: var(--concrete-extent-scroll-area-medium);
+	min-inline-size: var(--concrete-space-0);
+	overflow: auto;
+	overscroll-behavior: contain;
+	padding-inline-end: var(--concrete-space-1);
+	scrollbar-gutter: stable;
+}
+
+.concrete-scroll-area[data-extent="small"] {
+	max-block-size: var(--concrete-extent-scroll-area-small);
+}
+
+.concrete-scroll-area[data-extent="large"] {
+	max-block-size: var(--concrete-extent-scroll-area-large);
+}
+
+.concrete-scroll-area[data-extent="viewport"] {
+	max-block-size: var(--concrete-extent-viewport-block);
+}

@@ -8,7 +8,7 @@ export const chipExamples = defineExamples({
 			<>
 				<Chip selected>Product</Chip>
 				<Chip>Generative</Chip>
-				<Chip tone="sky">Editorial</Chip>
+				<Chip intent="sky">Editorial</Chip>
 			</>
 		)
 	},
@@ -17,21 +17,21 @@ export const chipExamples = defineExamples({
 		render: () => (
 			<>
 				<Chip leadingIcon="filter">Filtered</Chip>
-				<Chip leadingIcon="sparkles" tone="sky">
+				<Chip intent="sky" leadingIcon="sparkles">
 					Generated
 				</Chip>
 				<Chip selected>Product</Chip>
 			</>
 		)
 	},
-	tones: {
-		description: 'Available non-selected tones.',
+	intents: {
+		description: 'Available non-selected intents.',
 		render: () => (
 			<>
 				<Chip>Default</Chip>
-				<Chip tone="ink">Ink</Chip>
-				<Chip tone="sky">Sky</Chip>
-				<Chip tone="sunken">Sunken</Chip>
+				<Chip intent="strong">Strong</Chip>
+				<Chip intent="sky">Sky</Chip>
+				<Chip intent="subtle">Subtle</Chip>
 			</>
 		)
 	}

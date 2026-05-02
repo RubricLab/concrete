@@ -2,7 +2,7 @@ import { z } from 'zod/v4'
 
 export const stateSignalValues = ['terminal', 'ultra', 'error'] as const
 export const dataToneValues = ['ink', 'muted', 'sky', 'terminal', 'ultra', 'error'] as const
-export const commandItemToneValues = ['default', 'error', 'sky', 'terminal', 'ultra'] as const
+export const commandItemIntentValues = ['default', 'error', 'sky', 'terminal', 'ultra'] as const
 export const fieldStatusValues = ['default', 'error', 'success'] as const
 export const uploadItemStatusValues = ['error', 'idle', 'success', 'uploading'] as const
 export const dataComponentStateValues = ['ready', 'loading', 'empty', 'error'] as const
@@ -14,7 +14,7 @@ export const densityValues = ['compact', 'comfortable', 'editorial'] as const
 
 export const stateSignalSchema = z.enum(stateSignalValues)
 export const dataToneSchema = z.enum(dataToneValues)
-export const commandItemToneSchema = z.enum(commandItemToneValues)
+export const commandItemIntentSchema = z.enum(commandItemIntentValues)
 export const fieldStatusSchema = z.enum(fieldStatusValues)
 export const uploadItemStatusSchema = z.enum(uploadItemStatusValues)
 export const dataComponentStateSchema = z.enum(dataComponentStateValues)
@@ -53,6 +53,12 @@ export const stateTokens = [
 		kind: 'tone',
 		name: 'data-tones',
 		values: dataToneValues
+	},
+	{
+		description: 'Command and token intent language for compact interactive lists.',
+		kind: 'intent',
+		name: 'command-intents',
+		values: commandItemIntentValues
 	},
 	{
 		description: 'Field-level validation state used by forms, settings rows, and summaries.',
@@ -99,7 +105,7 @@ export const stateTokens = [
 	}
 ] as const
 
-export type CommandItemTone = z.infer<typeof commandItemToneSchema>
+export type CommandItemIntent = z.infer<typeof commandItemIntentSchema>
 export type DataComponentState = z.infer<typeof dataComponentStateSchema>
 export type DataDeltaIntent = z.infer<typeof dataDeltaIntentSchema>
 export type DataTone = z.infer<typeof dataToneSchema>

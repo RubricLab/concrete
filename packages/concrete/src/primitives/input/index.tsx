@@ -18,7 +18,7 @@ export const inputPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderInputInput(inputSchema.parse(input)),
 	schema: inputSchema,
 	slug: 'input',
-	states: exampleStates(inputExamples, ['default', 'filled', 'error', 'disabled'])
+	states: exampleStates(inputExamples, ['default', 'filled', 'error', 'disabled', 'inlineControl'])
 })
 
 function renderInputInput({ value, ...input }: InputValue) {

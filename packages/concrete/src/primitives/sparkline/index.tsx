@@ -5,7 +5,7 @@ import { sparklineExamples } from './examples'
 import { sparklineMeta } from './meta'
 import { type SparklineValue, sparklineSchema } from './schema'
 
-export type { SparklineProps, SparklineTone, SparklineVariant } from './component'
+export type { SparklineDisplay, SparklineIntent, SparklineProps } from './component'
 export { Sparkline } from './component'
 export type { SparklineInput, SparklineValue } from './schema'
 export { sparklinePropsSchema, sparklineSchema } from './schema'

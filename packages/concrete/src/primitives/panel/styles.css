@@ -1,0 +1,20 @@
+.concrete-panel {
+	display: grid;
+	gap: var(--concrete-space-3);
+}
+
+.concrete-panel[data-density="compact"] {
+	gap: var(--concrete-space-2);
+}
+
+.concrete-panel[data-density="editorial"] {
+	gap: var(--concrete-space-4);
+}
+
+.concrete-panel-body {
+	min-inline-size: var(--concrete-space-0);
+}
+
+.concrete-panel-footer {
+	margin-block-start: var(--concrete-space-1);
+}

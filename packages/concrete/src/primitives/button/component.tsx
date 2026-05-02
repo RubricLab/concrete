@@ -3,8 +3,10 @@ import { ConcreteIcon, type IconName } from '../../icons'
 import { concreteClassNames, getConcreteClassName } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type ButtonSize = 'tiny' | 'small' | 'medium' | 'large'
-export type ButtonVariant =
+export type ButtonDensity = 'tiny' | 'small' | 'medium' | 'large'
+export type ButtonHierarchy = 'ghost' | 'primary' | 'secondary' | 'soft'
+export type ButtonIntent = 'danger' | 'neutral' | 'sky' | 'ultra'
+type ButtonClassRecipe =
 	| 'danger'
 	| 'ghost'
 	| 'primary'
@@ -18,14 +20,15 @@ type IconSlot = IconName | ReactElement
 
 export type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
 	children?: ReactNode
+	density?: ButtonDensity
+	hierarchy?: ButtonHierarchy
 	iconOnly?: boolean
+	intent?: ButtonIntent
 	leadingIcon?: IconSlot
 	loading?: boolean
 	pressed?: boolean
 	shortcut?: readonly string[]
-	size?: ButtonSize
 	trailingIcon?: IconSlot
-	variant?: ButtonVariant
 }
 
 const buttonVariantClassNames = {
@@ -37,14 +40,14 @@ const buttonVariantClassNames = {
 	'sky-soft': getConcreteClassName('buttonSkySoft'),
 	soft: getConcreteClassName('buttonSoft'),
 	ultra: getConcreteClassName('buttonUltra')
-} satisfies Record<ButtonVariant, string>
+} satisfies Record<ButtonClassRecipe, string>
 
-const buttonSizeClassNames = {
+const buttonDensityClassNames = {
 	large: getConcreteClassName('buttonLarge'),
 	medium: undefined,
 	small: getConcreteClassName('buttonSmall'),
 	tiny: getConcreteClassName('buttonTiny')
-} satisfies Record<ButtonSize, string | undefined>
+} satisfies Record<ButtonDensity, string | undefined>
 
 const shortcutKeyLabels: Record<string, string> = {
 	alt: '⌥',
@@ -60,18 +63,23 @@ const shortcutKeyLabels: Record<string, string> = {
 export function Button({
 	children,
 	className,
+	density,
 	disabled,
+	hierarchy,
 	iconOnly = false,
+	intent,
 	leadingIcon,
 	loading = false,
 	pressed = false,
 	shortcut,
-	size = 'medium',
 	trailingIcon,
 	type = 'button',
-	variant = 'secondary',
 	...props
 }: ButtonProps) {
+	const resolvedDensity = density ?? 'medium'
+	const resolvedHierarchy = hierarchy ?? 'secondary'
+	const resolvedIntent = intent ?? 'neutral'
+	const resolvedVariant = resolveButtonClassRecipe(resolvedHierarchy, resolvedIntent)
 	const leadingIconNode =
 		typeof leadingIcon === 'string' ? <ConcreteIcon name={leadingIcon} /> : leadingIcon
 	const trailingIconNode =
@@ -82,14 +90,15 @@ export function Button({
 			{...props}
 			className={cn(
 				concreteClassNames.button,
-				buttonVariantClassNames[variant],
-				buttonSizeClassNames[size],
+				buttonVariantClassNames[resolvedVariant],
+				buttonDensityClassNames[resolvedDensity],
 				iconOnly && concreteClassNames.buttonIcon,
 				className
 			)}
+			data-hierarchy={resolvedHierarchy}
+			data-intent={resolvedIntent}
 			data-loading={loading ? true : undefined}
 			data-pressed={pressed ? true : undefined}
-			data-variant={variant}
 			disabled={disabled || loading}
 			type={type}
 		>
@@ -110,4 +119,20 @@ export function Button({
 			) : null}
 		</button>
 	)
+}
+
+function resolveButtonClassRecipe(
+	hierarchy: ButtonHierarchy,
+	intent: ButtonIntent
+): ButtonClassRecipe {
+	switch (intent) {
+		case 'danger':
+			return 'danger'
+		case 'sky':
+			return hierarchy === 'soft' ? 'sky-soft' : 'sky'
+		case 'ultra':
+			return 'ultra'
+		case 'neutral':
+			return hierarchy
+	}
 }

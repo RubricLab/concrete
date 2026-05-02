@@ -1,34 +1,42 @@
-import { Badge, type RenderQuery } from '@rubriclab/concrete'
+import {
+	Badge,
+	Cluster,
+	type ConcretePressure,
+	Container,
+	Frame,
+	Stack,
+	Surface
+} from '@rubriclab/concrete'
 import type { ReactNode } from 'react'
 import type { CatalogRenderItem } from '@/catalog-render-item'
-import { renderDefinitionFromSearchParams, type SearchParamsInput } from '@/rendering'
 
 type CatalogRenderPageProps = CatalogRenderItem & {
-	query: RenderQuery
-	searchParams: SearchParamsInput
+	pressure: ConcretePressure
+	state: string
 }
 
-export function CatalogRenderPage({
-	definition,
-	entry,
-	query,
-	searchParams
-}: CatalogRenderPageProps) {
+export function CatalogRenderPage({ definition, entry, pressure, state }: CatalogRenderPageProps) {
 	return (
-		<main className="renderShell" data-pressure={query.pressure} data-state={query.state}>
-			<section className="renderStage">
-				{renderDefinitionFromSearchParams(definition, searchParams, query.state)}
-				{renderCatalogRenderMeta(entry.name, query.pressure)}
-			</section>
-		</main>
+		<Surface as="main" data-pressure={pressure} data-state={state} intent="default">
+			<Container density="editorial" measure="wide">
+				<Stack align="stretch" density="editorial">
+					<Surface depth="sunken">
+						<Frame align="stretch" scale="showcase" texture="field">
+							<Stack align="center">{definition.renderExample(state)}</Stack>
+						</Frame>
+					</Surface>
+					{renderCatalogRenderMeta(entry.name, pressure)}
+				</Stack>
+			</Container>
+		</Surface>
 	)
 }
 
-function renderCatalogRenderMeta(name: string, pressure: RenderQuery['pressure']): ReactNode {
+function renderCatalogRenderMeta(name: string, pressure: ConcretePressure): ReactNode {
 	return (
-		<div className="metaRow" style={{ marginTop: 14 }}>
-			<Badge signal="terminal">{name}</Badge>
-			<Badge signal="ultra">{pressure}</Badge>
-		</div>
+		<Cluster density="compact">
+			<Badge intent="terminal">{name}</Badge>
+			<Badge intent="ultra">{pressure}</Badge>
+		</Cluster>
 	)
 }

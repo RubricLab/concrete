@@ -26,12 +26,12 @@ export const conceptFrameExamples = defineExamples({
 		render: () => renderConceptFrameExample('selected')
 	},
 	sizes: {
-		description: 'Concept frame size scale for explainers.',
+		description: 'Concept frame scale scale for explainers.',
 		render: () => (
 			<>
-				<ConceptFrame kind="browser-window" size="small" />
-				<ConceptFrame kind="workflow-canvas" size="medium" selected />
-				<ConceptFrame kind="assistant-response" size="large" />
+				<ConceptFrame kind="browser-window" scale="small" />
+				<ConceptFrame kind="workflow-canvas" scale="medium" selected />
+				<ConceptFrame kind="assistant-response" scale="large" />
 			</>
 		)
 	}

@@ -18,7 +18,7 @@ export const tiltFramePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderTiltFrameInput(tiltFrameSchema.parse(input)),
 	schema: tiltFrameSchema,
 	slug: 'tilt-frame',
-	states: exampleStates(tiltFrameExamples, ['controls', 'surface'])
+	states: exampleStates(tiltFrameExamples, ['default', 'surface'])
 })
 
 function renderTiltFrameInput({ body, interactive, intensity, surface }: TiltFrameValue) {

@@ -2,7 +2,16 @@
 
 import type { HTMLAttributes } from 'react'
 import { useState } from 'react'
-import { Field, OptionRow, PickerShell, SelectControl, SelectMenu, Tag } from '../../primitives'
+import {
+	Field,
+	Listbox,
+	MenuSurface,
+	OptionRow,
+	PickerButton,
+	PickerSurface,
+	SearchInput,
+	Token
+} from '../../primitives'
 import type { MultiSelectOption } from '../../schemas'
 import type { FieldChromeProps } from '../../utilities/form-field-helpers'
 
@@ -80,10 +89,10 @@ export function MultiSelect({
 			required={required}
 			success={success}
 		>
-			<PickerShell kind="multi-select" open={open} {...props}>
-				<SelectControl
-					empty={selectedOptions.length === 0}
-					onToggle={event => {
+			<PickerSurface open={open} placement="floating" {...props}>
+				<PickerButton
+					icon="chevron-down"
+					onClick={event => {
 						event.stopPropagation()
 						setOpen(current => !current)
 					}}
@@ -91,46 +100,42 @@ export function MultiSelect({
 				>
 					{selectedOptions.length > 0
 						? selectedOptions.map(option => (
-								<Tag
-									dismissible
-									key={option.value}
-									onDismiss={() => commitValue(currentValue.filter(valueItem => valueItem !== option.value))}
-									size="small"
-									tone="sunken"
-								>
+								<Token key={option.value} intent="default">
 									{option.label}
-								</Tag>
+								</Token>
 							))
 						: placeholder}
-				</SelectControl>
+				</PickerButton>
 				{open ? (
-					<SelectMenu
-						filterInputProps={{
-							'aria-label': 'Filter options',
-							onChange: event => setQuery(event.currentTarget.value),
-							placeholder: 'Filter...',
-							value: query
-						}}
-						placement="floating"
-					>
-						{filteredOptions.map(option => (
-							<OptionRow
-								aria-selected={currentValue.includes(option.value)}
-								description={option.description}
-								disabled={option.disabled}
-								key={option.value}
-								kind="select"
-								meta={option.meta}
-								onClick={() => toggleOption(option)}
-								role="option"
-								selected={currentValue.includes(option.value)}
-							>
-								{option.label}
-							</OptionRow>
-						))}
-					</SelectMenu>
+					<MenuSurface role="listbox">
+						<SearchInput
+							inputProps={{
+								'aria-label': 'Filter options',
+								onChange: event => setQuery(event.currentTarget.value),
+								placeholder: 'Filter...',
+								value: query
+							}}
+						/>
+						<Listbox>
+							{filteredOptions.map(option => (
+								<OptionRow
+									aria-selected={currentValue.includes(option.value)}
+									description={option.description}
+									disabled={option.disabled}
+									key={option.value}
+									kind="select"
+									meta={option.meta}
+									onClick={() => toggleOption(option)}
+									role="option"
+									selected={currentValue.includes(option.value)}
+								>
+									{option.label}
+								</OptionRow>
+							))}
+						</Listbox>
+					</MenuSurface>
 				) : null}
-			</PickerShell>
+			</PickerSurface>
 		</Field>
 	)
 }

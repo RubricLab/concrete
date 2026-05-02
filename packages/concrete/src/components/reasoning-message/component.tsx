@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import { ReasoningPanel, ReasoningPanelStep, ReasoningSteps } from '../../primitives'
-import { Message, type MessageProps } from '../../primitives/internal/message'
+import { TracePanel, TraceStep, TraceSteps } from '../../primitives'
 import type { ReasoningStep as ReasoningStepData } from '../../schemas'
+import { Message, type MessageProps } from '../message/component'
 
 export type ReasoningMessageStep = ReasoningStepData & {
 	detail?: ReactNode
@@ -18,52 +18,40 @@ export function ReasoningMessage({
 	open = false,
 	status = 'streaming',
 	steps = defaultReasoningSteps,
-	summary = 'Inspecting context and selecting the next deterministic action.',
+	summary = 'Checking schema and render boundaries before patching.',
 	title = 'Thinking',
 	...props
 }: ReasoningMessageProps) {
 	return (
 		<Message messageRole="assistant" showStatus={false} status={status} surface="plain" {...props}>
-			<ReasoningPanel
-				open={open}
-				status={status}
-				stepCount={steps.length}
-				summary={summary}
-				title={title}
-			>
-				<ReasoningSteps>
+			<TracePanel open={open} status={status} stepCount={steps.length} summary={summary} title={title}>
+				<TraceSteps>
 					{steps.map(step => (
-						<ReasoningPanelStep
-							detail={step.detail}
-							key={step.id}
-							label={step.label}
-							status={step.status}
-						/>
+						<TraceStep detail={step.detail} key={step.id} label={step.label} status={step.status} />
 					))}
-				</ReasoningSteps>
-			</ReasoningPanel>
+				</TraceSteps>
+			</TracePanel>
 		</Message>
 	)
 }
 
 const defaultReasoningSteps = [
 	{
-		detail: 'Read the transcript, active scopes, and the command surface state before touching code.',
+		detail: 'Read the transcript, active scope, and current render route.',
 		id: 'context',
-		label: 'Context loaded',
+		label: 'Context',
 		status: 'complete'
 	},
 	{
-		detail:
-			'Selected the smallest local tools needed to verify behavior and avoid product policy drift.',
+		detail: 'Selected the smallest commands needed to verify the change.',
 		id: 'tools',
-		label: 'Tool plan selected',
+		label: 'Tools',
 		status: 'complete'
 	},
 	{
-		detail: 'Applying the focused interface change and keeping the final answer hierarchy stronger.',
+		detail: 'Applying the focused interface change.',
 		id: 'work',
-		label: 'Running focused action',
+		label: 'Patch',
 		status: 'streaming'
 	}
 ] as const satisfies readonly ReasoningMessageStep[]

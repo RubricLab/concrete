@@ -2,35 +2,37 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { ConcreteIcon } from '../../icons'
 import { concreteClassNames } from '../../styles/class-names'
 import {
-	getLabelToneClass,
+	getLabelIntentClass,
 	type LabelIconSlot,
-	type LabelTone,
+	type LabelIntent,
 	renderLabelIconSlot
 } from '../label-helpers'
 import { cn } from '../utils'
 
 export type ChipProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
 	children?: ReactNode
+	intent?: LabelIntent
 	leadingIcon?: LabelIconSlot
 	selected?: boolean
-	tone?: LabelTone
 }
 
 export function Chip({
 	children,
 	className,
+	intent = 'neutral',
 	leadingIcon,
 	selected = false,
-	tone = 'default',
 	...props
 }: ChipProps) {
 	return (
 		<button
 			className={cn(
 				concreteClassNames.chip,
-				selected ? concreteClassNames.chipSelected : getLabelToneClass(tone),
+				selected ? concreteClassNames.chipSelected : getLabelIntentClass(intent),
 				className
 			)}
+			data-intent={intent}
+			data-selected={selected ? 'true' : undefined}
 			type="button"
 			{...props}
 		>

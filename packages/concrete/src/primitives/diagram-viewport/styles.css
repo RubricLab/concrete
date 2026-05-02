@@ -1,10 +1,10 @@
-.concrete-diagram-canvas-card {
+.concrete-diagram-shell {
 	overflow: hidden;
 	padding: var(--concrete-space-0);
 	background: var(--concrete-surface);
 }
 
-.concrete-diagram-canvas-header {
+.concrete-diagram-header {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -15,14 +15,14 @@
 	background: var(--concrete-surface);
 }
 
-.concrete-diagram-canvas-title-block {
+.concrete-diagram-title-block {
 	min-width: var(--concrete-space-0);
 }
 
-.concrete-diagram-canvas-header h3 {
+.concrete-diagram-header h3 {
 	display: inline-flex;
 	align-items: center;
-	min-height: var(--concrete-size-diagram-canvas-title-block);
+	min-height: var(--concrete-size-diagram-title-block);
 	margin: var(--concrete-space-0);
 	padding: var(--concrete-space-0) var(--concrete-space-2-75);
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
@@ -36,12 +36,12 @@
 	text-transform: uppercase;
 }
 
-.concrete-diagram-canvas-status {
+.concrete-diagram-status {
 	display: inline-flex;
 	flex: var(--concrete-flex-fill) var(--concrete-flex-fill)
-		var(--concrete-measure-diagram-canvas-status-basis);
+		var(--concrete-measure-diagram-status-basis);
 	min-width: var(--concrete-space-0);
-	max-width: var(--concrete-measure-diagram-canvas-status);
+	max-width: var(--concrete-measure-diagram-status);
 	align-items: center;
 	justify-content: flex-end;
 	gap: var(--concrete-space-2-25);
@@ -54,51 +54,55 @@
 	text-wrap: balance;
 }
 
-.concrete-diagram-canvas-status span {
+.concrete-diagram-status span {
 	flex: none;
-	width: var(--concrete-size-diagram-canvas-status-dot);
-	height: var(--concrete-size-diagram-canvas-status-dot);
+	width: var(--concrete-size-diagram-status-dot);
+	height: var(--concrete-size-diagram-status-dot);
 	border-radius: var(--concrete-radius-pill);
 	background: var(--concrete-ultra);
-	box-shadow: var(--concrete-shadow-diagram-canvas-status);
+	box-shadow: var(--concrete-shadow-diagram-status);
 }
 
-.concrete-diagram-canvas-viewport {
+.concrete-diagram-viewport {
 	position: relative;
 	overflow: hidden;
-	min-height: var(--diagram-canvas-height, var(--concrete-size-diagram-canvas-height));
-	background: var(--concrete-diagram-canvas-background);
+	min-height: var(--diagram-height, var(--concrete-size-diagram-height));
+	background: var(--concrete-diagram-background);
 	cursor: grab;
 	touch-action: none;
 }
 
-.concrete-diagram-canvas-panning {
+.concrete-diagram-panning {
 	cursor: grabbing;
 }
 
-.concrete-diagram-canvas-stage {
+.concrete-diagram-stage {
 	position: absolute;
 	top: var(--concrete-size-half);
 	left: var(--concrete-size-half);
-	width: var(--diagram-canvas-width, var(--concrete-size-diagram-canvas-width));
-	height: var(--diagram-canvas-height, var(--concrete-size-diagram-canvas-height));
-	transform: var(--concrete-template-diagram-canvas-stage);
+	width: var(--diagram-width, var(--concrete-size-diagram-width));
+	height: var(--diagram-height, var(--concrete-size-diagram-height));
+	transform: translate(
+			var(--concrete-translate-half-negative),
+			var(--concrete-translate-half-negative)
+		)
+		var(--diagram-transform);
 	transform-origin: center;
 	transition: transform var(--concrete-duration-disclosure) var(--concrete-ease-disclosure);
 }
 
-.concrete-diagram-canvas-element {
+.concrete-diagram-element {
 	position: absolute;
 	width: var(--diagram-element-width);
 	min-height: var(--diagram-element-height);
-	transform: var(--concrete-template-diagram-canvas-element);
+	transform: var(--concrete-template-diagram-element);
 }
 
-.concrete-diagram-canvas-element > * {
+.concrete-diagram-element > * {
 	width: var(--concrete-size-full);
 }
 
-.concrete-diagram-canvas-item-button {
+.concrete-diagram-item-button {
 	padding: var(--concrete-space-0);
 	border: var(--concrete-space-0);
 	background: transparent;
@@ -106,48 +110,48 @@
 	cursor: pointer;
 }
 
-.concrete-diagram-canvas-item-button:focus-visible {
+.concrete-diagram-item-button:focus-visible {
 	outline: var(--concrete-ring-focus);
 	outline-offset: var(--concrete-space-0-75);
 }
 
-.concrete-diagram-canvas-footer {
+.concrete-diagram-footer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: var(--concrete-space-4);
-	min-height: var(--concrete-size-diagram-canvas-footer);
+	min-height: var(--concrete-size-diagram-footer);
 	padding: var(--concrete-space-2-25) var(--concrete-space-3-5);
 	border-top: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
 	background: var(--concrete-surface);
 }
 
-.concrete-flow-diagram-card {
+.concrete-diagram-flow-shell {
 	display: grid;
 	gap: var(--concrete-space-3);
 	min-width: var(--concrete-space-0);
 	padding: var(--concrete-space-3-5);
 }
 
-.concrete-flow-diagram-viewport {
+.concrete-diagram-flow-viewport {
 	overflow: hidden;
 	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
 	border-radius: var(--concrete-radius-3);
 	background: var(--concrete-sunken);
 }
 
-.concrete-flow-diagram-canvas {
+.concrete-diagram-flow-canvas {
 	display: block;
 	width: var(--concrete-size-full);
-	height: var(--diagram-height, var(--concrete-size-flow-diagram-height));
+	height: var(--diagram-height, var(--concrete-size-diagram-flow-height));
 	color: var(--concrete-foreground-muted);
 }
 
-.concrete-flow-diagram-grid {
+.concrete-diagram-flow-grid {
 	stroke: none;
 }
 
-.concrete-flow-diagram-canvas pattern path {
+.concrete-diagram-flow-canvas pattern path {
 	stroke: var(--concrete-border-soft);
 	stroke-width: var(--concrete-border-width-hairline);
 }

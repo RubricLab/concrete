@@ -2,6 +2,7 @@ import { z } from 'zod/v4'
 
 export const conceptConnectorPrimitiveSchema = z
 	.object({
+		intent: z.enum(['ink', 'muted', 'sky', 'terminal', 'ultra', 'error']).default('muted'),
 		kind: z
 			.enum([
 				'straight',
@@ -15,8 +16,7 @@ export const conceptConnectorPrimitiveSchema = z
 			])
 			.default('straight'),
 		muted: z.boolean().default(false),
-		selected: z.boolean().default(false),
-		tone: z.enum(['ink', 'muted', 'sky', 'terminal', 'ultra', 'error']).default('muted')
+		selected: z.boolean().default(false)
 	})
 	.strict()
 

@@ -4,12 +4,12 @@ import { Input } from '../input'
 import { ScaleFrame } from './component'
 
 export const scaleFrameExamples = defineExamples({
-	controls: {
+	default: {
 		description: 'A larger control group scaled inside fixed preview bounds.',
-		render: function renderControls() {
+		render: function renderDefault() {
 			return (
 				<ScaleFrame scale={0.72} surface="raised">
-					<Button variant="sky">Ship interface</Button>
+					<Button intent="sky">Ship interface</Button>
 					<Input aria-label="Scale frame input" defaultValue="agent@example.com" />
 				</ScaleFrame>
 			)

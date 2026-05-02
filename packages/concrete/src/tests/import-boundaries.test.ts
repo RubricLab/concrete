@@ -2,6 +2,11 @@ import { describe, expect, test } from 'bun:test'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { basename, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+	componentDefinitions,
+	foundationDefinitions,
+	primitiveDefinitions
+} from '../registry/items'
 import { concreteClassNameEntries } from '../styles/class-names'
 import {
 	componentStyleSources,
@@ -92,19 +97,389 @@ const packageStyleExports = [
 		targetPath: './dist/styles/primitives.css'
 	}
 ] as const
+const retiredPublicPrimitiveSlugs = [
+	'bubble',
+	'calendar-panel',
+	'chart-legend',
+	'chart-surface',
+	'composer-rail',
+	'composer-shell',
+	'data-card-header',
+	'data-table-control',
+	'data-table-pagination',
+	'data-table-shell',
+	'feedback-panel',
+	'focus-ring',
+	'form-layout',
+	'form-overlay',
+	'menu-shell',
+	'message-shell',
+	'metric-shell',
+	'picker-control',
+	'picker-shell',
+	'preview-stage',
+	'range-control',
+	'reasoning-panel',
+	'row',
+	'search-field',
+	'search-token',
+	'select-control',
+	'select-menu',
+	'stepper-control',
+	'suggestion-menu',
+	'texture'
+] as const
+const retiredPublicComponentSlugs = ['feature-card', 'form-shell', 'toolbar'] as const
+const allowedComponentImplementationImports = new Map<string, readonly string[]>([
+	['packages/concrete/src/components/reasoning-message/component.tsx', ['message']],
+	['packages/concrete/src/components/tool-call-message/component.tsx', ['message']]
+])
+const allowedComponentDemoImports = new Map<string, readonly string[]>([
+	[
+		'packages/concrete/src/components/form-dialog/examples.tsx',
+		['date-range-picker', 'file-upload', 'multi-select', 'validation-summary']
+	],
+	[
+		'packages/concrete/src/components/form-dialog/index.tsx',
+		['date-range-picker', 'file-upload', 'multi-select', 'validation-summary']
+	],
+	[
+		'packages/concrete/src/components/form-drawer/examples.tsx',
+		['date-picker', 'file-upload', 'multi-select', 'number-stepper', 'validation-summary']
+	],
+	[
+		'packages/concrete/src/components/form-drawer/index.tsx',
+		['date-picker', 'file-upload', 'multi-select', 'number-stepper', 'validation-summary']
+	],
+	['packages/concrete/src/components/search-bar/examples.tsx', ['command-menu']],
+	['packages/concrete/src/components/search-bar/index.tsx', ['command-menu']],
+	['packages/concrete/src/components/settings-panel/examples.tsx', ['number-stepper']],
+	['packages/concrete/src/components/settings-panel/index.tsx', ['number-stepper']]
+])
 const allowedMediaQueryConditions = new Set(['(width <= 420px)', '(width <= 640px)'])
 const dynamicPrimitiveInlineStyleFiles = [
-	'packages/concrete/src/primitives/chart-surface/component.tsx',
-	'packages/concrete/src/primitives/data-table-shell/component.tsx',
+	'packages/concrete/src/primitives/chart-frame/component.tsx',
 	'packages/concrete/src/primitives/diagram-minimap/component.tsx',
 	'packages/concrete/src/primitives/diagram-viewport/component.tsx',
+	'packages/concrete/src/primitives/donut-ring/component.tsx',
+	'packages/concrete/src/primitives/heatmap-grid/component.tsx',
 	'packages/concrete/src/primitives/progress/component.tsx',
-	'packages/concrete/src/primitives/range-control/component.tsx',
+	'packages/concrete/src/primitives/range/component.tsx',
 	'packages/concrete/src/primitives/scale-frame/component.tsx',
 	'packages/concrete/src/primitives/skeleton/component.tsx',
 	'packages/concrete/src/primitives/slider/component.tsx',
+	'packages/concrete/src/primitives/table/component.tsx',
 	'packages/concrete/src/primitives/upload-item/component.tsx'
 ] as const
+const dynamicPrimitiveSchemaFieldExceptions = new Map<string, readonly string[]>([
+	['packages/concrete/src/primitives/diagram-viewport/schema.ts', ['height', 'width']],
+	['packages/concrete/src/primitives/flow-node/schema.ts', ['height', 'width']],
+	['packages/concrete/src/primitives/skeleton/schema.ts', ['height', 'width']]
+])
+const genericDiagramPrimitivePublicFiles = [
+	'packages/concrete/src/primitives/diagram-controls/component.tsx',
+	'packages/concrete/src/primitives/diagram-controls/index.tsx',
+	'packages/concrete/src/primitives/diagram-edge/component.tsx',
+	'packages/concrete/src/primitives/diagram-edge/index.tsx',
+	'packages/concrete/src/primitives/diagram-viewport/component.tsx',
+	'packages/concrete/src/primitives/diagram-viewport/index.tsx'
+]
+const genericDiagramStyleVocabularyFiles = [
+	'packages/concrete/src/styles/class-names.ts',
+	'packages/concrete/src/foundations/colors/styles.css',
+	'packages/concrete/src/foundations/elevation/styles.css',
+	'packages/concrete/src/foundations/layout/styles.css',
+	'packages/concrete/src/foundations/sizing/examples.tsx',
+	'packages/concrete/src/foundations/sizing/schema.ts',
+	'packages/concrete/src/foundations/sizing/styles.css',
+	'packages/concrete/src/foundations/textures/examples.tsx',
+	'packages/concrete/src/foundations/textures/styles.css',
+	'packages/concrete/src/primitives/diagram-controls/component.tsx',
+	'packages/concrete/src/primitives/diagram-controls/styles.css',
+	'packages/concrete/src/primitives/diagram-edge/component.tsx',
+	'packages/concrete/src/primitives/diagram-edge/styles.css',
+	'packages/concrete/src/primitives/diagram-legend/component.tsx',
+	'packages/concrete/src/primitives/diagram-legend/styles.css',
+	'packages/concrete/src/primitives/diagram-minimap/component.tsx',
+	'packages/concrete/src/primitives/diagram-minimap/styles.css',
+	'packages/concrete/src/primitives/diagram-rail/component.tsx',
+	'packages/concrete/src/primitives/diagram-rail/styles.css',
+	'packages/concrete/src/primitives/diagram-viewport/component.tsx',
+	'packages/concrete/src/primitives/diagram-viewport/styles.css',
+	'packages/concrete/src/primitives/flow-node/component.tsx',
+	'packages/concrete/src/primitives/flow-node/styles.css'
+]
+const bannedComponentSpecificUtilityFiles = [
+	'packages/concrete/src/utilities/composer-parts.tsx',
+	'packages/concrete/src/utilities/data-table-logic.ts',
+	'packages/concrete/src/utilities/diagram-canvas-logic.ts'
+]
+const bannedFoundationTokenNouns = [
+	'command',
+	'composer',
+	'data-table',
+	'diagram-canvas',
+	'file-upload',
+	'flow-diagram',
+	'form-shell',
+	'image-upload',
+	'meter',
+	'metric',
+	'number-stepper',
+	'range',
+	'range-slider',
+	'search',
+	'stepper',
+	'toolbar',
+	'tooltip',
+	'upload'
+] as const
+const bannedPrimitiveVisualSchemaKeys = new Set([
+	'background',
+	'borderColor',
+	'borderRadius',
+	'className',
+	'color',
+	'colors',
+	'fontSize',
+	'fontWeight',
+	'foreground',
+	'gap',
+	'height',
+	'inset',
+	'margin',
+	'padding',
+	'radius',
+	'shadow',
+	'spacing',
+	'style',
+	'styles',
+	'width'
+])
+const loosePrimitiveSchemaKeys = new Set(['size', 'tone', 'variant'])
+const looseComponentSchemaKeys = new Set(['size', 'tone', 'variant'])
+const semanticPrimitiveSchemaContracts = [
+	{
+		banned: ['signal', 'size', 'variant'],
+		required: ['hierarchy', 'intent', 'purpose'],
+		schemaPath: 'packages/concrete/src/primitives/badge/schema.ts'
+	},
+	{
+		banned: ['size', 'variant'],
+		required: ['density', 'hierarchy', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/button/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/primitives/chip/schema.ts'
+	},
+	{
+		banned: ['size', 'variant'],
+		required: ['density', 'hierarchy', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/delta/schema.ts'
+	},
+	{
+		banned: ['size', 'variant'],
+		required: ['density', 'hierarchy', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/icon-button/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/primitives/indicator/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/primitives/label/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/primitives/pill/schema.ts'
+	},
+	{
+		banned: ['size', 'tone'],
+		required: ['density', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/progress/schema.ts'
+	},
+	{
+		banned: ['size', 'tone'],
+		required: ['density', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/progress-ring/schema.ts'
+	},
+	{
+		banned: ['size', 'tone'],
+		required: ['density', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/spinner/schema.ts'
+	},
+	{
+		banned: ['size', 'tone', 'variant'],
+		required: ['density', 'intent', 'purpose'],
+		schemaPath: 'packages/concrete/src/primitives/stat/schema.ts'
+	},
+	{
+		banned: ['size', 'tone', 'variant'],
+		required: ['density', 'hierarchy', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/tag/schema.ts'
+	},
+	{
+		banned: ['size'],
+		required: ['density'],
+		schemaPath: 'packages/concrete/src/primitives/avatar/schema.ts'
+	},
+	{
+		banned: ['size', 'tone'],
+		required: ['density', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/empty-state/schema.ts'
+	}
+] as const
+const dynamicDataSchemaContracts = [
+	{
+		banned: ['variant'],
+		required: ['kind'],
+		schemaPath: 'packages/concrete/src/primitives/chart-frame/schema.ts'
+	},
+	{
+		banned: ['tone', 'variant'],
+		required: ['display', 'intent'],
+		schemaPath: 'packages/concrete/src/primitives/sparkline/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['hierarchy'],
+		schemaPath: 'packages/concrete/src/primitives/flow-node/schema.ts'
+	},
+	{
+		banned: ['tone', 'variant'],
+		required: ['intent', 'relation'],
+		schemaPath: 'packages/concrete/src/primitives/diagram-edge/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/primitives/diagram-item/schema.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/primitives/concept-connector/schema.ts'
+	},
+	{
+		banned: ['variant'],
+		required: ['kind'],
+		schemaPath: 'packages/concrete/src/schemas/data-charts.ts'
+	},
+	{
+		banned: ['tone', 'trendTone', 'variant'],
+		required: ['display', 'intent', 'trendIntent'],
+		schemaPath: 'packages/concrete/src/schemas/data-core.ts'
+	},
+	{
+		banned: ['tone'],
+		required: ['intent'],
+		schemaPath: 'packages/concrete/src/schemas/data-table.ts'
+	},
+	{
+		banned: ['tone', 'variant'],
+		required: ['hierarchy', 'intent', 'relation'],
+		schemaPath: 'packages/concrete/src/schemas/diagram.ts'
+	}
+] as const
+const documentedPrimitiveRuntimeExports = new Map<string, readonly string[]>([
+	[
+		'axis',
+		[
+			'ChartAxis',
+			'ChartBaseline',
+			'ChartTickLabel',
+			'ChartAxisLabel',
+			'ChartRowLabel',
+			'ChartValueLabel',
+			'ChartEndLabel'
+		]
+	],
+	['chart-frame', ['ChartFrame', 'ChartMessage']],
+	['chart-grid', ['ChartGrid', 'ChartPlotBackground']],
+	['checkbox', ['Checkbox', 'ChoiceRow']],
+	['code', ['CodeBlock', 'InlineCode']],
+	[
+		'composer-surface',
+		[
+			'ComposerSurface',
+			'ComposerEditor',
+			'ComposerFooter',
+			'ComposerToolbar',
+			'ComposerMenuLayer',
+			'ComposerSubmitDock',
+			'ComposerSendButton'
+		]
+	],
+	['diagram-edge', ['DiagramEdges', 'DiagramEdgePath']],
+	[
+		'diagram-viewport',
+		[
+			'DiagramShell',
+			'DiagramHeader',
+			'DiagramViewport',
+			'DiagramStage',
+			'DiagramElement',
+			'DiagramElementButton',
+			'DiagramFooter',
+			'DiagramSvg'
+		]
+	],
+	['donut-ring', ['DonutPlot', 'DonutCenter', 'DonutTrack', 'DonutSegment']],
+	[
+		'heatmap-grid',
+		['HeatmapGrid', 'HeatmapCorner', 'HeatmapColumnLabel', 'HeatmapRowLabel', 'HeatmapCell']
+	],
+	['input', ['Input', 'InputControl']],
+	['legend', ['Legend', 'LegendItem']],
+	['pagination', ['Pagination', 'PaginationButton']],
+	['range', ['Range', 'RangeTrack', 'RangeInput', 'RangeValues']],
+	['series-bar', ['ChartBar', 'ChartBarTrack', 'ChartBarComparison', 'ChartStackSegment']],
+	['series-line', ['ChartArea', 'ChartLine']],
+	['series-point', ['ChartPoint', 'ChartEndpoint']],
+	['stepper', ['Stepper', 'StepperAction', 'StepperInput']],
+	[
+		'table',
+		[
+			'TableViewport',
+			'Table',
+			'TableHead',
+			'TableBody',
+			'TableRow',
+			'TableHeaderCell',
+			'TableCell',
+			'TableSelectionHeaderCell',
+			'TableSelectionCell',
+			'TableSelectionInput',
+			'TableSortButton',
+			'TableEmpty',
+			'TableEmptyCell'
+		]
+	],
+	['token-rail', ['TokenRail', 'TokenRailItem']],
+	[
+		'tool-call-panel',
+		['ToolCallPanel', 'ToolCallStatusChip', 'ToolCallBody', 'ToolOutput', 'ToolCodeBlock']
+	],
+	[
+		'toolbar-control',
+		[
+			'ToolbarControl',
+			'ToolbarControlGroup',
+			'ToolbarControlSeparator',
+			'ToolbarControlButton',
+			'ToolbarFormatGlyph'
+		]
+	],
+	['trace-panel', ['TracePanel', 'TraceSteps', 'TraceStep']],
+	['transcript-item', ['TranscriptItem', 'TranscriptPlain', 'TranscriptMetaItem']]
+])
+const documentedComponentRuntimeExports = new Map<string, readonly string[]>([])
 const chartRenderingUtilityFiles = [
 	'packages/concrete/src/utilities/bar-chart-rendering.tsx',
 	'packages/concrete/src/utilities/chart-core-rendering.tsx',
@@ -116,8 +491,7 @@ const chartRenderingUtilityFiles = [
 ] as const
 const selfDocumentingPreviewPrimitiveExampleFiles = new Set([
 	'packages/concrete/src/primitives/card/examples.tsx',
-	'packages/concrete/src/primitives/frame/examples.tsx',
-	'packages/concrete/src/primitives/preview-stage/examples.tsx'
+	'packages/concrete/src/primitives/frame/examples.tsx'
 ])
 
 describe('Import boundaries', () => {
@@ -178,10 +552,11 @@ describe('Import boundaries', () => {
 
 		expect(plan).toContain('## Current Baseline')
 		expect(plan).toContain('## Active Work')
-		expect(plan).toContain('## Foundation Folders')
-		expect(plan).toContain('## Primitive Folders')
-		expect(plan).toContain('## Component Folders')
-		expect(plan).toContain('## Implementation Phases')
+		expect(plan).toContain('## Phase 7A: Foundation Perfection')
+		expect(plan).toContain('## Phase 7B: Primitive Scope Closure')
+		expect(plan).toContain('## Phase 7C: Primitive Family Consistency')
+		expect(plan).toContain('## Phase 7D: Enforcement')
+		expect(plan).toContain('## Phase 7D Gates')
 		expect(plan).toContain('## Per-Item Audit Template')
 		expect(readFileSync(join(repoRoot, 'CODE.md'), 'utf8')).toContain('PLAN.md')
 	})
@@ -206,7 +581,7 @@ describe('Import boundaries', () => {
 
 	test('docs expose registry-led foundation render and detail surfaces', () => {
 		const requiredFiles = [
-			'app/foundations/[slug]/page.tsx',
+			'app/(site)/foundations/[slug]/page.tsx',
 			'app/render/[kind]/[slug]/page.tsx',
 			'app/render/[kind]/[slug]/screenshot/route.ts',
 			'scripts/catalog-audit.ts',
@@ -286,6 +661,106 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
+	test('registry definitions stay aligned with public item folders', () => {
+		expect(foundationDefinitions.map(definition => String(definition.slug)).sort()).toEqual(
+			listItemSlugs('packages/concrete/src/foundations')
+		)
+		expect(primitiveDefinitions.map(definition => String(definition.slug)).sort()).toEqual(
+			listItemSlugs('packages/concrete/src/primitives')
+		)
+		expect(componentDefinitions.map(definition => String(definition.slug)).sort()).toEqual(
+			listItemSlugs('packages/concrete/src/components')
+		)
+	})
+
+	test('retired public items stay deleted from folders, barrels, registry, and styles', () => {
+		const primitiveSource = [
+			readFileSync(join(repoRoot, 'packages/concrete/src/primitives/index.tsx'), 'utf8'),
+			readFileSync(join(repoRoot, 'packages/concrete/src/registry/items.tsx'), 'utf8'),
+			readFileSync(join(repoRoot, 'packages/concrete/src/registry/types.ts'), 'utf8'),
+			readFileSync(join(repoRoot, 'packages/concrete/src/styles/manifest.ts'), 'utf8')
+		].join('\n')
+		const componentSource = [
+			readFileSync(join(repoRoot, 'packages/concrete/src/components/index.tsx'), 'utf8'),
+			readFileSync(join(repoRoot, 'packages/concrete/src/registry/items.tsx'), 'utf8'),
+			readFileSync(join(repoRoot, 'packages/concrete/src/registry/types.ts'), 'utf8')
+		].join('\n')
+		const primitiveViolations = retiredPublicPrimitiveSlugs.flatMap(slug => {
+			const folderExists = existsSync(join(repoRoot, 'packages/concrete/src/primitives', slug))
+			const sourceIncludesSlug = hasSlugToken(primitiveSource, slug)
+
+			return folderExists || sourceIncludesSlug ? [`retired primitive ${slug} is still public`] : []
+		})
+		const componentViolations = retiredPublicComponentSlugs.flatMap(slug => {
+			const folderExists = existsSync(join(repoRoot, 'packages/concrete/src/components', slug))
+			const sourceIncludesSlug = hasSlugToken(componentSource, slug)
+
+			return folderExists || sourceIncludesSlug ? [`retired component ${slug} is still public`] : []
+		})
+
+		expect([...primitiveViolations, ...componentViolations]).toEqual([])
+	})
+
+	test('phase 7B primitive scope decisions stay closed', () => {
+		const progressComponentSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/primitives/progress/component.tsx'),
+			'utf8'
+		)
+		const progressIndexSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/primitives/progress/index.tsx'),
+			'utf8'
+		)
+		const timeListSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/primitives/time-list/component.tsx'),
+			'utf8'
+		)
+		const toolCallPanelSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/primitives/tool-call-panel/component.tsx'),
+			'utf8'
+		)
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const primitiveSlugs = new Set(primitiveDefinitions.map(definition => String(definition.slug)))
+		const toolCallExportNames = listExportedFunctionNames(toolCallPanelSource)
+		const allowedToolCallPanelSubparts = [
+			'ToolCallBody',
+			'ToolCallStatusChip',
+			'ToolCodeBlock',
+			'ToolOutput'
+		]
+		const violations = [
+			...(['ProgressRing', 'SegmentedProgress'].some(name =>
+				progressComponentSource.includes(`export function ${name}`)
+			)
+				? ['progress component still exports split progress subparts']
+				: []),
+			...(progressIndexSource.includes('ProgressRing') ||
+			progressIndexSource.includes('SegmentedProgress')
+				? ['progress index still re-exports split progress subparts']
+				: []),
+			...(primitiveSlugs.has('progress-ring') ? [] : ['progress-ring is missing from primitives']),
+			...(primitiveSlugs.has('segmented-progress')
+				? []
+				: ['segmented-progress is missing from primitives']),
+			...(timeListSource.includes('../listbox/component') &&
+			timeListSource.includes('../option-row/component')
+				? []
+				: ['time-list is not assembled from Listbox and OptionRow']),
+			...(/<button\b/u.test(timeListSource) ? ['time-list owns raw option button chrome'] : []),
+			...toolCallExportNames.flatMap(name =>
+				name === 'ToolCallPanel' || allowedToolCallPanelSubparts.includes(name)
+					? []
+					: [`tool-call-panel exports undocumented subpart ${name}`]
+			),
+			...allowedToolCallPanelSubparts.flatMap(name =>
+				toolCallExportNames.includes(name) && plan.includes(name)
+					? []
+					: [`tool-call-panel subpart ${name} is missing or undocumented`]
+			)
+		]
+
+		expect(violations).toEqual([])
+	})
+
 	test('internal primitive implementations stay private and minimal', () => {
 		const internalRoot = join(repoRoot, 'packages/concrete/src/primitives/internal')
 		const violations = listDirectories(internalRoot).flatMap(directory => {
@@ -295,6 +770,43 @@ describe('Import boundaries', () => {
 
 			return isMinimal ? [] : [`${relative(repoRoot, directory)} has ${fileNames.join(',')}`]
 		})
+
+		expect(violations).toEqual([])
+	})
+
+	test('phase 5C upload workflow behavior stays component-owned', () => {
+		const internalUploadRoot = join(repoRoot, 'packages/concrete/src/primitives/internal/file-upload')
+		const fileUploadSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/components/file-upload/component.tsx'),
+			'utf8'
+		)
+		const imageUploadSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/components/image-upload/component.tsx'),
+			'utf8'
+		)
+		const violations = [
+			...(existsSync(internalUploadRoot)
+				? ['primitives/internal/file-upload still owns upload workflow JSX']
+				: []),
+			...(fileUploadSource.includes('primitives/internal/file-upload')
+				? ['file-upload component still imports internal upload primitive']
+				: []),
+			...(imageUploadSource.includes('primitives/internal/file-upload')
+				? ['image-upload component still imports internal upload primitive']
+				: []),
+			...(fileUploadSource.includes('createUploadQueueItems')
+				? []
+				: ['file-upload lost queue utility boundary']),
+			...(imageUploadSource.includes('createUploadQueueItems')
+				? []
+				: ['image-upload lost queue utility boundary']),
+			...(fileUploadSource.includes('<UploadField')
+				? []
+				: ['file-upload no longer assembles UploadField']),
+			...(imageUploadSource.includes('<UploadField')
+				? []
+				: ['image-upload no longer assembles UploadField'])
+		]
 
 		expect(violations).toEqual([])
 	})
@@ -310,9 +822,117 @@ describe('Import boundaries', () => {
 		const componentFiles = listItemDirectories(
 			join(repoRoot, 'packages/concrete/src/components')
 		).map(directory => join(directory, 'component.tsx'))
-		const violations = componentFiles
-			.filter(filePath => /from ['"]\.\.\/[^./]/u.test(readFileSync(filePath, 'utf8')))
-			.map(filePath => relative(repoRoot, filePath))
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const violations = componentFiles.flatMap(filePath => {
+			const relativePath = relative(repoRoot, filePath)
+			const allowedSlugs = new Set(allowedComponentImplementationImports.get(relativePath) ?? [])
+
+			return listSiblingComponentImports(readFileSync(filePath, 'utf8')).flatMap(componentSlug =>
+				allowedSlugs.has(componentSlug)
+					? []
+					: [`${relativePath} imports sibling component ${componentSlug}`]
+			)
+		})
+		const staleAllowedImports = [...allowedComponentImplementationImports.entries()].flatMap(
+			([relativePath, componentSlugs]) => {
+				const absolutePath = join(repoRoot, relativePath)
+				const imports = existsSync(absolutePath)
+					? new Set(listSiblingComponentImports(readFileSync(absolutePath, 'utf8')))
+					: new Set<string>()
+
+				return componentSlugs.flatMap(componentSlug =>
+					imports.has(componentSlug)
+						? []
+						: [`${relativePath} no longer imports allowed component ${componentSlug}`]
+				)
+			}
+		)
+		const undocumentedAllowedImports = [...allowedComponentImplementationImports.entries()].flatMap(
+			([relativePath, componentSlugs]) => {
+				const componentSlug = basename(relativePath.replace(/\/component\.tsx$/u, ''))
+
+				return componentSlugs.flatMap(dependencySlug =>
+					plan.includes(`| \`${componentSlug}\` | \`${dependencySlug}\` |`)
+						? []
+						: [`PLAN.md does not document component tier ${componentSlug} -> ${dependencySlug}`]
+				)
+			}
+		)
+
+		expect([...violations, ...staleAllowedImports, ...undocumentedAllowedImports]).toEqual([])
+	})
+
+	test('component examples and render adapters compose only documented sibling components', () => {
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const compositionFiles = listExistingItemFiles('packages/concrete/src/components', [
+			'examples.tsx',
+			'index.tsx'
+		])
+		const violations = compositionFiles.flatMap(filePath => {
+			const relativePath = relative(repoRoot, filePath)
+			const allowedSlugs = new Set(allowedComponentDemoImports.get(relativePath) ?? [])
+
+			return listSiblingComponentImports(readFileSync(filePath, 'utf8')).flatMap(componentSlug =>
+				allowedSlugs.has(componentSlug)
+					? []
+					: [`${relativePath} composes undocumented sibling component ${componentSlug}`]
+			)
+		})
+		const staleAllowedImports = [...allowedComponentDemoImports.entries()].flatMap(
+			([relativePath, componentSlugs]) => {
+				const absolutePath = join(repoRoot, relativePath)
+				const imports = existsSync(absolutePath)
+					? new Set(listSiblingComponentImports(readFileSync(absolutePath, 'utf8')))
+					: new Set<string>()
+
+				return componentSlugs.flatMap(componentSlug =>
+					imports.has(componentSlug)
+						? []
+						: [`${relativePath} no longer composes allowed component ${componentSlug}`]
+				)
+			}
+		)
+		const undocumentedAllowedImports = [...allowedComponentDemoImports.entries()].flatMap(
+			([relativePath, componentSlugs]) =>
+				componentSlugs.flatMap(componentSlug =>
+					plan.includes(`| \`${relativePath}\` | \`${componentSlug}\` |`)
+						? []
+						: [`PLAN.md does not document demo composition ${relativePath} -> ${componentSlug}`]
+				)
+		)
+
+		expect([...violations, ...staleAllowedImports, ...undocumentedAllowedImports]).toEqual([])
+	})
+
+	test('phase 5C message workflow uses declared component tier', () => {
+		const internalMessageRoot = join(repoRoot, 'packages/concrete/src/primitives/internal/message')
+		const messageSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/components/message/component.tsx'),
+			'utf8'
+		)
+		const reasoningMessageSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/components/reasoning-message/component.tsx'),
+			'utf8'
+		)
+		const toolCallMessageSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/components/tool-call-message/component.tsx'),
+			'utf8'
+		)
+		const violations = [
+			...(existsSync(internalMessageRoot)
+				? ['primitives/internal/message still owns message workflow JSX']
+				: []),
+			...(messageSource.includes('TranscriptItem')
+				? []
+				: ['message no longer owns TranscriptItem JSX']),
+			...(messageSource.includes('MessageBubble') ? [] : ['message no longer owns MessageBubble JSX']),
+			...(reasoningMessageSource.includes('../message/component')
+				? []
+				: ['reasoning-message does not use the declared message component tier']),
+			...(toolCallMessageSource.includes('../message/component')
+				? []
+				: ['tool-call-message does not use the declared message component tier'])
+		]
 
 		expect(violations).toEqual([])
 	})
@@ -348,15 +968,28 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
+	test('component raw DOM stays semantic and unstyled', () => {
+		const componentFiles = listItemDirectories(
+			join(repoRoot, 'packages/concrete/src/components')
+		).map(directory => join(directory, 'component.tsx'))
+		const styledRawDomPattern =
+			/<(?!form\b)(?:div|span|section|header|footer|main|aside|button|input|label|select|textarea|table|thead|tbody|tr|th|td|ul|ol|li|p|h[1-6])\b[^>]*\bclassName\s*=/u
+		const violations = componentFiles
+			.filter(filePath => styledRawDomPattern.test(readFileSync(filePath, 'utf8')))
+			.map(filePath => `${relative(repoRoot, filePath)} styles raw DOM instead of primitives`)
+
+		expect(violations).toEqual([])
+	})
+
 	test('examples do not wrap previews in generic chrome primitives', () => {
 		const exampleFiles = [
 			...listExistingItemFiles('packages/concrete/src/components', ['examples.tsx']),
 			...listExistingItemFiles('packages/concrete/src/primitives', ['examples.tsx'])
 		]
 		const forbiddenPreviewChromePatterns = [
-			/<\/?(?:Frame|Card|PreviewStage)\b/u,
-			/import\s*\{[^}]*\b(?:Frame|Card|PreviewStage)\b[^}]*\}\s*from ['"][^'"]*primitives['"]/u,
-			/from ['"][^'"]*(?:\/|^)(?:frame|card|preview-stage)(?:\/component)?['"]/u
+			/<\/?(?:Frame|Card)\b/u,
+			/import\s*\{[^}]*\b(?:Frame|Card)\b[^}]*\}\s*from ['"][^'"]*primitives['"]/u,
+			/from ['"][^'"]*(?:\/|^)(?:frame|card)(?:\/component)?['"]/u
 		]
 		const violations = exampleFiles.flatMap(filePath => {
 			const relativePath = relative(repoRoot, filePath)
@@ -396,6 +1029,203 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
+	test('public primitive schemas do not expose visual override props', () => {
+		const primitiveSchemaFiles = listExistingItemFiles('packages/concrete/src/primitives', [
+			'schema.ts'
+		])
+		const violations = primitiveSchemaFiles.flatMap(filePath => {
+			const relativePath = relative(repoRoot, filePath)
+			const allowedFields = new Set(dynamicPrimitiveSchemaFieldExceptions.get(relativePath) ?? [])
+			const schemaKeys = listObjectPropertyKeys(readFileSync(filePath, 'utf8'))
+
+			return schemaKeys.flatMap(key => {
+				const isBannedVisualKey = bannedPrimitiveVisualSchemaKeys.has(key)
+				const isAllowedDynamicGeometryKey = allowedFields.has(key)
+
+				return isBannedVisualKey && !isAllowedDynamicGeometryKey
+					? [`${relativePath} exposes visual override prop ${key}`]
+					: []
+			})
+		})
+		const staleExceptions = [...dynamicPrimitiveSchemaFieldExceptions.entries()].flatMap(
+			([relativePath, allowedFields]) => {
+				const absolutePath = join(repoRoot, relativePath)
+				const schemaKeys = existsSync(absolutePath)
+					? listObjectPropertyKeys(readFileSync(absolutePath, 'utf8'))
+					: []
+
+				return allowedFields.flatMap(field =>
+					schemaKeys.includes(field) ? [] : [`${relativePath} no longer exposes ${field}`]
+				)
+			}
+		)
+
+		expect([...violations, ...staleExceptions]).toEqual([])
+	})
+
+	test('phase 4B primitive schemas use semantic control vocabulary', () => {
+		const violations = semanticPrimitiveSchemaContracts.flatMap(contract => {
+			const source = readFileSync(join(repoRoot, contract.schemaPath), 'utf8')
+			const schemaKeys = new Set(listObjectPropertyKeys(source))
+			const missingKeys = contract.required.flatMap(key =>
+				schemaKeys.has(key) ? [] : [`${contract.schemaPath} is missing semantic prop ${key}`]
+			)
+			const bannedKeys = contract.banned.flatMap(key =>
+				schemaKeys.has(key) ? [`${contract.schemaPath} still exposes legacy prop ${key}`] : []
+			)
+
+			return [...missingKeys, ...bannedKeys]
+		})
+
+		expect(violations).toEqual([])
+	})
+
+	test('phase 4C dynamic data schemas use semantic data vocabulary', () => {
+		const violations = dynamicDataSchemaContracts.flatMap(contract => {
+			const source = readFileSync(join(repoRoot, contract.schemaPath), 'utf8')
+			const schemaKeys = new Set(listObjectPropertyKeys(source))
+			const missingKeys = contract.required.flatMap(key =>
+				schemaKeys.has(key) ? [] : [`${contract.schemaPath} is missing semantic prop ${key}`]
+			)
+			const bannedKeys = contract.banned.flatMap(key =>
+				schemaKeys.has(key) ? [`${contract.schemaPath} still exposes legacy prop ${key}`] : []
+			)
+
+			return [...missingKeys, ...bannedKeys]
+		})
+
+		expect(violations).toEqual([])
+	})
+
+	test('primitive runtime subpart exports are exact and documented', () => {
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const primitiveComponentFiles = listExistingItemFiles('packages/concrete/src/primitives', [
+			'component.tsx'
+		])
+		const violations = primitiveComponentFiles.flatMap(filePath => {
+			const slug = basename(filePath.replace(/\/component\.tsx$/u, ''))
+			const source = readFileSync(filePath, 'utf8')
+			const actualExports = listExportedRuntimeComponentNames(source)
+			const expectedExports = documentedPrimitiveRuntimeExports.get(slug)
+
+			if (expectedExports) {
+				const undocumentedNames = expectedExports.flatMap(name =>
+					plan.includes(name) ? [] : [`PLAN.md does not document primitive export ${name}`]
+				)
+
+				return actualExports.length > 1 && areStringArraysEqual(actualExports, expectedExports)
+					? undocumentedNames
+					: [
+							`${relative(repoRoot, filePath)} exports ${actualExports.join(', ')} instead of ${expectedExports.join(', ')}`
+						]
+			}
+
+			return actualExports.length <= 1
+				? []
+				: [
+						`${relative(repoRoot, filePath)} exports undocumented runtime subparts ${actualExports.join(', ')}`
+					]
+		})
+		const staleDocumentedSlugs = [...documentedPrimitiveRuntimeExports.keys()].flatMap(slug =>
+			existsSync(join(repoRoot, 'packages/concrete/src/primitives', slug, 'component.tsx'))
+				? []
+				: [`documented primitive subpart slug ${slug} no longer exists`]
+		)
+
+		expect([...violations, ...staleDocumentedSlugs]).toEqual([])
+	})
+
+	test('component runtime exports are singular unless documented', () => {
+		const plan = readFileSync(join(repoRoot, 'PLAN.md'), 'utf8')
+		const componentFiles = listExistingItemFiles('packages/concrete/src/components', [
+			'component.tsx'
+		])
+		const violations = componentFiles.flatMap(filePath => {
+			const slug = basename(filePath.replace(/\/component\.tsx$/u, ''))
+			const source = readFileSync(filePath, 'utf8')
+			const actualExports = listExportedRuntimeComponentNames(source)
+			const expectedExports = documentedComponentRuntimeExports.get(slug)
+
+			if (expectedExports) {
+				const undocumentedNames = expectedExports.flatMap(name =>
+					plan.includes(name) ? [] : [`PLAN.md does not document component export ${name}`]
+				)
+
+				return actualExports.length > 1 && areStringArraysEqual(actualExports, expectedExports)
+					? undocumentedNames
+					: [
+							`${relative(repoRoot, filePath)} exports ${actualExports.join(', ')} instead of ${expectedExports.join(', ')}`
+						]
+			}
+
+			return actualExports.length <= 1
+				? []
+				: [
+						`${relative(repoRoot, filePath)} exports undocumented runtime subparts ${actualExports.join(', ')}`
+					]
+		})
+		const staleDocumentedSlugs = [...documentedComponentRuntimeExports.keys()].flatMap(slug =>
+			existsSync(join(repoRoot, 'packages/concrete/src/components', slug, 'component.tsx'))
+				? []
+				: [`documented component subpart slug ${slug} no longer exists`]
+		)
+
+		expect([...violations, ...staleDocumentedSlugs]).toEqual([])
+	})
+
+	test('phase 4D primitive schemas do not expose loose vocabulary props', () => {
+		const primitiveSchemaFiles = listExistingItemFiles('packages/concrete/src/primitives', [
+			'schema.ts'
+		])
+		const violations = primitiveSchemaFiles.flatMap(filePath => {
+			const relativePath = relative(repoRoot, filePath)
+			const schemaKeys = listObjectPropertyKeys(readFileSync(filePath, 'utf8'))
+
+			return schemaKeys.flatMap(key =>
+				loosePrimitiveSchemaKeys.has(key) ? [`${relativePath} exposes loose primitive prop ${key}`] : []
+			)
+		})
+
+		expect(violations).toEqual([])
+	})
+
+	test('phase 5B component schemas do not expose loose vocabulary props', () => {
+		const componentSchemaFiles = listExistingItemFiles('packages/concrete/src/components', [
+			'schema.ts'
+		])
+		const violations = componentSchemaFiles.flatMap(filePath => {
+			const relativePath = relative(repoRoot, filePath)
+			const schemaKeys = listObjectPropertyKeys(readFileSync(filePath, 'utf8'))
+
+			return schemaKeys.flatMap(key =>
+				looseComponentSchemaKeys.has(key) ? [`${relativePath} exposes loose component prop ${key}`] : []
+			)
+		})
+
+		expect(violations).toEqual([])
+	})
+
+	test('phase 5B shared interaction and form schemas use semantic vocabulary', () => {
+		const interactionSource = readFileSync(
+			join(repoRoot, 'packages/concrete/src/schemas/interaction.ts'),
+			'utf8'
+		)
+		const formsSource = readFileSync(join(repoRoot, 'packages/concrete/src/schemas/forms.ts'), 'utf8')
+		const violations = [
+			...(interactionSource.includes('tone:') ? ['interaction schema still exposes tone'] : []),
+			...(interactionSource.includes('commandItemTone')
+				? ['interaction schema still names command item tone']
+				: []),
+			...(interactionSource.includes('intent:') ? [] : ['interaction schema is missing intent']),
+			...(formsSource.includes('formShellVariant')
+				? ['form schema still names form shell variant']
+				: []),
+			...(formsSource.includes('variant:') ? ['form schema still exposes variant'] : [])
+		]
+
+		expect(violations).toEqual([])
+	})
+
 	test('primitive inline styles stay limited to documented dynamic adapters', () => {
 		const allowedFiles = new Set<string>(dynamicPrimitiveInlineStyleFiles)
 		const primitiveComponentFiles = listExistingItemFiles('packages/concrete/src/primitives', [
@@ -415,6 +1245,67 @@ describe('Import boundaries', () => {
 		expect([...unlistedFiles, ...staleAllowedFiles]).toEqual([])
 	})
 
+	test('component implementations do not proxy render utilities', () => {
+		const componentFiles = listItemDirectories(
+			join(repoRoot, 'packages/concrete/src/components')
+		).map(directory => join(directory, 'component.tsx'))
+		const proxyPatterns = [
+			/\breturn\s+render[A-Z][A-Za-z0-9]*\(/u,
+			/\brenderParsed[A-Z][A-Za-z0-9]*\b/u
+		]
+		const violations = componentFiles
+			.filter(filePath => proxyPatterns.some(pattern => pattern.test(readFileSync(filePath, 'utf8'))))
+			.map(filePath => `${relative(repoRoot, filePath)} proxies runtime JSX to a utility`)
+
+		expect(violations).toEqual([])
+	})
+
+	test('component implementations are not pure re-export proxies', () => {
+		const componentFiles = listItemDirectories(
+			join(repoRoot, 'packages/concrete/src/components')
+		).map(directory => join(directory, 'component.tsx'))
+		const pureReExportPattern = /^(?:export\s+(?:type\s+)?\{[^}]+\}\s+from\s+['"][^'"]+['"];?\s*)+$/u
+		const violations = componentFiles
+			.filter(filePath => pureReExportPattern.test(readFileSync(filePath, 'utf8').trim()))
+			.map(filePath => `${relative(repoRoot, filePath)} is only a re-export proxy`)
+
+		expect(violations).toEqual([])
+	})
+
+	test('diagram support primitives expose generic public names', () => {
+		const exportNamePattern =
+			/\bexport\s+(?:type\s+)?(?:function|type)\s+(?:DiagramCanvas|FlowDiagram)\w*/u
+		const violations = genericDiagramPrimitivePublicFiles.flatMap(filePath => {
+			const source = readFileSync(join(repoRoot, filePath), 'utf8')
+
+			if (filePath.endsWith('/index.tsx') && /\b(?:DiagramCanvas|FlowDiagram)\w*/u.test(source)) {
+				return [filePath]
+			}
+
+			return exportNamePattern.test(source) ? [filePath] : []
+		})
+
+		expect(violations).toEqual([])
+	})
+
+	test('diagram support style vocabulary stays primitive-owned', () => {
+		const componentNamedDiagramStylePatterns = [
+			/diagram-canvas-/u,
+			/diagramCanvas/u,
+			/flow-diagram-/u,
+			/flowDiagram/u
+		]
+		const violations = genericDiagramStyleVocabularyFiles.flatMap(filePath => {
+			const source = readFileSync(join(repoRoot, filePath), 'utf8')
+
+			return componentNamedDiagramStylePatterns.flatMap(pattern =>
+				pattern.test(source) ? [`${filePath} matches ${pattern.source}`] : []
+			)
+		})
+
+		expect(violations).toEqual([])
+	})
+
 	test('chart render utilities assemble primitives instead of owning selectors', () => {
 		const selectorOwnershipPatterns = [
 			/concreteClassNames/u,
@@ -432,10 +1323,49 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
+	test('chart shell JSX belongs to component files', () => {
+		const shellPrimitiveNames = ['DataSurface', 'ChartFrame', 'Legend']
+		const chartComponentFiles = [
+			'packages/concrete/src/components/area-chart/component.tsx',
+			'packages/concrete/src/components/bar-chart/component.tsx',
+			'packages/concrete/src/components/chart/component.tsx',
+			'packages/concrete/src/components/donut-chart/component.tsx',
+			'packages/concrete/src/components/heatmap/component.tsx',
+			'packages/concrete/src/components/line-chart/component.tsx',
+			'packages/concrete/src/components/stacked-bar-chart/component.tsx'
+		]
+		const componentViolations = chartComponentFiles.flatMap(filePath => {
+			const source = readFileSync(join(repoRoot, filePath), 'utf8')
+
+			return shellPrimitiveNames.flatMap(primitiveName =>
+				source.includes(`<${primitiveName}`) ? [] : [`${filePath} does not render ${primitiveName}`]
+			)
+		})
+		const utilityViolations = chartRenderingUtilityFiles.flatMap(filePath => {
+			const source = readFileSync(join(repoRoot, filePath), 'utf8')
+
+			return shellPrimitiveNames.flatMap(primitiveName =>
+				source.includes(`<${primitiveName}`)
+					? [`${filePath} renders shell primitive ${primitiveName}`]
+					: []
+			)
+		})
+
+		expect([...componentViolations, ...utilityViolations]).toEqual([])
+	})
+
 	test('factory layer stays narrow and utilities stay outside components', () => {
 		expect(existsSync(join(repoRoot, 'packages/concrete/src/create'))).toBe(false)
 		expect(listFileNames(join(repoRoot, 'packages/concrete/src/factories'))).toEqual(factoryFiles)
 		expect(existsSync(join(repoRoot, 'packages/concrete/src/utilities'))).toBe(true)
+	})
+
+	test('single-component workflow helpers stay with their owning component', () => {
+		const lingeringUtilityFiles = bannedComponentSpecificUtilityFiles.filter(filePath =>
+			existsSync(join(repoRoot, filePath))
+		)
+
+		expect(lingeringUtilityFiles).toEqual([])
 	})
 
 	test('package source no longer imports CSS modules', () => {
@@ -499,10 +1429,10 @@ describe('Import boundaries', () => {
 			([key, value]) => value !== toConcreteSelector(key)
 		)
 
-		expect(concreteClassNameEntries.length).toBe(520)
+		expect(concreteClassNameEntries.length).toBe(515)
 		expect(classNameRecord.button).toBe('concrete-button')
-		expect(classNameRecord.diagramCanvasEdgeSelected).toBe('concrete-diagram-canvas-edge-selected')
-		expect(classNameRecord.validationSummaryAction).toBe('concrete-validation-summary-action')
+		expect(classNameRecord.diagramEdgeSelected).toBe('concrete-diagram-edge-selected')
+		expect(classNameRecord.alertAction).toBe('concrete-alert-action')
 		expect(invalidEntries).toEqual([])
 	})
 
@@ -585,18 +1515,20 @@ describe('Import boundaries', () => {
 		expect(violations).toEqual([])
 	})
 
-	test('foundation token names do not use retired component vocabulary', () => {
-		const retiredFoundationTokenPatterns = [
-			/--concrete-[a-z0-9-]*number-stepper[a-z0-9-]*/u,
-			/--concrete-[a-z0-9-]*range-slider[a-z0-9-]*/u
-		]
+	test('foundation token names do not use component-shaped vocabulary', () => {
 		const violations = foundationStyleSources.flatMap(source => {
 			const css = removeCssComments(
 				readFileSync(join(repoRoot, 'packages/concrete', source.path), 'utf8')
 			)
 
-			return retiredFoundationTokenPatterns.flatMap(pattern =>
-				pattern.test(css) ? [`${source.path} matches ${pattern.source}`] : []
+			return listCssDeclarations(css).flatMap(declaration =>
+				declaration.property.startsWith('--concrete-')
+					? bannedFoundationTokenNouns.flatMap(noun =>
+							hasCssTokenSegment(declaration.property, noun)
+								? [`${source.path} declares ${declaration.property} with banned noun ${noun}`]
+								: []
+						)
+					: []
 			)
 		})
 
@@ -732,14 +1664,40 @@ function listSourceFiles(directory: string): readonly string[] {
 }
 
 function listDirectories(directory: string): readonly string[] {
+	if (!existsSync(directory)) {
+		return []
+	}
+
 	return readdirSync(directory)
 		.map(entry => join(directory, entry))
 		.filter(entryPath => statSync(entryPath).isDirectory())
 		.sort()
 }
 
+function listSiblingComponentImports(source: string): readonly string[] {
+	const importPattern = /from ['"]\.\.\/([^./][^'"]*)['"]/gu
+	const componentSlugs: string[] = []
+
+	for (const match of source.matchAll(importPattern)) {
+		const importPath = match[1]
+		const componentSlug = importPath?.split('/')[0]
+
+		if (componentSlug) {
+			componentSlugs.push(componentSlug)
+		}
+	}
+
+	return componentSlugs
+}
+
 function listItemDirectories(directory: string): readonly string[] {
 	return listDirectories(directory).filter(entryPath => basename(entryPath) !== 'internal')
+}
+
+function listItemSlugs(root: string): string[] {
+	return listItemDirectories(join(repoRoot, root))
+		.map(directory => basename(directory))
+		.sort()
 }
 
 function listFileNames(directory: string): readonly string[] {
@@ -771,6 +1729,87 @@ function listExistingItemFiles(root: string, fileNames: readonly string[]): read
 
 function findDuplicates(items: readonly string[]): readonly string[] {
 	return items.filter((item, index) => items.indexOf(item) !== index)
+}
+
+function hasSlugToken(source: string, slug: string): boolean {
+	return new RegExp(`(^|[^A-Za-z0-9-])${escapeRegex(slug)}([^A-Za-z0-9-]|$)`, 'u').test(source)
+}
+
+function listExportedFunctionNames(source: string): readonly string[] {
+	const names: string[] = []
+	const functionPattern = /^export function ([A-Z][A-Za-z0-9]*)\b/gmu
+
+	for (const match of source.matchAll(functionPattern)) {
+		const name = match[1]
+
+		if (name) {
+			names.push(name)
+		}
+	}
+
+	return names
+}
+
+function listExportedRuntimeComponentNames(source: string): readonly string[] {
+	const names: string[] = []
+	const exportPattern = /^export\s+(?:function|const)\s+([A-Z][A-Za-z0-9]*)\b/gmu
+
+	for (const match of source.matchAll(exportPattern)) {
+		const name = match[1]
+
+		if (name) {
+			names.push(name)
+		}
+	}
+
+	return names
+}
+
+function areStringArraysEqual(
+	left: readonly string[] | undefined,
+	right: readonly string[] | undefined
+): boolean {
+	return (
+		Array.isArray(left) &&
+		Array.isArray(right) &&
+		left.length === right.length &&
+		left.every((value, index) => value === right[index])
+	)
+}
+
+function hasCssTokenSegment(tokenName: string, segment: string): boolean {
+	const tokenSegments = tokenName.replace(/^--concrete-/u, '').split('-')
+	const segmentParts = segment.split('-')
+	const lastStartIndex = tokenSegments.length - segmentParts.length
+
+	for (let startIndex = 0; startIndex <= lastStartIndex; startIndex += 1) {
+		const tokenSlice = tokenSegments.slice(startIndex, startIndex + segmentParts.length)
+
+		if (tokenSlice.every((part, index) => part === segmentParts[index])) {
+			return true
+		}
+	}
+
+	return false
+}
+
+function escapeRegex(value: string): string {
+	return value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')
+}
+
+function listObjectPropertyKeys(source: string): readonly string[] {
+	const propertyPattern = /^\s*([A-Za-z][A-Za-z0-9]*)\s*:/gmu
+	const keys: string[] = []
+
+	for (const match of source.matchAll(propertyPattern)) {
+		const key = match[1]
+
+		if (key) {
+			keys.push(key)
+		}
+	}
+
+	return keys
 }
 
 function getExtension(fileName: string): string {

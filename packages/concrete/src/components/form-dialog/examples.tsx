@@ -1,8 +1,8 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Button, Input } from '../../primitives'
+import { Button, Grid, Input, Textarea } from '../../primitives'
+import type { UploadItemValue } from '../../schemas'
 import { DateRangePicker } from '../date-range-picker'
 import { FileUpload } from '../file-upload'
-import { FormGrid } from '../form-shell'
 import { MultiSelect } from '../multi-select'
 import { ValidationSummary } from '../validation-summary'
 import { FormDialog } from './component'
@@ -19,7 +19,30 @@ const multiSelectOptions = [
 	{ disabled: true, label: 'Archived', meta: 'locked', value: 'archived' }
 ] as const
 
+const dialogUploadQueue = [
+	{
+		id: 'experiment-brief',
+		name: 'experiment_brief.pdf',
+		progress: 100,
+		size: 1480000,
+		status: 'success',
+		type: 'application/pdf'
+	},
+	{
+		id: 'eval-set',
+		name: 'eval_set.csv',
+		progress: 58,
+		size: 820000,
+		status: 'uploading',
+		type: 'text/csv'
+	}
+] as const satisfies readonly UploadItemValue[]
+
 export const formDialogExamples = defineExamples({
+	compact: {
+		description: 'Compact modal for a short bounded edit.',
+		render: () => renderFormDialogExample('compact')
+	},
 	default: {
 		description: 'Centered modal form with text, choice, and footer actions.',
 		render: () => renderFormDialogExample('default')
@@ -28,29 +51,41 @@ export const formDialogExamples = defineExamples({
 		description: 'Dialog with validation feedback.',
 		render: () => renderFormDialogExample('error')
 	},
+	success: {
+		description: 'Dialog with success feedback and attached artifacts.',
+		render: () => renderFormDialogExample('success')
+	},
 	wide: {
 		description: 'Wider modal for picker and upload compositions.',
 		render: () => renderFormDialogExample('wide')
 	}
 })
 
-function renderFormDialogExample(state: 'default' | 'error' | 'wide') {
+function renderFormDialogExample(state: 'compact' | 'default' | 'error' | 'success' | 'wide') {
+	const isCompact = state === 'compact'
+	const isError = state === 'error'
+	const isSuccess = state === 'success'
+	const isWide = state === 'wide'
+
 	return (
 		<FormDialog
+			compact={isCompact}
 			description="Create a bounded experiment without leaving the current workspace."
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Cancel
 					</Button>
-					<Button size="small">Create run</Button>
+					<Button density="small" hierarchy="primary" intent={isSuccess ? 'sky' : 'neutral'}>
+						{isSuccess ? 'Queue next' : 'Create run'}
+					</Button>
 				</>
 			}
-			size={state === 'wide' ? 'wide' : 'default'}
-			status={state === 'error' ? 'error' : 'default'}
-			title="New experiment"
+			measure={isWide ? 'wide' : isCompact ? 'compact' : 'default'}
+			status={isError ? 'error' : isSuccess ? 'success' : 'default'}
+			title={isCompact ? 'Run checkpoint' : 'New experiment'}
 		>
-			{state === 'error' ? (
+			{isError ? (
 				<ValidationSummary
 					description="A run name and date window are required."
 					items={[
@@ -59,22 +94,67 @@ function renderFormDialogExample(state: 'default' | 'error' | 'wide') {
 					]}
 				/>
 			) : null}
-			<FormGrid columns={state === 'wide' ? 2 : 1}>
+			{isSuccess ? (
+				<ValidationSummary
+					description="The run is configured and ready to enter the evaluation queue."
+					items={[
+						{
+							id: 'packet',
+							label: 'Packet',
+							message: 'Two source artifacts are attached.',
+							status: 'success'
+						},
+						{
+							id: 'window',
+							label: 'Window',
+							message: 'The comparison window is valid.',
+							status: 'success'
+						}
+					]}
+					status="success"
+				/>
+			) : null}
+			<Grid columns={isWide ? 'two' : 'one'} density={isCompact ? 'compact' : 'comfortable'}>
 				<Input
-					error={state === 'error' ? 'Add a short descriptive name.' : undefined}
+					defaultValue={isError ? '' : 'Router contract check'}
+					error={isError ? 'Add a short descriptive name.' : undefined}
+					help={isSuccess ? 'Ready' : undefined}
 					id="run-name"
 					label="Run name"
 					placeholder="Router contract check"
 				/>
 				<DateRangePicker
-					defaultOpen={state === 'wide'}
 					defaultValue={{ end: '2026-05-07', start: '2026-04-28' }}
+					error={isError ? 'Choose a start and end date.' : undefined}
 					id="window"
 					label="Window"
+					success={isSuccess ? 'Window confirmed' : undefined}
 				/>
-				<MultiSelect defaultValue={['design']} label="Tags" options={multiSelectOptions} />
-				<FileUpload defaultValue={[]} label="Artifacts" title="Attach packet" />
-			</FormGrid>
+				{isCompact ? null : (
+					<MultiSelect
+						defaultValue={isSuccess ? ['design', 'product'] : ['design']}
+						label="Tags"
+						maxSelected={3}
+						options={multiSelectOptions}
+					/>
+				)}
+				{isCompact ? null : (
+					<Textarea
+						defaultValue="Compare tool-routing quality against the current production prompt."
+						label="Objective"
+						rows={3}
+					/>
+				)}
+				{isCompact ? null : (
+					<FileUpload
+						defaultValue={isSuccess || isWide ? dialogUploadQueue : []}
+						display={isWide ? 'grid' : 'stack'}
+						kind={isWide ? 'grid' : 'file'}
+						label="Artifacts"
+						title="Attach packet"
+					/>
+				)}
+			</Grid>
 		</FormDialog>
 	)
 }

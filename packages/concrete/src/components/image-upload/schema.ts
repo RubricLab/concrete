@@ -1,15 +1,17 @@
 import { z } from 'zod/v4'
 import { uploadItemSchema } from '../../schemas'
 
-const imageUploadVariantSchema = z.enum(['single', 'avatar', 'grid'])
-const imageUploadQueueSchema = z.enum(['empty', 'success', 'error'])
+const imageUploadKindSchema = z.enum(['single', 'avatar', 'grid'])
+const imageUploadQueueSchema = z.enum(['empty', 'error', 'mixed', 'success', 'uploading'])
 
 export const imageUploadComponentSchema = z
 	.object({
 		defaultValue: z.array(uploadItemSchema).default([]),
+		kind: imageUploadKindSchema.default('single'),
 		label: z.string().default('Reference image'),
-		queue: imageUploadQueueSchema.default('success'),
-		variant: imageUploadVariantSchema.default('single')
+		maxSize: z.number().int().positive().optional(),
+		multiple: z.boolean().default(true),
+		queue: imageUploadQueueSchema.default('mixed')
 	})
 	.strict()
 

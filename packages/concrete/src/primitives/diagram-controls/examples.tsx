@@ -1,33 +1,17 @@
 import { defineExamples } from '../../factories/createExamples'
-import { DiagramCanvasControls, FlowDiagramControls } from './component'
+import { DiagramControls } from './component'
 
 export const diagramControlsExamples = defineExamples({
-	canvas: {
-		description: 'Canvas controls with percentage readout.',
-		render: () => renderCanvasControls()
+	compact: {
+		description: 'Compact zoom controls with a scale label.',
+		render: () => <DiagramControls zoomLabel="0.8x" />
 	},
 	default: {
-		description: 'Canvas controls with percentage readout.',
-		render: () => renderCanvasControls()
+		description: 'Diagram viewport controls with percentage readout.',
+		render: () => <DiagramControls zoom={1} />
 	},
 	disabled: {
-		description: 'Disabled canvas zoom controls.',
-		render: () => (
-			<>
-				<DiagramCanvasControls disabled zoom={0.75} />
-			</>
-		)
-	},
-	flow: {
-		description: 'Compact flow diagram controls.',
-		render: () => (
-			<>
-				<FlowDiagramControls zoomLabel="0.8x" />
-			</>
-		)
+		description: 'Disabled diagram zoom controls.',
+		render: () => <DiagramControls disabled zoom={0.75} />
 	}
 })
-
-function renderCanvasControls() {
-	return <DiagramCanvasControls zoom={1} />
-}

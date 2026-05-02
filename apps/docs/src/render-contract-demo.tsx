@@ -1,18 +1,28 @@
 'use client'
 
-import { Button, ConcreteIcon } from '@rubriclab/concrete'
-import Link from 'next/link'
+import {
+	Badge,
+	Button,
+	Cluster,
+	Frame,
+	Panel,
+	Stack,
+	Textarea,
+	TextLink
+} from '@rubriclab/concrete'
 import type { ChangeEvent } from 'react'
 import { useMemo, useState } from 'react'
 import { z } from 'zod/v4'
 
-const renderableButtonVariants = ['primary', 'secondary', 'sky-soft', 'ultra'] as const
+const renderableButtonHierarchies = ['primary', 'secondary', 'soft'] as const
+const renderableButtonIntents = ['neutral', 'sky', 'ultra'] as const
 
 const buttonContractSchema = z
 	.object({
+		hierarchy: z.enum(renderableButtonHierarchies).default('primary'),
+		intent: z.enum(renderableButtonIntents).default('sky'),
 		label: z.string().min(1).default('Ship'),
-		loading: z.boolean().default(false),
-		variant: z.enum(renderableButtonVariants).default('primary')
+		loading: z.boolean().default(false)
 	})
 	.strict()
 
@@ -31,13 +41,15 @@ type ButtonContractResult =
 	  }
 
 const fallbackContract = buttonContractSchema.parse({
-	label: 'Invalid JSON',
-	variant: 'secondary'
+	hierarchy: 'secondary',
+	intent: 'neutral',
+	label: 'Invalid JSON'
 })
 
 const initialContract = `{
   "label": "Ship",
-  "variant": "sky-soft",
+  "hierarchy": "soft",
+  "intent": "sky",
   "loading": false
 }`
 
@@ -53,44 +65,51 @@ export function RenderContractDemo() {
 	}
 
 	return (
-		<div className="agentSchemaPanel renderContractDemo">
-			<div className="renderContractHead">
-				<span className="panelKicker">Editable props JSON</span>
-				<span data-valid={result.success}>{result.success ? 'Valid' : 'Schema error'}</span>
-			</div>
-			<textarea
-				aria-label="Editable button props JSON"
-				onChange={updateSource}
-				spellCheck={false}
-				value={source}
-			/>
-			<div className="renderContractPreview" data-error={result.success ? undefined : true}>
-				<div className="renderContractPreviewHead">
-					<span>{result.success ? 'Rendered primitive' : result.message}</span>
-					<em>Button contract</em>
-				</div>
-				<div className="renderContractCanvas">
+		<Panel
+			density="compact"
+			depth="raised"
+			meta={
+				<Badge intent={result.success ? 'terminal' : 'danger'}>
+					{result.success ? 'Valid' : 'Error'}
+				</Badge>
+			}
+			title="Editable props JSON"
+		>
+			<Stack density="compact">
+				<Textarea
+					aria-label="Editable button props JSON"
+					onChange={updateSource}
+					rows={7}
+					spellCheck={false}
+					value={source}
+				/>
+				<Frame
+					align="center"
+					header={result.success ? 'Rendered primitive' : result.message}
+					headerMeta="Button contract"
+					scale="compact"
+					texture={result.success ? 'field' : 'dots'}
+				>
 					<Button
 						disabled={!result.success}
+						hierarchy={result.contract.hierarchy}
+						intent={result.contract.intent}
+						density="small"
 						loading={result.success ? result.contract.loading : false}
-						size="small"
-						variant={result.contract.variant}
 					>
 						{result.contract.label}
 					</Button>
-				</div>
-			</div>
-			<div className="agentRouteRow">
-				<Link href={reactRoute}>
-					<ConcreteIcon name="code" />
-					React URL
-				</Link>
-				<Link href={imageRoute}>
-					<ConcreteIcon name="image" />
-					Image URL
-				</Link>
-			</div>
-		</div>
+				</Frame>
+				<Cluster density="compact">
+					<TextLink href={reactRoute} intent="sky">
+						React URL
+					</TextLink>
+					<TextLink href={imageRoute} intent="sky">
+						Image URL
+					</TextLink>
+				</Cluster>
+			</Stack>
+		</Panel>
 	)
 }
 
@@ -122,8 +141,9 @@ function parseButtonContract(source: string): ButtonContractResult {
 
 function createRouteQuery(contract: ButtonContract): string {
 	const routeQuery = new URLSearchParams({
-		label: contract.label,
-		variant: contract.variant
+		hierarchy: contract.hierarchy,
+		intent: contract.intent,
+		label: contract.label
 	})
 
 	if (contract.loading) {

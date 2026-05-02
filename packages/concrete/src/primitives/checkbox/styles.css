@@ -3,7 +3,7 @@
 	align-items: center;
 	gap: var(--concrete-space-2);
 	height: var(--concrete-size-label-medium);
-	color: var(--concrete-foreground-body);
+	color: var(--concrete-control-foreground-body);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-12-5) / var(--concrete-line-control)
 		var(--concrete-font-sans);
@@ -22,10 +22,11 @@
 	height: var(--concrete-size-choice-control);
 	flex: none;
 	place-items: center;
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border-strong);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border-hover);
 	border-radius: var(--concrete-radius-1);
-	background: var(--concrete-surface);
-	color: var(--concrete-inverse-foreground-strong);
+	background: var(--concrete-control-background);
+	color: var(--concrete-control-foreground-selected);
+	box-shadow: var(--concrete-shadow-control-rest);
 	transition:
 		background var(--concrete-duration-fast) var(--concrete-ease),
 		border-color var(--concrete-duration-fast) var(--concrete-ease),
@@ -33,20 +34,37 @@
 }
 
 .concrete-checkbox-checked {
-	border-color: var(--concrete-ink-9);
-	background: var(--concrete-ink-9);
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	box-shadow: var(--concrete-shadow-control-selected);
 }
 
 .concrete-check-row:hover .concrete-checkbox {
-	border-color: var(--concrete-ink-5);
+	border-color: var(--concrete-control-border-focus);
+	background: var(--concrete-control-background-hover);
+	box-shadow: var(--concrete-shadow-control-hover);
+}
+
+.concrete-check-row:hover .concrete-checkbox-checked {
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	box-shadow: var(--concrete-shadow-control-selected);
 }
 
 .concrete-check-row:has(input:focus-visible) .concrete-checkbox {
-	box-shadow: var(--concrete-ring-focus);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-check-row:has(input:disabled):hover .concrete-checkbox {
-	border-color: var(--concrete-border-strong);
+	border-color: var(--concrete-control-border-hover);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-rest);
+}
+
+.concrete-check-row:has(input:disabled):hover .concrete-checkbox-checked {
+	border-color: var(--concrete-control-border-selected);
+	background: var(--concrete-control-background-selected);
+	box-shadow: var(--concrete-shadow-control-selected);
 }
 
 .concrete-checkbox svg {

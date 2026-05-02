@@ -2,13 +2,18 @@ import type { CSSProperties, ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
 import { sizingTokens } from './schema'
 
-const controlNames = ['field-control', 'button-medium', 'toolbar-control', 'icon-medium'] as const
-const measureNames = ['form-dialog', 'agent-panel', 'diagram-canvas', 'chart-height'] as const
+const controlNames = [
+	'field-control',
+	'button-medium',
+	'control-strip-action',
+	'icon-medium'
+] as const
+const measureNames = ['dialog-surface', 'trace-panel', 'diagram', 'chart-height'] as const
 
 export const sizingExamples = defineExamples({
 	controls: {
 		description:
-			'Control and icon dimensions are shared across buttons, fields, toolbars, and menus.',
+			'Control and icon dimensions are shared across buttons, fields, control strips, and menus.',
 		render: () => (
 			<SizingFrame meta="Shared control heights" title="Control sizing">
 				<div style={barStackStyle}>

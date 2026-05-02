@@ -1,13 +1,8 @@
-import {
-	MetricFooter,
-	MetricHeader,
-	MetricProgressRing,
-	MetricShell,
-	Progress
-} from '../../primitives'
+import { DataSurface, Progress, ProgressRing } from '../../primitives'
+import { Text } from '../../primitives/text'
 import { type MeterProps, meterSchema } from '../../schemas'
 import { normalizeRangeValue } from '../../utilities/data-geometry'
-import { toProgressTone } from '../../utilities/data-tone'
+import { toProgressIntent } from '../../utilities/data-intent'
 
 type ComponentShellProps = {
 	className?: string
@@ -23,31 +18,62 @@ export function Meter({ className, ...props }: MeterProps & ComponentShellProps)
 		parsedProps.value.max
 	)
 	const percent = Math.round(normalizedValue * 100)
-	const formattedValue =
-		parsedProps.unit === '%' ? `${percent}%` : `${parsedProps.value.value}${parsedProps.unit}`
+	const formattedTarget =
+		parsedProps.target === undefined
+			? undefined
+			: formatMeterValue(parsedProps.target, parsedProps.unit)
+	const formattedValue = formatMeterValue(
+		parsedProps.unit === '%' ? percent : parsedProps.value.value,
+		parsedProps.unit
+	)
+	const footer =
+		parsedProps.description || parsedProps.target !== undefined ? (
+			<>
+				{formattedTarget ? (
+					<Text purpose="caption" intent="muted">
+						Target {formattedTarget}
+					</Text>
+				) : null}
+				{parsedProps.description ? (
+					<Text purpose="caption" intent="muted">
+						{parsedProps.description}
+					</Text>
+				) : null}
+			</>
+		) : undefined
 
 	return (
-		<MetricShell className={className} kind="meter" ring={parsedProps.variant === 'ring'}>
-			<MetricHeader kind="meter" label={parsedProps.label} value={formattedValue} />
-			{parsedProps.variant === 'ring' ? (
-				<MetricProgressRing
-					compact={parsedProps.compact}
-					tone={toProgressTone(parsedProps.tone)}
+		<DataSurface
+			className={className}
+			compact={parsedProps.compact}
+			footer={footer}
+			layout={parsedProps.display === 'ring' ? 'media' : 'stack'}
+			meta={formattedValue}
+			purpose="meter"
+			title={parsedProps.label}
+		>
+			{parsedProps.display === 'ring' ? (
+				<ProgressRing
+					density={parsedProps.compact ? 'compact' : 'comfortable'}
+					intent={toProgressIntent(parsedProps.intent)}
 					value={percent}
 				/>
 			) : (
 				<Progress
-					size={parsedProps.compact ? 'thin' : 'medium'}
-					tone={toProgressTone(parsedProps.tone)}
+					density={parsedProps.compact ? 'compact' : 'comfortable'}
+					intent={toProgressIntent(parsedProps.intent)}
 					value={percent}
 				/>
 			)}
-			{parsedProps.description || parsedProps.target !== undefined ? (
-				<MetricFooter
-					end={parsedProps.description}
-					start={parsedProps.target !== undefined ? `Target ${parsedProps.target}` : undefined}
-				/>
-			) : null}
-		</MetricShell>
+		</DataSurface>
 	)
+}
+
+function formatMeterValue(value: number, unit: string): string {
+	switch (unit) {
+		case '%':
+			return `${value}%`
+		default:
+			return `${value}${unit}`
+	}
 }

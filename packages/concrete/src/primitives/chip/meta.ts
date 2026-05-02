@@ -19,7 +19,12 @@ export const chipMeta = {
 	pressure: ['product'],
 	props: [
 		prop('selected', 'boolean', 'Promotes the chip into the active ink state.', 'false'),
-		prop('tone', "'default' | 'ink' | 'sky' | 'sunken'", 'Non-selected tonal treatment.', 'default'),
+		prop(
+			'intent',
+			"'neutral' | 'strong' | 'subtle' | 'sky' | 'terminal' | 'ultra' | 'danger'",
+			'Non-selected semantic intent.',
+			'neutral'
+		),
 		prop('leadingIcon', 'IconName | ReactElement', 'Optional leading glyph.'),
 		prop('children', 'ReactNode', 'Chip label.')
 	]

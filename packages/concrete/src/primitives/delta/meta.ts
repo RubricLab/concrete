@@ -25,8 +25,13 @@ export const deltaMeta = {
 			'Terminal, error, or neutral ink treatment.',
 			'neutral'
 		),
-		prop('size', "'small' | 'medium' | 'large' | 'xlarge'", 'Delta type and icon scale.', 'medium'),
-		prop('variant', "'bare' | 'wash'", 'Plain inline delta or soft tinted chip.', 'bare'),
+		prop(
+			'density',
+			"'compact' | 'comfortable' | 'editorial' | 'display'",
+			'Delta type and icon rhythm.',
+			'comfortable'
+		),
+		prop('hierarchy', "'plain' | 'wash'", 'Plain inline delta or soft tinted chip.', 'plain'),
 		prop('basis', 'ReactNode', 'Optional comparison basis text.')
 	]
 } as const satisfies DeltaMeta

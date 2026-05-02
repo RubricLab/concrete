@@ -6,14 +6,12 @@ import { progressMeta } from './meta'
 import { type ProgressValue, progressSchema } from './schema'
 
 export type {
+	ProgressDensity,
 	ProgressIndeterminate,
-	ProgressProps,
-	ProgressRingProps,
-	ProgressSize,
-	ProgressTone,
-	SegmentedProgressProps
+	ProgressIntent,
+	ProgressProps
 } from './component'
-export { Progress, ProgressRing, SegmentedProgress } from './component'
+export { Progress } from './component'
 export type { ProgressInput, ProgressValue } from './schema'
 export { progressPropsSchema, progressSchema } from './schema'
 
@@ -25,13 +23,7 @@ export const progressPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderProgressInput(progressSchema.parse(input)),
 	schema: progressSchema,
 	slug: 'progress',
-	states: exampleStates(progressExamples, [
-		'default',
-		'signals',
-		'indeterminate',
-		'segmented',
-		'ring'
-	])
+	states: exampleStates(progressExamples, ['default', 'signals', 'indeterminate'])
 })
 
 function renderProgressInput({ indeterminate, ...props }: ProgressValue) {

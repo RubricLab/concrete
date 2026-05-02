@@ -18,7 +18,12 @@ export const spinnerMeta = {
 	name: 'Spinner',
 	pressure: ['product', 'generative'],
 	props: [
-		prop('size', 'number', 'Rendered SVG width and height.', '18'),
-		prop('tone', "'default' | 'sky' | 'inverse'", 'Stroke tone.', 'default')
+		prop(
+			'density',
+			"'compact' | 'comfortable' | 'editorial'",
+			'Foundation-backed SVG scale.',
+			'comfortable'
+		),
+		prop('intent', "'neutral' | 'sky' | 'inverse'", 'Stroke intent.', 'neutral')
 	]
 } as const satisfies SpinnerMeta

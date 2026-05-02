@@ -19,8 +19,9 @@ export const linkMeta = {
 	pressure: ['editorial', 'product'],
 	props: [
 		prop('href', 'string', 'Native anchor destination.'),
-		prop('tone', "'default' | 'sky' | 'muted'", 'Inline link tone.', 'default'),
-		prop('variant', "'inline' | 'nav'", 'Prose underline or nav-link treatment.', 'inline'),
+		prop('intent', "'default' | 'sky' | 'muted'", 'Inline link intent.', 'default'),
+		prop('purpose', "'inline' | 'nav'", 'Prose underline or nav-link treatment.', 'inline'),
+		prop('current', 'boolean', 'Marks the link as the current page and sets aria-current.', 'false'),
 		prop('external', 'boolean', 'Appends an external-link glyph.', 'false'),
 		prop('children', 'ReactNode', 'Link text.')
 	]

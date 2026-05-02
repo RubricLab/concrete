@@ -21,16 +21,12 @@ export type DiagramMiniMapProps = HTMLAttributes<HTMLDivElement> & {
 
 export function DiagramMiniMap({ className, nodes, selectedId, ...props }: DiagramMiniMapProps) {
 	return (
-		<div
-			aria-hidden="true"
-			className={cn(concreteClassNames.diagramCanvasMinimap, className)}
-			{...props}
-		>
+		<div aria-hidden="true" className={cn(concreteClassNames.diagramMinimap, className)} {...props}>
 			{nodes.map(node => (
 				<span
 					className={cn(
-						concreteClassNames.diagramCanvasMinimapNode,
-						(node.selected || selectedId === node.id) && concreteClassNames.diagramCanvasMinimapSelected
+						concreteClassNames.diagramMinimapNode,
+						(node.selected || selectedId === node.id) && concreteClassNames.diagramMinimapSelected
 					)}
 					key={node.id}
 					style={getDiagramMiniMapNodeStyle(node)}

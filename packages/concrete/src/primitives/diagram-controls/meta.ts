@@ -19,9 +19,16 @@ export const diagramControlsMeta = {
 	pressure: ['product', 'educational'],
 	props: [
 		prop('zoom', 'number', 'Current zoom value displayed as a percentage.', '1'),
+		prop(
+			'zoomLabel',
+			'ReactNode',
+			'Optional custom readout for non-percent diagram scales.',
+			undefined,
+			true
+		),
 		prop('disabled', 'boolean', 'Whether zoom buttons should be disabled.', 'false'),
 		prop('onZoomIn', '() => void', 'Zoom-in callback.', undefined, true),
 		prop('onZoomOut', '() => void', 'Zoom-out callback.', undefined, true),
-		prop('onFit | onReset', '() => void', 'Viewport reset callback.', undefined, true)
+		prop('onReset', '() => void', 'Viewport reset callback.', undefined, true)
 	]
 } as const satisfies DiagramControlsMeta

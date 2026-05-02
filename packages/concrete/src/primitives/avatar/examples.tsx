@@ -7,8 +7,8 @@ export const avatarExamples = defineExamples({
 		render: () => (
 			<>
 				<Avatar alt="Rubric interface reference" initials="AK" />
-				<Avatar initials="RL" size="large" />
-				<Avatar initials="C" size="small" />
+				<Avatar density="editorial" initials="RL" />
+				<Avatar density="compact" initials="C" />
 			</>
 		)
 	},
@@ -18,12 +18,12 @@ export const avatarExamples = defineExamples({
 			<>
 				<Avatar
 					alt="Rubric interface reference"
+					density="editorial"
 					initials="AK"
-					size="large"
 					src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=128&h=128&fit=crop&crop=face"
 				/>
-				<Avatar initials="RL" size="large" />
-				<Avatar initials="C" size="small" />
+				<Avatar density="editorial" initials="RL" />
+				<Avatar density="compact" initials="C" />
 			</>
 		)
 	}

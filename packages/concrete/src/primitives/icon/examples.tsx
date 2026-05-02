@@ -7,9 +7,9 @@ export const iconExamples = defineExamples({
 		description: 'Icon-only controls.',
 		render: () => (
 			<>
-				<Button iconOnly leadingIcon="search" variant="secondary" />
+				<Button iconOnly leadingIcon="search" hierarchy="secondary" />
 				<Button iconOnly leadingIcon="settings" />
-				<Button iconOnly leadingIcon="sparkles" variant="ultra" />
+				<Button iconOnly leadingIcon="sparkles" hierarchy="primary" intent="ultra" />
 			</>
 		)
 	},

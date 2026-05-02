@@ -5,7 +5,7 @@ import { frameExamples } from './examples'
 import { frameMeta } from './meta'
 import { type FrameValue, frameSchema } from './schema'
 
-export type { FrameProps } from './component'
+export type { FrameAlign, FrameProps, FrameScale, FrameTexture } from './component'
 export { Frame } from './component'
 export type { FrameInput, FrameValue } from './schema'
 export { framePropsSchema, frameSchema } from './schema'
@@ -18,16 +18,27 @@ export const framePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderFrameInput(frameSchema.parse(input)),
 	schema: frameSchema,
 	slug: 'frame',
-	states: exampleStates(frameExamples, ['default', 'texture'])
+	states: exampleStates(frameExamples, ['default', 'compact', 'texture', 'showcase'])
 })
 
-function renderFrameInput({ body, footer, footerMeta, header, headerMeta, texture }: FrameValue) {
+function renderFrameInput({
+	align,
+	body,
+	footer,
+	footerMeta,
+	header,
+	headerMeta,
+	scale,
+	texture
+}: FrameValue) {
 	return (
 		<Frame
+			align={align}
 			{...(footer ? { footer } : {})}
 			{...(footerMeta ? { footerMeta } : {})}
 			{...(header ? { header } : {})}
 			{...(headerMeta ? { headerMeta } : {})}
+			scale={scale}
 			{...(texture ? { texture } : {})}
 		>
 			{body}

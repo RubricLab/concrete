@@ -25,7 +25,15 @@ export const areaChartComponentDefinition = createComponent({
 		title: 'Execution trend'
 	}),
 	slug: 'area-chart',
-	states: exampleStates(areaChartExamples, ['default', 'quiet', 'dots', 'loading', 'empty', 'error'])
+	states: exampleStates(areaChartExamples, [
+		'default',
+		'quiet',
+		'dots',
+		'compact',
+		'loading',
+		'empty',
+		'error'
+	])
 })
 
 function renderAreaChartInput(input: AreaChartValue) {

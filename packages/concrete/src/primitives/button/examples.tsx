@@ -6,16 +6,18 @@ export const buttonExamples = defineExamples({
 		description: 'Variants, icon, and shortcut states.',
 		render: () => (
 			<>
-				<Button leadingIcon="plus" variant="primary">
+				<Button hierarchy="primary" leadingIcon="plus">
 					New run
 				</Button>
-				<Button trailingIcon="arrow-right" variant="secondary">
+				<Button hierarchy="secondary" trailingIcon="arrow-right">
 					Review
 				</Button>
-				<Button variant="soft">Draft</Button>
-				<Button variant="ghost">Cancel</Button>
-				<Button variant="sky-soft">Sky soft</Button>
-				<Button shortcut={['cmd', 'enter']} variant="sky">
+				<Button hierarchy="soft">Draft</Button>
+				<Button hierarchy="ghost">Cancel</Button>
+				<Button hierarchy="soft" intent="sky">
+					Sky soft
+				</Button>
+				<Button hierarchy="primary" intent="sky" shortcut={['cmd', 'enter']}>
 					Ship
 				</Button>
 			</>
@@ -25,7 +27,7 @@ export const buttonExamples = defineExamples({
 		description: 'Disabled pending command state.',
 		render: () => (
 			<>
-				<Button loading variant="primary">
+				<Button hierarchy="primary" loading>
 					Saving
 				</Button>
 			</>
@@ -35,13 +37,13 @@ export const buttonExamples = defineExamples({
 		description: 'Keyboard-triggered active affordance with highlighted keycaps.',
 		render: () => (
 			<>
-				<Button pressed shortcut={['cmd', 'enter']} variant="primary">
+				<Button hierarchy="primary" pressed shortcut={['cmd', 'enter']}>
 					Send
 				</Button>
-				<Button pressed shortcut={['cmd', 'K']} variant="secondary">
+				<Button hierarchy="secondary" pressed shortcut={['cmd', 'K']}>
 					Search
 				</Button>
-				<Button pressed iconOnly leadingIcon="search" variant="soft" />
+				<Button hierarchy="soft" iconOnly leadingIcon="search" pressed />
 			</>
 		)
 	},
@@ -49,10 +51,10 @@ export const buttonExamples = defineExamples({
 		description: 'Ultra and destructive signal actions.',
 		render: () => (
 			<>
-				<Button leadingIcon="sparkles" variant="ultra">
+				<Button hierarchy="primary" intent="ultra" leadingIcon="sparkles">
 					Upgrade
 				</Button>
-				<Button leadingIcon="trash-2" variant="danger">
+				<Button hierarchy="primary" intent="danger" leadingIcon="trash-2">
 					Delete
 				</Button>
 			</>
@@ -62,16 +64,16 @@ export const buttonExamples = defineExamples({
 		description: 'Tiny through large command sizing.',
 		render: () => (
 			<>
-				<Button size="tiny" variant="secondary">
+				<Button density="tiny" hierarchy="secondary">
 					Tiny
 				</Button>
-				<Button size="small" variant="secondary">
+				<Button density="small" hierarchy="secondary">
 					Small
 				</Button>
-				<Button size="medium" variant="secondary">
+				<Button density="medium" hierarchy="secondary">
 					Medium
 				</Button>
-				<Button size="large" trailingIcon="arrow-right" variant="primary">
+				<Button density="large" hierarchy="primary" trailingIcon="arrow-right">
 					Large
 				</Button>
 			</>

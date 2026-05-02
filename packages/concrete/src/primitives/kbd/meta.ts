@@ -18,7 +18,7 @@ export const kbdMeta = {
 	name: 'Kbd',
 	pressure: ['product'],
 	props: [
-		prop('tone', "'default' | 'dark'", 'Keycap surface tone.', 'default'),
+		prop('intent', "'default' | 'inverse'", 'Keycap surface intent.', 'default'),
 		prop('children', 'ReactNode', 'Visible key label.')
 	]
 } as const satisfies KbdMeta

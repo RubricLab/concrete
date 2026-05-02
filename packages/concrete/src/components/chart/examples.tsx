@@ -18,6 +18,10 @@ export const chartExamples = defineExamples({
 		description: 'Grouped bar comparison.',
 		render: () => renderChartExample('bar')
 	},
+	compact: {
+		description: 'Headerless compact chart surface.',
+		render: () => renderChartExample('compact')
+	},
 	default: {
 		description: 'Multi-series line chart with a target marker.',
 		render: () => renderChartExample('line')
@@ -61,12 +65,26 @@ function renderChartExample(state = 'line'): ReactNode {
 				series={[]}
 				state={state}
 				title="Agent runs"
-				variant="line"
+				kind="line"
 			/>
 		)
 	}
 
 	switch (state) {
+		case 'compact':
+			return (
+				<Chart
+					compact
+					height={150}
+					legend={false}
+					series={chartSeries}
+					showHeader={false}
+					showYAxis={false}
+					surface="sunken"
+					title="Agent runs"
+					kind="line"
+				/>
+			)
 		case 'area':
 			return (
 				<Chart
@@ -75,7 +93,7 @@ function renderChartExample(state = 'line'): ReactNode {
 					series={chartSeries}
 					target={58}
 					title="Execution trend"
-					variant="area"
+					kind="area"
 				/>
 			)
 		case 'bar':
@@ -84,22 +102,22 @@ function renderChartExample(state = 'line'): ReactNode {
 					comparisonPoints={chartComparisonPoints}
 					points={chartPoints}
 					title="Capability score"
-					variant="bar"
+					kind="bar"
 				/>
 			)
 		case 'stacked':
-			return <Chart groups={stackedChartGroups} title="Run composition" variant="stacked-bar" />
+			return <Chart groups={stackedChartGroups} title="Run composition" kind="stacked-bar" />
 		case 'donut':
 			return (
 				<Chart
 					centerLabel="64%"
 					segments={chartPoints.slice(0, 4)}
 					title="Workload split"
-					variant="donut"
+					kind="donut"
 				/>
 			)
 		case 'heatmap':
-			return <Chart cells={heatmapCells} title="Run intensity" variant="heatmap" />
+			return <Chart cells={heatmapCells} title="Run intensity" kind="heatmap" />
 		default:
 			return (
 				<Chart
@@ -107,7 +125,7 @@ function renderChartExample(state = 'line'): ReactNode {
 					series={chartSeries}
 					target={58}
 					title="Agent runs"
-					variant="line"
+					kind="line"
 				/>
 			)
 	}

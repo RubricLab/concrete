@@ -64,10 +64,10 @@ export const conceptFramePropsSchema = z
 
 export const conceptConnectorPropsSchema = z
 	.object({
+		intent: diagramToneSchema.default('muted'),
 		kind: conceptConnectorKindSchema.default('straight'),
 		muted: z.boolean().default(false),
-		selected: z.boolean().default(false),
-		tone: diagramToneSchema.default('muted')
+		selected: z.boolean().default(false)
 	})
 	.strict()
 
@@ -84,12 +84,12 @@ export const diagramNodePropsSchema = z
 export const diagramItemPropsSchema = z
 	.object({
 		body: z.string().min(1).optional(),
+		intent: diagramToneSchema.default('ink'),
 		kind: diagramItemKindSchema.default('note'),
 		meta: z.string().min(1).optional(),
 		muted: z.boolean().default(false),
 		selected: z.boolean().default(false),
 		title: z.string().min(1),
-		tone: diagramToneSchema.default('ink'),
 		value: z.string().min(1).optional()
 	})
 	.strict()
@@ -119,14 +119,14 @@ export const diagramCanvasEdgeSchema = z
 		from: z.string().min(1),
 		fromAnchor: diagramAnchorSchema.default('right'),
 		id: z.string().min(1),
+		intent: diagramToneSchema.default('muted'),
 		label: z.string().min(1).optional(),
+		relation: z
+			.enum(['bidirectional', 'branch', 'control', 'dashed', 'dotted', 'reference', 'solid'])
+			.default('solid'),
 		selected: z.boolean().default(false),
 		to: z.string().min(1),
-		toAnchor: diagramAnchorSchema.default('left'),
-		tone: diagramToneSchema.default('muted'),
-		variant: z
-			.enum(['bidirectional', 'branch', 'control', 'dashed', 'dotted', 'reference', 'solid'])
-			.default('solid')
+		toAnchor: diagramAnchorSchema.default('left')
 	})
 	.strict()
 
@@ -180,11 +180,11 @@ export const diagramCanvasPropsSchema = z
 export const flowDiagramNodeSchema = z
 	.object({
 		height: z.number().int().positive().default(64),
+		hierarchy: z.enum(['accent', 'inverse', 'surface']).default('surface'),
 		id: z.string().min(1),
 		selected: z.boolean().default(false),
 		subtitle: z.string().min(1).optional(),
 		title: z.string().min(1),
-		tone: z.enum(['accent', 'inverse', 'surface']).default('surface'),
 		width: z.number().int().positive().default(160),
 		x: finiteNumberSchema,
 		y: finiteNumberSchema
@@ -195,11 +195,11 @@ export const flowDiagramEdgeSchema = z
 	.object({
 		from: z.string().min(1),
 		id: z.string().min(1),
+		intent: dataToneSchema.default('muted'),
 		label: z.string().min(1).optional(),
+		relation: z.enum(['dashed', 'dotted', 'pulse', 'solid', 'step']).default('solid'),
 		selected: z.boolean().default(false),
-		to: z.string().min(1),
-		tone: dataToneSchema.default('muted'),
-		variant: z.enum(['dashed', 'dotted', 'pulse', 'solid', 'step']).default('solid')
+		to: z.string().min(1)
 	})
 	.strict()
 

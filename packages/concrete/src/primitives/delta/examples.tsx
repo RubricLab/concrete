@@ -7,7 +7,7 @@ export const deltaExamples = defineExamples({
 		render: () => (
 			<>
 				<Delta basis="vs last week" intent="positive" value="+18.6%" />
-				<Delta basis="over budget" intent="negative" value="-2.4%" variant="wash" />
+				<Delta basis="over budget" hierarchy="wash" intent="negative" value="-2.4%" />
 				<Delta basis="unchanged" value="0.0%" />
 			</>
 		)
@@ -22,14 +22,14 @@ export const deltaExamples = defineExamples({
 			</>
 		)
 	},
-	sizes: {
-		description: 'Delta size scale for metric lockups.',
+	density: {
+		description: 'Delta density scale for metric lockups.',
 		render: () => (
 			<>
-				<Delta intent="positive" size="small" value="+4.2%" />
-				<Delta intent="positive" size="medium" value="+9.8%" />
-				<Delta intent="positive" size="large" value="+18.6%" />
-				<Delta intent="positive" size="xlarge" value="+24.1%" />
+				<Delta density="compact" intent="positive" value="+4.2%" />
+				<Delta density="comfortable" intent="positive" value="+9.8%" />
+				<Delta density="editorial" intent="positive" value="+18.6%" />
+				<Delta density="display" intent="positive" value="+24.1%" />
 			</>
 		)
 	},
@@ -37,9 +37,9 @@ export const deltaExamples = defineExamples({
 		description: 'Soft filled delta treatment.',
 		render: () => (
 			<>
-				<Delta intent="positive" value="+18.6%" variant="wash" />
-				<Delta intent="negative" value="-2.4%" variant="wash" />
-				<Delta value="0.0%" variant="wash" />
+				<Delta hierarchy="wash" intent="positive" value="+18.6%" />
+				<Delta hierarchy="wash" intent="negative" value="-2.4%" />
+				<Delta hierarchy="wash" value="0.0%" />
 			</>
 		)
 	}

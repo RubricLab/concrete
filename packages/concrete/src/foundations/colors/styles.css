@@ -23,6 +23,60 @@
 	--concrete-border-soft: var(--concrete-ink-1);
 	--concrete-border: var(--concrete-ink-2);
 	--concrete-border-strong: var(--concrete-ink-3);
+	--concrete-control-background: var(--concrete-surface);
+	--concrete-control-background-hover: var(--concrete-raised);
+	--concrete-control-background-active: var(--concrete-sunken);
+	--concrete-control-background-disabled: var(--concrete-sunken);
+	--concrete-control-background-selected: var(--concrete-ink-9);
+	--concrete-control-background-selected-soft: var(--concrete-sky-1);
+	--concrete-control-background-error: var(--concrete-error-1);
+	--concrete-control-border: var(--concrete-border);
+	--concrete-control-border-hover: var(--concrete-border-strong);
+	--concrete-control-border-focus: var(--concrete-sky);
+	--concrete-control-border-error: var(--concrete-error);
+	--concrete-control-border-selected: var(--concrete-ink-9);
+	--concrete-control-border-selected-soft: var(--concrete-sky-border-muted);
+	--concrete-control-foreground: var(--concrete-foreground-strong);
+	--concrete-control-foreground-body: var(--concrete-foreground-body);
+	--concrete-control-foreground-muted: var(--concrete-foreground-muted);
+	--concrete-control-foreground-soft: var(--concrete-foreground-soft);
+	--concrete-control-foreground-disabled: var(--concrete-foreground-muted);
+	--concrete-control-foreground-selected: var(--concrete-inverse-foreground-strong);
+	--concrete-control-foreground-selected-soft: var(--concrete-sky-strong);
+	--concrete-control-placeholder: var(--concrete-foreground-soft);
+	--concrete-control-icon: var(--concrete-foreground-soft);
+	--concrete-control-icon-hover: var(--concrete-foreground-muted);
+	--concrete-control-icon-selected: var(--concrete-sky-strong);
+	--concrete-surface-background: var(--concrete-surface);
+	--concrete-surface-background-muted: var(--concrete-raised);
+	--concrete-surface-background-hover: var(--concrete-raised);
+	--concrete-surface-background-raised: var(--concrete-raised);
+	--concrete-surface-background-sunken: var(--concrete-sunken);
+	--concrete-surface-border: var(--concrete-border);
+	--concrete-surface-border-soft: var(--concrete-border-soft);
+	--concrete-surface-border-hover: var(--concrete-border-strong);
+	--concrete-surface-foreground: var(--concrete-foreground-body);
+	--concrete-surface-foreground-strong: var(--concrete-foreground-strong);
+	--concrete-surface-foreground-muted: var(--concrete-foreground-muted);
+	--concrete-surface-foreground-soft: var(--concrete-foreground-soft);
+	--concrete-feedback-background: var(--concrete-raised);
+	--concrete-feedback-border: var(--concrete-border);
+	--concrete-feedback-icon-background: var(--concrete-surface);
+	--concrete-feedback-icon-foreground: var(--concrete-foreground-muted);
+	--concrete-feedback-error-background: var(--concrete-error-1);
+	--concrete-feedback-error-border: var(--concrete-validation-error-border);
+	--concrete-feedback-error-foreground: var(--concrete-error);
+	--concrete-feedback-success-background: var(--concrete-terminal-wash);
+	--concrete-feedback-success-border: var(--concrete-validation-success-border);
+	--concrete-feedback-success-foreground: var(--concrete-terminal-strong);
+	--concrete-data-track-background: var(--concrete-ink-1);
+	--concrete-data-fill: var(--concrete-ink-9);
+	--concrete-data-foreground: var(--concrete-foreground-strong);
+	--concrete-data-foreground-muted: var(--concrete-foreground-muted);
+	--concrete-data-foreground-soft: var(--concrete-foreground-soft);
+	--concrete-data-positive: var(--concrete-terminal);
+	--concrete-data-negative: var(--concrete-error);
+	--concrete-data-neutral: var(--concrete-foreground-muted);
 	--concrete-sky-1: #eef3fb;
 	--concrete-sky-2: #d9e6f8;
 	--concrete-sky-3: #a9c6ef;
@@ -106,15 +160,10 @@
 		var(--concrete-error-wash),
 		var(--concrete-error) 12%
 	);
-	--concrete-form-overlay-background: color-mix(
+	--concrete-overlay-scrim-background: color-mix(
 		in oklab,
 		var(--concrete-sunken) 84%,
 		var(--concrete-surface)
-	);
-	--concrete-form-shell-error-border: color-mix(
-		in oklab,
-		var(--concrete-error) 18%,
-		var(--concrete-border)
 	);
 	--concrete-validation-error-border: color-mix(
 		in oklab,
@@ -207,28 +256,24 @@
 		var(--concrete-error) 28%,
 		var(--concrete-border)
 	);
-	--concrete-diagram-canvas-rail-background: color-mix(
-		in srgb,
-		var(--concrete-surface) 94%,
-		transparent
-	);
-	--concrete-diagram-canvas-minimap-background: color-mix(
+	--concrete-diagram-rail-background: color-mix(in srgb, var(--concrete-surface) 94%, transparent);
+	--concrete-diagram-minimap-background: color-mix(
 		in srgb,
 		var(--concrete-surface) 92%,
 		transparent
 	);
-	--concrete-diagram-canvas-legend-data-border: color-mix(
+	--concrete-diagram-legend-data-border: color-mix(
 		in srgb,
 		var(--concrete-sky) 34%,
 		var(--concrete-border)
 	);
-	--concrete-range-control-track-background: linear-gradient(
+	--concrete-interval-track-background: linear-gradient(
 		to right,
 		var(--concrete-ink-1) var(--concrete-progress-start),
-		var(--concrete-ink-1) var(--concrete-range-start),
-		var(--concrete-sky) var(--concrete-range-start),
-		var(--concrete-sky) var(--concrete-range-end),
-		var(--concrete-ink-1) var(--concrete-range-end),
+		var(--concrete-ink-1) var(--concrete-interval-start),
+		var(--concrete-sky) var(--concrete-interval-start),
+		var(--concrete-sky) var(--concrete-interval-end),
+		var(--concrete-ink-1) var(--concrete-interval-end),
 		var(--concrete-ink-1) var(--concrete-progress-end)
 	);
 }

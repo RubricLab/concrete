@@ -4,6 +4,10 @@ import { chartComparisonPoints, chartPoints } from '../../utilities/data-fixture
 import { BarChart } from './component'
 
 export const barChartExamples = defineExamples({
+	compact: {
+		description: 'Headerless horizontal bars for dense scorecards.',
+		render: () => renderBarChartExample('compact')
+	},
 	comparison: {
 		description: 'Muted comparison bars behind the primary series.',
 		render: () => renderBarChartExample('comparison')
@@ -41,6 +45,22 @@ function renderBarChartExample(state = 'default'): ReactNode {
 				message={state === 'error' ? 'Could not load capability scores.' : undefined}
 				points={[]}
 				state={state}
+				title="Capability score"
+			/>
+		)
+	}
+
+	if (state === 'compact') {
+		return (
+			<BarChart
+				compact
+				height={150}
+				legend={false}
+				orientation="horizontal"
+				points={chartPoints.slice(0, 4)}
+				showHeader={false}
+				showValues={false}
+				surface="sunken"
 				title="Capability score"
 			/>
 		)

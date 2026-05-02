@@ -19,9 +19,9 @@ export const sparklineMeta = {
 	pressure: ['product', 'generative', 'educational'],
 	props: [
 		prop('values', 'readonly number[]', 'Series values normalized into the SVG viewport.', '', true),
-		prop('variant', "'line' | 'bar' | 'dot'", 'Sparkline mark type.', 'line'),
+		prop('display', "'line' | 'bar' | 'dot'", 'Sparkline mark type.', 'line'),
 		prop(
-			'tone',
+			'intent',
 			"'sky' | 'neutral' | 'terminal' | 'error'",
 			'Line, endpoint, area, and bar color.',
 			'sky'

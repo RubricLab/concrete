@@ -2,7 +2,7 @@ import { exampleStates, renderExample } from '../../factories/createExamples'
 import { createComponent } from '../../factories/createItems'
 import { Button } from '../../primitives'
 import { CommandMenu, type CommandMenuItem } from '../command-menu'
-import { SearchBar, type SearchToken } from './component'
+import { SearchBar } from './component'
 import { searchBarExamples } from './examples'
 import { searchBarMeta } from './meta'
 import { type SearchBarValue, searchBarComponentSchema } from './schema'
@@ -40,34 +40,25 @@ export const searchBarComponentDefinition = createComponent({
 	seed: searchBarComponentSchema.parse({
 		query: 'triage sligo',
 		tokens: [
-			{ id: 'workspace', label: 'Rubric', leadingIcon: 'folder', tone: 'sky' },
-			{ id: 'mode', label: 'agent runs', leadingIcon: 'activity', tone: 'ultra' }
+			{ id: 'workspace', intent: 'sky', label: 'Rubric', leadingIcon: 'folder' },
+			{ id: 'mode', intent: 'ultra', label: 'agent runs', leadingIcon: 'activity' }
 		]
 	}),
 	slug: 'search-bar',
-	states: exampleStates(searchBarExamples, ['default', 'scoped', 'menu'])
+	states: exampleStates(searchBarExamples, ['default', 'scoped', 'menu', 'wrapped'])
 })
 
 function renderSearchBarInput(input: SearchBarValue) {
-	const tokens = input.tokens.map(token => {
-		const { leadingIcon, ...requiredToken } = token
-
-		return {
-			...requiredToken,
-			...(leadingIcon ? { leadingIcon } : {})
-		} satisfies SearchToken
-	})
-
 	return (
 		<SearchBar
 			actions={
-				<Button shortcut={['enter']} size="small" variant="primary">
+				<Button shortcut={['enter']} density="small" hierarchy="primary">
 					Run
 				</Button>
 			}
 			placeholder={input.placeholder}
 			query={input.query}
-			tokens={tokens}
+			tokens={input.tokens}
 			wrap={input.wrap}
 			{...(input.menu
 				? { menu: <CommandMenu items={searchBarCommandItems} query={input.query} searchable={false} /> }

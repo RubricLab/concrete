@@ -1,26 +1,21 @@
 import { z } from 'zod/v4'
 import { iconNames } from '../../icons'
+import { labelIntentValues } from '../label-helpers'
 
-export const tagSizeValues = ['small', 'medium', 'large'] as const
-export const tagToneValues = [
-	'default',
-	'ink',
-	'sky',
-	'sunken',
-	'terminal',
-	'ultra',
-	'error'
-] as const
-export const tagVariantValues = ['default', 'outline', 'active', 'selected'] as const
+export const tagDensityValues = ['compact', 'comfortable', 'editorial'] as const
+export const tagHierarchyValues = ['outline', 'soft'] as const
+export const tagIntentValues = labelIntentValues
 
 export const tagSchema = z
 	.object({
+		active: z.boolean().default(false),
+		density: z.enum(tagDensityValues).default('comfortable'),
 		dismissible: z.boolean().default(false),
+		hierarchy: z.enum(tagHierarchyValues).default('soft'),
+		intent: z.enum(tagIntentValues).default('neutral'),
 		label: z.string().default('concrete'),
 		leadingIcon: z.enum(iconNames).optional(),
-		size: z.enum(tagSizeValues).default('medium'),
-		tone: z.enum(tagToneValues).default('default'),
-		variant: z.enum(tagVariantValues).default('default')
+		selected: z.boolean().default(false)
 	})
 	.strict()
 

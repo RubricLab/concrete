@@ -6,9 +6,9 @@ export const indicatorExamples = defineExamples({
 		description: 'Status indicators.',
 		render: () => (
 			<>
-				<Indicator tone="terminal">Running</Indicator>
-				<Indicator tone="sky">Queued</Indicator>
-				<Indicator tone="error">Failed</Indicator>
+				<Indicator intent="terminal">Running</Indicator>
+				<Indicator intent="sky">Queued</Indicator>
+				<Indicator intent="danger">Failed</Indicator>
 			</>
 		)
 	},
@@ -16,10 +16,10 @@ export const indicatorExamples = defineExamples({
 		description: 'Muted legend indicators.',
 		render: () => (
 			<>
-				<Indicator tone="terminal">Running</Indicator>
-				<Indicator tone="sky">Queued</Indicator>
-				<Indicator tone="error">Failed</Indicator>
-				<Indicator tone="muted">Background</Indicator>
+				<Indicator intent="terminal">Running</Indicator>
+				<Indicator intent="sky">Queued</Indicator>
+				<Indicator intent="danger">Failed</Indicator>
+				<Indicator intent="muted">Background</Indicator>
 			</>
 		)
 	}

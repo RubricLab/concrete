@@ -1,11 +1,12 @@
 import { z } from 'zod/v4'
 
-export const spinnerToneValues = ['default', 'sky', 'inverse'] as const
+export const spinnerDensityValues = ['compact', 'comfortable', 'editorial'] as const
+export const spinnerIntentValues = ['inverse', 'neutral', 'sky'] as const
 
 export const spinnerSchema = z
 	.object({
-		size: z.number().min(1).default(18),
-		tone: z.enum(spinnerToneValues).default('default')
+		density: z.enum(spinnerDensityValues).default('comfortable'),
+		intent: z.enum(spinnerIntentValues).default('neutral')
 	})
 	.strict()
 

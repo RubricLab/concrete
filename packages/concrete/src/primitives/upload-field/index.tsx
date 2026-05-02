@@ -5,10 +5,15 @@ import { uploadFieldExamples } from './examples'
 import { uploadFieldMeta } from './meta'
 import { type UploadFieldValue, uploadFieldSchema } from './schema'
 
-export type { UploadFieldProps, UploadFieldVariant } from './component'
+export type { UploadFieldDisplay, UploadFieldKind, UploadFieldProps } from './component'
 export { UploadField } from './component'
 export type { UploadFieldInput, UploadFieldValue } from './schema'
-export { uploadFieldPropsSchema, uploadFieldSchema, uploadFieldVariantValues } from './schema'
+export {
+	uploadFieldDisplayValues,
+	uploadFieldKindValues,
+	uploadFieldPropsSchema,
+	uploadFieldSchema
+} from './schema'
 
 export const uploadFieldPrimitiveDefinition = createPrimitive({
 	...uploadFieldMeta,

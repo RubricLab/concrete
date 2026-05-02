@@ -2,9 +2,9 @@ import { z } from 'zod/v4'
 
 export const sliderSchema = z
 	.object({
+		intent: z.enum(['default', 'sky']).default('default'),
 		max: z.number().default(100),
 		min: z.number().default(0),
-		tone: z.enum(['default', 'sky']).default('default'),
 		value: z.number().default(62)
 	})
 	.strict()

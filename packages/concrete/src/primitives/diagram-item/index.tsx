@@ -18,7 +18,7 @@ export const diagramItemPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderDiagramItemInput(diagramItemPrimitiveSchema.parse(input)),
 	schema: diagramItemPrimitiveSchema,
 	slug: 'diagram-item',
-	states: exampleStates(diagramItemExamples, ['default', 'selected', 'muted', 'tones'])
+	states: exampleStates(diagramItemExamples, ['default', 'selected', 'muted', 'intents'])
 })
 
 function renderDiagramItemInput({ meta, value, ...props }: DiagramItemValue) {

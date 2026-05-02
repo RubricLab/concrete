@@ -29,6 +29,7 @@ export const donutChartComponentDefinition = createComponent({
 		'thin',
 		'thick',
 		'plain',
+		'compact',
 		'loading',
 		'empty',
 		'error'

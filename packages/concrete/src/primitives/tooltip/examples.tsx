@@ -8,7 +8,7 @@ export const tooltipExamples = defineExamples({
 		render: () => (
 			<>
 				<Tooltip content="Use one short sentence." forceOpen>
-					<Button variant="secondary">Anchor</Button>
+					<Button hierarchy="secondary">Anchor</Button>
 				</Tooltip>
 			</>
 		)
@@ -23,7 +23,7 @@ export const tooltipExamples = defineExamples({
 					shortcut={['cmd', 'k']}
 					title="Command search"
 				>
-					<Button variant="secondary">Anchor</Button>
+					<Button hierarchy="secondary">Anchor</Button>
 				</Tooltip>
 			</>
 		)

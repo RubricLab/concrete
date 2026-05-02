@@ -1,0 +1,20 @@
+.concrete-menu-group {
+	display: grid;
+	gap: var(--concrete-space-0-75);
+	min-width: var(--concrete-space-0);
+}
+
+.concrete-menu-group-title {
+	padding-block: var(--concrete-space-1-5) var(--concrete-space-1);
+	padding-inline: var(--concrete-space-2);
+	color: var(--concrete-control-foreground-muted);
+	font:
+		var(--concrete-weight-bold) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-menu-group-items {
+	display: grid;
+	gap: var(--concrete-space-0-5);
+	min-width: var(--concrete-space-0);
+}

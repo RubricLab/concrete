@@ -25,8 +25,8 @@ export default async function RenderPage({ params, searchParams }: RenderPagePro
 		<CatalogRenderPage
 			definition={item.definition}
 			entry={item.entry}
-			query={query}
-			searchParams={resolvedSearchParams}
+			pressure={query.pressure}
+			state={query.state}
 		/>
 	)
 }

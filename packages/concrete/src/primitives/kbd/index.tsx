@@ -8,7 +8,7 @@ import { type KbdValue, kbdSchema } from './schema'
 export type { KbdProps } from './component'
 export { Kbd } from './component'
 export type { KbdInput, KbdValue } from './schema'
-export { kbdPropsSchema, kbdSchema, kbdToneValues } from './schema'
+export { kbdIntentValues, kbdPropsSchema, kbdSchema } from './schema'
 
 export const kbdPrimitiveDefinition = createPrimitive({
 	...kbdMeta,

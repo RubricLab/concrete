@@ -2,7 +2,7 @@
 
 import type { InputHTMLAttributes } from 'react'
 import { useState } from 'react'
-import { Field, StepperAction, StepperControl, StepperInput } from '../../primitives'
+import { Field, Stepper, StepperAction, StepperInput } from '../../primitives'
 import {
 	clampOptionalNumber,
 	type FieldChromeProps,
@@ -66,7 +66,7 @@ export function NumberStepper({
 			required={required}
 			success={success}
 		>
-			<StepperControl disabled={disabled}>
+			<Stepper disabled={disabled}>
 				<StepperAction
 					disabled={!canDecrement}
 					direction="decrement"
@@ -87,7 +87,7 @@ export function NumberStepper({
 					direction="increment"
 					onClick={() => commitValue(currentValue + stepValue)}
 				/>
-			</StepperControl>
+			</Stepper>
 		</Field>
 	)
 }

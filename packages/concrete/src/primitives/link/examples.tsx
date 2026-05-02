@@ -11,16 +11,16 @@ export const linkExamples = defineExamples({
 		)
 	},
 	nav: {
-		description: 'Compact nav link treatment.',
+		description: 'Compact nav link treatment with current page state.',
 		render: () => (
 			<>
-				<TextLink href="#" variant="nav">
+				<TextLink current href="#" purpose="nav">
 					Overview
 				</TextLink>
-				<TextLink href="#" tone="sky" variant="nav">
+				<TextLink href="#" intent="sky" purpose="nav">
 					Components
 				</TextLink>
-				<TextLink external href="#" variant="nav">
+				<TextLink external href="#" purpose="nav">
 					Changelog
 				</TextLink>
 			</>
@@ -31,10 +31,10 @@ export const linkExamples = defineExamples({
 		render: () => (
 			<>
 				<TextLink href="#">Default</TextLink>
-				<TextLink href="#" tone="sky">
+				<TextLink href="#" intent="sky">
 					Sky
 				</TextLink>
-				<TextLink href="#" tone="muted">
+				<TextLink href="#" intent="muted">
 					Muted
 				</TextLink>
 			</>

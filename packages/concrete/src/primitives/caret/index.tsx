@@ -5,7 +5,7 @@ import { caretExamples } from './examples'
 import { caretMeta } from './meta'
 import { type CaretValue, caretSchema } from './schema'
 
-export type { CaretDirection, CaretProps, CaretSize } from './component'
+export type { CaretDirection, CaretProps, CaretScale } from './component'
 export { Caret } from './component'
 export type { CaretInput, CaretValue } from './schema'
 export { caretPropsSchema, caretSchema } from './schema'

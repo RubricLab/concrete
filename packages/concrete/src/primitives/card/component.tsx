@@ -2,13 +2,13 @@ import type { HTMLAttributes, ReactNode } from 'react'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type CardVariant = 'default' | 'raised' | 'sunken'
+export type CardDepth = 'default' | 'raised' | 'sunken'
 
 export type CardProps = HTMLAttributes<HTMLDivElement> & {
 	description?: ReactNode
 	interactive?: boolean
 	title?: ReactNode
-	variant?: CardVariant
+	depth?: CardDepth
 }
 
 export function Card({
@@ -17,15 +17,15 @@ export function Card({
 	description,
 	interactive = false,
 	title,
-	variant = 'default',
+	depth = 'default',
 	...props
 }: CardProps) {
 	return (
 		<div
 			className={cn(
 				concreteClassNames.card,
-				variant === 'raised' && concreteClassNames.cardRaised,
-				variant === 'sunken' && concreteClassNames.cardSunken,
+				depth === 'raised' && concreteClassNames.cardRaised,
+				depth === 'sunken' && concreteClassNames.cardSunken,
 				interactive && concreteClassNames.cardInteractive,
 				className
 			)}

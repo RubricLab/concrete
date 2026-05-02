@@ -5,10 +5,15 @@ import { spinnerExamples } from './examples'
 import { spinnerMeta } from './meta'
 import { type SpinnerValue, spinnerSchema } from './schema'
 
-export type { SpinnerProps } from './component'
+export type { SpinnerDensity, SpinnerIntent, SpinnerProps } from './component'
 export { Spinner } from './component'
 export type { SpinnerInput, SpinnerValue } from './schema'
-export { spinnerPropsSchema, spinnerSchema, spinnerToneValues } from './schema'
+export {
+	spinnerDensityValues,
+	spinnerIntentValues,
+	spinnerPropsSchema,
+	spinnerSchema
+} from './schema'
 
 export const spinnerPrimitiveDefinition = createPrimitive({
 	...spinnerMeta,

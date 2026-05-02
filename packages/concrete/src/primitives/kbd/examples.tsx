@@ -9,7 +9,7 @@ export const kbdExamples = defineExamples({
 			<>
 				<Kbd>⌘</Kbd>
 				<Kbd>K</Kbd>
-				<Kbd tone="dark">↵</Kbd>
+				<Kbd intent="inverse">↵</Kbd>
 			</>
 		)
 	},
@@ -18,7 +18,7 @@ export const kbdExamples = defineExamples({
 		render: () => (
 			<>
 				<Button shortcut={['cmd', 'k']}>Search</Button>
-				<Button shortcut={['cmd', 'enter']} variant="primary">
+				<Button shortcut={['cmd', 'enter']} hierarchy="primary">
 					Send
 				</Button>
 			</>

@@ -7,7 +7,7 @@ import {
 	ChartTarget,
 	ChartTickLabel
 } from '../primitives'
-import type { chartSchema, DataPoint, DataTone } from '../schemas'
+import type { chartSchema, DataIntent, DataPoint } from '../schemas'
 import { createChartTicks, createLinearScale, getNumericExtent } from './data-geometry'
 
 export type ChartPlotBox = {
@@ -36,8 +36,8 @@ export type ScaledChartPoint = DataPoint & {
 export type ChartBarRectangle = { height: number; width: number; x: number; y: number }
 
 type ChartState = 'empty' | 'error' | 'loading' | 'ready'
-type ChartStateTone = 'error' | 'muted' | 'sky' | 'terminal'
-type ChartLegendItem = { label: string; tone: DataTone; value?: string | undefined }
+type ChartStateIntent = 'danger' | 'muted' | 'sky' | 'terminal'
+type ChartLegendDatum = { label: string; intent: DataIntent; value?: string | undefined }
 
 const chartStateMessages = {
 	empty: 'No data',
@@ -48,10 +48,10 @@ const chartStateMessages = {
 
 const chartStateTones = {
 	empty: 'muted',
-	error: 'error',
+	error: 'danger',
 	loading: 'sky',
 	ready: 'terminal'
-} satisfies Record<ChartState, ChartStateTone>
+} satisfies Record<ChartState, ChartStateIntent>
 
 export function createChartPlotBox(
 	width: number,
@@ -245,29 +245,29 @@ export function getChartStateMessage(state: ChartState): string {
 	return chartStateMessages[state]
 }
 
-export function getChartStateTone(state: ChartState): ChartStateTone {
+export function getChartStateIntent(state: ChartState): ChartStateIntent {
 	return chartStateTones[state]
 }
 
 export function getChartLegendItems(
 	parsedProps: ReturnType<typeof chartSchema.parse>
-): ChartLegendItem[] {
-	switch (parsedProps.variant) {
+): ChartLegendDatum[] {
+	switch (parsedProps.kind) {
 		case 'area':
 		case 'line':
 			return parsedProps.series.map(series => ({
-				label: series.label,
-				tone: series.tone
+				intent: series.intent,
+				label: series.label
 			}))
 		case 'bar':
 			return parsedProps.points.slice(0, 4).map(point => ({
-				label: point.label,
-				tone: point.tone
+				intent: point.intent,
+				label: point.label
 			}))
 		case 'donut':
 			return parsedProps.segments.map(segment => ({
+				intent: segment.intent,
 				label: segment.label,
-				tone: segment.tone,
 				value: String(segment.value)
 			}))
 		case 'heatmap':
@@ -275,8 +275,8 @@ export function getChartLegendItems(
 		case 'stacked-bar':
 			return (
 				parsedProps.groups[0]?.segments.map(segment => ({
-					label: segment.label,
-					tone: segment.tone
+					intent: segment.intent,
+					label: segment.label
 				})) ?? []
 			)
 	}

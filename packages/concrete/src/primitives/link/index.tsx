@@ -5,7 +5,7 @@ import { linkExamples } from './examples'
 import { linkMeta } from './meta'
 import { type LinkValue, linkSchema } from './schema'
 
-export type { TextLinkProps, TextLinkTone, TextLinkVariant } from './component'
+export type { TextLinkIntent, TextLinkProps, TextLinkPurpose } from './component'
 export { TextLink } from './component'
 export type { LinkInput, LinkValue } from './schema'
 export { linkPropsSchema, linkSchema } from './schema'

@@ -1,0 +1,51 @@
+.concrete-heatmap-chart {
+	display: grid;
+	grid-template-columns: var(--concrete-template-heatmap-grid);
+	align-content: center;
+	gap: var(--concrete-space-1);
+	min-height: var(--concrete-chart-height, var(--concrete-size-chart-height));
+	padding: var(--concrete-space-4);
+	color: var(--concrete-sky);
+}
+
+.concrete-heatmap-column-label,
+.concrete-heatmap-row-label {
+	color: var(--concrete-foreground-muted);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	letter-spacing: var(--concrete-tracking-section);
+	text-transform: uppercase;
+}
+
+.concrete-heatmap-column-label {
+	text-align: center;
+}
+
+.concrete-heatmap-cell {
+	position: relative;
+	display: grid;
+	min-height: var(--concrete-size-heatmap-cell-min);
+	place-items: center;
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-radius: var(--concrete-radius-2);
+	background: var(--concrete-surface);
+	color: var(--concrete-foreground-strong);
+	font:
+		var(--concrete-weight-heavy) var(--concrete-type-10) / var(--concrete-line-flat)
+		var(--concrete-font-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+.concrete-heatmap-cell::before {
+	position: absolute;
+	inset: var(--concrete-space-0);
+	background: var(--concrete-sky);
+	content: "";
+	opacity: var(--heatmap-intensity, var(--concrete-opacity-heatmap-cell-default));
+}
+
+.concrete-heatmap-cell-value {
+	position: relative;
+}

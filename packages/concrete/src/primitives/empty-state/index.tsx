@@ -5,7 +5,7 @@ import { emptyStateExamples } from './examples'
 import { emptyStateMeta } from './meta'
 import { type EmptyStateValue, emptyStateSchema } from './schema'
 
-export type { EmptyStateProps, EmptyStateSize, EmptyStateTone } from './component'
+export type { EmptyStateDensity, EmptyStateIntent, EmptyStateProps } from './component'
 export { EmptyState } from './component'
 export type { EmptyStateInput, EmptyStateValue } from './schema'
 export { emptyStatePropsSchema, emptyStateSchema } from './schema'
@@ -18,9 +18,17 @@ export const emptyStatePrimitiveDefinition = createPrimitive({
 	renderInput: input => renderEmptyStateInput(emptyStateSchema.parse(input)),
 	schema: emptyStateSchema,
 	slug: 'empty-state',
-	states: exampleStates(emptyStateExamples, ['default', 'small', 'sky'])
+	states: exampleStates(emptyStateExamples, ['default', 'compact', 'sky', 'editorial'])
 })
 
-function renderEmptyStateInput({ body, icon, size, title, tone }: EmptyStateValue) {
-	return <EmptyState icon={icon} size={size} title={title} tone={tone} {...(body ? { body } : {})} />
+function renderEmptyStateInput({ body, density, icon, intent, title }: EmptyStateValue) {
+	return (
+		<EmptyState
+			density={density}
+			icon={icon}
+			intent={intent}
+			title={title}
+			{...(body ? { body } : {})}
+		/>
+	)
 }

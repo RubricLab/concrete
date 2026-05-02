@@ -5,15 +5,8 @@
 	width: var(--concrete-size-full);
 }
 
-.concrete-label {
-	color: var(--concrete-foreground-body);
-	font:
-		var(--concrete-weight-semibold) var(--concrete-type-12) / var(--concrete-line-compact)
-		var(--concrete-font-sans);
-}
-
 .concrete-help {
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-foreground-muted);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-11-5) / var(--concrete-line-help)
 		var(--concrete-font-sans);
@@ -33,34 +26,36 @@
 	position: absolute;
 	top: var(--concrete-size-half);
 	left: var(--concrete-space-2-25);
-	width: var(--concrete-size-icon-medium);
-	height: var(--concrete-size-icon-medium);
-	color: var(--concrete-foreground-soft);
+	width: var(--concrete-size-control-leading-glyph);
+	height: var(--concrete-size-control-leading-glyph);
+	color: var(--concrete-control-icon);
 	transform: translateY(var(--concrete-translate-half-negative));
 	pointer-events: none;
 }
 
 .concrete-input-icon svg {
-	width: var(--concrete-size-icon-medium);
-	height: var(--concrete-size-icon-medium);
+	width: var(--concrete-size-control-leading-glyph);
+	height: var(--concrete-size-control-leading-glyph);
 }
 
 .concrete-input {
 	display: block;
 	width: var(--concrete-size-full);
-	height: var(--concrete-size-field-control);
+	height: var(--concrete-size-control-compact);
 	padding-block: var(--concrete-space-0);
 	padding-inline: var(--concrete-space-2-5);
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-surface);
-	box-shadow: var(--concrete-shadow-control-inset);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-rest);
+	color: var(--concrete-control-foreground);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-12-5) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
 	transition:
+		background var(--concrete-duration-control) var(--concrete-ease),
 		border-color var(--concrete-duration-control) var(--concrete-ease),
+		color var(--concrete-duration-control) var(--concrete-ease),
 		box-shadow var(--concrete-duration-control) var(--concrete-ease);
 }
 
@@ -69,29 +64,34 @@
 }
 
 .concrete-input::placeholder {
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-placeholder);
 	font-weight: var(--concrete-weight-regular);
 }
 
 .concrete-input:hover {
-	border-color: var(--concrete-border-strong);
+	border-color: var(--concrete-control-border-hover);
+	background: var(--concrete-control-background-hover);
+	box-shadow: var(--concrete-shadow-control-hover);
 }
 
 .concrete-input:focus {
 	outline: var(--concrete-space-0);
-	border-color: var(--concrete-sky);
-	box-shadow: var(--concrete-ring-focus);
+	border-color: var(--concrete-control-border-focus);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-input:disabled {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-muted);
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-control-background-disabled);
+	box-shadow: var(--concrete-shadow-control-rest);
+	color: var(--concrete-control-foreground-disabled);
 	cursor: not-allowed;
 }
 
 .concrete-input-error {
-	border-color: var(--concrete-error);
-	box-shadow: var(--concrete-ring-error);
+	border-color: var(--concrete-control-border-error);
+	box-shadow: var(--concrete-shadow-control-error);
 }
 
 .concrete-form-control-wrap {
@@ -103,42 +103,54 @@
 .concrete-form-control {
 	display: block;
 	width: var(--concrete-size-full);
-	height: var(--concrete-size-field-control-large);
+	height: var(--concrete-size-control);
 	padding-block: var(--concrete-space-0);
 	padding-right: var(--concrete-size-field-action-padding);
 	padding-left: var(--concrete-space-2-5);
-	border: var(--concrete-border-width-hairline) solid var(--concrete-border);
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
 	border-radius: var(--concrete-radius-3);
-	background: var(--concrete-surface);
-	box-shadow: var(--concrete-shadow-control-inset);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-rest);
+	color: var(--concrete-control-foreground);
 	font:
 		var(--concrete-weight-medium) var(--concrete-type-13) / var(--concrete-line-flat)
 		var(--concrete-font-sans);
 	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
 		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
 		box-shadow var(--concrete-duration-fast) var(--concrete-ease);
 }
 
 .concrete-form-control::placeholder {
-	color: var(--concrete-foreground-soft);
+	color: var(--concrete-control-placeholder);
 	font-weight: var(--concrete-weight-regular);
 }
 
 .concrete-form-control:hover {
-	border-color: var(--concrete-border-strong);
+	border-color: var(--concrete-control-border-hover);
+	background: var(--concrete-control-background-hover);
+	box-shadow: var(--concrete-shadow-control-hover);
 }
 
 .concrete-form-control:focus {
 	outline: var(--concrete-space-0);
-	border-color: var(--concrete-sky);
-	box-shadow: var(--concrete-ring-focus);
+	border-color: var(--concrete-control-border-focus);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-focus);
 }
 
 .concrete-form-control:disabled {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-muted);
+	border-color: var(--concrete-border-soft);
+	background: var(--concrete-control-background-disabled);
+	box-shadow: var(--concrete-shadow-control-rest);
+	color: var(--concrete-control-foreground-disabled);
 	cursor: not-allowed;
+}
+
+.concrete-form-control[aria-invalid="true"] {
+	border-color: var(--concrete-control-border-error);
+	box-shadow: var(--concrete-shadow-control-error);
 }
 
 .concrete-form-control-icon-button {
@@ -147,13 +159,13 @@
 	right: var(--concrete-space-1-5);
 	display: inline-grid;
 	place-items: center;
-	width: var(--concrete-size-label-medium);
-	height: var(--concrete-size-label-medium);
+	width: var(--concrete-size-control-action);
+	height: var(--concrete-size-control-action);
 	padding: var(--concrete-space-0);
 	border: var(--concrete-space-0);
 	border-radius: var(--concrete-radius-2);
 	background: transparent;
-	color: var(--concrete-foreground-muted);
+	color: var(--concrete-control-icon);
 	cursor: pointer;
 	transform: translateY(var(--concrete-translate-half-negative));
 	transition:
@@ -163,8 +175,9 @@
 }
 
 .concrete-form-control-icon-button:hover {
-	background: var(--concrete-sunken);
-	color: var(--concrete-foreground-strong);
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-foreground);
+	box-shadow: var(--concrete-shadow-control-action);
 }
 
 .concrete-form-control-icon-button:active {
@@ -178,6 +191,6 @@
 }
 
 .concrete-form-control-icon-button svg {
-	width: var(--concrete-size-icon-large);
-	height: var(--concrete-size-icon-large);
+	width: var(--concrete-size-control-action-glyph);
+	height: var(--concrete-size-control-action-glyph);
 }

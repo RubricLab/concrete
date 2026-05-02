@@ -3,14 +3,40 @@ import { Button } from '../button'
 import { EmptyState } from './component'
 
 export const emptyStateExamples = defineExamples({
+	compact: {
+		description: 'Compact empty state.',
+		render: () => (
+			<>
+				<EmptyState
+					body="Try a broader keyword, or clear the filters applied to this view."
+					density="compact"
+					title="No matches"
+				/>
+			</>
+		)
+	},
 	default: {
 		description: 'Blank-slate message with action.',
 		render: () => (
 			<>
 				<EmptyState
-					action={<Button variant="primary">New search</Button>}
+					action={<Button hierarchy="primary">New search</Button>}
 					body="Try a broader keyword, or clear the filters applied to this view."
 					title="No matches"
+				/>
+			</>
+		)
+	},
+	editorial: {
+		description: 'Larger explainer empty state.',
+		render: () => (
+			<>
+				<EmptyState
+					action={<Button hierarchy="secondary">Read guide</Button>}
+					body="No generated examples exist yet for this primitive family."
+					density="editorial"
+					icon="file-text"
+					title="No examples"
 				/>
 			</>
 		)
@@ -20,21 +46,9 @@ export const emptyStateExamples = defineExamples({
 		render: () => (
 			<>
 				<EmptyState
-					action={<Button variant="primary">New search</Button>}
+					action={<Button hierarchy="primary">New search</Button>}
 					body="Try a broader keyword, or clear the filters applied to this view."
-					title="No matches"
-					tone="sky"
-				/>
-			</>
-		)
-	},
-	small: {
-		description: 'Compact empty state.',
-		render: () => (
-			<>
-				<EmptyState
-					body="Try a broader keyword, or clear the filters applied to this view."
-					size="small"
+					intent="sky"
 					title="No matches"
 				/>
 			</>

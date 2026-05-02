@@ -102,7 +102,9 @@
 	},
 	"scripts": {
 		"build": "bun run clean && tsdown && bun run build:styles",
+		"build:skill": "bun run scripts/build-skill.ts",
 		"build:styles": "bun run scripts/build-styles.ts",
+		"check:skill": "bun run scripts/build-skill.ts --check",
 		"clean": "rm -rf dist",
 		"lint": "bun x biome check .",
 		"pack:dry-run": "npm pack --dry-run --json",
@@ -120,5 +122,5 @@
 	],
 	"type": "module",
 	"types": "./dist/index.d.mts",
-	"version": "0.0.8"
+	"version": "0.0.16"
 }

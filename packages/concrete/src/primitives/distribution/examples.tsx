@@ -9,8 +9,8 @@ export const distributionExamples = defineExamples({
 				<Distribution
 					data={[
 						{ label: 'Direct routing', value: 47 },
-						{ label: 'Review queue', tone: 'sky', value: 28 },
-						{ label: 'Autonomous handoff', tone: 'terminal', value: 18 }
+						{ intent: 'sky', label: 'Review queue', value: 28 },
+						{ intent: 'terminal', label: 'Autonomous handoff', value: 18 }
 					]}
 				/>
 			</>
@@ -22,10 +22,10 @@ export const distributionExamples = defineExamples({
 			<>
 				<Distribution
 					data={[
-						{ label: 'Accepted', tone: 'terminal', value: 64 },
-						{ label: 'Needs review', tone: 'sky', value: 22 },
-						{ label: 'Escalated', tone: 'ultra', value: 9 },
-						{ label: 'Blocked', tone: 'error', value: 5 }
+						{ intent: 'terminal', label: 'Accepted', value: 64 },
+						{ intent: 'sky', label: 'Needs review', value: 22 },
+						{ intent: 'ultra', label: 'Escalated', value: 9 },
+						{ intent: 'danger', label: 'Blocked', value: 5 }
 					]}
 				/>
 			</>

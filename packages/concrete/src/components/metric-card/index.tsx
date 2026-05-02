@@ -29,7 +29,13 @@ export const metricCardComponentDefinition = createComponent({
 		value: '14,842'
 	}),
 	slug: 'metric-card',
-	states: exampleStates(metricCardExamples, ['default', 'status', 'compact'])
+	states: exampleStates(metricCardExamples, [
+		'default',
+		'status',
+		'compact',
+		'critical',
+		'trendless'
+	])
 })
 
 function renderMetricCardInput(input: MetricCardValue) {

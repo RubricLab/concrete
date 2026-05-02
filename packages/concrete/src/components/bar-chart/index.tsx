@@ -28,6 +28,7 @@ export const barChartComponentDefinition = createComponent({
 		'comparison',
 		'horizontal',
 		'quiet',
+		'compact',
 		'loading',
 		'empty',
 		'error'

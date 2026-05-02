@@ -5,10 +5,16 @@ import { tagExamples } from './examples'
 import { tagMeta } from './meta'
 import { type TagValue, tagSchema } from './schema'
 
-export type { TagProps, TagSize, TagTone, TagVariant } from './component'
+export type { TagDensity, TagHierarchy, TagIntent, TagProps } from './component'
 export { Tag } from './component'
 export type { TagInput, TagValue } from './schema'
-export { tagPropsSchema, tagSchema, tagSizeValues, tagToneValues, tagVariantValues } from './schema'
+export {
+	tagDensityValues,
+	tagHierarchyValues,
+	tagIntentValues,
+	tagPropsSchema,
+	tagSchema
+} from './schema'
 
 export const tagPrimitiveDefinition = createPrimitive({
 	...tagMeta,
@@ -18,7 +24,7 @@ export const tagPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderTagInput(tagSchema.parse(input)),
 	schema: tagSchema,
 	slug: 'tag',
-	states: exampleStates(tagExamples, ['default', 'variants', 'sizes'])
+	states: exampleStates(tagExamples, ['default', 'hierarchy', 'density'])
 })
 
 function renderTagInput({ label, leadingIcon, ...input }: TagValue) {

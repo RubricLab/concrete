@@ -1,6 +1,7 @@
 .concrete-select {
 	appearance: none;
 	padding-right: var(--concrete-size-select-padding-inline-end);
+	background: var(--concrete-control-background);
 	cursor: pointer;
 }
 
@@ -8,11 +9,28 @@
 	position: absolute;
 	top: var(--concrete-size-half);
 	right: var(--concrete-space-2-5);
-	width: var(--concrete-size-indicator-dot);
-	height: var(--concrete-size-indicator-dot);
-	border-right: var(--concrete-border-width-control) solid var(--concrete-foreground-muted);
-	border-bottom: var(--concrete-border-width-control) solid var(--concrete-foreground-muted);
+	width: var(--concrete-size-control-select-glyph);
+	height: var(--concrete-size-control-select-glyph);
+	border-right: var(--concrete-border-width-control) solid var(--concrete-control-icon);
+	border-bottom: var(--concrete-border-width-control) solid var(--concrete-control-icon);
 	content: "";
 	transform: translateY(var(--concrete-translate-select-arrow)) rotate(var(--concrete-rotate-eighth));
 	pointer-events: none;
+	transition:
+		border-color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+}
+
+.concrete-select-wrap:has(.concrete-select:hover)::after,
+.concrete-select-wrap:has(.concrete-select:focus)::after {
+	border-color: var(--concrete-control-icon-hover);
+}
+
+.concrete-select-wrap:has(.concrete-select:active:not(:disabled))::after {
+	transform: translateY(var(--concrete-translate-select-arrow)) rotate(var(--concrete-rotate-eighth))
+		scale(var(--concrete-scale-control-pressed));
+}
+
+.concrete-select-wrap:has(.concrete-select:disabled)::after {
+	border-color: var(--concrete-control-foreground-soft);
 }

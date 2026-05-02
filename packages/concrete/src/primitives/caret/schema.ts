@@ -4,7 +4,7 @@ export const caretSchema = z
 	.object({
 		direction: z.enum(['down', 'right', 'up']).default('right'),
 		open: z.boolean().default(false),
-		size: z.enum(['large', 'medium', 'small']).default('medium')
+		scale: z.enum(['large', 'medium', 'small']).default('medium')
 	})
 	.strict()
 

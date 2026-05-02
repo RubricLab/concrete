@@ -2,8 +2,8 @@ import type { CSSProperties, ReactNode } from 'react'
 import { defineExamples } from '../../factories/createExamples'
 import { layoutTokens } from './schema'
 
-const templateNames = ['form-row', 'picker-control', 'calendar-grid', 'distribution-row'] as const
-const layerNames = ['tooltip', 'form-overlay'] as const
+const templateNames = ['field-row', 'picker-button', 'calendar-grid', 'distribution-row'] as const
+const layerNames = ['overlay-tip', 'overlay'] as const
 
 export const layoutExamples = defineExamples({
 	default: {
@@ -23,7 +23,7 @@ export const layoutExamples = defineExamples({
 		)
 	},
 	layers: {
-		description: 'Layers keep overlays, menus, sticky table cells, and tooltips deterministic.',
+		description: 'Layers keep overlays, menus, sticky table cells, and overlay tips deterministic.',
 		render: () => (
 			<LayoutFrame meta="Z-index roles" title="Layer policy">
 				<div style={stackStyle}>

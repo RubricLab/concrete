@@ -30,9 +30,9 @@ export const diagramItemMeta = {
 			'note'
 		),
 		prop(
-			'tone',
+			'intent',
 			"'ink' | 'muted' | 'sky' | 'terminal' | 'ultra' | 'error'",
-			'Concrete-native item tone.',
+			'Concrete-native item intent.',
 			'ink'
 		),
 		prop('selected', 'boolean', 'Selected canvas state.', 'false'),

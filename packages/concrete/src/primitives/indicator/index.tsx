@@ -5,10 +5,10 @@ import { indicatorExamples } from './examples'
 import { indicatorMeta } from './meta'
 import { type IndicatorValue, indicatorSchema } from './schema'
 
-export type { IndicatorProps, IndicatorTone } from './component'
+export type { IndicatorIntent, IndicatorProps } from './component'
 export { Indicator } from './component'
 export type { IndicatorInput, IndicatorValue } from './schema'
-export { indicatorPropsSchema, indicatorSchema, indicatorToneValues } from './schema'
+export { indicatorIntentValues, indicatorPropsSchema, indicatorSchema } from './schema'
 
 export const indicatorPrimitiveDefinition = createPrimitive({
 	...indicatorMeta,

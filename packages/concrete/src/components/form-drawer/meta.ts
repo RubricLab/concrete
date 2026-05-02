@@ -4,7 +4,7 @@ export const formDrawerMeta = {
 	category: 'layout',
 	description: 'Inline or fixed side-sheet form surface for inspect-and-edit workflows.',
 	guidance:
-		'Form drawer is for contextual editing beside dense product surfaces. It uses the same shell and row language as panels and dialogs.',
+		'Form drawer is for contextual editing beside dense product surfaces. Compose rows and sections with FieldRow, Section, and explicit controls.',
 	name: 'Form drawer',
 	pressure: ['product'],
 	props: [

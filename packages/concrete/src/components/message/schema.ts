@@ -6,11 +6,7 @@ export const messageComponentSchema = z
 		author: z.string().min(1).optional(),
 		avatarInitials: z.string().min(1).optional(),
 		avatarSrc: z.string().min(1).optional(),
-		children: z
-			.string()
-			.default(
-				'The eval runner is failing during schema hydration. I found one stale fixture and a missing tool permission edge.'
-			),
+		children: z.string().default('I found the stale fixture and the missing tool permission edge.'),
 		grouped: z.boolean().default(false),
 		messageRole: messageRoleSchema.default('assistant'),
 		meta: z.string().min(1).optional(),

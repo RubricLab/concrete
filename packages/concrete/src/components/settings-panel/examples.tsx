@@ -1,5 +1,5 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Button, Select, Switch } from '../../primitives'
+import { Badge, Button, Select, Switch } from '../../primitives'
 import { NumberStepper } from '../number-stepper'
 import { SettingsPanel } from './component'
 
@@ -9,26 +9,52 @@ export const settingsPanelExamples = defineExamples({
 		render: () => renderSettingsPanelExample('compact')
 	},
 	default: {
-		description: 'Dense product settings with toggles, select, stepper, and upload state.',
+		description: 'Dense product settings with toggles, selects, steppers, and packet actions.',
 		render: () => renderSettingsPanelExample('default')
 	},
 	error: {
 		description: 'Settings panel with row and summary validation.',
 		render: () => renderSettingsPanelExample('error')
+	},
+	success: {
+		description: 'Settings panel with successful sync state.',
+		render: () => renderSettingsPanelExample('success')
 	}
 })
 
-function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
+function renderSettingsPanelExample(state: 'compact' | 'default' | 'error' | 'success') {
+	const isCompact = state === 'compact'
+	const isError = state === 'error'
+	const isSuccess = state === 'success'
+
 	return (
 		<SettingsPanel
+			actions={
+				<>
+					<Button density="small" hierarchy="ghost" leadingIcon="settings">
+						Advanced
+					</Button>
+					<Button density="small" hierarchy="primary" intent={isSuccess ? 'sky' : 'neutral'}>
+						{isSuccess ? 'Synced' : 'Save'}
+					</Button>
+				</>
+			}
+			compact={isCompact}
 			description="Dense settings rows keep labels, explanatory copy, metadata, and controls aligned."
 			footer={
 				<>
-					<Button size="small" variant="secondary">
+					<Button density="small" hierarchy="secondary">
 						Reset
 					</Button>
-					<Button size="small">Save</Button>
+					<Button density="small" hierarchy="primary">
+						{isSuccess ? 'Apply next' : 'Save changes'}
+					</Button>
 				</>
+			}
+			meta={
+				<Badge intent={isError ? 'danger' : isSuccess ? 'ultra' : 'terminal'}>
+					{isError ? 'Needs review' : isSuccess ? 'Synced' : 'Live'}
+				</Badge>
 			}
 			sections={[
 				{
@@ -43,7 +69,7 @@ function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
 							meta: 'on'
 						},
 						{
-							control: <NumberStepper defaultValue={state === 'compact' ? 2 : 6} max={12} min={1} />,
+							control: <NumberStepper defaultValue={isCompact ? 2 : isSuccess ? 8 : 6} max={12} min={1} />,
 							description: 'Maximum active workers for one request.',
 							id: 'workers',
 							label: 'Parallel workers',
@@ -52,7 +78,8 @@ function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
 						{
 							control: (
 								<Select
-									defaultValue={state === 'error' ? '' : 'router'}
+									aria-label="Default model"
+									defaultValue={isError ? '' : 'router'}
 									options={[
 										{ label: 'Select model...', value: '' },
 										{ label: 'Router v2', value: 'router' },
@@ -63,12 +90,12 @@ function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
 							description: 'Fallback model used when a prompt does not pin a route.',
 							id: 'model',
 							label: 'Default model',
-							status: state === 'error' ? 'error' : 'default'
+							status: isError ? 'error' : 'default'
 						}
 					],
 					title: 'Runtime'
 				},
-				...(state === 'compact'
+				...(isCompact
 					? []
 					: [
 							{
@@ -77,21 +104,40 @@ function renderSettingsPanelExample(state: 'compact' | 'default' | 'error') {
 								rows: [
 									{
 										control: (
-											<Button leadingIcon="paperclip" size="small" variant="secondary">
-												Attach
+											<Button density="small" hierarchy="secondary" leadingIcon="paperclip">
+												{isSuccess ? 'Attached' : 'Attach'}
 											</Button>
 										),
 										description: 'Research packet, spec, or evaluation fixture.',
 										id: 'packet',
-										label: 'Reference packet'
+										label: 'Reference packet',
+										meta: isSuccess ? '2 files' : undefined,
+										status: isSuccess ? ('success' as const) : ('default' as const)
+									},
+									{
+										control: (
+											<Select
+												aria-label="Release channel"
+												defaultValue={isSuccess ? 'stable' : 'preview'}
+												options={[
+													{ label: 'Preview', value: 'preview' },
+													{ label: 'Stable', value: 'stable' },
+													{ label: 'Internal only', value: 'internal' }
+												]}
+											/>
+										),
+										description: 'Where generated interface updates are promoted.',
+										id: 'channel',
+										label: 'Release channel',
+										meta: isSuccess ? 'stable' : 'preview'
 									}
 								],
 								title: 'Context'
 							}
 						])
 			]}
-			status={state === 'error' ? 'error' : 'default'}
-			title={state === 'compact' ? 'Run defaults' : 'Agent workspace'}
+			status={isError ? 'error' : isSuccess ? 'success' : 'default'}
+			title={isCompact ? 'Run defaults' : 'Agent workspace'}
 		/>
 	)
 }

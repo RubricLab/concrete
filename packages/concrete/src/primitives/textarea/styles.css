@@ -4,4 +4,5 @@
 	padding-inline: var(--concrete-space-2-5);
 	resize: vertical;
 	line-height: var(--concrete-line-prose-compact);
+	scrollbar-color: var(--concrete-border-strong) var(--concrete-transparent);
 }

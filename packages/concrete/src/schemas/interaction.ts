@@ -1,6 +1,6 @@
 import { z } from 'zod/v4'
 import {
-	commandItemToneSchema,
+	commandItemIntentSchema,
 	messageStatusSchema,
 	toolCallStatusSchema
 } from '../foundations/state/schema'
@@ -10,7 +10,7 @@ export const composerSuggestionKindSchema = z.enum(['command', 'mention'])
 export const messageRoleSchema = z.enum(['assistant', 'system', 'tool', 'user'])
 export const messageSurfaceSchema = z.enum(['bubble', 'plain'])
 
-export { commandItemToneSchema, messageStatusSchema, toolCallStatusSchema }
+export { commandItemIntentSchema, messageStatusSchema, toolCallStatusSchema }
 
 export const composerAttachmentSchema = z
 	.object({
@@ -72,18 +72,18 @@ export const commandItemSchema = z
 		disabled: z.boolean().default(false),
 		group: z.string().min(1).default('Actions'),
 		id: z.string().min(1),
+		intent: commandItemIntentSchema.default('default'),
 		label: z.string().min(1),
 		meta: z.string().min(1).optional(),
-		shortcut: z.array(z.string().min(1)).default([]),
-		tone: commandItemToneSchema.default('default')
+		shortcut: z.array(z.string().min(1)).default([])
 	})
 	.strict()
 
 export const searchBarTokenSchema = z
 	.object({
 		id: z.string().min(1),
-		label: z.string().min(1),
-		tone: commandItemToneSchema.default('default')
+		intent: commandItemIntentSchema.default('default'),
+		label: z.string().min(1)
 	})
 	.strict()
 
@@ -117,7 +117,7 @@ export const toolCallSchema = z
 	.strict()
 
 export type CommandItem = z.infer<typeof commandItemSchema>
-export type CommandItemTone = z.infer<typeof commandItemToneSchema>
+export type CommandItemIntent = z.infer<typeof commandItemIntentSchema>
 export type ComposerAttachment = z.infer<typeof composerAttachmentSchema>
 export type ComposerConfig = z.infer<typeof composerConfigSchema>
 export type ComposerFormat = z.infer<typeof composerFormatSchema>

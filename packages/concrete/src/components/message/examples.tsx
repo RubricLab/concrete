@@ -89,8 +89,7 @@ function renderAssistantMessage() {
 			messageRole="assistant"
 			showAvatar
 		>
-			The eval runner is failing during schema hydration. I found one stale fixture and a missing tool
-			permission edge.
+			I found the stale fixture and the missing tool permission edge.
 		</Message>
 	)
 }

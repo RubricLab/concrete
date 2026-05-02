@@ -1,30 +1,37 @@
 import type { HTMLAttributes } from 'react'
-import type { ConcreteSignal } from '../../schemas'
 import { concreteClassNames } from '../../styles/class-names'
 import { cn } from '../utils'
 
-export type BadgeVariant = 'count' | 'ghost' | 'soft' | 'solid'
+export type BadgeHierarchy = 'ghost' | 'soft' | 'solid'
+export type BadgeIntent = 'danger' | 'terminal' | 'ultra'
+export type BadgePurpose = 'count' | 'status'
 
 export type BadgeProps = HTMLAttributes<HTMLSpanElement> & {
-	signal?: ConcreteSignal
-	variant?: BadgeVariant
+	hierarchy?: BadgeHierarchy
+	intent?: BadgeIntent
+	purpose?: BadgePurpose
 }
 
 export function Badge({
 	children,
 	className,
-	signal = 'terminal',
-	variant = 'soft',
+	hierarchy = 'soft',
+	intent = 'terminal',
+	purpose = 'status',
 	...props
 }: BadgeProps) {
 	return (
 		<span
 			className={cn(
 				concreteClassNames.badge,
-				getBadgeSignalClass(signal),
-				getBadgeVariantClass(variant),
+				getBadgeIntentClass(intent),
+				getBadgeHierarchyClass(hierarchy),
+				purpose === 'count' && concreteClassNames.badgeCount,
 				className
 			)}
+			data-hierarchy={hierarchy}
+			data-intent={intent}
+			data-purpose={purpose}
 			{...props}
 		>
 			{children}
@@ -32,9 +39,9 @@ export function Badge({
 	)
 }
 
-function getBadgeSignalClass(signal: ConcreteSignal): string | undefined {
-	switch (signal) {
-		case 'error':
+function getBadgeIntentClass(intent: BadgeIntent): string | undefined {
+	switch (intent) {
+		case 'danger':
 			return concreteClassNames.badgeError
 		case 'terminal':
 			return concreteClassNames.badgeTerminal
@@ -43,10 +50,8 @@ function getBadgeSignalClass(signal: ConcreteSignal): string | undefined {
 	}
 }
 
-function getBadgeVariantClass(variant: BadgeVariant): string | undefined {
-	switch (variant) {
-		case 'count':
-			return concreteClassNames.badgeCount
+function getBadgeHierarchyClass(hierarchy: BadgeHierarchy): string | undefined {
+	switch (hierarchy) {
 		case 'ghost':
 			return concreteClassNames.badgeGhost
 		case 'soft':

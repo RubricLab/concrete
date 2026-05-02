@@ -5,7 +5,7 @@ import { cardExamples } from './examples'
 import { cardMeta } from './meta'
 import { type CardValue, cardSchema } from './schema'
 
-export type { CardProps, CardVariant } from './component'
+export type { CardDepth, CardProps } from './component'
 export { Card } from './component'
 export type { CardInput, CardValue } from './schema'
 export { cardPropsSchema, cardSchema } from './schema'
@@ -18,7 +18,7 @@ export const cardPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderCardInput(cardSchema.parse(input)),
 	schema: cardSchema,
 	slug: 'card',
-	states: exampleStates(cardExamples, ['default', 'raised', 'sunken'])
+	states: exampleStates(cardExamples, ['default', 'interactive', 'raised', 'sunken'])
 })
 
 function renderCardInput(input: CardValue) {

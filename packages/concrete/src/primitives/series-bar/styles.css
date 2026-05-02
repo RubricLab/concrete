@@ -1,0 +1,20 @@
+.concrete-chart-bar,
+.concrete-chart-bar-comparison,
+.concrete-chart-stack-segment {
+	fill: currentcolor;
+	stroke: none;
+}
+
+.concrete-chart-bar {
+	filter: var(--concrete-filter-chart-bar);
+}
+
+.concrete-chart-bar-track {
+	fill: var(--concrete-surface);
+	stroke: none;
+}
+
+.concrete-chart-bar-comparison {
+	color: var(--concrete-foreground-muted);
+	opacity: var(--concrete-opacity-chart-comparison);
+}

@@ -100,7 +100,7 @@ function ToolStatusIcon({ status }: { status: ToolCallStatus }) {
 		case 'queued':
 			return <ConcreteIcon name="clock" />
 		case 'running':
-			return <Spinner size={11} tone="default" />
+			return <Spinner density="compact" />
 		case 'success':
 			return <ConcreteIcon name="check" />
 	}

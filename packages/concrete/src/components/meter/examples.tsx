@@ -10,6 +10,10 @@ export const meterExamples = defineExamples({
 		description: 'Compact meter cards for dense dashboard grids.',
 		render: () => renderCompactMeterExample()
 	},
+	danger: {
+		description: 'Error meters for budget and policy breach states.',
+		render: () => renderDangerMeterExample()
+	},
 	default: {
 		description: 'Mixed meter scorecards for generated dashboard summaries.',
 		render: () => renderMeterExample()
@@ -22,16 +26,16 @@ export const meterExamples = defineExamples({
 					description="Workspace command budget"
 					label="Usage"
 					target={80}
-					tone="sky"
+					intent="sky"
 					value={{ max: 100, min: 0, value: 72 }}
-					variant="ring"
+					display="ring"
 				/>
 				<Meter
 					description="Policy confidence"
 					label="Review"
-					tone="ultra"
+					intent="ultra"
 					value={{ max: 100, min: 0, value: 58 }}
-					variant="ring"
+					display="ring"
 				/>
 			</>
 		)
@@ -44,20 +48,42 @@ export const meterExamples = defineExamples({
 					description="Workspace command budget"
 					label="Usage"
 					target={80}
-					tone="terminal"
+					intent="terminal"
 					value={{ max: 100, min: 0, value: 72 }}
 				/>
 				<Meter
 					description="Policy confidence"
 					label="Review"
-					tone="error"
+					intent="error"
 					value={{ max: 100, min: 0, value: 34 }}
-					variant="ring"
+					display="ring"
 				/>
 			</>
 		)
 	}
 })
+
+function renderDangerMeterExample() {
+	return (
+		<>
+			<Meter
+				description="Policy review capacity"
+				label="Review queue"
+				target={20}
+				intent="error"
+				value={{ max: 100, min: 0, value: 34 }}
+			/>
+			<Meter
+				compact
+				description="Escalated runs"
+				label="Escalations"
+				intent="error"
+				value={{ max: 100, min: 0, value: 18 }}
+				display="ring"
+			/>
+		</>
+	)
+}
 
 function renderBarMeterExample() {
 	return (
@@ -66,14 +92,14 @@ function renderBarMeterExample() {
 				description="Workspace command budget"
 				label="Usage"
 				target={80}
-				tone="sky"
+				intent="sky"
 				value={{ max: 100, min: 0, value: 72 }}
 			/>
 			<Meter
 				description="Tool budget remaining"
 				label="Tools"
 				target={65}
-				tone="terminal"
+				intent="terminal"
 				value={{ max: 100, min: 0, value: 61 }}
 			/>
 		</>
@@ -88,16 +114,16 @@ function renderCompactMeterExample() {
 				description="Daily command budget"
 				label="Usage"
 				target={80}
-				tone="sky"
+				intent="sky"
 				value={{ max: 100, min: 0, value: 72 }}
 			/>
 			<Meter
 				compact
 				description="Policy confidence"
 				label="Review"
-				tone="ultra"
+				intent="ultra"
 				value={{ max: 100, min: 0, value: 58 }}
-				variant="ring"
+				display="ring"
 			/>
 		</>
 	)
@@ -110,15 +136,15 @@ function renderMeterExample() {
 				description="Workspace command budget"
 				label="Usage"
 				target={80}
-				tone="sky"
+				intent="sky"
 				value={{ max: 100, min: 0, value: 72 }}
 			/>
 			<Meter
 				description="Policy confidence"
 				label="Review"
-				tone="ultra"
+				intent="ultra"
 				value={{ max: 100, min: 0, value: 58 }}
-				variant="ring"
+				display="ring"
 			/>
 		</>
 	)

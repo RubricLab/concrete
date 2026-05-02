@@ -1,0 +1,42 @@
+import { defineExamples } from '../../factories/createExamples'
+import { Stack } from '../stack'
+import { Text } from './component'
+
+export const textExamples = defineExamples({
+	default: {
+		description: 'Default body text.',
+		render: () => <Text>Concrete text stays compact and readable.</Text>
+	},
+	lead: {
+		description: 'Lead text for editorial intros and hero support copy.',
+		render: () => (
+			<Text as="p" intent="muted" purpose="lead">
+				Soft, powerful, compact UI vocabulary for AI-native software.
+			</Text>
+		)
+	},
+	meta: {
+		description: 'Small metadata and caption roles.',
+		render: () => (
+			<Stack density="compact">
+				<Text purpose="meta">Updated 2 minutes ago</Text>
+				<Text purpose="caption" intent="soft">
+					Generated interface output
+				</Text>
+			</Stack>
+		)
+	},
+	numeric: {
+		description: 'Numeric and mono text roles.',
+		render: () => (
+			<Stack density="compact">
+				<Text purpose="number" intent="strong">
+					98.4%
+				</Text>
+				<Text as="code" purpose="mono">
+					bun run check
+				</Text>
+			</Stack>
+		)
+	}
+})

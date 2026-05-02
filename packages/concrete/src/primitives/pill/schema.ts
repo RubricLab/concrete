@@ -1,21 +1,14 @@
 import { z } from 'zod/v4'
 import { iconNames } from '../../icons'
+import { labelIntentValues } from '../label-helpers'
 
-export const pillToneValues = [
-	'default',
-	'ink',
-	'sky',
-	'sunken',
-	'terminal',
-	'ultra',
-	'error'
-] as const
+export const pillIntentValues = labelIntentValues
 
 export const pillSchema = z
 	.object({
+		intent: z.enum(pillIntentValues).default('neutral'),
 		label: z.string().default('queued'),
-		leadingIcon: z.enum(iconNames).optional(),
-		tone: z.enum(pillToneValues).default('default')
+		leadingIcon: z.enum(iconNames).optional()
 	})
 	.strict()
 

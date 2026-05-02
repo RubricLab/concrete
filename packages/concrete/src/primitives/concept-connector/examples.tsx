@@ -12,20 +12,20 @@ const conceptConnectorKindValues = [
 	'annotation-leader'
 ] as const
 
-const connectorTones = ['ink', 'sky', 'terminal', 'ultra', 'error'] as const
+const connectorIntents = ['ink', 'sky', 'terminal', 'ultra', 'error'] as const
 
 export const conceptConnectorExamples = defineExamples({
 	default: {
 		description: 'Connector atlas for flow, relation, and callouts.',
 		render: () => renderConceptConnectorExample()
 	},
+	intents: {
+		description: 'Concrete-native connector intents.',
+		render: () => renderConceptConnectorExample('intents')
+	},
 	selected: {
 		description: 'Highlighted relation.',
 		render: () => renderConceptConnectorExample('selected')
-	},
-	tones: {
-		description: 'Concrete-native connector tones.',
-		render: () => renderConceptConnectorExample('tones')
 	}
 })
 
@@ -37,7 +37,9 @@ function renderConceptConnectorExample(state = 'default') {
 					key={kind}
 					kind={kind}
 					selected={state === 'selected' && index === 1}
-					tone={state === 'tones' ? (connectorTones[index % connectorTones.length] ?? 'ink') : 'muted'}
+					intent={
+						state === 'intents' ? (connectorIntents[index % connectorIntents.length] ?? 'ink') : 'muted'
+					}
 				/>
 			))}
 		</>

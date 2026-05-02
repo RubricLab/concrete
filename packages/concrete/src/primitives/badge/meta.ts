@@ -19,17 +19,18 @@ export const badgeMeta = {
 	pressure: ['product'],
 	props: [
 		prop(
-			'signal',
-			"'terminal' | 'ultra' | 'error'",
-			'Status signal. Amber warning is intentionally absent.',
+			'intent',
+			"'terminal' | 'ultra' | 'danger'",
+			'Status intent. Amber warning is intentionally absent.',
 			'terminal'
 		),
 		prop(
-			'variant',
-			"'soft' | 'solid' | 'ghost' | 'count'",
-			'Badge emphasis and count treatment.',
+			'hierarchy',
+			"'ghost' | 'soft' | 'solid'",
+			'Badge emphasis without opening visual overrides.',
 			'soft'
 		),
+		prop('purpose', "'status' | 'count'", 'Status text or numeric count treatment.', 'status'),
 		prop('children', 'ReactNode', 'Badge label or count.')
 	]
 } as const satisfies BadgeMeta

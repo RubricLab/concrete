@@ -1,5 +1,13 @@
 - [2026-04-29] [Refactor Concrete and prepare npm release](https://github.com/RubricLab/concrete/commit/c699a5f9244945edb95c7b9cc53b2d68211c9538)
 
+- [2026-05-02] Release @rubriclab/concrete v0.0.16 from [dc97ceb](https://github.com/RubricLab/concrete/commit/dc97ceb7da25b0a6d0297eaccafa3366216c5cfb).
+- [2026-05-01] Release @rubriclab/concrete v0.0.15 from [9962bff](https://github.com/RubricLab/concrete/commit/9962bff7928fad186170670724816996b43d0568).
+- [2026-05-01] Release @rubriclab/concrete v0.0.14 from [b89e82c](https://github.com/RubricLab/concrete/commit/b89e82cebdb5d5e5fdf5efa9a48bf0b7a13a5861).
+- [2026-05-01] Release @rubriclab/concrete v0.0.13 from [2182837](https://github.com/RubricLab/concrete/commit/21828378b10468d816b78b5d2b6511505b7acbb7).
+- [2026-05-01] Release @rubriclab/concrete v0.0.12 from [51cc400](https://github.com/RubricLab/concrete/commit/51cc4009473529cb6c6e59af1bffcda1c36c6789).
+- [2026-04-30] Release @rubriclab/concrete v0.0.11 from [44e104c](https://github.com/RubricLab/concrete/commit/44e104c8169514386f8fa7f6070db285f6a80e65).
+- [2026-04-30] Release @rubriclab/concrete v0.0.10 from [381f1d9](https://github.com/RubricLab/concrete/commit/381f1d922ca3dd21e092ce78ccd6df4ab0786f0e).
+- [2026-04-30] Release @rubriclab/concrete v0.0.9 from [de005ff](https://github.com/RubricLab/concrete/commit/de005ff550341b1eb9ee6a9ca8ae59fe5ef4bcef).
 - [2026-04-30] Release @rubriclab/concrete v0.0.8 from [689cec5](https://github.com/RubricLab/concrete/commit/689cec5ba16205498133ba396a7afbd43c286ced).
 - [2026-04-30] Release @rubriclab/concrete v0.0.7 from [cb0fc38](https://github.com/RubricLab/concrete/commit/cb0fc387e8cc63096b606f47258f475213afaac7).
 - [2026-04-30] Release @rubriclab/concrete v0.0.6 from [8db9eb9](https://github.com/RubricLab/concrete/commit/8db9eb94d6ecd539e0b206594629979f551656be).

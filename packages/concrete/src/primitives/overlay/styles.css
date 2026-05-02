@@ -1,0 +1,38 @@
+.concrete-overlay {
+	display: grid;
+	min-width: var(--concrete-space-0);
+	padding: var(--concrete-space-4-5);
+	background: transparent;
+}
+
+.concrete-overlay[data-scrim="true"] {
+	background: var(--concrete-overlay-scrim-background);
+}
+
+.concrete-overlay[data-presentation="fixed"] {
+	z-index: var(--concrete-z-overlay);
+	min-height: var(--concrete-size-viewport-block);
+}
+
+.concrete-overlay[data-placement="center"] {
+	place-items: center;
+}
+
+.concrete-overlay[data-placement="start"] {
+	place-items: center start;
+}
+
+.concrete-overlay[data-placement="end"] {
+	place-items: center end;
+}
+
+.concrete-overlay[data-placement="stretch"] {
+	align-items: stretch;
+	justify-items: stretch;
+}
+
+@media (width <= 640px) {
+	.concrete-overlay {
+		padding: var(--concrete-space-2-5);
+	}
+}

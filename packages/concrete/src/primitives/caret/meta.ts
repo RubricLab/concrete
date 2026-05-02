@@ -12,7 +12,7 @@ type CaretMeta = {
 
 export const caretMeta = {
 	category: 'control',
-	description: 'Disclosure chevron with open, directional, and size states.',
+	description: 'Disclosure chevron with open, directional, and scale states.',
 	guidance:
 		'Caret is an affordance, not decoration. Keep it currentColor, small, and baseline-aligned beside tree rows, accordions, and selects.',
 	name: 'Caret',
@@ -20,6 +20,6 @@ export const caretMeta = {
 	props: [
 		prop('direction', "'right' | 'down' | 'up'", 'Base chevron orientation.', 'right'),
 		prop('open', 'boolean', 'Rotates the caret to the disclosure-open state.', 'false'),
-		prop('size', "'small' | 'medium' | 'large'", 'Caret box and stroke rhythm.', 'medium')
+		prop('scale', "'small' | 'medium' | 'large'", 'Caret box and stroke rhythm.', 'medium')
 	]
 } as const satisfies CaretMeta

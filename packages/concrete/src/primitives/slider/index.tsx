@@ -5,7 +5,7 @@ import { sliderExamples } from './examples'
 import { sliderMeta } from './meta'
 import { type SliderValue, sliderSchema } from './schema'
 
-export type { SliderProps, SliderTone } from './component'
+export type { SliderIntent, SliderProps } from './component'
 export { Slider } from './component'
 export type { SliderInput, SliderValue } from './schema'
 export { sliderPropsSchema, sliderSchema } from './schema'

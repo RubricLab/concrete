@@ -19,7 +19,7 @@ export const conceptFrameMeta = {
 	pressure: ['editorial', 'educational'],
 	props: [
 		prop('kind', 'ConceptFrameKind', 'Symbolic frame asset name.', 'browser-window'),
-		prop('size', "'small' | 'medium' | 'large'", 'SVG display scale.', 'medium'),
+		prop('scale', "'small' | 'medium' | 'large'", 'SVG display scale.', 'medium'),
 		prop('selected', 'boolean', 'Promotes the frame for focused explainer states.', 'false'),
 		prop('muted', 'boolean', 'Subdues the frame for background context.', 'false'),
 		prop('title', 'string', 'Optional accessible title.')

@@ -18,7 +18,7 @@ export const datePickerComponentDefinition = createComponent({
 	renderInput: input => renderDatePickerInput(datePickerComponentSchema.parse(input)),
 	schema: datePickerComponentSchema,
 	slug: 'date-picker',
-	states: exampleStates(datePickerExamples, ['default', 'open', 'bounded'])
+	states: exampleStates(datePickerExamples, ['default', 'open', 'bounded', 'success'])
 })
 
 function renderDatePickerInput(input: DatePickerValue) {

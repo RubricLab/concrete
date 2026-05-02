@@ -21,6 +21,11 @@ export const avatarMeta = {
 		prop('initials', 'string', 'Initials shown when no image is provided.', 'C'),
 		prop('src', 'string', 'Optional image URL.'),
 		prop('alt', 'string', 'Accessible image text when src is present.', "''"),
-		prop('size', "'small' | 'medium' | 'large'", 'Avatar diameter.', 'medium')
+		prop(
+			'density',
+			"'compact' | 'comfortable' | 'editorial'",
+			'Foundation-backed avatar diameter.',
+			'comfortable'
+		)
 	]
 } as const satisfies AvatarMeta

@@ -58,7 +58,7 @@ export function routeDiagramCanvasEdge(
 		y: round((from.y + to.y) / 2)
 	}
 
-	switch (edge.variant) {
+	switch (edge.relation) {
 		case 'branch':
 		case 'control':
 			return {

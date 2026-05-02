@@ -42,7 +42,7 @@ export const validationSummaryExamples = defineExamples({
 			<>
 				<ValidationSummary
 					action={
-						<Button size="small" variant="secondary">
+						<Button density="small" hierarchy="secondary">
 							Review
 						</Button>
 					}

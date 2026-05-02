@@ -1,137 +1,43 @@
 # Concrete Code
 
-This file is the senior engineering guide for Concrete. It is the durable source of truth for how we structure the package, docs app, tests, styles, and long-running refactors. Read it before any structural work.
+This is the senior engineering guide for Concrete. Read this file before structural or visual system work, then read `PLAN.md` for the active queue.
 
-Concrete should feel like a small schema-first compiler for UI, not a pile of component files. Every foundation, primitive, and component owns one typed item bundle. Docs, previews, playgrounds, render routes, screenshot routes, tests, and registries consume that bundle.
+Concrete is Rubric Labs' design system for AI-native software: research writing, dense product surfaces, generated interfaces, agent workflows, and educational explainers. The system should feel dense, compact, powerful, and soft.
 
-The target code style is close to Rubric Labs `actions`, `blocks`, `events`, `chains`, and `agents`: small concepts, direct factory calls, Zod truth at the boundary, typed transformation flows, and very little local ceremony.
+Dense means a screen can hold real work. Compact means every primitive earns its space. Powerful means interaction states are visible, tactile, and deterministic. Soft means the system stays calm: quiet surfaces, tight radii, restrained shadows, readable type, and no decorative noise.
 
 ## North Star
 
-Concrete is the design system for AI-native software: product surfaces, editorial research, generated interfaces, agent workflows, and educational explainers built from one shared visual language.
+Concrete should feel like a schema-first compiler for UI, not a pile of component files.
 
-The codebase has to support that breadth without becoming bespoke. The package should expose a compact set of foundations, primitives, and components that compose into higher density surfaces. The docs app should demonstrate and test those items without becoming a second source of truth.
+Every foundation, primitive, and component owns one typed item bundle. Docs, previews, playgrounds, render routes, screenshot routes, tests, and registries consume that bundle. There should be one source of truth per item and no docs-side switchboard that secretly owns item behavior.
 
-When a file is opened, it should be obvious why that file exists, what it owns, and where the adjacent concern lives. There should be no second place in the codebase quietly addressing the same thing.
+The implementation style follows Rubric Labs `actions`, `blocks`, `events`, `chains`, and `agents`: small concepts, direct factory calls, Zod truth at boundaries, typed transformation flow, low ceremony, and no hidden state.
 
-## Hard Invariants
+## Hard Rules
 
-- Preserve the public `@rubriclab/concrete` API and package subpath exports unless a release explicitly opts into a breaking change.
-- Keep Zod/v4 as the source of truth for every serializable item boundary.
-- Keep pressure modes as metadata and composition guidance. They are not universal component props.
+- Preserve public package exports unless a release explicitly takes a breaking change.
+- Use Zod/v4 for every serializable item boundary.
+- Keep pressure modes as metadata and composition guidance, not universal props.
+- Keep dependency flow one-way: foundations -> primitives -> components -> registry -> docs.
 - Keep docs imports on public `@rubriclab/concrete` surfaces only.
-- Keep package dependency direction one-way: foundations feed primitives, primitives feed components, registry projects item definitions, docs consume public registry data.
-- Keep `@rubriclab/concrete/styles.css` as the required public stylesheet export.
-- Prefer generated controls from schemas. Do not hand-author partial playground switchboards.
-- Prefer typed example recipes over arbitrary React examples.
-- Treat `PLAN.md` as the target item inventory and operating todo for ontology work. If the target changes, update that file before code.
-- Foundations must exhaust the reusable design language that primitives consume. Do not add primitive CSS values to compensate for missing foundation concepts.
-- Public primitives must be reusable UI vocabulary, not component selector buckets extracted to satisfy the component CSS rule.
-- Primitive props must express role, hierarchy, intent, density, placement, slot, and state. They must not expose arbitrary visual overrides.
-- Avoid `any`, hidden flows, and untyped escape hatches.
-- Treat LOC as a signal, not an architecture rule. Splitting one complete concern only to reduce line count makes the codebase worse.
-- Keep internal DX Markdown to two files: `CODE.md` for rules and `PLAN.md` for active work, target inventory, and migration memory.
+- Keep `@rubriclab/concrete/styles.css` as the public stylesheet contract.
+- Keep `CODE.md` and `PLAN.md` as the only internal DX harness docs.
+- Use Bun for dependency/runtime commands and Biome for lint/format.
+- Avoid `any`, untyped escape hatches, broad `unknown`, arbitrary `style`, and raw visual values outside foundations.
+- Treat LOC as a signal. Do not split one complete concern only to reduce file length.
 
-## Ownership Law
+## Layer Law
 
-Concrete has three item layers. The layers are architectural boundaries, not vibes.
+Foundations define the design language. They own raw values, token records, reset-level utilities, schemas shared by many items, and CSS variables that primitives consume. If two primitives need the same visual concept, add or refine a foundation concept first.
 
-Foundations define the language. They own actual values: color, typography, spacing, radii, elevation, motion, texture, reset rules, and tiny utility classes that are more primitive than any one item. Foundation CSS is the only place new raw visual values may be introduced. A value is raw when it is a pixel, hex, rgb/rgba, timing, easing, shadow, radius, percentage used as a size, or any other literal that encodes visual policy instead of referencing a Concrete token. Non-visual CSS language constants such as `0`, `none`, `auto`, `inherit`, `transparent`, `currentcolor`, string font feature names, `@font-face` descriptors, and `@media` thresholds are allowed only as documented scanner exceptions.
+Primitives define reusable HTML/UI grammar. They own DOM tags, ARIA, data attributes, stable `concrete-*` selectors, item CSS, and native atomic event affordances. Primitive props describe semantic role, hierarchy, density, intent, placement, state, depth, measure, extent, scale, or typed slots. They do not expose raw visual overrides.
 
-Primitives define the HTML vocabulary. They own DOM tags, ARIA, data attributes, stable Concrete class names, event affordances that are native to one atomic control, and one local `styles.css` file. Primitive CSS may use selectors, but declarations must resolve through foundation variables or foundation utilities. A primitive is allowed to compose other primitives only when the resulting idea is still a single HTML-level concept.
+Components define workflows. They own orchestration, state, parsing, keyboard flow, data mapping, async behavior, and composition of primitives. Components should not own CSS, `concreteClassNames`, styled raw DOM, or app-specific product chrome. If a component needs styled structure, promote that structure to a primitive or use existing layout/surface/control primitives.
 
-Components define workflows. They own orchestration, state, parsing, schema-bound behavior, data mapping, and composition of primitives. The target component implementation does not render raw HTML tags, does not import `concreteClassNames`, does not import CSS, and does not introduce bespoke styling. If a component needs a styled wrapper, row, header, toolbar, panel, field chrome, table part, chart frame, message part, or menu part, that vocabulary must first exist as a primitive or private internal primitive.
+Registry and docs project item definitions. They do not invent behavior, prop metadata, examples, or item-specific render branches.
 
-Registry and docs project item definitions. They never become a second component system.
-
-## Ontology Law
-
-The Concrete ontology is the layered contract for what belongs in foundations, primitives, and components. `PLAN.md` is the executable inventory and migration memory. During ontology work, the plan beats memory, previous migration convenience, and local naming inertia.
-
-Foundations are exhaustive. If two primitives need the same visual concept, the concept belongs in a foundation first. Foundation token names should describe design language, not product objects. Prefer `control`, `surface`, `panel`, `overlay`, `rail`, `track`, `viewport`, `feedback`, `trace`, `data`, `diagram`, `status`, and `tone` vocabulary over component names like `form-shell`, `data-table`, `metric-card`, or `composer`. A domain noun is allowed only when the noun is a true design domain used across the system, such as `chart`, `table`, `diagram`, `message`, or `tool`.
-
-Primitives are rigid grammar. A primitive should be the smallest named HTML concept that future components can assemble without inventing style. Good primitives are boring to use because the visual decisions are already encoded in foundations. A primitive may compose other primitives only when the result is still one reusable HTML-level concept, such as a field row, menu item, panel header, or trace panel.
-
-Components are behavior. They parse schemas, own state, map data, respond to events, run keyboard flow, and compose primitives. A component may compose another component only after the dependency is declared in an acyclic component tier map and the import-boundary test allows that tier. Until that map exists, the current stricter rule remains active: component implementations do not import sibling component implementations.
-
-Public primitive status is earned. A private internal primitive can become public only when its name, schema, examples, docs, and styles describe reusable Concrete vocabulary. Docs-only render helpers, preview constraints, and migration shims do not belong in the public primitive registry.
-
-Primitive props are closed. Allowed prop categories are:
-
-- `role`: semantic job inside the composition.
-- `hierarchy`: primary, secondary, tertiary, ghost, or another shared hierarchy.
-- `intent`: neutral, sky, terminal, ultra, danger, or another shared tone.
-- `density`: compact, comfortable, editorial, or another shared density.
-- `state`: open, selected, pressed, loading, disabled, error, success, pending.
-- `placement`: top, right, bottom, left, inline, overlay, start, end.
-- `slot`: typed React slots or serializable Concrete node slots.
-
-Banned public primitive prop categories are:
-
-- raw color
-- raw spacing
-- raw radius
-- raw shadow
-- raw font size
-- raw width or height, except data-driven SVG geometry
-- arbitrary `style`
-- arbitrary CSS variable bags
-- open-ended `variant` when it really means visual override
-
-`className` may remain as a root placement escape hatch for compatibility. It must not become the styling API, and new internal structure should not depend on consumer class names.
-
-## Promotion Rules
-
-When a chunk exposes missing vocabulary, promote by the narrowest durable boundary:
-
-- Add a foundation token when at least two items need the same visual value or when one item needs a value that clearly belongs to global Concrete language.
-- Add a foundation utility only for behavior lower than an item, such as visually hidden content, focus targeting, reset-level layout, or typography rhythm that should be stable across many primitives.
-- Add or expand a primitive when JSX, class names, ARIA, or scoped style can be named as one reusable HTML concept in the ontology.
-- Add a private internal primitive when the concept is reusable inside the package but not ready to become public API.
-- Promote an internal primitive to public only when docs, examples, schemas, and naming can defend it as product vocabulary.
-- Keep logic in a component when the concern is orchestration, controlled state, schema parsing, data transformation, or multi-step workflow behavior.
-- Move calculations to `utilities/` only when they are pure, reusable, and easier to explain than the duplication they remove.
-- Re-scope foundations immediately when a migration needs a value that cannot be expressed with existing tokens. Do not hide the missing token in item CSS.
-
-Do not create a new primitive for a single wrapper whose only purpose is to bypass the component styling rule. First ask whether an existing layout, surface, text, control, field, overlay, menu, feedback, data, chart, diagram, agent, or media primitive should grow.
-
-## Current Checkpoint
-
-- Foundations, primitives, and components are folder-owned item bundles.
-- The public foundation set is now `colors`, `typography`, `spacing`, `sizing`, `layout`, `radii`, `elevation`, `motion`, `textures`, `iconography`, `state`, and `accessibility`.
-- Public registries are derived from item definitions.
-- Public foundation registry entries expose validated `tokens` so docs can explain foundation data without importing foundation-specific schema files.
-- Docs detail, render, playground, and catalog flows consume registry definitions.
-- `factories/` owns item, control, and example creation.
-- `utilities/` owns shared pure algorithms, render helpers, schema input helpers, and temporary shared engines.
-- `components/` root is a public barrel only. Shared component engines do not live there.
-- Shared JSX used by components lives in private `primitives/internal/*` folders until it becomes a public primitive or collapses back into one owner.
-- Component `component.tsx` files must not import sibling component folders.
-- Remaining centralized CSS is explicit migration debt for deferred primitive slices. Item `styles.css` files either own active selectors or do not exist for that item.
-- The next checkpoint is primitive vocabulary correction: foundations emit tokens/utilities, primitives own scoped selectors, and components shed bespoke styling by composing generic primitives.
-- `PLAN.md` is the live scope ledger, autonomous queue, and target foundation/primitive/component inventory. Every structural chunk must update it before stopping.
-- Composer remains whole. Do not split one interactive component file only to satisfy a LOC budget.
-
-## Package Shape
-
-```txt
-packages/concrete/src/
-  components/   public component item folders and the component barrel
-  factories/    createControls, createExamples, createItems, and barrel only
-  foundations/  foundation item folders and foundation exports
-  icons/        public icon subpath export
-  primitives/   public primitive item folders plus private internal primitives
-  registry/     public registry projection over item definitions
-  schemas/      public schema subpath export
-  styles/       public stylesheet inputs, selector contract, and manifest
-  utilities/    shared pure algorithms and temporary shared render engines
-  styles.css    required public root stylesheet input
-  index.ts      root public package export
-```
-
-`icons/` and `schemas/` remain top-level because they are stable package subpath exports. They may be internally backed by foundations or registry later, but the public surface should not churn casually.
-
-## Item Manifest
+## Item Shape
 
 Public foundations own:
 
@@ -165,31 +71,21 @@ components/<slug>/
   index.tsx
   meta.ts
   schema.ts
-  styles.css  optional, only for ledger-recorded active component-local debt
+  styles.css  optional, only for recorded active debt
 ```
 
-Private internal primitives own only:
+Item files stay boring:
 
-```txt
-primitives/internal/<name>/
-  component.tsx
-  index.ts
-```
-
-Item files are intentionally boring:
-
-- `component.tsx` authors one runtime component export.
-- `schema.ts` authors one runtime schema export and directly related input/output types.
-- `examples.tsx` authors one runtime examples export.
-- `meta.ts` authors one runtime metadata export.
-- `index.tsx` authors one runtime item bundle export and public re-exports.
-- `styles.css` contains selectors for that item only. Comment-only component stylesheets are deleted instead of kept as placeholders.
-
-Type exports are allowed beside their owning runtime export. Barrels may expose multiple public values to preserve compatibility, but they must not introduce behavior.
+- `component.tsx` exports one runtime JSX implementation unless `PLAN.md` records a subpart exception.
+- `schema.ts` exports one runtime schema and directly related public input/output types.
+- `examples.tsx` exports one examples object.
+- `meta.ts` exports one metadata object.
+- `index.tsx` exports the item bundle and public re-exports.
+- `styles.css` contains selectors for that item only.
 
 ## Item Contract
 
-Every item exports one canonical item bundle through `createFoundation`, `createPrimitive`, or `createComponent`.
+Every item is a factory-owned bundle:
 
 ```ts
 export const buttonPrimitive = createPrimitive({
@@ -200,411 +96,115 @@ export const buttonPrimitive = createPrimitive({
 })
 ```
 
-The factory result is what the registry consumes. The component is only one field of the item contract.
+The bundle is what the registry consumes. The component is only one field.
 
-Required concepts:
+Required concepts: stable slug, kind, schema, seed, component, render input adapter, examples, and metadata. Factories may generate fields, but the contract must remain true for docs, playgrounds, render routes, tests, screenshots, and registry projection.
 
-- `slug`: stable public identifier, inferred or explicit.
-- `kind`: `foundation`, `primitive`, or `component`.
-- `schema`: Zod schema for serializable inspectable input.
-- `seed`: valid default input derived from schema and overrides.
-- `component`: exported React implementation.
-- `renderInput`: serializable input adapter used by docs/playground/render routes.
-- `examples`: typed example recipes.
-- `meta`: light catalog metadata.
+## Visual Quality Law
 
-The implementation may hide generated fields behind factories, but the concept must remain true: item definitions are the one source of truth for docs, examples, seeds, controls, render routes, and tests.
+The composer is the current quality benchmark. It feels right because it is compact, useful, material, and tactile without becoming loud. Interactive primitives should feel like they belong inside the composer.
 
-## Single Concern Policy
+Interactive primitive standard:
 
-One concern belongs in one place.
+- Base state has a clear material: surface, border, radius, type weight, and subtle depth.
+- Hover state changes border or surface enough to feel intentional.
+- Focus state uses a tokenized ring and never shifts layout.
+- Pressed/active/open/selected state has visible commitment: translate, stronger border, wash, inset, or selected surface.
+- Disabled state is quiet and removes hover/press affordance.
+- Motion is fast, small, and tokenized.
+- Density is compact by default; larger modes are deliberate, not accidental.
 
-Do this:
+Controls must align around one foundation grammar:
 
-- Keep an interactive component whole when the file owns one complete controller, event, and render flow.
-- Promote genuinely reusable JSX to a primitive or component.
-- Promote genuinely reusable algorithms to `utilities/`.
-- Keep single-use local transformations inside the owning file.
-- Use data maps instead of tiny local helper functions when they remove branching noise.
+- Buttons, icon buttons, inputs, selects, textareas, picker buttons, search inputs, stepper actions, sliders, ranges, switches, checkboxes, radios, and toolbar controls must share the same control material ladder.
+- Native form controls must not look like browser defaults with token paint on top.
+- Selects and picker buttons should feel like related disclosure controls, even when one stays native.
+- Text inputs and search inputs should feel like related query/control surfaces, even when their anatomy differs.
+- Option rows and listbox/menu states should be as tactile as buttons: active, selected, disabled, and destructive states must be obvious.
+- Label-only primitives may be static. Interactive-looking primitives must be interactive or clearly passive.
 
-Do not do this:
+Softness rules:
 
-- Split one component into extra files only because it crossed a LOC threshold.
-- Create item-local helper files for one-off formatting.
-- Put shared render engines in `components/` root.
-- Import sibling component implementations from a component `component.tsx`.
-- Add docs-side slug switches for item rendering.
-- Duplicate prop metadata in docs fixtures.
+- Prefer small radii and restrained shadows.
+- Avoid flat white rectangles with only a hairline border when the primitive is interactive.
+- Avoid oversized padding, loose rows, and low-contrast labels in product primitives.
+- Avoid decorative gradients, orbs, bokeh, and one-off backgrounds.
+- Do not add visual polish in components when the same issue exists in primitives or foundations.
 
-Large files are migration targets only when they contain multiple concerns. A large file that cleanly owns one concern is allowed.
+## CSS Law
 
-## Factories And Utilities
+Public consumers import one stylesheet: `@rubriclab/concrete/styles.css`.
 
-`factories/` is deliberately narrow:
+Item CSS is global and stable, not CSS modules. Selectors use `concrete-*` names and `data-*` state attributes. Item CSS may define local custom properties only as aliases to foundation tokens. Raw colors, sizes, shadows, radii, timing, easing, and filters belong in foundations.
 
-```txt
-factories/
-  createControls.ts
-  createExamples.tsx
-  createItems.ts
-  index.ts
-```
+Foundation CSS may introduce raw visual values. Primitive CSS consumes foundation variables. Component CSS should not exist unless `PLAN.md` records a temporary exception.
 
-If a file does not create item definitions, controls, or examples, it does not belong in `factories/`.
+When a polish pass needs a new value, ask first:
 
-`utilities/` is for shared pure algorithms, schema input helpers, render-route helpers, and temporary shared engines. Utilities must stay general. If a utility becomes item-specific, move it into the item. If a utility renders reusable UI, promote it to a primitive or fold it into the component that owns the behavior.
+1. Is this a reusable design token? Add it to foundations.
+2. Is this reusable HTML anatomy? Add or refine a primitive.
+3. Is this workflow behavior? Keep it in a component.
+4. Is this one-off visual compensation? Do not add it.
 
-Utilities are not a junk drawer. Every utility should be easier to explain than the duplication it removed.
+## Schema And Controls
 
-## Components
+Schemas are the inspectable truth. Generated controls are a projection over schema, seed, and examples. JSON remains the exhaustive fallback for complex props.
 
-Components assemble primitives, schemas, foundations, and utilities. They should not build a private design system inside themselves.
-
-Component implementation rules:
-
-- `components/<slug>/component.tsx` may import primitives, foundations, schemas, icons, utilities, and its own local schema/types.
-- It must not import from `components/<other-slug>`.
-- Future component-to-component imports require a declared acyclic tier map and a test that names the allowed dependency. Until that exists, compose shared UI through primitives and shared behavior through utilities.
-- If two components need the same JSX, promote the JSX to a primitive or private internal primitive.
-- If two components need the same calculation, promote the calculation to `utilities/`.
-- If the reuse is fake or only exists for docs convenience, delete the abstraction and keep the JSX with the owner.
-- Migrated components must not import `concreteClassNames`, use `className` for internal structure, render raw DOM tags for styled structure, or own active CSS.
-- Components may pass `className` through to a primitive only when preserving public API requires it. They must not build new styling around that escape hatch.
-- A component may keep raw semantic DOM only while it is an explicit migration exception in `PLAN.md`; the exception must name the primitive boundary that should absorb it.
-
-Components should not need CSS in the current architecture. When a component appears to need layout styling, first ask which primitive is missing. A future component stylesheet is allowed only as a ledger-recorded migration exception with a `DX-TODO(component-name)` comment explaining the structural debt.
-
-## Foundations And Primitives
-
-Foundations should import only schemas, factory helpers, and narrow constants. They define the design language.
-
-Primitives can import foundations, icons, schemas, utilities, and factory helpers. They are the reusable HTML-level vocabulary for product, editorial, generative UI, and educational compositions.
-
-Primitives should be small but not starved. A primitive can own enough JSX to make the HTML concern complete. If it needs controller state or complex orchestration, ask whether it is actually a component.
-
-Primitive implementation rules:
-
-- Before adding or renaming a primitive, classify it in `PLAN.md`.
-- Prefer generic primitives before domain primitives. Add `Surface`, `Panel`, `Header`, `Stack`, `Inline`, `Grid`, `Listbox`, `Token`, or `TracePanel` before adding another component-shaped shell.
-- `primitives/<slug>/component.tsx` places stable Concrete classes on DOM through JSX.
-- `primitives/<slug>/styles.css` is the only item-owned stylesheet allowed to define that primitive's selectors.
-- Primitive selectors must stay in the primitive namespace unless styling a direct child slot that the primitive owns.
-- Primitive CSS must not contain raw values. Missing values become foundation variables first.
-- Primitive class names should come from the deterministic selector contract while migration is active; once a primitive is complete, its selector keys should be easy to map back to that primitive.
-- Primitive schemas should import shared foundation/state enums when a prop is generic across items. Local enums are allowed only for item-specific semantic state, not visual override.
-- A primitive may expose `className` only on the root element unless a public slot explicitly needs placement control.
-- Public primitives must export one item bundle and may export local runtime helpers only when they are part of that primitive's public concept.
-
-Foundation implementation rules:
-
-- Before adding a foundation token, decide whether it belongs to colors, typography, spacing, sizing, layout, radii, elevation, motion, textures, iconography, state, or accessibility.
-- Foundation CSS may define raw values, semantic aliases, global reset behavior, and foundation utilities.
-- Foundation token names should be generic design language. Component names in foundation tokens require a written exception in `PLAN.md`.
-- A foundation utility must be value-backed by foundation tokens or reset-level browser behavior.
-- If a utility starts describing one reusable UI object, it is a primitive, not a foundation.
-- Foundation examples demonstrate the token system; they do not introduce alternate styling policy.
-
-## Registry And Schemas
-
-The registry projects item definitions into public catalog data. It should not own component behavior, docs examples, or visual decisions.
-
-Ordering belongs in registry item assembly. Registry projection files should be boring transformations.
-
-Schemas stay public because `@rubriclab/concrete/schemas` is a package boundary. Item schemas may re-export central schemas when that preserves compatibility, but new serializable item input should be owned beside the item whenever possible.
-
-## Docs App
-
-Docs routes own page-level UX. Do not create a route whose only job is `return <SomePage />`.
-
-Docs generic renderers belong in `apps/docs/src` when they are genuinely shared. Each docs component file should have a single runtime export. Route files can be larger than a tiny proxy when the page-level layout is the concern being owned.
-
-Docs must import only public `@rubriclab/concrete` surfaces.
-
-Current raw HTML and class-heavy docs pages are transition debt. Future UX work should rebuild docs surfaces from Concrete primitives rather than expanding bespoke markup. Leave `DX-TODO(docs)` comments when preserving HTML/classes during structural work.
-
-Docs should not own:
-
-- item-specific render switchboards
-- item-specific playground switchboards
-- primitive role label maps
-- component preview fixture maps
-- duplicated prop metadata
-- route-local demo components for package items
-
-Docs should own:
-
-- page composition
-- navigation shell
-- generic catalog/detail/playground renderers
-- query parsing for playground URLs
-- package usage narrative
-
-## Docs And Example Accuracy Law
-
-Docs and examples are part of the package contract. They are not disposable demos.
-
-The docs app is a projection of public registry data. Public foundations, primitives, and components must be represented from their item bundles or foundation definitions, not from stale route-local fixture lists. A docs page may own page-level UX, navigation, copy, and generic grouping, but it must not become the source of truth for what the package contains.
-
-Every public item must have a strong `default` example and meaningful additional states when the item has variants, tones, sizes, empty/loading/disabled/error states, dense data states, or educational states. The default should be the best representative showcase for the item, not the smallest possible prop object.
-
-Examples must be serializable and server-renderable. `examples.tsx` props and item `renderInput` output must not require preview-only callbacks, browser-only objects, functions, promises, symbols, or ambient docs state. Interactive affordances should expose serializable state in examples and keep optional callbacks for consumer-supplied runtime interactivity.
-
-Primitive and component examples must not own visual styling or generic preview chrome. They may compose Concrete primitives that are part of the showcased product anatomy, plus item-owned fixtures, but they must not wrap examples in `Frame`, `Card`, `PreviewStage`, bespoke wrapper class names, route-local preview chrome, or arbitrary DOM to make an item look correct. Generic spacing, centering, and width constraints belong to docs renderers or to the primitive under test, not to each example.
-
-Foundation examples may demonstrate raw tokens because foundations own the language values. Even there, examples should consume exported foundation definitions, token maps, and foundation styles rather than duplicating docs-only values.
-
-Docs routes for item detail, render, screenshot, playground, and catalog views must cover foundations as well as primitives and components when the route concept applies. If one layer cannot use a generic renderer, record the reason in this file or `PLAN.md` before adding a special path.
-
-Visual smoke and catalog audit scripts are part of the item contract. A new public item, example state, or docs projection must either enter the generic audit surface or record a deliberate exclusion with a repair ticket in `PLAN.md`.
-
-## Schema, Seeds, And Controls
-
-The playground input is the item schema, not a manually curated controls list.
-
-Controls are generated from Zod:
-
-- `z.string()` becomes a text input.
-- `z.number()` becomes a number input.
-- `z.boolean()` becomes a switch.
-- `z.enum()` becomes a select.
-- `z.literal()` becomes a fixed display.
-- `z.array()` becomes a repeater and JSON editor.
-- `z.object()` becomes a nested fieldset and JSON editor.
-- `z.union()` becomes a JSON editor unless discriminated.
-- `z.discriminatedUnion()` becomes a discriminator select plus nested controls.
-- `z.custom()` is unsupported until annotated.
-
-Every playground must also expose an exhaustive JSON editor for the full schema. Friendly controls are an ergonomic projection; JSON is the complete contract.
-
-Seeds are valid default inputs. They are generated by walking the schema and can be overridden by the item:
-
-- `string` seeds to `"Text"`.
-- `number` seeds to `0`.
-- `boolean` seeds to `false`.
-- `enum` seeds to the first option.
-- `literal` seeds to the literal value.
-- `array` seeds to `[]`.
-- `object` seeds recursively.
-
-Do not make product-required props optional only to satisfy docs defaults. Required runtime props stay required; seeds provide docs/runtime examples.
+Do not make runtime-required props optional for docs convenience. Do not loosen schemas to make examples easy. If a React slot cannot be serialized today, type it at runtime and adapt it in `renderInput`; the recursive Concrete node language remains a deliberate future pass.
 
 ## Examples
 
-Examples are typed recipes, not arbitrary JSX by default.
+Examples are typed recipes. They drive catalog previews, detail cards, playground seeds, render routes, screenshots, and static render tests. Prefer arrays of valid props and factory renderers over arbitrary React demos. Raw React examples are allowed only for rich compositions that cannot yet be serialized.
 
-```ts
-export const buttonExamples = createExamples(buttonSchema, {
-	default: {
-		description: 'Default command.',
-		props: { label: 'Continue', variant: 'secondary' }
-	},
-	signal: {
-		description: 'High-intent and destructive actions.',
-		items: [
-			{ label: 'Upgrade', leadingIcon: 'sparkles', variant: 'ultra' },
-			{ label: 'Delete', leadingIcon: 'trash-2', variant: 'danger' }
-		],
-		layout: 'inline'
-	}
-})
-```
+Examples should show the component at its intended quality level. A primitive with only a tiny centered default state often hides problems; add compact, active, disabled, error, selected, loading, and dense-composition examples where those states exist.
 
-The renderer owns layout. The item owns valid props. Raw React examples are an escape hatch for rare compositions and must be visually justified.
+## Promotion Rules
 
-Example recipes drive:
+- Add a foundation token when a value is reusable or clarifies Concrete's visual language.
+- Add a primitive when JSX, ARIA, class names, and scoped style name one reusable HTML concept.
+- Add a component when behavior, state, data mapping, or multi-step workflow is the concern.
+- Add a utility only for pure reusable algorithms or serialization/render helpers.
+- Keep one-component JSX parts inside the owning component unless they become honest reusable vocabulary.
+- Do not create a primitive just to bypass the component CSS ban.
 
-- catalog previews
-- detail-page example cards
-- render routes
-- screenshot routes
-- static render tests
-- visual QA samples
+## Long-Run Protocol
 
-Do not rely on object insertion order for authored examples. Biome may sort keys, so semantic order must be explicit or derived by a factory-level ordering rule.
-
-## Metadata
-
-Metadata stays light and catalog-only.
-
-```ts
-export const buttonMeta = {
-	category: 'control',
-	description: 'Short command control.',
-	name: 'Button',
-	pressure: ['product', 'generative']
-} as const
-```
-
-Do not put implementation rules, prose essays, or duplicate prop tables in metadata. Prop documentation should come from schema annotations or narrow item doc hints if needed.
-
-## CSS Decision
-
-The public contract favors stable global classes and a single public stylesheet export.
-
-Target CSS model:
-
-- Foundation-owned `styles.css` files emit variables, semantic aliases, reset rules, and allowed utilities.
-- Primitive-owned `styles.css` files emit scoped primitive selectors only.
-- Component-owned `styles.css` files should not exist in the migrated state. A component can keep one only while the ledger names why no primitive boundary exists yet.
-- A build step concatenates root, foundation, primitive, and any ledger-recorded temporary component CSS into public bundle outputs.
-- Public consumers still import `@rubriclab/concrete/styles.css`.
-- Selectors remain stable global Concrete selectors, not hashed CSS module names.
-
-Reasoning:
-
-- Global classes make public styling, debugging, docs inspection, screenshot comparison, and tests stable.
-- Item-owned CSS gives locality without changing the public stylesheet contract.
-- CSS modules reduce selector collision risk, but hashed names fight public docs, screenshot inspection, and stable class-name tests.
-
-Hard CSS rules:
-
-- No raw colors outside foundation token definitions.
-- No raw shadows outside elevation tokens.
-- No arbitrary radii outside radius tokens.
-- No item-specific magic spacing values when a token exists.
-- No raw typography sizes, weights, line heights, timings, easings, z-indexes, widths, heights, offsets, or opacity values in primitive/component CSS unless the value is represented by a foundation token first.
-- The import-boundary raw-value scanner is the enforcement layer. If it fails, either add a foundation token, delete dead CSS, or document a true CSS-language exception before widening the allowlist.
-- The central `src/styles/primitives.css` and `src/styles/components.css` files are public bundle substrate only; import-boundary tests reject active `.concrete-*` selectors there.
-- Retired component-era foundation token names must stay retired once a primitive boundary exists; current guarded examples are `number-stepper` -> `stepper-control` and `range-slider` -> `range-control`.
-- No selectors outside the item namespace in item CSS.
-- No primitive-specific selectors in foundation CSS.
-- No component selectors in primitive CSS unless the primitive is being created to absorb that component vocabulary and the ledger records the transition.
-- No nested card-in-card visual compositions unless the component semantically requires a framed repeated item.
-- Do not add CSS modules unless the architecture decision changes and stable public aliases are enforced.
-
-Current implementation checkpoint: root custom properties live in foundation stylesheets, token-consuming CSS is scanner-checked for raw visual values, the shared primitive/component layer files own no active selectors, and `componentStyleSources` is empty. Keep the central layer files as compatibility bundle substrate only; new styling must enter through foundation or primitive item styles and update `PLAN.md`.
-
-Class-name implementation note: `styles/class-names.ts` owns deterministic selector derivation and the runtime selector contract. Prefer runtime contract tests for selector coverage over recursive mapped types that create TypeScript union-complexity failures at JSX scale.
-
-## Structural Refactor And Visual Debt
-
-Structural DX work is not a visual redesign pass.
-
-During item migration:
-
-- Preserve existing JSX semantics and active CSS behavior unless a structural change requires a minimal adjustment.
-- Do not clean up a primitive or component's visual details if the cleanup would require a new visual QA batch.
-- Move source ownership aggressively, but leave questionable styling values in place with `DX-TODO(...)` comments when changing them could alter pixels.
-- Add debt comments in the style file that currently owns the active selectors.
-- Prefer comments that name the concrete concern: raw value, token mismatch, component CSS that should become primitive/layout composition, selector namespace issue, or visual inconsistency.
-- Keep structural gates green first. Batch visual polish behind a separate screenshot/inspection ticket.
-
-Example:
-
-```css
-/* DX-TODO(button): Raw shadow values predate token enforcement.
-   Leave unchanged during structural migration; replace with foundation tokens in a visual QA pass. */
-```
-
-## React Node Closure Path
-
-Arbitrary `ReactNode` is not fully serializable. The inspectable item schema still models serializable own props, and `renderInput` adapts those props into JSX for existing docs and render routes.
-
-Concrete now also exposes a recursive, validation-only node language for generated interface descriptions:
-
-- `concreteNodeSchema` accepts text nodes and item nodes.
-- Item nodes reference a registry item with `{ kind: 'primitive' | 'component', slug }`.
-- Item node `props` must be JSON-serializable through `ConcreteJsonValue`.
-- Item node `children` and named `slots` recursively contain Concrete nodes.
-- The base schema validates structure and serializability only.
-- `validateConcreteNode` and `validateConcreteNodeTree` live in the registry layer because only the registry can validate item references and parse props through each referenced item schema.
-
-This is not a renderer and must not become one. Node validation never calls `renderInput`, `renderExample`, React, or docs render routes. Pressure, viewport, and layout metadata are intentionally excluded from the node grammar for now because pressures are composition guidance, not universal props, and layout should be expressed by chosen primitives and their schemas.
-
-Future closure work can add branded node slots to item schemas only when a component needs a real serializable slot boundary. Until then, keep item props as the default contract and use Concrete nodes only for external/generated tree validation.
-
-## LOC Guidance
-
-LOC budgets are warnings, not goals.
-
-- Item `index.tsx`: target under 160 LOC, warning at 220 LOC.
-- Item `schema.ts`: target under 80 LOC, warning at 140 LOC.
-- Item `styles.css`: target under 180 LOC, warning at 260 LOC.
-- Factory files: target under 220 LOC, warning at 300 LOC.
-- Docs generic renderer files: target under 120 LOC, warning at 180 LOC.
-- Docs route files: target under 80 LOC unless the route owns real page UX.
-- Package files over 300 LOC should have a clear ownership reason.
-
-If a file is large because it owns exactly one complete concern, keep it whole. If it is large because multiple concerns are tangled, split by ownership, not by line count.
-
-## Minimal Test Surface
-
-Keep tests narrow and contract-level:
-
-- every item slug is unique
-- every item seed parses against its schema
-- every example parses and renders static markup
-- every generated control can parse and serialize its seed value
-- every public export and subpath resolves
-- docs imports only public package surfaces
-- package source does not import CSS modules unless the CSS decision changes
-- styles contain no banned raw values outside token files
-- component implementations do not import sibling components
-- any future component-to-component import is declared in an acyclic component tier map
-- foundation token names do not contain component slugs unless documented as domain vocabulary
-- public primitive schemas do not expose raw visual override props
-- public primitive registry does not contain docs-only or migration-only primitives
-- examples and render-input definitions do not own inline visual style
-- primitive runtime inline style is limited to documented dynamic adapters
-- chart render utilities may own geometry and scaling, but chart selector vocabulary must be applied through chart-surface primitives
-- item folders keep the exact manifest
-- public stylesheet manifests include every item stylesheet
-- visual smoke covers migrated primitives and at least one dense product/data composition
-
-Tests should guard architecture contracts and public behavior, not snapshot private implementation trivia.
-
-## Code Conventions
-
-Do this:
-
-- Use `createPrimitive`, `createComponent`, and `createFoundation` for every item.
-- Keep item definitions declarative.
-- Let schemas drive parsing, controls, seeds, examples, tests, and docs.
-- Use discriminated unions for complex structured input.
-- Use data maps instead of local `getVariantClass` helpers when possible.
-- Promote reusable JSX to primitives/components.
-- Promote reusable algorithms to shared utilities.
-- Keep docs generic and registry-driven.
-- Prefer named functions when behavior has a name.
-- Prefer descriptive generic names over single-letter generics.
-
-Do not do this:
-
-- Do not add docs-side slug switches for item rendering.
-- Do not hand-author partial playground controls.
-- Do not duplicate prop metadata in docs fixtures.
-- Do not add item-local helper files for one-off formatting.
-- Do not hide untyped input behind `unknown` or `any`.
-- Do not loosen schemas to make examples easier.
-- Do not add CSS values that bypass tokens.
-- Do not add tests that lock incidental implementation details.
-- Do not move code into `utilities/` simply because placement is uncomfortable.
-
-## Completion Queue
-
-Current standardization checkpoint:
-
-1. Component implementations are guarded against owned class names, styled raw DOM, and component stylesheets.
-2. The recursive Concrete node schema is validation-only and registry-checked.
-3. Public export compatibility, raw CSS value policy, media-query exceptions, and browser/screenshot smoke coverage are guarded by tests.
-4. The foundation concept split is structurally complete. The next active phase is generic layout/surface/text primitives, primitive prop discipline, and component assembly over the target inventory in `PLAN.md`.
-
-When new structural debt appears, add it to `PLAN.md` first, then pull the first unblocked item into `## Active Work`.
-
-## Autonomous Long-Run Protocol
-
-Before a long run:
-
-1. Read this file first.
-2. Read `PLAN.md` for the target inventory, current active work, and migration memory.
+1. Read `CODE.md`.
+2. Read `PLAN.md`.
 3. Run `git status -sb`.
-4. Pull the first unblocked plan item into an explicit active todo list before editing.
-5. Convert the slice fully before broad migration.
-6. Run the narrow gate, then the full gate when the cluster is done.
-7. Update `PLAN.md` with target changes, item boundary/status changes, discovered work, gate results, and the next runnable chunk.
-8. Update this file only when the architecture rules change.
-9. Repeat.
+4. Pick one active row and execute vertically.
+5. Update `PLAN.md` with status, findings, gates, and the next runnable row before stopping.
+6. Run the relevant gates.
+7. Reconcile with `main` before commit/push.
 
-`PLAN.md` is the live operating memory across context compaction. This file is the architecture contract.
+For long autonomous runs, keep a visible checklist and update it after each meaningful chunk. Do not rely on memory across context compactions; the next agent should be able to continue from `PLAN.md`.
 
-Do not continue broad migration if a slice makes the item contract feel worse. Stop, revise the factory surface, then proceed.
+## Gates
+
+Use narrow gates during implementation:
+
+```sh
+bun run format
+bun test packages/concrete/src/tests/registry.test.ts packages/concrete/src/tests/import-boundaries.test.ts
+bun run typecheck
+bun run check
+```
+
+Use full gates before publishing or marking a phase complete:
+
+```sh
+bun run format
+bun test
+bun run check:skill
+bun run typecheck
+bun run check
+bun run build
+bun run visual:smoke
+bun run catalog:audit
+```
+
+After Next build or catalog audit, restore `apps/docs/next-env.d.ts` to:
+
+```ts
+import "./.next/types/routes.d.ts";
+```

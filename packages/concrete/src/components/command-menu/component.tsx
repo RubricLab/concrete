@@ -4,17 +4,18 @@ import type { ChangeEvent, HTMLAttributes, KeyboardEvent, ReactNode } from 'reac
 import { useEffect, useMemo, useState } from 'react'
 import type { IconName } from '../../icons'
 import {
+	Dock,
+	Inline,
 	Kbd,
-	MenuShell,
-	MenuShellBody,
-	MenuShellEmpty,
-	MenuShellFooter,
-	MenuShellGroup,
-	MenuShellSearch,
+	Listbox,
+	MenuGroup,
+	MenuSurface,
 	OptionRow,
-	Spinner
+	SearchInput,
+	Spinner,
+	Text
 } from '../../primitives'
-import type { CommandItemTone } from '../../schemas'
+import type { CommandItemIntent } from '../../schemas'
 import { formatShortcutKey, stringifyReactNode } from '../../utilities/interaction-helpers'
 
 export type CommandMenuItem = {
@@ -22,14 +23,14 @@ export type CommandMenuItem = {
 	disabled?: boolean
 	group?: string
 	id: string
+	intent?: CommandItemIntent
 	label: ReactNode
-	leadingIcon?: IconName
+	leadingIcon?: IconName | undefined
 	meta?: ReactNode
 	shortcut?: readonly string[]
-	tone?: CommandItemTone
 }
 
-export type CommandMenuProps = Omit<HTMLAttributes<HTMLDivElement>, 'onSelect'> & {
+export type CommandMenuProps = Omit<HTMLAttributes<HTMLDivElement>, 'onSelect' | 'role'> & {
 	activeId?: string
 	defaultActiveId?: string
 	empty?: ReactNode
@@ -144,15 +145,16 @@ export function CommandMenu({
 	}
 
 	return (
-		<MenuShell
+		<MenuSurface
 			className={className}
+			density="compact"
 			onKeyDown={handleKeyDown}
 			role="listbox"
 			tabIndex={searchable ? undefined : 0}
 			{...props}
 		>
 			{searchable ? (
-				<MenuShellSearch
+				<SearchInput
 					inputProps={{
 						'aria-label': 'Search commands',
 						onChange: (event: ChangeEvent<HTMLInputElement>) => updateQuery(event.currentTarget.value),
@@ -162,52 +164,56 @@ export function CommandMenu({
 					}}
 				/>
 			) : null}
-			<MenuShellBody>
-				{loading ? (
-					<MenuShellEmpty>
-						<Spinner size={14} tone="sky" />
-						Searching
-					</MenuShellEmpty>
-				) : null}
-				{!loading && filteredItems.length === 0 ? <MenuShellEmpty>{empty}</MenuShellEmpty> : null}
-				{!loading
-					? groupedItems.map(group => (
-							<MenuShellGroup key={group.name} title={group.name}>
-								{group.items.map(item => (
-									<OptionRow
-										active={item.id === currentActiveId}
-										description={item.description}
-										disabled={item.disabled}
-										kind="command"
-										key={item.id}
-										label={item.label}
-										leadingIcon={item.leadingIcon}
-										meta={item.meta}
-										onClick={() => selectItem(item)}
-										onMouseEnter={() =>
-											setCommandMenuActiveId(item.id, setInternalActiveId, onActiveIdChange)
-										}
-										role="option"
-										shortcuts={item.shortcut?.map(formatShortcutKey)}
-										tone={item.tone ?? 'default'}
-									/>
-								))}
-							</MenuShellGroup>
-						))
-					: null}
-			</MenuShellBody>
-			{footer ? <MenuShellFooter>{footer}</MenuShellFooter> : null}
-			{!footer && heading ? (
-				<MenuShellFooter
-					end={
+			{loading ? (
+				<Listbox
+					emptyLabel={
 						<>
-							<Kbd>↑</Kbd> <Kbd>↓</Kbd> navigate <Kbd>↵</Kbd> open
+							<Spinner density="compact" intent="sky" />
+							Searching
 						</>
 					}
-					start={heading}
 				/>
 			) : null}
-		</MenuShell>
+			{!loading && filteredItems.length === 0 ? <Listbox emptyLabel={empty} /> : null}
+			{!loading && filteredItems.length > 0 ? (
+				<Listbox role="presentation">
+					{groupedItems.map(group => (
+						<MenuGroup key={group.name} title={group.name}>
+							{group.items.map(item => (
+								<OptionRow
+									active={item.id === currentActiveId}
+									description={item.description}
+									disabled={item.disabled}
+									kind="command"
+									key={item.id}
+									label={item.label}
+									leadingIcon={item.leadingIcon}
+									meta={item.meta}
+									onClick={() => selectItem(item)}
+									onMouseEnter={() => setCommandMenuActiveId(item.id, setInternalActiveId, onActiveIdChange)}
+									role="option"
+									shortcuts={item.shortcut?.map(formatShortcutKey)}
+									intent={item.intent ?? 'default'}
+								/>
+							))}
+						</MenuGroup>
+					))}
+				</Listbox>
+			) : null}
+			{footer ? <Dock>{footer}</Dock> : null}
+			{!footer && heading ? (
+				<Dock align="between" density="compact">
+					<Text purpose="meta">{heading}</Text>
+					<Inline density="compact">
+						<Kbd>↑</Kbd>
+						<Kbd>↓</Kbd>
+						<Text purpose="meta">navigate</Text>
+						<Kbd>↵</Kbd>
+						<Text purpose="meta">open</Text>
+					</Inline>
+				</Dock>
+			) : null}
+		</MenuSurface>
 	)
 }
 

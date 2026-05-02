@@ -5,8 +5,8 @@ import { stateMeta } from './meta'
 import { stateFoundationSchema, stateTokens } from './schema'
 
 export {
-	commandItemToneSchema,
-	commandItemToneValues,
+	commandItemIntentSchema,
+	commandItemIntentValues,
 	type Density,
 	dataComponentStateSchema,
 	dataComponentStateValues,

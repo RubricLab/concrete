@@ -14,7 +14,7 @@ export const diagramLegendMeta = {
 	category: 'diagram',
 	description: 'Diagram-specific legend marks for node and edge vocabularies.',
 	guidance:
-		'Use DiagramLegend when a canvas needs visual explanation for node categories and edge line styles. Use ChartLegend for data-tone legends; this primitive is specifically for diagram grammar.',
+		'Use DiagramLegend when a canvas needs visual explanation for node categories and edge line styles. Use Legend for data-tone legends; this primitive is specifically for diagram grammar.',
 	name: 'Diagram Legend',
 	pressure: ['product', 'educational'],
 	props: [

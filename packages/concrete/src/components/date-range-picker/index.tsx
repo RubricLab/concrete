@@ -18,7 +18,7 @@ export const dateRangePickerComponentDefinition = createComponent({
 	renderInput: input => renderDateRangePickerInput(dateRangePickerComponentSchema.parse(input)),
 	schema: dateRangePickerComponentSchema,
 	slug: 'date-range-picker',
-	states: exampleStates(dateRangePickerExamples, ['default', 'open', 'partial'])
+	states: exampleStates(dateRangePickerExamples, ['default', 'open', 'partial', 'bounded'])
 })
 
 function renderDateRangePickerInput(input: DateRangePickerValue) {

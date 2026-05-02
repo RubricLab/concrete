@@ -4,9 +4,9 @@ import { finiteNumberSchema } from './numbers'
 
 export const dataTableStatusCellSchema = z
 	.object({
+		intent: dataToneSchema.default('muted'),
 		kind: z.literal('status'),
-		label: z.string().min(1),
-		tone: dataToneSchema.default('muted')
+		label: z.string().min(1)
 	})
 	.strict()
 
@@ -19,16 +19,16 @@ export const dataTableDeltaCellSchema = z
 
 export const dataTableSparklineCellSchema = z
 	.object({
+		intent: dataToneSchema.default('muted'),
 		kind: z.literal('sparkline'),
-		tone: dataToneSchema.default('muted'),
 		values: z.array(finiteNumberSchema).default([])
 	})
 	.strict()
 
 export const dataTableMeterCellSchema = z
 	.object({
+		intent: dataToneSchema.default('sky'),
 		kind: z.literal('meter'),
-		tone: dataToneSchema.default('sky'),
 		value: dataProgressValueSchema
 	})
 	.strict()
@@ -92,8 +92,8 @@ export const dataTableToolbarActionSchema = z
 		disabled: z.boolean().default(false),
 		icon: z.enum(['download', 'inspect', 'more']).optional(),
 		id: z.string().min(1),
-		label: z.string().min(1),
-		tone: dataToneSchema.default('muted')
+		intent: dataToneSchema.default('muted'),
+		label: z.string().min(1)
 	})
 	.strict()
 

@@ -3,6 +3,7 @@ import { iconNames } from '../../icons'
 
 export const dropzoneSchema = z
 	.object({
+		actionLabel: z.string().optional(),
 		active: z.boolean().default(false),
 		description: z.string().optional(),
 		disabled: z.boolean().default(false),

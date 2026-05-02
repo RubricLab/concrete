@@ -1,18 +1,18 @@
 import { z } from 'zod/v4'
 
-export const indicatorToneValues = [
-	'default',
+export const indicatorIntentValues = [
+	'neutral',
 	'muted',
 	'sky',
 	'terminal',
 	'ultra',
-	'error'
+	'danger'
 ] as const
 
 export const indicatorSchema = z
 	.object({
-		label: z.string().default('Running'),
-		tone: z.enum(indicatorToneValues).default('default')
+		intent: z.enum(indicatorIntentValues).default('neutral'),
+		label: z.string().default('Running')
 	})
 	.strict()
 

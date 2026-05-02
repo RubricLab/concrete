@@ -21,8 +21,13 @@ export const emptyStateMeta = {
 		prop('title', 'ReactNode', 'Primary blank-state message.', '', true),
 		prop('body', 'ReactNode', 'Muted explanation.'),
 		prop('icon', 'IconName | ReactElement', 'Glyph inside the dashed mark tile.', 'search'),
-		prop('size', "'small' | 'medium' | 'large'", 'Mark tile scale.', 'medium'),
-		prop('tone', "'default' | 'sky'", 'Default ink or sky mark treatment.', 'default'),
+		prop(
+			'density',
+			"'compact' | 'comfortable' | 'editorial'",
+			'Foundation-backed blank-state scale.',
+			'comfortable'
+		),
+		prop('intent', "'neutral' | 'sky'", 'Default ink or sky mark treatment.', 'neutral'),
 		prop('action', 'ReactNode', 'Optional CTA row.')
 	]
 } as const satisfies EmptyStateMeta

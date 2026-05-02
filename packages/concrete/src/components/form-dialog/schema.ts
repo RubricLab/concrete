@@ -1,15 +1,16 @@
 import { z } from 'zod/v4'
 
-const formDialogSizeValues = ['compact', 'default', 'wide'] as const
+const formDialogMeasureValues = ['compact', 'default', 'wide'] as const
 const formDialogStatusValues = ['default', 'error', 'success'] as const
 const overlayPresentationValues = ['inline', 'fixed'] as const
 
 export const formDialogComponentSchema = z
 	.object({
+		compact: z.boolean().default(false),
 		description: z.string().optional(),
+		measure: z.enum(formDialogMeasureValues).default('default'),
 		open: z.boolean().default(true),
 		presentation: z.enum(overlayPresentationValues).default('inline'),
-		size: z.enum(formDialogSizeValues).default('default'),
 		status: z.enum(formDialogStatusValues).default('default'),
 		title: z.string().default('New experiment')
 	})

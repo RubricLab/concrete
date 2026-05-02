@@ -1,6 +1,6 @@
 import { defineExamples } from '../../factories/createExamples'
-import { DiagramCanvasShell, DiagramCanvasViewport, FlowDiagramSvg } from '../diagram-viewport'
-import { DiagramCanvasEdgePath, DiagramCanvasEdges, FlowDiagramEdgePath } from './component'
+import { DiagramShell, DiagramSvg, DiagramViewport } from '../diagram-viewport'
+import { DiagramEdgePath, DiagramEdges } from './component'
 
 export const diagramEdgeExamples = defineExamples({
 	canvas: {
@@ -14,7 +14,7 @@ export const diagramEdgeExamples = defineExamples({
 	flow: {
 		description: 'Flow graph edge inside an SVG viewport.',
 		render: () => (
-			<FlowDiagramSvg
+			<DiagramSvg
 				gridId="diagram-edge-flow-grid"
 				height={120}
 				panX={0}
@@ -22,70 +22,71 @@ export const diagramEdgeExamples = defineExamples({
 				title="Flow edge"
 				viewBox="0 0 260 120"
 			>
-				<FlowDiagramEdgePath
+				<DiagramEdgePath
+					display="flow"
 					label="event"
 					labelPoint={{ x: 130, y: 60 }}
 					path="M20 72 C80 72 180 48 240 48"
-					tone="terminal"
-					variant="pulse"
+					intent="terminal"
+					relation="pulse"
 				/>
-			</FlowDiagramSvg>
+			</DiagramSvg>
 		)
 	},
-	variants: {
-		description: 'Canvas edge variants and selected tone.',
+	relations: {
+		description: 'Canvas edge relations and selected intent.',
 		render: () => (
-			<DiagramCanvasShell>
-				<DiagramCanvasViewport>
-					<DiagramCanvasEdges
+			<DiagramShell>
+				<DiagramViewport>
+					<DiagramEdges
 						height={160}
-						markerId="diagram-edge-variants"
-						reverseMarkerId="diagram-edge-variants-reverse"
+						markerId="diagram-edge-relations"
+						reverseMarkerId="diagram-edge-relations-reverse"
 						width={300}
 					>
-						<DiagramCanvasEdgePath
+						<DiagramEdgePath
 							label="event"
 							labelPoint={{ x: 150, y: 36 }}
-							markerEnd="url(#diagram-edge-variants)"
+							markerEnd="url(#diagram-edge-relations)"
 							path="M24 48 C88 28 212 28 276 48"
-							tone="terminal"
-							variant="dashed"
+							intent="terminal"
+							relation="dashed"
 						/>
-						<DiagramCanvasEdgePath
+						<DiagramEdgePath
 							label="reference"
 							labelPoint={{ x: 150, y: 104 }}
-							markerEnd="url(#diagram-edge-variants)"
+							markerEnd="url(#diagram-edge-relations)"
 							path="M24 112 C88 132 212 132 276 112"
 							selected
-							tone="sky"
-							variant="reference"
+							intent="sky"
+							relation="reference"
 						/>
-					</DiagramCanvasEdges>
-				</DiagramCanvasViewport>
-			</DiagramCanvasShell>
+					</DiagramEdges>
+				</DiagramViewport>
+			</DiagramShell>
 		)
 	}
 })
 
 function renderCanvasEdge() {
 	return (
-		<DiagramCanvasShell>
-			<DiagramCanvasViewport>
-				<DiagramCanvasEdges
+		<DiagramShell>
+			<DiagramViewport>
+				<DiagramEdges
 					height={120}
 					markerId="diagram-edge-example"
 					reverseMarkerId="diagram-edge-example-reverse"
 					width={260}
 				>
-					<DiagramCanvasEdgePath
+					<DiagramEdgePath
 						label="routes"
 						labelPoint={{ x: 130, y: 60 }}
 						markerEnd="url(#diagram-edge-example)"
 						path="M20 72 C80 72 180 48 240 48"
-						tone="sky"
+						intent="sky"
 					/>
-				</DiagramCanvasEdges>
-			</DiagramCanvasViewport>
-		</DiagramCanvasShell>
+				</DiagramEdges>
+			</DiagramViewport>
+		</DiagramShell>
 	)
 }

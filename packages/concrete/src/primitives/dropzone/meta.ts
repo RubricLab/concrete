@@ -20,6 +20,7 @@ export const dropzoneMeta = {
 	props: [
 		prop('title', 'ReactNode', 'Primary drop target label.', 'Upload files'),
 		prop('description', 'ReactNode', 'Secondary drop target copy.'),
+		prop('actionLabel', 'ReactNode', 'Optional visible browse action label.'),
 		prop('icon', 'IconName', 'Glyph shown in the circular affordance.', 'upload'),
 		prop('active', 'boolean', 'Highlights drag-over state.', 'false'),
 		prop('disabled', 'boolean', 'Locks the target visually and functionally.', 'false')

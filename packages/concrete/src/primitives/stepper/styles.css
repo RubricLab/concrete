@@ -1,0 +1,85 @@
+.concrete-stepper {
+	display: grid;
+	grid-template-columns: var(--concrete-template-step-control);
+	width: min(var(--concrete-measure-step-control), var(--concrete-size-full));
+	height: var(--concrete-size-control-compact);
+	overflow: hidden;
+	border: var(--concrete-border-width-hairline) solid var(--concrete-control-border);
+	border-radius: var(--concrete-radius-3);
+	background: var(--concrete-control-background);
+	box-shadow: var(--concrete-shadow-control-rest);
+}
+
+.concrete-stepper button,
+.concrete-stepper input {
+	border: var(--concrete-space-0);
+	background: transparent;
+	color: var(--concrete-control-foreground);
+	font:
+		var(--concrete-weight-strong) var(--concrete-type-13) / var(--concrete-line-flat)
+		var(--concrete-font-sans);
+}
+
+.concrete-stepper button {
+	display: grid;
+	place-items: center;
+	background: var(--concrete-control-background-hover);
+	color: var(--concrete-control-foreground-muted);
+	cursor: pointer;
+	transition:
+		background var(--concrete-duration-fast) var(--concrete-ease),
+		color var(--concrete-duration-fast) var(--concrete-ease),
+		transform var(--concrete-duration-tap) var(--concrete-ease);
+	will-change: transform;
+}
+
+.concrete-stepper button:hover {
+	background: var(--concrete-control-background-active);
+	color: var(--concrete-control-foreground);
+}
+
+.concrete-stepper button:active {
+	background: var(--concrete-control-background-selected);
+	color: var(--concrete-control-foreground-selected);
+	transform: translateY(var(--concrete-translate-press-strong));
+}
+
+.concrete-stepper button:disabled {
+	background: var(--concrete-control-background-disabled);
+	color: var(--concrete-control-foreground-soft);
+	cursor: not-allowed;
+	transform: none;
+}
+
+.concrete-stepper button:focus-visible,
+.concrete-stepper input:focus {
+	outline: var(--concrete-space-0);
+	box-shadow: var(--concrete-shadow-control-focus-inset);
+}
+
+.concrete-stepper button svg {
+	width: var(--concrete-size-control-action-glyph);
+	height: var(--concrete-size-control-action-glyph);
+}
+
+.concrete-stepper input {
+	min-width: var(--concrete-space-0);
+	border-right: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	border-left: var(--concrete-border-width-hairline) solid var(--concrete-border-soft);
+	background: var(--concrete-control-background);
+	cursor: text;
+	text-align: center;
+	appearance: textfield;
+}
+
+.concrete-stepper input:disabled {
+	background: var(--concrete-control-background-disabled);
+	color: var(--concrete-control-foreground-disabled);
+	cursor: not-allowed;
+}
+
+.concrete-stepper input::-webkit-inner-spin-button,
+.concrete-stepper input::-webkit-outer-spin-button {
+	margin: var(--concrete-space-0);
+	appearance: none;
+}

@@ -20,7 +20,7 @@ export const timeListPrimitiveDefinition = createPrimitive({
 	renderInput: input => renderTimeListInput(timeListSchema.parse(input)),
 	schema: timeListSchema,
 	slug: 'time-list',
-	states: exampleStates(timeListExamples, ['default', 'later'])
+	states: exampleStates(timeListExamples, ['default', 'formatted', 'later'])
 })
 
 function renderTimeListInput(input: TimeListValue) {

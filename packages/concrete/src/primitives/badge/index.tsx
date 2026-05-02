@@ -5,10 +5,16 @@ import { badgeExamples } from './examples'
 import { badgeMeta } from './meta'
 import { type BadgeValue, badgeSchema } from './schema'
 
-export type { BadgeProps, BadgeVariant } from './component'
+export type { BadgeHierarchy, BadgeIntent, BadgeProps, BadgePurpose } from './component'
 export { Badge } from './component'
 export type { BadgeInput, BadgeValue } from './schema'
-export { badgePropsSchema, badgeSchema, badgeSignalValues, badgeVariantValues } from './schema'
+export {
+	badgeHierarchyValues,
+	badgeIntentValues,
+	badgePropsSchema,
+	badgePurposeValues,
+	badgeSchema
+} from './schema'
 
 export const badgePrimitiveDefinition = createPrimitive({
 	...badgeMeta,
@@ -21,6 +27,10 @@ export const badgePrimitiveDefinition = createPrimitive({
 	states: exampleStates(badgeExamples, ['default', 'solid', 'count'])
 })
 
-function renderBadgeInput({ label, ...input }: BadgeValue) {
-	return <Badge {...input}>{label}</Badge>
+function renderBadgeInput({ hierarchy, intent, label, purpose }: BadgeValue) {
+	return (
+		<Badge hierarchy={hierarchy} intent={intent} purpose={purpose}>
+			{label}
+		</Badge>
+	)
 }

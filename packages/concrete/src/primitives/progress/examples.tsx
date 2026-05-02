@@ -1,5 +1,5 @@
 import { defineExamples } from '../../factories/createExamples'
-import { Progress, ProgressRing, SegmentedProgress } from './component'
+import { Progress } from './component'
 
 export const progressExamples = defineExamples({
 	default: {
@@ -7,8 +7,8 @@ export const progressExamples = defineExamples({
 		render: () => (
 			<>
 				<Progress value={62} />
-				<Progress size="thin" tone="sky" value={38} />
-				<Progress size="thick" tone="terminal" value={82} />
+				<Progress density="compact" intent="sky" value={38} />
+				<Progress density="editorial" intent="terminal" value={82} />
 			</>
 		)
 	},
@@ -17,27 +17,8 @@ export const progressExamples = defineExamples({
 		render: () => (
 			<>
 				<Progress indeterminate="shuttle" />
-				<Progress indeterminate="shuttle" tone="sky" />
+				<Progress indeterminate="shuttle" intent="sky" />
 				<Progress indeterminate="lined" />
-			</>
-		)
-	},
-	ring: {
-		description: 'Circular progress composition.',
-		render: () => (
-			<>
-				<ProgressRing tone="sky" value={68} />
-				<ProgressRing size={72} tone="terminal" value={42} />
-				<ProgressRing size={72} value={81} />
-			</>
-		)
-	},
-	segmented: {
-		description: 'Step-based completion.',
-		render: () => (
-			<>
-				<SegmentedProgress segments={8} value={5} />
-				<SegmentedProgress segments={12} value={2} />
 			</>
 		)
 	},
@@ -45,10 +26,10 @@ export const progressExamples = defineExamples({
 		description: 'Signal tone variants.',
 		render: () => (
 			<>
-				<Progress tone="sky" value={68} />
-				<Progress tone="terminal" value={42} />
-				<Progress tone="ultra" value={58} />
-				<Progress tone="error" value={22} />
+				<Progress intent="sky" value={68} />
+				<Progress intent="terminal" value={42} />
+				<Progress intent="ultra" value={58} />
+				<Progress intent="danger" value={22} />
 			</>
 		)
 	}

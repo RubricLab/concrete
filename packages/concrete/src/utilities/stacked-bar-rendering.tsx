@@ -15,7 +15,7 @@ import {
 	getStackedTotal,
 	renderCartesianGrid
 } from './chart-core-rendering'
-import { getDataToneClass } from './data-tone'
+import { getDataIntentClass } from './data-intent'
 
 export function renderStackedBarChart(
 	groups: readonly { label: string; segments: readonly DataPoint[] }[],
@@ -84,7 +84,7 @@ function renderStackedBarColumns(
 
 							return (
 								<ChartStackSegment
-									className={getDataToneClass(segment.tone)}
+									className={getDataIntentClass(segment.intent)}
 									height={segmentHeight}
 									key={segment.label}
 									rx="3"
@@ -158,7 +158,7 @@ function renderStackedBarRails(
 
 							return (
 								<ChartStackSegment
-									className={getDataToneClass(segment.tone)}
+									className={getDataIntentClass(segment.intent)}
 									height={barHeight}
 									key={segment.label}
 									rx={barHeight / 2}
